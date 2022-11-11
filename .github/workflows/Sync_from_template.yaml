@@ -1,1 +1,18 @@
-
+name: Sync template repository on here
+on:
+  # schedule:
+  #   - cron:  '0 0 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [deploy-to-dp]
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: actions-template-sync
+        uses: AndreasAugustin/actions-template-sync@v0.4.2-draft
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_repo_path: IMI-ConcePTION/sampleDP-script
