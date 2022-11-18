@@ -1,0 +1,112 @@
+---
+title: "FlowChart Description"
+output: md_document
+---
+
+This is a description of the Flow Chart.
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r library, include=FALSE}
+if (!require("ggplot2")) install.packages("ggplot2") 
+library(ggplot2)
+if (!require("data.table")) install.packages("data.table")
+library(data.table)
+# if (!require("DT")) install.packages("DT")
+# library(DT)
+```
+
+```{r Reshaping for Plot, include=FALSE}
+  FlowChart = Flowchart_doses
+  FlowChart<-data.frame(FlowChart)
+
+  n_criteria<-dim(FlowChart)[2]-2
+  nrow<-dim(FlowChart)[1]
+  criteria<-names(FlowChart)[2:(n_criteria+1)]
+  
+  for(i in criteria){
+    for(j in seq(1, nrow)){
+      FlowChart[j, i]=FlowChart[j, i]-2
+    }
+  }
+  
+  FlowChart$Included=-3
+
+  for(i in seq(1, nrow)){
+    row=FlowChart[i, ][2:(n_criteria+1)]
+    criteria_position<-(n_criteria+2) - length(row[row==-2])
+    if(length(row[row==-2]) == 0){
+      FlowChart[i, "Included" ]=FlowChart[i, "N"] 
+    }else{
+      FlowChart[i, criteria_position ] = FlowChart[i, "N"]
+    }
+  }
+  
+  
+  FlowChart<-data.table(FlowChart)
+  FlowChart_reshaped<-melt(FlowChart, measure.vars = c(criteria, "Included") )
+  FlowChart_reshaped_plot<-FlowChart_reshaped[value>=0,][,-"value"]
+```
+
+## Exclusion criteria graph
+
+The next graph shows the proportion of doses included in the study and the proportion of doses excluded. 
+Different colors correspond to different exclusion criteria. 
+<br>
+
+```{r  QC, include=TRUE}
+# FlowChart_reshaped_plot <- FlowChart_reshaped_plot[variable == "A_qc_1_date" |
+#                                                    variable == "B_qc_1_dose" |
+#                                                    variable == "C_qc_dupl" |
+#                                                    variable == "D_qc_2_date" |
+#                                                    variable == "E_qc_2_dose" |
+#                                                    variable == "F_qc_manufacturer" |
+#                                                    variable == "G_qc_mult_date_for_dose" |
+#                                                    variable == "H_qc_mult_dose_for_date" |
+#                                                    variable == "I_qc_3_date", variable := "A_I_quality_check"]
+
+```
+
+```{r  Plot, include=TRUE}
+  ggplot(FlowChart_reshaped_plot, aes(monday_week, N, fill=variable))+
+    geom_col(position="fill")+
+    scale_y_continuous(labels = scales::percent_format())
+```
+
+
+```{r Reshaping for Table, include=FALSE}
+  FlowChart_reshaped_table<- dcast(FlowChart_reshaped_plot, monday_week~variable, value.var = "N" )
+
+  FlowChart_reshaped_table <- data.frame(FlowChart_reshaped_table)
+  FlowChart_reshaped_table[is.na(FlowChart_reshaped_table)] <- 0
+
+```
+
+
+## Exclusion criteria table
+
+In the next table each column represents an exclusion criteria and each row represents a week. 
+The values in the table refer to the number of doses excluded by the corresponding criteria in that week.
+<br>
+```{r  Table, include=TRUE}
+knitr::kable(FlowChart_reshaped_table)
+```
+
+
+## Sum of excluded
+```{r  sum, include=TRUE}
+FlowChart_reshaped_table<- data.table(FlowChart_reshaped_table)
+DF_sum<-FlowChart_reshaped_table[,-1]
+DF_sum<-DF_sum[, lapply(.SD, sum, na.rm=TRUE)]
+ knitr::kable(DF_sum)
+
+```
+
+```{r include = FALSE}
+rm(DF_sum, FlowChart_reshaped_table, FlowChart_reshaped_plot, FlowChart_reshaped, FlowChart, row)
+
+```
