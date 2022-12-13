@@ -79,3 +79,5 @@ concept_set_codes_our_study_pre <- vector(mode="list")
 concept_set_codes_our_study_pre_excl <- vector(mode="list")
 
 source(paste0(thisdir,"/p_parameters/archive_parameters/parameters_raw_test.R"))
+
+rm(concept)

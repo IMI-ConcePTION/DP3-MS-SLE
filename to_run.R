@@ -18,49 +18,28 @@ thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 #-------------------------------
-# @DAP: please modify the parametr dirinput and set it to the directory where your CDM instance is stored
-
+# @DAP: please modify the following parameter
+# dirinput: set it to the directory where your CDM instance is stored
 dirinput <- paste0(thisdir,"/i_simulated_data_instance/")
 
-#-------------------------------
-# @DAP: please modify the parametr dirpregnancyinput and set it to the directory where your CDM instance is stored
-
+# dirpregnancyinput: set it to the directory where your CDM instance is stored
 dirpregnancyinput <- paste0(thisdir,"/i_simulated_data_instance/pregnancy/")
-
 
 #----------------
 #LOAD PARAMTETERS
 #----------------
 
-# general parameters of the script
-source(paste0(thisdir,"/p_parameters/01_parameters_program.R"))
-
-# parameters of the CDM
-source(paste0(thisdir,"/p_parameters/02_parameters_CDM.R"))
-
-# concept sets
-source(paste0(thisdir,"/p_parameters/03_concept_sets.R"))
-
-# item sets
-source(paste0(thisdir,"/p_parameters/04_itemsets.R"))
-
-# subpopulations (not to be used in DPs)
-source(paste0(thisdir,"/p_parameters/05_subpopulations_restricting_meanings.R"))
-
-#create outcomes and covariate list of strings
-source(paste0(thisdir,"/p_parameters/06_variable_lists.R"))
-
-# parameters for algortihms
-source(paste0(thisdir,"/p_parameters/07_algorithms.R"))
-
-# parameters for study_design
-source(paste0(thisdir,"/p_parameters/08_study_design.R"))
-
-source(paste0(thisdir,"/p_parameters/99_saving_all_parameters.R"))
-
+source(paste0(thisdir,"/p_parameters/01_parameters_program.R")) #GENERAL
+source(paste0(thisdir,"/p_parameters/02_parameters_CDM.R")) #CDM
+source(paste0(thisdir,"/p_parameters/03_concept_sets.R")) #CONCEPTSETS
+source(paste0(thisdir,"/p_parameters/04_itemsets.R")) #ITEMSETS
+source(paste0(thisdir,"/p_parameters/05_variable_lists.R")) #OUTCOMES AND COVARIATES
+source(paste0(thisdir,"/p_parameters/06_algorithms.R")) #ALGORITHMS
+source(paste0(thisdir,"/p_parameters/07_study_design.R")) #STUDY DESIGN
+source(paste0(thisdir,"/p_parameters/99_saving_all_parameters.R")) #SAVING AND CLEANING PARAMETERS
 
 #----------------
-# RUn STEPS
+# RUN STEPS
 #----------------
 
 # 01 RETRIEVE RECORDS FRM CDM
@@ -81,10 +60,10 @@ launch_step("p_steps/01_T2_32_CreateItemSetDatasets.R")
 launch_step("p_steps/01_T2_33_CreatePromptSetDatasets.R")
 
 # CLEAN THE SPELLS
-launch_step("p_steps/01_T2_50_clean_spells.R")
+launch_step("p_steps/01_T2_40_clean_spells.R")
 
 # CREATE EXCLUSION CRITERIA for persons/spells
-launch_step("p_steps/01_T2_60_selection_criteria_from_PERSON_to_study_population.R")
+launch_step("p_steps/01_T2_50_selection_criteria_from_PERSON_to_study_population.R")
 
 launch_step("p_steps/02_T3_10_create_study_population.R")
 

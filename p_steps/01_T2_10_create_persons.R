@@ -7,19 +7,8 @@
 print('PRE-PROCESSING OF PERSONS')
 
 # import input datasets
-PERSONS <- data.table()
-for (file in files_ConcePTION_CDM_tables[["PERSONS"]]) {
-  temp <- fread(paste0(dirinput, file, ".csv"), colClasses = list(character = "person_id"))
-  PERSONS <- rbind(PERSONS, temp, fill = T)
-  rm(temp)
-}
-
-OBSERVATION_PERIODS <- data.table()
-for (file in files_ConcePTION_CDM_tables[["OBSERVATION_PERIODS"]]) {
-  temp <- fread(paste0(dirinput, file, ".csv"), colClasses = list(character = "person_id"))
-  OBSERVATION_PERIODS <- rbind(OBSERVATION_PERIODS, temp, fill = T)
-  rm(temp)
-}
+PERSONS <- read_CDM_tables("PERSONS")
+OBSERVATION_PERIODS <- read_CDM_tables("OBSERVATION_PERIODS")
 
 OBSERVATION_PERIODS <- OBSERVATION_PERIODS[,`:=`(op_start_date = lubridate::ymd(op_start_date),
                                                  op_end_date = lubridate::ymd(op_end_date))]
