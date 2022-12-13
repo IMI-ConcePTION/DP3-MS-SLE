@@ -9,7 +9,7 @@ for (subpop in subpopulations_non_empty) {
   variable_list <- lapply(c(OUTCOME_variables, CONTROL_variables), function(x) {
     print(paste("Merging variable:", x))
     
-    algo_suffix <- fifelse(x %in% SECCOMP, "_complex", "_simple")
+    algo_suffix <- fifelse(x %in% SECCOMPONENTS, "_complex", "_simple")
     df <- get(load(paste0(direvents, "D3_events_", x, algo_suffix, suffix[[subpop]], ".RData"))[[1]])
     if (nrow(df) == 0) {
       df <- data.table(person_id = character(),

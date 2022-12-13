@@ -3,8 +3,9 @@
 # this file should not be modified
 ###################################################################
 
-datasources_prescriptions <- c('CPRD',"PHARMO")
-thisdatasource_has_prescriptions <- ifelse(thisdatasource %in% datasources_prescriptions,TRUE,FALSE)
+datasources_prescriptions <- c("CPRD", "PHARMO")
+thisdatasource_has_prescriptions <- ifelse(thisdatasource %in% datasources_prescriptions, TRUE, FALSE)
+rm(datasources_prescriptions)
 
 # assign -files_ConcePTION_CDM_tables-: it is a 2-level list, listing the csv files where the tables of the local instance of the ConcePTION CDM are stored 
 files_ConcePTION_CDM_tables <- list()
@@ -134,7 +135,7 @@ for (ds in files_ConcePTION_CDM_tables[["EVENTS"]]){
 }
 for (ds in files_ConcePTION_CDM_tables[["MEDICINES"]]){
   person_id_retrieve[[ds]] = "person_id"
-  date_retrieve[[ds]] = ifelse(thisdatasource %in% datasources_prescriptions,"date_prescription","date_dispensing")
+  date_retrieve[[ds]] = ifelse(thisdatasource_has_prescriptions, "date_prescription", "date_dispensing")
   meaning_retrieve[[ds]] = "meaning_of_drug_record"
 }
 for (ds in files_ConcePTION_CDM_tables[["PROCEDURES"]]){
@@ -273,7 +274,9 @@ if(all(str %in% files_par)) {
               }
 
             }
+            rm(cod_syst, temp1)
           }
+          rm(temp)
         }
       }
 
@@ -288,12 +291,15 @@ if(all(str %in% files_par)) {
             }
           }
         }
+        rm(t, f, s)
       }
 
       save(ConcePTION_CDM_EAV_attributes_this_datasource, file = paste0(dirpargen,"ConcePTION_CDM_EAV_attributes.RData"))
       save(ConcePTION_CDM_coding_system_list, file = paste0(dirpargen,"ConcePTION_CDM_coding_system_list.RData"))
 
+      rm(METADATA)
     }
 
 
-rm(temp,temp1)
+rm(i, tab, thisdatasource_has_prescriptions, file, files_par, dom, ds, EAV_table, a, alldomain,
+   ConcePTION_CDM_coding_system_list)

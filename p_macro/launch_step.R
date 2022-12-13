@@ -6,8 +6,9 @@ launch_step <- function(x) {
     stop("Folder of the generated parameters is not called 'dirpargen'")
   }
   
-  print(system.time(source(paste0(thisdir,"/", x))))
-
+  exec_time <- system.time(source(paste0(thisdir,"/", x)))
+  print(exec_time)
+  
   rm(list=ls(envir = .GlobalEnv), envir = .GlobalEnv)
   load(paste0(dirpargen, "parameters.RData"), envir = .GlobalEnv)
   rm(list=ls(), inherits = T)

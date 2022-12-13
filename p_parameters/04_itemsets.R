@@ -59,5 +59,7 @@ for (t in study_variables_of_our_study){
   
     }
   }
+  rm(f)
 }
-  
+
+rm(t)
