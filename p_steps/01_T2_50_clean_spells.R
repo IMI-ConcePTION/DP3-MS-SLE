@@ -48,7 +48,7 @@ person_spell[starts_after_ending == 0 & no_overlap_study_period == 0 &
   
   
   #add a criteria that identify the specific spell of interest
-  person_spell[flag==0 & entry_spell_category >= study_start & exit_spell_category<= study_start , is_the_study_spell := 1]
+  person_spell[flag==0 & entry_spell_category <= study_start & exit_spell_category>= study_start , is_the_study_spell := 1]
   
 #alternative for dinamic cohort (example: if a subject enter after the study start it will be included with this alternative way)--------------------
   
