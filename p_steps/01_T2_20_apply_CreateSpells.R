@@ -27,4 +27,4 @@ setkeyv(
   c("person_id", "entry_spell_category", "exit_spell_category", "num_spell", "op_meaning")
 )
 
-save(D3_output_spells_category, file = paste0(dirtemp,"D3_output_spells_category.RData"))
+smart_save(D3_output_spells_category, dirtemp)

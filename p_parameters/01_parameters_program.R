@@ -45,8 +45,8 @@ read_library <- function(...) {
   invisible(lapply(x, library, character.only = TRUE))
 }
 
-list.of.packages <- c("MASS", "haven", "tidyverse", "lubridate", "AdhereR", "stringr", "purrr", "readr", "dplyr",
-                      "survival", "rmarkdown", "ggplot2", "data.table", "qpdf", "parallel", "readxl", "fst")
+list.of.packages <- c("MASS", "haven", "lubridate", "stringr", "purrr", "readr", "dplyr",
+                      "data.table", "readxl", "qs")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
 if (length(new.packages)) install.packages(new.packages)
 invisible(lapply(list.of.packages, require, character.only = T))
@@ -176,10 +176,34 @@ read_CDM_tables <- function(x) {
   return(final_table)
 }
 
-smart_save <- function(df, folder, subpop = "") {
-  write.fst(df, paste0(folder, deparse(substitute(df)), suffix[[subpop]], ".fst"), compress = 100)
+smart_save <- function(df, folder, subpop = F, extension = "qs", override_name = F) {
+  
+  subpop_str <- if (isFALSE(subpop)) "" else suffix[[subpop]]
+  df_name <- if (isFALSE(override_name)) deparse(substitute(df)) else override_name
+  extension <- if (!grepl("\\.", extension)) paste0(".", extension)
+  
+  file_name <- paste0(folder, df_name, subpop_str, extension)
+  
+  if (extension == ".qs") {
+    qs::qsave(df, file_name, preset = "high", nthreads = parallel::detectCores()/2)
+  } else if (extension == ".fst") {
+    fst::write.fst(df, file_name, compress = 100)
+  } else {
+    saveRDS(df, file_name)
+  }
 }
 
-smart_load <- function(df, folder, subpop = "") {
-  read.fst(paste0(folder, df, suffix[[subpop]], ".fst"), as.data.table = T)
+smart_load <- function(df, folder, subpop = F, extension = "qs") {
+  
+  subpop_str <- if (isFALSE(subpop)) "" else suffix[[subpop]]
+  extension <- paste0(".", extension)
+  
+  file_name <- paste0(folder, df, subpop_str, extension)
+  if (extension == ".qs") {
+    assign(df, qs::qread(file_name, nthreads = parallel::detectCores()/2), envir = .GlobalEnv)
+  } else if (extension == ".fst") {
+    assign(df, fst::read.fst(file_name, as.data.table = T), envir = .GlobalEnv)
+  } else {
+    assign(df, readRDS(file_name), envir = .GlobalEnv)
+  }
 }
