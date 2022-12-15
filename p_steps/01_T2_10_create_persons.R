@@ -132,10 +132,10 @@ for (i in names(D3_PERSONS)[names(D3_PERSONS) != "death_date"]){
 
 # Create and save D3_events_DEATH
 D3_events_DEATH <- D3_PERSONS[!is.na(death_date),.(person_id, death_date)][, date := death_date][, -"death_date"]
-save(D3_events_DEATH,file = paste0(dirtemp,"D3_events_DEATH.RData"))
+smart_save(D3_events_DEATH, dirtemp)
 rm(D3_events_DEATH)
 
 # Save D3_PERSONS
-save(D3_PERSONS,file = paste0(dirtemp,"D3_PERSONS.RData"))
+smart_save(D3_PERSONS, dirtemp)
 
 rm(D3_PERSONS, OBSERVATION_PERIODS)
