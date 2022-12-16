@@ -27,8 +27,8 @@ person_spell[, no_overlap_study_period := fifelse(
   entry_spell_category > study_end | exit_spell_category < study_start, 1, 0)]
 
 # find spells that are shorter than x days
-person_spell[, less_than_x_days_and_not_starts_at_birth := fifelse(
-  correct_difftime(pmin(exit_spell_category, study_end), entry_spell_category) <= min_spell_lenght & starts_at_birth == 0, 1, 0)]
+person_spell[, spell_less_than_12_months_fup := fifelse(
+  correct_difftime(pmin(exit_spell_category, study_end), entry_spell_category) <= min_spell_lenght, 1, 0)]
 
 
 #TODO
@@ -36,7 +36,7 @@ person_spell[, less_than_x_days_and_not_starts_at_birth := fifelse(
 
 
 person_spell[starts_after_ending == 0 & no_overlap_study_period == 0 &
-               less_than_x_days_and_not_starts_at_birth == 0 ,
+               less_than_12_months_fup == 0 ,
              flag := 0]
 
 

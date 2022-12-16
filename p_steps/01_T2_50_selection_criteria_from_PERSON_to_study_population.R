@@ -13,17 +13,20 @@ smart_load("D3_PERSONS", dirtemp)
 D3_sel_cri <- D3_PERSONS[, sex_or_birth_date_is_not_defined := fifelse(
   is.na(sex_at_instance_creation) | sex_at_instance_creation == "U" | year(birth_date) == 9999, 1, 0)]
 
-# Remove persons with  partial date of death
-D3_sel_cri[, partial_date_of_death := fifelse(!is.na(death_date) & year(death_date) == 9999, 1, 0)]
+# Remove persons who are not female
+D3_sel_cri[, not_female := fifelse(sex_at_instance_creation != "F", 1, 0)]
 
-# Remove persons with absurd date of birth
-D3_sel_cri[, birth_date_absurd := fifelse(year(birth_date) < 1900 & birth_date > instance_creation, 1, 0)]
+# Remove persons who are too young
+D3_sel_cri[, too_young_female := fifelse(age_fast(birth_date, study_end) < 15, 1, 0)]
 
-# Clean dataset
-D3_sel_cri <- D3_sel_cri[, .(person_id, sex_or_birth_date_is_not_defined, partial_date_of_death, birth_date_absurd)]
+# Remove persons who are too old
+D3_sel_cri[, too_old_female := fifelse(age_fast(birth_date, study_start) > 50, 1, 0)]
 
+# Keep only columns of interest
+D3_sel_cri <- D3_sel_cri[, .(person_id, sex_or_birth_date_is_not_defined, not_female, too_young_female, too_old_female)]
+
+# Import the spells and clean
 smart_load("D3_clean_spells", dirtemp)
-
 D3_clean_spells <- D3_clean_spells[, .(person_id, entry_spell_category, exit_spell_category, starts_after_ending,
                                        no_overlap_study_period, less_than_x_days_and_not_starts_at_birth,
                                        is_the_study_spell)]
@@ -48,11 +51,17 @@ D3_clean_spells[, c("no_overlap_study_period", "tot_no_overlap_study_period", "t
 
 # Creation of no_spell_longer_than_x_days. Keep other spells even if they are less than 365 days long
 D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
-D3_clean_spells[removed_row == 0, tot_x_days := sum(less_than_x_days_and_not_starts_at_birth), by = person_id]
-D3_clean_spells[removed_row == 0, no_spell_longer_than_x_days := fifelse(tot_x_days == tot_spell_num, 1, 0)]
+D3_clean_spells[removed_row == 0, tot_x_days := sum(spell_less_than_12_months_fup), by = person_id]
+D3_clean_spells[removed_row == 0, less_than_12_months_fup := fifelse(tot_x_days == tot_spell_num, 1, 0)]
 D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD),
-                .SDcols = c("removed_row", "less_than_x_days_and_not_starts_at_birth")]
-D3_clean_spells[, c("less_than_x_days_and_not_starts_at_birth", "tot_x_days", "tot_spell_num") := NULL]
+                .SDcols = c("removed_row", "spell_less_than_12_months_fup")]
+D3_clean_spells[, c("spell_less_than_12_months_fup", "tot_x_days", "tot_spell_num") := NULL]
+
+# Collapse spells to retain only the exclusion criteria attached to each person_id
+D3_clean_spells <- unique(D3_clean_spells[, c("entry_spell_category", "exit_spell_category",
+                                              "is_the_study_spell") := NULL])
+for (i in names(D3_clean_spells)) D3_clean_spells[is.na(get(i)), (i) := 0]
+D3_clean_spells <- D3_clean_spells[, lapply(.SD, max), by = person_id]
 
 # Creation of all_spells_include_vax1_but_less than_365_days_from_it
 # D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
