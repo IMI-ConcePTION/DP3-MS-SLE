@@ -1,13 +1,17 @@
-# we need to create two groups of meanings: one referring to hospitals HOSP (excluding emergency care) and one referring to primary care PC
+# we need to create several groups of meanings: one referring to hospitals HOSP (excluding emergency care), one referring to primary care PC, etc
 
-meanings_of_this_study<-vector(mode="list")
+meanings_of_this_study <- vector(mode="list")
+
 meanings_of_this_study[["HOSP"]]=c("hospitalisation_primary","hospitalisation_secondary","hospital_diagnosis","hopitalisation_diagnosis_unspecified","episode_primary_diagnosis","episode_secondary_diagnosis","diagnosis_procedure","hospitalisation_associated","hospitalisation_linked","HH","NH","hospitalisation_ICU_primary","hospitalisation_ICU_secondary","hospitalisation_ICU_unspecified")
 meanings_of_this_study[["PC"]]=c("primary_care_event","primary_care_diagnosis","primary_care_events_BIFAP","primary_care_antecedents_BIFAP","primary_care_condicionants_BIFAP")
+meanings_of_this_study[["SPECIALIST"]] = c("specialist_diagnosis","outpatient_hospital_planned_primary","outpatient_hospital_planned_secondary","outpatient_contact_primary","outpatient_contact_secondary")
+meanings_of_this_study[["LONGTERM"]] = c("exemption","long_term_diagnosis")
 
-# create two conditions on the meaning_of_event variable, associated to HOSP and to PC as listed above
+# create two conditions on the meaning_of_event variable, associated to HOSP, to PC... as listed above
+
 
 condmeaning <- list()
-for (level1 in c("HOSP","PC")) {
+for (level1 in c("HOSP","PC","SPECIALIST","LONGTERM")) {
   for (meaning in meanings_of_this_study[[level1]]) {
     if (length(condmeaning[[level1]])==0) {condmeaning[[level1]]=paste0("meaning_renamed == '",meanings_of_this_study[[level1]][[1]],"'")
     }else{
