@@ -104,31 +104,31 @@ if (thisdatasource %in% datasources_with_specific_algorithms){
 
 # concept sets specific for datasources
 
-if (thisdatasource == 'ARS'){
-  #concept_set_codes_our_study_pre[["COVID_narrow"]][["ICD9"]] <- c(concept_set_codes_our_study_pre[["COVID_narrow"]][["ICD9"]],'043','48041','51891','51971')
-  concept_set_codes_our_study_pre[["ARD_narrow"]][["ICD9"]] <- c(concept_set_codes_our_study_pre[["ARD_narrow"]][["ICD9"]],'5189')
-}
+# if (thisdatasource == 'ARS'){
+#   #concept_set_codes_our_study_pre[["COVID_narrow"]][["ICD9"]] <- c(concept_set_codes_our_study_pre[["COVID_narrow"]][["ICD9"]],'043','48041','51891','51971')
+#   concept_set_codes_our_study_pre[["ARD_narrow"]][["ICD9"]] <- c(concept_set_codes_our_study_pre[["ARD_narrow"]][["ICD9"]],'5189')
+# }
 
 #-------------------------------------
 # set concept sets
 
-concept_set_codes_our_study <- concept_set_codes_our_study_pre
-concept_set_codes_our_study_excl <- concept_set_codes_our_study_pre_excl
+# concept_set_codes_our_study <- concept_set_codes_our_study_pre
+# concept_set_codes_our_study_excl <- concept_set_codes_our_study_pre_excl
 
-# augment ICPC codes
-for (outcome in OUTCOME_events){
-  outnarrow <- paste0(outcome,'_narrow')
-  outpossible <- paste0(outcome,'_possible')
-  if (length(concept_set_codes_our_study_pre[[outnarrow]][["ICPC"]]) == 0 & length(concept_set_codes_our_study_pre[[outnarrow]][["ICPC2P"]]) >0 ){
-  concept_set_codes_our_study[[outpossible]][["ICPC"]] <- unique(c(concept_set_codes_our_study_pre[[outpossible]][["ICPC"]],substr(concept_set_codes_our_study_pre[[outnarrow]][["ICPC2P"]],1,3)))
-  }
-}
-
-for (conceptset in c(COV_conceptssets,SEVERCOVID_conceptsets)){
-  if (length(concept_set_codes_our_study_pre[[conceptset]][["ICPC2P"]]) >0 ){
-    concept_set_codes_our_study[[conceptset]][["ICPC"]] <- unique(c(concept_set_codes_our_study_pre[[conceptset]][["ICPC"]],substr(concept_set_codes_our_study_pre[[conceptset]][["ICPC2P"]],1,3)))
-  }
-}
+# # augment ICPC codes
+# for (outcome in OUTCOME_events){
+#   outnarrow <- paste0(outcome,'_narrow')
+#   outpossible <- paste0(outcome,'_possible')
+#   if (length(concept_set_codes_our_study_pre[[outnarrow]][["ICPC"]]) == 0 & length(concept_set_codes_our_study_pre[[outnarrow]][["ICPC2P"]]) >0 ){
+#   concept_set_codes_our_study[[outpossible]][["ICPC"]] <- unique(c(concept_set_codes_our_study_pre[[outpossible]][["ICPC"]],substr(concept_set_codes_our_study_pre[[outnarrow]][["ICPC2P"]],1,3)))
+#   }
+# }
+# 
+# for (conceptset in c(COV_conceptssets,SEVERCOVID_conceptsets)){
+#   if (length(concept_set_codes_our_study_pre[[conceptset]][["ICPC2P"]]) >0 ){
+#     concept_set_codes_our_study[[conceptset]][["ICPC"]] <- unique(c(concept_set_codes_our_study_pre[[conceptset]][["ICPC"]],substr(concept_set_codes_our_study_pre[[conceptset]][["ICPC2P"]],1,3)))
+#   }
+# }
 
 #-------------------------------------
 # fix for ICD10GM
@@ -157,9 +157,8 @@ for (conceptset in concept_sets_of_our_study){
 
 
 save(concept_set_codes_our_study,file=paste0(direxp,"concept_set_codes_our_study.RData"))
-save(concept_set_codes_our_study_excl,file=paste0(direxp,"concept_set_codes_our_study_excl.RData"))
+# save(concept_set_codes_our_study_excl,file=paste0(direxp,"concept_set_codes_our_study_excl.RData"))
 save(concept_set_codes_our_study,file=paste0(dirsmallcountsremoved,"concept_set_codes_our_study.RData"))
-save(concept_set_codes_our_study_excl,file=paste0(dirsmallcountsremoved,"concept_set_codes_our_study_excl.RData"))
+# save(concept_set_codes_our_study_excl,file=paste0(dirsmallcountsremoved,"concept_set_codes_our_study_excl.RData"))
 
-rm(conceptset, datasources_with_specific_algorithms, level1, meaning, outcome, OUTCOME, OUTCOME_events, outnarrow,
-   outpossible, SECCOMP)
+rm(conceptset, datasources_with_specific_algorithms, level1, meaning, OUTCOME, OUTCOME_events, SECCOMP)
