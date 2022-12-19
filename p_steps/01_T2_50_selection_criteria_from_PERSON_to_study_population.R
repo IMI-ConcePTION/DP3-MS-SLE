@@ -28,7 +28,7 @@ D3_sel_cri <- D3_sel_cri[, .(person_id, sex_or_birth_date_is_not_defined, not_fe
 # Import the spells and clean
 smart_load("D3_clean_spells", dirtemp)
 D3_clean_spells <- D3_clean_spells[, .(person_id, entry_spell_category, exit_spell_category, starts_after_ending,
-                                       no_overlap_study_period, less_than_x_days_and_not_starts_at_birth,
+                                       no_overlap_study_period, spell_less_than_12_months_fup,
                                        is_the_study_spell)]
 
 # Creation of no_spells criteria
@@ -55,13 +55,16 @@ D3_clean_spells[removed_row == 0, tot_x_days := sum(spell_less_than_12_months_fu
 D3_clean_spells[removed_row == 0, less_than_12_months_fup := fifelse(tot_x_days == tot_spell_num, 1, 0)]
 D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD),
                 .SDcols = c("removed_row", "spell_less_than_12_months_fup")]
-D3_clean_spells[, c("spell_less_than_12_months_fup", "tot_x_days", "tot_spell_num") := NULL]
+D3_clean_spells[, c("spell_less_than_12_months_fup", "tot_x_days", "tot_spell_num", "removed_row") := NULL]
 
 # Collapse spells to retain only the exclusion criteria attached to each person_id
 D3_clean_spells <- unique(D3_clean_spells[, c("entry_spell_category", "exit_spell_category",
                                               "is_the_study_spell") := NULL])
 for (i in names(D3_clean_spells)) D3_clean_spells[is.na(get(i)), (i) := 0]
 D3_clean_spells <- D3_clean_spells[, lapply(.SD, max), by = person_id]
+
+# Add spells exclusion criteria to the one for person. Keep only persons which have a spell
+D3_sel_cri <- merge(D3_sel_cri, D3_clean_spells, all.x = T, by = "person_id")
 
 # Creation of all_spells_include_vax1_but_less than_365_days_from_it
 # D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
@@ -73,19 +76,19 @@ D3_clean_spells <- D3_clean_spells[, lapply(.SD, max), by = person_id]
 # D3_clean_spells[, c("has_vax1_before_365_days", "tot_less_than_365_days", "tot_spell_num", "removed_row") := NULL]
 
 # Keep only study spells chosen in 01_T2_043_clean_spells
-study_spells <- D3_clean_spells[is_the_study_spell == 1, ][, .(person_id, entry_spell_category, exit_spell_category)]
-study_spells <- unique(study_spells)
-D3_sel_cri_temp<-merge(study_spells,D3_sel_cri,all.y = T,by="person_id")
-
-# Keep only one row for each spell which syntethize the previously defined exclusion criteria
-D3_clean_spells <- unique(D3_clean_spells[, c("entry_spell_category", "exit_spell_category",
-                                              "is_the_study_spell") := NULL])
-for (i in names(D3_clean_spells)) D3_clean_spells[is.na(get(i)), (i) := 0]
-D3_clean_spells <- D3_clean_spells[, lapply(.SD, max), by = person_id]
-
-# Add spells exclusion criteria to the one for person. Keep only persons which have a spell
-D3_sel_cri_spells <- merge(D3_sel_cri_temp, D3_clean_spells,
-                           all.y = T, by = "person_id")
+# study_spells <- D3_clean_spells[is_the_study_spell == 1, ][, .(person_id, entry_spell_category, exit_spell_category)]
+# study_spells <- unique(study_spells)
+# D3_sel_cri_temp <- merge(study_spells, D3_sel_cri, all.y = T,by="person_id")
+# 
+# # Keep only one row for each spell which syntethize the previously defined exclusion criteria
+# D3_clean_spells <- unique(D3_clean_spells[, c("entry_spell_category", "exit_spell_category",
+#                                               "is_the_study_spell") := NULL])
+# for (i in names(D3_clean_spells)) D3_clean_spells[is.na(get(i)), (i) := 0]
+# D3_clean_spells <- D3_clean_spells[, lapply(.SD, max), by = person_id]
+# 
+# # Add spells exclusion criteria to the one for person. Keep only persons which have a spell
+# D3_sel_cri_spells <- merge(D3_sel_cri_temp, D3_clean_spells,
+#                            all.y = T, by = "person_id")
 
 # ### Create the criteria based on D3_vaccines_curated
 # # Import doses dataset and create doses criteria
@@ -107,9 +110,9 @@ D3_sel_cri_spells <- merge(D3_sel_cri_temp, D3_clean_spells,
 # spells_vaccines <- unique(spells_vaccines)
 # 
 # D3_sel_cri_spells_vaccines <- merge(D3_sel_cri_spells, spells_vaccines, all = T, by = "person_id")
-D3_sel_cri_spells[, study_entry_date := pmax(entry_spell_category, start_lookback)]
-D3_sel_cri_spells[, study_exit_date := pmin(exit_spell_category, study_end)]
-D3_sel_cri_spells[, c("entry_spell_category", "exit_spell_category") := NULL]
+# D3_sel_cri_spells[, study_entry_date := pmax(entry_spell_category, start_lookback)]
+# D3_sel_cri_spells[, study_exit_date := pmin(exit_spell_category, study_end)]
+# D3_sel_cri_spells[, c("entry_spell_category", "exit_spell_category") := NULL]
 
 # Saving exclusion criteria for populations
-smart_save(D3_sel_cri_spells, dirtemp, override_name = "D3_selection_criteria_from_PERSONS_to_study_population")
+smart_save(D3_sel_cri, dirtemp, override_name = "D3_selection_criteria_from_PERSONS_to_study_population")
