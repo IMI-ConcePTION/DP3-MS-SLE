@@ -5,5 +5,5 @@
 # OUTCOME_variables (outcomes)
 OUTCOME_variables <- c("MS", "SLE")
 
-# DP_variables (druf proxies)
-DP_variables <- c("DP_MS", "DP_SLE")
+# DP_variables (drug proxies)
+DP_variables <- c("DMT-MS_SPEC", "DMT-MS_UNSPEC", "DMT-SLE")
