@@ -6,6 +6,7 @@ person_id,start_date_record,end_date_record,event_code,event_record_vocabulary,t
 40375963,20100705,20100730,W82001,ICPC2P,,,no,,hospitalisation_primary,datos_generales_paciente,""
 40432312,20100705,20100730,W82001,ICPC2P,,,0,,hospitalisation_primary,datos_generales_paciente,""
 40345444,20100705,20100730,W82001,ICPC2P,,,no,,hospitalisation_primary,datos_generales_paciente,""
+40345444,20100705,20100730,N86,ICPC2P,,,no,,hospitalisation_primary,datos_generales_paciente,""
 40395648,20100705,20100730,W82001,ICPC2P,,,no,,hospitalisation_primary,datos_generales_paciente,""
 40354254,20100705,20100730,W82001,ICPC2P,,,si,,hospitalisation_primary,datos_generales_paciente,""
 40347832,20100705,20100730,W82001,ICPC2P,,,no,,hospitalisation_primary,datos_generales_paciente,""
