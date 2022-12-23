@@ -22,4 +22,4 @@ selected_population <- CreateFlowChart(
 fwrite(get("Flowchart_exclusion_criteria"),
        paste0(direxp, "Flowchart_exclusion_criteria"))
 
-smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_study_population")
+smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_study_population_SAP1")
