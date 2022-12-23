@@ -67,6 +67,9 @@ launch_step("p_steps/01_T2_50_selection_criteria_from_PERSON_to_study_population
 
 launch_step("p_steps/02_T3_10_create_study_population.R")
 
+launch_step("p_steps/03_T2_10_create_study_population_baseline_variables.R")
+
+
 #will run after the definition of algorithms and variables 
 
 # launch_step("p_steps/03_T2_10_create_D3_outcomes_simple_algorithm.R")
