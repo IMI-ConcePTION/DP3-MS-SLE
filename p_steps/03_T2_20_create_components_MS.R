@@ -27,10 +27,20 @@ for (i in names(meanings_of_this_study)) {
 out <- data.table::rbindlist(out)
 
 concept_in_pop[out, on = "meaning_renamed", meaning_renamed := i.new]
+concept_in_pop <- unique(concept_in_pop)
 
 component_MS_long_term <- MergeFilterAndCollapse(list(concept_in_pop),
-                                                 condition = "!is.na(person_id)",
+                                                 condition = "meaning_renamed %in% c(names(meanings_of_this_study)) & concept == 'MS'",
                                                  strata = c("person_id", "concept", "meaning_renamed"),
-                                                 summarystat = list(c("first", "date"), c("second", "date"),
-                                                                    c("third", "date"), c("fourth", "date")))
+                                                 summarystat = list(c("first", "date", "component_1"),
+                                                                    c("second", "date", "component_2"),
+                                                                    c("third", "date", "component_3"),
+                                                                    c("fourth", "date", "component_4")))
 
+test <- dcast(component_MS_long_term, person_id ~ concept + meaning_renamed, drop = F,
+      value.var = c("component_1", "component_2", "component_3", "component_4"))
+
+cols_to_change <- names(test)[grepl("component", names(test))]
+new_cols_names <- lapply(strsplit(cols_to_change, "_"), function (x) {paste(x[[1]], x[[3]], x[[4]], x[[2]], sep = "_")})
+
+setnames(test, cols_to_change, unlist(new_cols_names))
