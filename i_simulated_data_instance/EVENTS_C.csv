@@ -39,6 +39,7 @@ ConCDM_SIM_200421_00011,20131227,20131227,"","","","xxxx x x, x",yes,"",emergenc
 ConCDM_SIM_200421_00011,20141226,20141226,78900,ICD9,"","","","",emergency_room_diagnosis,PS,PS_37
 ConCDM_SIM_200421_00011,20141226,20141226,"","","","xxxx x x, x",yes,"",emergency_room_presentation,PS,PS_38
 ConCDM_SIM_200421_00012,20180606,20180606,41071,ICD9,"","","","",emergency_room_diagnosis,PS,PS_39
+ConCDM_SIM_200421_00012,20180606,20180606,710.0,ICD9,"","","","",emergency_room_diagnosis,PS,PS_39
 ConCDM_SIM_200421_00012,20180606,20180606,"","","","xxxx x x, x",yes,"",emergency_room_presentation,PS,PS_40
 ConCDM_SIM_200421_00013,20140822,20140822,34590,ICD9,"","","","",emergency_room_diagnosis,PS,PS_41
 ConCDM_SIM_200421_00013,20140822,20140822,"","","","xxxx x x, x",yes,"",emergency_room_presentation,PS,PS_42

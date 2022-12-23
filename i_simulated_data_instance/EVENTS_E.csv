@@ -2,6 +2,8 @@ person_id,start_date_record,end_date_record,event_code,event_record_vocabulary,t
 ConCDM_SIM_200421_00012,20130227,"",340.12,ICD9,"","","","",exemption,SEA,SEA_4
 ConCDM_SIM_200421_00053,20130227,"",340.12,ICD9,"","","","",exemption,SEA,SEA_4
 ConCDM_SIM_200421_00053,20171202,"",G35,ICD10,"","","","",exemption,SEA,SEA_5
+ConCDM_SIM_200421_00053,20130227,"",710.0,ICD9,"","","","",exemption,SEA,SEA_4
+ConCDM_SIM_200421_00053,20171202,"",M32.1,ICD10,"","","","",exemption,SEA,SEA_5
 ConCDM_SIM_200421_00071,20020102,"",N86,ICPC2,"","","","",exemption,SEA,SEA_6
 ConCDM_SIM_200421_00071,20011216,"",N86,ICPC2,"","","","",exemption,SEA,SEA_7
 ConCDM_SIM_200421_00080,20131002,"",F200.01,READ,"","","","",exemption,SEA,SEA_13
