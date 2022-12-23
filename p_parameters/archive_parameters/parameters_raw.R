@@ -5,7 +5,7 @@ concept_set_codes_our_study_pre <- list()
 
 concept_set_codes_our_study_pre[["MS"]][["ICD9CM"]] <- c("340")
 concept_set_codes_our_study_pre[["MS"]][["ICD10"]] <- c("G35")
-concept_set_codes_our_study_pre[["MS"]][["ICPC2"]] <- c("N86")
+concept_set_codes_our_study_pre[["MS"]][["ICPC2P"]] <- c("N86")
 concept_set_codes_our_study_pre[["MS"]][["READ"]] <- c("F20..00", "F203.00", "F20..11", "F20z.00", "666A.00", "9kG..00",
                                                        "9mD..", "9mD0.", "9mD1.", "666B.00", "8CS1.00", "8IAb.",
                                                        "F202.00", "F207.00", "F200.00", "F208.00", "F201.00", "F204.00",
