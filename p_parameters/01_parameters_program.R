@@ -203,38 +203,7 @@ smart_load <- function(df, folder, subpop = F, extension = "qs") {
     assign(df, qs::qread(file_name, nthreads = parallel::detectCores()/2), envir = .GlobalEnv)
   } else if (extension == ".fst") {
     assign(df, fst::read.fst(file_name, as.data.table = T), envir = .GlobalEnv)
-  } else if  (extension == ".rds") {
-    assign(df, readRDS(file_name), envir = .GlobalEnv)
   } else {
-    load(file_name, envir = .GlobalEnv, verbose = FALSE)
+    assign(df, readRDS(file_name), envir = .GlobalEnv)
   }
-}
-
-better_foverlaps <- function(x, y, by.x = if (!is.null(key(x))) key(x) else key(y), 
-                             by.y = key(y), maxgap = 0L, minoverlap = 1L,
-                             type = c("any", "within", "start", "end", "equal"),
-                             mult = c("all", "first", "last"), nomatch = getOption("datatable.nomatch", NA),
-                             which = FALSE, verbose = getOption("datatable.verbose")) {
-  
-  duplicated_x <- by.x[duplicated(by.x)]
-  if (length(duplicated_x) > 0) {
-    new_col <- paste0(duplicated_x, "_copy")
-    x[, (new_col) := get(duplicated_x)]
-    by.x = c(unique(by.x), new_col)
-    return(foverlaps(x = x, y = y, by.x = by.x, by.y = by.y, maxgap = maxgap, minoverlap = minoverlap, type = type,
-                     mult = mult, nomatch = nomatch, which = which, verbose = verbose)[, (new_col) := NULL])
-  }
-  
-  duplicated_y <- by.y[duplicated(by.y)]
-  if (length(duplicated_y) > 0) {
-    new_col <- paste0(duplicated_y, "_copy")
-    y[, (new_col) := get(duplicated_y)]
-    by.y = c(unique(by.y), new_col)
-    setkeyv(y, by.y)
-    return(foverlaps(x = x, y = y, by.x = by.x, by.y = by.y, maxgap = maxgap, minoverlap = minoverlap, type = type,
-                     mult = mult, nomatch = nomatch, which = which, verbose = verbose)[, (new_col) := NULL])
-  }
-  
-  return(foverlaps(x = x, y = y, by.x = by.x, by.y = by.y, maxgap = maxgap, minoverlap = minoverlap, type = type,
-                   mult = mult, nomatch = nomatch, which = which, verbose = verbose))
 }

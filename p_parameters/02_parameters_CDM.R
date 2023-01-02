@@ -302,4 +302,4 @@ if(all(str %in% files_par)) {
 
 
 rm(i, tab, thisdatasource_has_prescriptions, file, files_par, dom, ds, EAV_table, a, alldomain,
-   ConcePTION_CDM_coding_system_list, str)
+   ConcePTION_CDM_coding_system_list)

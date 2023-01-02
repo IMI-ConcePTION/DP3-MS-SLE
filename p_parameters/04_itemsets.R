@@ -62,4 +62,4 @@ for (t in study_variables_of_our_study){
   rm(f)
 }
 
-rm(t, itemset_AVpair_our_study, itemset_AVpair_our_study_meaning)
+rm(t)

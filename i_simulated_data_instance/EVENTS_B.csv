@@ -1,6 +1,5 @@
 person_id,start_date_record,end_date_record,event_code,event_record_vocabulary,text_linked_to_event_code,event_free_text,present_on_admission,laterality_of_event,meaning_of_event,origin_of_event,visit_occurrence_id
 ConCDM_SIM_200421_00015,20140917,"",X78,ICD10,"","",yes,"",access_to_mental_health_service_primary,SALM,SALM_1
-ConCDM_SIM_200421_00015,20140917,"",M32.1,ICD10,"","",yes,"",access_to_mental_health_service_primary,SALM,SALM_1
 ConCDM_SIM_200421_00018,20160928,"",F800,ICD10,"","",yes,"",access_to_mental_health_service_primary,SALM,SALM_2
 ConCDM_SIM_200421_00030,20130919,"",3004,ICD9,"","",yes,"",access_to_mental_health_service_primary,SALM,SALM_3
 ConCDM_SIM_200421_00051,20180308,"",F900,ICD10,"","",yes,"",access_to_mental_health_service_primary,SALM,SALM_4

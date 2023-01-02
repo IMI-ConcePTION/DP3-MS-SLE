@@ -14,12 +14,14 @@ selection_criteria <- get("D3_selection_criteria_from_PERSONS_to_study_populatio
 
 selected_population <- CreateFlowChart(
   dataset = selection_criteria,
-  listcriteria = c("sex_or_birth_date_is_not_defined", "not_female", "too_young_female", "too_old_female", "no_spells",
+  listcriteria = c("sex_or_birth_date_is_not_defined", "birth_date_absurd", "partial_date_of_death", "no_spells",
                    "all_spells_start_after_ending", "no_spell_overlapping_the_study_period",
-                   "less_than_12_months_fup"),
+                   "no_spell_longer_than_x_days"),
   flowchartname = "Flowchart_exclusion_criteria")
 
 fwrite(get("Flowchart_exclusion_criteria"),
        paste0(direxp, "Flowchart_exclusion_criteria"))
 
-smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_study_population_SAP1")
+selected_population <- selected_population[, .(person_id, study_entry_date, study_exit_date)]
+
+smart_save(selected_population, diroutput, override_name = "D4_study_population")
