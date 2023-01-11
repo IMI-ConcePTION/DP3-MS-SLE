@@ -44,7 +44,7 @@ rm(concept_df)
 setorder(concept_in_pop, person_id, date)
 concept_in_pop <- unique(concept_in_pop)
 component_algo <- MergeFilterAndCollapse(list(concept_in_pop),
-                                         condition = "meaning_renamed %in% c(names(meanings_of_this_study), DP_variables_recoded) & concept == 'MS'",
+                                         condition = "meaning_renamed %in% c(names(meanings_of_this_study), DP_variables_recoded, 'UNSPECIFIED') & concept == 'MS'",
                                          strata = c("person_id", "cohort_entry_date", "cohort_exit_date",
                                                     "concept", "meaning_renamed"),
                                          summarystat = list(c("first", "date", "component_1"),
@@ -53,11 +53,28 @@ component_algo <- MergeFilterAndCollapse(list(concept_in_pop),
                                                             c("fourth", "date", "component_4")))
 
 # Create the combinations
-component_algo_simpl <- component_algo[, c("concept", "component_3", "component_4") := NULL]
-component_algo_simpl <- data.table::melt(component_algo_simpl,
-                                         id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date", "meaning_renamed"),
-                                         measure.vars = c("component_1", "component_2"))
-component_algo_simpl <- component_algo_simpl[, variable := NULL]
+component_algo_comb <- component_algo[, c("component_3", "component_4") := NULL]
+component_algo_comb <- data.table::melt(component_algo_comb,
+                                        id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date", "meaning_renamed", "concept"),
+                                        measure.vars = c("component_1", "component_2"), value.name = "date")
+component_algo_comb <- component_algo_comb[, variable := NULL]
+
+# first combination
+first_comb <- MergeFilterAndCollapse(list(component_algo_comb),
+                                     condition = "meaning_renamed %in% c('HOSP', 'PC', 'SPECIALIST', 'LONGTERM', 'DMT_SPEC', 'UNSPECIFIED')",
+                                     strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept"),
+                                     summarystat = list(c("first", "date", "component_1"),
+                                                        c("second", "date", "component_2"),
+                                                        c("third", "date", "component_3")))
+first_comb[, meaning_renamed]
+
+# second combination
+second_comb <- MergeFilterAndCollapse(list(component_algo_comb),
+                                      condition = "meaning_renamed %in% c('PC', 'SPECIALIST', 'UNSPECIFIED')",
+                                      strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept"),
+                                      summarystat = list(c("second", "date", "component_2")))
+
+
 
 component_algo <- data.table::dcast(component_algo, person_id + cohort_entry_date + cohort_exit_date ~ concept + meaning_renamed,
                                     drop = F, value.var = c("component_1", "component_2", "component_3", "component_4"))
