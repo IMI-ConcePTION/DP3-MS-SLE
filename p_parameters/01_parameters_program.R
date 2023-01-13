@@ -193,20 +193,25 @@ smart_save <- function(df, folder, subpop = F, extension = "qs", override_name =
   }
 }
 
-smart_load <- function(df, folder, subpop = F, extension = "qs") {
+smart_load <- function(df, folder, subpop = F, extension = "qs", return = F) {
   
   subpop_str <- if (isFALSE(subpop)) "" else suffix[[subpop]]
   extension <- paste0(".", extension)
   
   file_name <- paste0(folder, df, subpop_str, extension)
   if (extension == ".qs") {
-    assign(df, qs::qread(file_name, nthreads = parallel::detectCores()/2), envir = .GlobalEnv)
+    tmp <- qs::qread(file_name, nthreads = parallel::detectCores()/2)
   } else if (extension == ".fst") {
-    assign(df, fst::read.fst(file_name, as.data.table = T), envir = .GlobalEnv)
+    tmp <- fst::read.fst(file_name, as.data.table = T)
   } else if  (extension == ".rds") {
-    assign(df, readRDS(file_name), envir = .GlobalEnv)
+    tmp <- readRDS(file_name)
   } else {
     load(file_name, envir = .GlobalEnv, verbose = FALSE)
+  }
+  if (return) {
+    return(tmp)
+  } else {
+    assign(df, tmp, envir = .GlobalEnv)
   }
 }
 
