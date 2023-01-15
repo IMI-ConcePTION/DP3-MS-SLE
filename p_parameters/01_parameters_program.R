@@ -62,10 +62,7 @@ source(paste0(dirmacro,"CreateItemsetDatasets.R"))
 source(paste0(dirmacro,"MergeFilterAndCollapse_v5.R"))
 source(paste0(dirmacro,"CreateSpells_v15.R"))
 source(paste0(dirmacro,"CreateFlowChart.R"))
-source(paste0(dirmacro,"ApplyComponentStrategy_v13_2.R"))
-source(paste0(dirmacro,"CreateFigureComponentStrategy_v4.R"))
-source(paste0(dirmacro,"DRECountThresholdV4.R"))
-source(paste0(dirmacro,"df_to_list_of_list.R"))
+source(paste0(dirmacro,"CountPrevalence.R"))
 source(paste0(dirmacro,"launch_step.R"))
 
 ###################################################################
