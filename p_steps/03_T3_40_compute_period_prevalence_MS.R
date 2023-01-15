@@ -15,16 +15,14 @@ for (outcome in OUTCOME_variables) {
   
   # Select algorithms columns
   algo_cols <- colnames(components)[grepl("_[0-9]_date", colnames(components))]
-  algorithms_dates <- components[, c("person_id", algo_cols), with = F]
+  algorithms_dates <- components[, c("person_id", "cohort_entry_date", "cohort_exit_date", algo_cols), with = F]
   
-  # Keep only persons with at least one algorithm positive
-  algorithms_dates <- algorithms_dates[rowSums(!is.na(algorithms_dates[, ..algo_cols])) > 0, ]
+  D3_algorithms_MS <- data.table::melt(algorithms_dates, id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date"),
+                                       measure.vars = algo_cols, variable.name = "algorithm", variable.factor = F,
+                                       value.name = "date_algo")
   
-  D3_algorithms_MS <- data.table::melt(algorithms_dates, id.vars = "person_id", measure.vars = algo_cols,
-                                       variable.name = "algorithm", variable.factor = F, value.name = "date")
-  
-  D3_algorithms_MS <- D3_algorithms_MS[, algorithm := gsub("_(?<=_)(?!.*_).*", "", algorithm, perl = T)]
-  setcolorder(D3_algorithms_MS, c("person_id", "date", "algorithm"))
+  D3_algorithms_MS[, algorithm := gsub("_(?<=_)(?!.*_).*", "", algorithm, perl = T)]
+  D3_algorithms_MS[, algorithm := gsub("_", "", algorithm)]
   
   smart_save(D3_algorithms_MS, dirtemp)
   
