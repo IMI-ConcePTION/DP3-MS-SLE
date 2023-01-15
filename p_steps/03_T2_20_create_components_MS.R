@@ -125,7 +125,7 @@ full_var_names <- c(paste("component_MS_HOSP", c(1, 2, 3, 4), sep = "_"),
                     paste("combination_diag_spec_MS", c(1, 2, 3), sep = "_"),
                     paste("combination_diag_specialist_PC_unspec_MS", 2, sep = "_"))
 cols_to_add <- setdiff(full_var_names, colnames(main_components_MS))
-main_components_MS[, (cols_to_add) := as.Date(NA_integer_)]
+main_components_MS[, (cols_to_add) := as.Date(as.double(NA_integer_))]
 setcolorder(main_components_MS, c("person_id", "cohort_entry_date", "cohort_exit_date", full_var_names))
 
 # Create the algorithms (For full specification see codebook)
