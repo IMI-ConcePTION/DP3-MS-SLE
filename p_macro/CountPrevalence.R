@@ -202,9 +202,9 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       
       for (k in 1:length(Age_bands)){
         
-        if( k == 1) Agebands_list[[k]] <- paste0(Age_bands[k],"-",Age_bands[k+1] - 1)
-        if( k > 1 &k!= length(Age_bands)) Agebands_list[[k]] <- paste0(Age_bands[k],"-",Age_bands[k+1] - 1)
-        if( k== length(Age_bands) & include_remaning_ages == T) Agebands_list[[k]] <- paste0(Age_bands[k],"+")
+        if( k == 1) Agebands_list[[k]] <- paste0(Age_bands[k],"-",Age_bands[k+1])
+        if( k > 1 &k!= length(Age_bands)) Agebands_list[[k]] <- paste0(Age_bands[k]+1,"-",Age_bands[k+1])
+        if( k== length(Age_bands) & include_remaning_ages == T) Agebands_list[[k]] <- paste0(Age_bands[k]+1,"+")
         
       }
       Agebands_list <- as.data.table(do.call(rbind, Agebands_list))
