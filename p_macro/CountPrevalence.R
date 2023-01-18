@@ -14,8 +14,8 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   #Set character input for study dates to date format
   ################################################################################################################################
   print("Assign date format to Start_study_time and End_study_time")
-  Start_study_time<-as.IDate(as.character(Start_study_time),"%Y%m%d")
-  End_study_time<-as.IDate(as.character(End_study_time),"%Y%m%d")
+  Start_study_time<-as.IDate(as.character(Start_study_time,"%Y%m%d"),"%Y%m%d")
+  End_study_time<-as.IDate(as.character(End_study_time,"%Y%m%d"),"%Y%m%d")
   ################################################################################################################################
   #create the object used as choosen key (between key and unit of observation)
   if(!is.null(key)) {
@@ -25,10 +25,10 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   }
   
   #create the object containing the columns of ids to keep
-  if (UoO_id %in% choosen_key) {
-    id_columns_tokeep<-choosen_key
-  }else{
-    id_columns_tokeep<-c(choosen_key,UoO_id)
+  if (all(UoO_id %in% choosen_key)) {
+    id_columns_tokeep <- choosen_key
+  } else {
+    id_columns_tokeep <- unique(c(choosen_key, UoO_id))
   }
   
   
@@ -43,7 +43,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   #keep only the columns of interest in the Dataset_cohort
   cols_to_keep_cohort=c(id_columns_tokeep,Start_date,End_date)
   if (!is.null(Strata)) cols_to_keep_cohort<-c(cols_to_keep_cohort,Strata)
-  if (!is.null(Age_bands)) cols_to_keep_cohort<-c(cols_to_keep_cohort,"Ageband")
+  if (!is.null(Birth_date)) cols_to_keep_cohort<-c(cols_to_keep_cohort,Birth_date)
   
   if (Type_prevalence == "point") { 
     if (!is.null(Points_in_time)) {
@@ -202,12 +202,11 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       
       for (k in 1:length(Age_bands)){
         
-        if( k == 1) Agebands_list[[k]] <- paste0(Age_bands[k],"-",Age_bands[k+1])
-        if( k > 1 &k!= length(Age_bands)) Agebands_list[[k]] <- paste0(Age_bands[k]+1,"-",Age_bands[k+1])
-        if( k== length(Age_bands) & include_remaning_ages == T) Agebands_list[[k]] <- paste0(Age_bands[k]+1,"+")
+        if( k == 1) Agebands_list[[k]] <- paste0(Age_bands[k],"-",Age_bands[k+1] - 1)
+        if( k > 1 &k!= length(Age_bands)) Agebands_list[[k]] <- paste0(Age_bands[k],"-",Age_bands[k+1] - 1)
+        if( k== length(Age_bands) & include_remaning_ages == T) Agebands_list[[k]] <- paste0(Age_bands[k],"+")
         
       }
-      
       Agebands_list <- as.data.table(do.call(rbind, Agebands_list))
       colnames(Agebands_list)<- "Ageband"
       
@@ -613,6 +612,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     Aggr_variables<-c("timeframe")
     if (!is.null(Age_bands)) Aggr_variables<-c(Aggr_variables,"Ageband")
     if (!is.null(Strata)) Aggr_variables<-c(Aggr_variables,Strata)
+    cols <- c(cols, "in_population")
     dataset <- dataset[, lapply(.SD, sum), .SDcols=cols, by  = Aggr_variables]
   }
   
