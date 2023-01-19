@@ -63,6 +63,7 @@ source(paste0(dirmacro,"MergeFilterAndCollapse_v5.R"))
 source(paste0(dirmacro,"CreateSpells_v15.R"))
 source(paste0(dirmacro,"CreateFlowChart.R"))
 source(paste0(dirmacro,"CountPrevalence.R"))
+source(paste0(dirmacro,"CountPersonTimeV13.6.R"))
 source(paste0(dirmacro,"launch_step.R"))
 
 ###################################################################
