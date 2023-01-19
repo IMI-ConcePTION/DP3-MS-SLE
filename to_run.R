@@ -71,7 +71,7 @@ launch_step("p_steps/03_T2_10_create_study_population_baseline_variables.R")
 launch_step("p_steps/03_T2_20_create_components_MS.R")
 launch_step("p_steps/03_T2_30_create_algorithms_MS.R")
 launch_step("p_steps/03_T3_40_compute_period_prevalence_MS.R")
-
+launch_step("p_steps/03_T3_41_compute_persontime_prevalence_MS.R")
 #launch_step("p_steps/03_T3_51_point_prevalence_multiple_lookback.R")
 launch_step("p_steps/04_T4_10_create_N_women_and_ranges_MS.R")
 
