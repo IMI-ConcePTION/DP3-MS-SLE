@@ -30,3 +30,5 @@ recommended_start_date_vect[['TEST']] <- ymd(20030101)
 recommended_start_date <- fifelse(thisdatasource %not in% names(recommended_start_date_vect),
                    ymd(19000101), recommended_start_date_vect[[thisdatasource]])
 rm(recommended_start_date_vect)
+
+ageband_definition <- c(15, 19, 24, 29, 34, 39, 44, 49)
