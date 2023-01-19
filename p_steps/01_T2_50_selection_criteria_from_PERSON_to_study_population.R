@@ -16,20 +16,13 @@ D3_sel_cri <- D3_PERSONS[, sex_or_birth_date_is_not_defined := fifelse(
 # Remove persons who are not female
 D3_sel_cri[, not_female := fifelse(sex_at_instance_creation != "F", 1, 0)]
 
-# Remove persons who are too young
-D3_sel_cri[, too_young_female := fifelse(age_fast(birth_date, study_end) < 15, 1, 0)]
-
-# Remove persons who are too old
-D3_sel_cri[, too_old_female := fifelse(age_fast(birth_date, study_start) > 50, 1, 0)]
-
 # Keep only columns of interest
-D3_sel_cri <- D3_sel_cri[, .(person_id, sex_or_birth_date_is_not_defined, not_female, too_young_female, too_old_female)]
+D3_sel_cri <- D3_sel_cri[, .(person_id, sex_or_birth_date_is_not_defined, not_female)]
 
 # Import the spells and clean
 smart_load("D3_clean_spells", dirtemp)
-D3_clean_spells <- D3_clean_spells[, .(person_id, entry_spell_category, exit_spell_category, starts_after_ending,
-                                       no_overlap_study_period, spell_less_than_12_months_fup,
-                                       is_the_study_spell)]
+D3_clean_spells <- D3_clean_spells[, c("birth_date", "death_date", "entry_spell_category_crude",
+                                       "exit_spell_category_crude", "op_meaning", "num_spell") := NULL]
 
 # Creation of no_spells criteria
 D3_sel_cri <- D3_sel_cri[, no_spells := fifelse(person_id %in% unlist(unique(D3_clean_spells[, .(person_id)])), 0, 1)]
@@ -48,6 +41,20 @@ D3_clean_spells[removed_row == 0, no_spell_overlapping_the_study_period := fifel
   tot_no_overlap_study_period == tot_spell_num, 1, 0)]
 D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "no_overlap_study_period")]
 D3_clean_spells[, c("no_overlap_study_period", "tot_no_overlap_study_period", "tot_spell_num") := NULL]
+
+# Creation of too_young_female criteria
+D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
+D3_clean_spells[removed_row == 0, tot_too_young_at_exit_spell := sum(too_young_at_exit_spell), by = person_id]
+D3_clean_spells[removed_row == 0, too_young_female := fifelse(tot_too_young_at_exit_spell == tot_spell_num, 1, 0)]
+D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "too_young_at_exit_spell")]
+D3_clean_spells[, c("too_young_at_exit_spell", "tot_too_young_at_exit_spell", "tot_spell_num") := NULL]
+
+# Creation of too_young_female criteria
+D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
+D3_clean_spells[removed_row == 0, tot_too_old_at_start_spell := sum(too_old_at_start_spell), by = person_id]
+D3_clean_spells[removed_row == 0, too_old_female := fifelse(tot_too_old_at_start_spell == tot_spell_num, 1, 0)]
+D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "too_old_at_start_spell")]
+D3_clean_spells[, c("too_old_at_start_spell", "tot_too_old_at_start_spell", "tot_spell_num") := NULL]
 
 # Creation of no_spell_longer_than_x_days. Keep other spells even if they are less than 365 days long
 D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
