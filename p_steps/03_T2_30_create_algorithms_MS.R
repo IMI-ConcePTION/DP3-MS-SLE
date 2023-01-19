@@ -20,11 +20,16 @@ for (outcome in OUTCOME_variables) {
   # Keep only persons with at least one algorithm positive
   algorithms_dates <- algorithms_dates[rowSums(!is.na(algorithms_dates[, ..algo_cols])) > 0, ]
   
-  D3_algorithms_MS <- data.table::melt(algorithms_dates, id.vars = "person_id", measure.vars = algo_cols,
-                                       variable.name = "algorithm", variable.factor = F, value.name = "date")
+  D3_algorithms_MS <- data.table::melt(algorithms_dates,
+                                       id.vars = c("person_id"),
+                                       measure.vars = algo_cols, variable.name = "algorithm",
+                                       variable.factor = F, value.name = "date")
   
   D3_algorithms_MS <- D3_algorithms_MS[, algorithm := gsub("_(?<=_)(?!.*_).*", "", algorithm, perl = T)]
   setcolorder(D3_algorithms_MS, c("person_id", "date", "algorithm"))
+  
+  # Remove row without a date
+  D3_algorithms_MS <- D3_algorithms_MS[!is.na(date), ]
   
   smart_save(D3_algorithms_MS, dirtemp)
   
