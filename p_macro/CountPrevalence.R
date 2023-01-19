@@ -502,7 +502,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
           end_period_dates<-end_period_dates[-1]
         }
       }else{
-        start_period_dates<-seq.Date(Start_study_time,End_study_time+month(1) ,by = Increment_period)
+        start_period_dates<-seq.Date(Start_study_time,End_study_time %m+% months(1), by = Increment_period)
         end_period_dates<-start_period_dates-days(1)
         end_period_dates<-end_period_dates[-1]
         start_period_dates<-start_period_dates[-length(start_period_dates)]
