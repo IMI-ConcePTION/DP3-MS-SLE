@@ -33,6 +33,11 @@ for (outcome in OUTCOME_variables) {
   
   smart_save(D3_algorithms_MS, dirtemp)
   
+  if (thisdatasource %in% c("EFEMERIS", "THL")) {
+    print(paste("D3_algorithms_multiple_lookback_", outcome, " can't be calculated in datasource EFEMERIS and THL"))
+    next
+  }
+  
   # Select algorithms columns and spells
   algorithms_dates_spells <- components[, c("person_id", "cohort_entry_date", "cohort_exit_date", "entry_spell_category", algo_cols), with = F]
   

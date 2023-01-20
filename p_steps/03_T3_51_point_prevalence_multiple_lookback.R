@@ -1,4 +1,4 @@
-# Point_prevalence_multiple_lookback
+# Create D4_prevalence_aggregated_multiple_lookback
 # input: D3_study_population_SAP1, conceptset
 # output: D3_clean_spells
 
@@ -9,6 +9,11 @@ OUTCOME_variables <- "MS"
 s <- c(1, 2, 3, 5, 8)
 
 for (outcome in OUTCOME_variables) {
+  
+  if (thisdatasource %in% c("EFEMERIS", "THL")) {
+    print(paste("D4_prevalence_aggregated_multiple_lookback", outcome, " can't be calculated in datasource EFEMERIS and THL"))
+    next
+  }
   
   # Load components
   algo_look <- smart_load(paste("D3_algorithms_multiple_lookback", outcome, sep = "_"), dirtemp, return = T)
@@ -28,19 +33,25 @@ for (outcome in OUTCOME_variables) {
                                 value.name = "years_of_lookback_at_20191231")
   algo_look[, original_var := NULL]
   
+  # Remove all at_least_10_years_of_lookback_at_20191231 == 0 that where there before
+  algo_look <- algo_look[years_of_lookback_at_20191231 != 0, ]
+  
   # Algorithm to a single column
   algo_look <- data.table::melt(algo_look, id.vars = c("person_id", "years_of_lookback_at_20191231"),
                                 measure.vars = algo_cols,
                                 variable.name = "algorithm", variable.factor = F,
                                 value.name = "date_algo")
   
+  # Clean the algorithm columns and add the years off lookback
+  algo_look[, algorithm := gsub("_date", "", algorithm)]
+  algo_look[, algorithm := paste(algorithm, years_of_lookback_at_20191231, sep = "-")]
+  algo_cols <- paste(gsub("_date", "", algo_cols), unique(algo_look[, years_of_lookback_at_20191231]), sep = "-")
+  algo_look[, years_of_lookback_at_20191231 := NULL]
+  
   # Add birth date from study_population
   smart_load("D3_study_population_SAP1", dirtemp)
   D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, start_observation_period = entry_spell_category,
                                                            cohort_entry_date, cohort_exit_date, birth_date)]
-  
-  algo_cols <- gsub("_date", "", algo_cols)
-  algo_look[, algorithm := gsub("_date", "", algorithm)]
   
   period_prevalence <- CountPrevalence(D3_study_population_SAP1,
                                        algo_look, "person_id",
@@ -52,6 +63,16 @@ for (outcome in OUTCOME_variables) {
                                        Conditions = algo_cols,
                                        include_remaning_ages = F,
                                        Age_bands = ageband_definition)
+  
+  # Algorithm to a single column
+  algo_look <- data.table::melt(algo_look, id.vars = c("person_id", "years_of_lookback_at_20191231"),
+                                measure.vars = algo_cols,
+                                variable.name = "algorithm", variable.factor = F,
+                                value.name = "date_algo")
+  
+  
+  smart_save(algorithms_dates_spells_short,
+             dirtemp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_"))
 }
 
 
