@@ -61,7 +61,7 @@ for (outcome in OUTCOME_variables) {
   algorithms_dates_spells_short[, algorithm := as.integer(gsub("[a-zA-Z_]", "", algorithm, perl = T))]
   
   # Calculate years from positivity to end of study
-  algorithms_dates_spells_short[, date_algo := age_fast(date_algo, cohort_exit_date)]
+  algorithms_dates_spells_short[, flag_algo := age_fast(date_algo, cohort_exit_date)]
   
   # Find if spells are longer than 5 and 10 years and then remove length_spell
   algorithms_dates_spells_short[, at_least_5_years_of_lookback_at_20191231 := as.integer(length_spell >= 5)]
@@ -72,23 +72,30 @@ for (outcome in OUTCOME_variables) {
   # algorithms_dates_spells[, (algo_cols) := lapply(algo_cols, function(x) age_fast(get(x), cohort_exit_date))]
   
   # Calculate distance from positivity of algorithm to end of study
-  algorithms_dates_spells_short[, (paste("s", s, sep = "_")) := lapply(s, function(x) as.integer(date_algo >= x))]
+  algorithms_dates_spells_short[, (paste("s", s, sep = "_")) := lapply(s, function(x) as.integer(flag_algo >= x))]
   algorithms_dates_spells_short[, s_all := as.integer(1)]
+  algorithms_dates_spells_short[, (paste("t", s, sep = "_")) := lapply(s, function(x) fifelse(flag_algo >= x, date_algo, NA_Date_))]
+  algorithms_dates_spells_short[, t_all := date_algo]
   
   # Remove impossible values
   algorithms_dates_spells_short[at_least_10_years_of_lookback_at_20191231 == 0, s_8 := NA_integer_]
+  algorithms_dates_spells_short[at_least_10_years_of_lookback_at_20191231 == 0, t_8 := NA_Date_]
   
   
   algorithms_dates_spells_short <- data.table::dcast(algorithms_dates_spells_short,
                                                person_id + cohort_entry_date + cohort_exit_date + at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ algorithm,
-                                               drop = T, value.var = c(paste("s", s, sep = "_"), "s_all"))
+                                               drop = T, value.var = c(paste("s", s, sep = "_"), "s_all",
+                                                                       paste("t", s, sep = "_"), "t_all"))
   
   cols_to_change <- colnames(algorithms_dates_spells_short)[grepl("^s_", colnames(algorithms_dates_spells_short))]
   new_col_names <- sapply(strsplit(cols_to_change, "_"), function(x) paste0("M", paste(x[3], x[2], sep = "_")))
   setnames(algorithms_dates_spells_short, cols_to_change, new_col_names)
   
-  join_col <- c("person_id", "cohort_entry_date", "cohort_exit_date")
-  smart_save(merge(algorithms_dates_spells[, ..join_col], algorithms_dates_spells_short, all.x = T, by = join_col),
+  cols_to_change <- colnames(algorithms_dates_spells_short)[grepl("^t_", colnames(algorithms_dates_spells_short))]
+  new_col_names <- sapply(strsplit(cols_to_change, "_"), function(x) paste0("M", paste(x[3], x[2], "date", sep = "_")))
+  setnames(algorithms_dates_spells_short, cols_to_change, new_col_names)
+  
+  smart_save(algorithms_dates_spells_short,
              dirtemp, override_name = paste("D3_algorithms_multiple_lookback", outcome, sep = "_"))
 }
 
