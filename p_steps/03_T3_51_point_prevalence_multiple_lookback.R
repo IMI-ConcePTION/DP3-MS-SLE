@@ -18,7 +18,7 @@ for (outcome in OUTCOME_variables) {
   algo_look[at_least_10_years_of_lookback_at_20191231 == 1, at_least_10_years_of_lookback_at_20191231 := 10]
   
   # Select algorithms columns
-  algo_cols <- colnames(algo_look)[grepl("M[0-9]_", colnames(algo_look))]
+  algo_cols <- colnames(algo_look)[grepl("M[0-9]_([0-9]|all)_date", colnames(algo_look))]
   
   # Lookback to a single column
   algo_look <- data.table::melt(algo_look, id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date", algo_cols),
@@ -28,10 +28,30 @@ for (outcome in OUTCOME_variables) {
                                 value.name = "years_of_lookback_at_20191231")
   algo_look[, original_var := NULL]
   
-  CountPrevalence(algo_look[, c("person_id", "cohort_entry_date", "cohort_exit_date")], algo_look,
-                  UoO_id = c("person_id", "cohort_entry_date", "cohort_exit_date"),
-                  Start_date = recommended_start_date_vect, End_date = study_end,
-                  Type_prevalence == "period")
+  # Algorithm to a single column
+  algo_look <- data.table::melt(algo_look, id.vars = c("person_id", "years_of_lookback_at_20191231"),
+                                measure.vars = algo_cols,
+                                variable.name = "algorithm", variable.factor = F,
+                                value.name = "date_algo")
+  
+  # Add birth date from study_population
+  smart_load("D3_study_population_SAP1", dirtemp)
+  D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, start_observation_period = entry_spell_category,
+                                                           cohort_entry_date, cohort_exit_date, birth_date)]
+  
+  algo_cols <- gsub("_date", "", algo_cols)
+  algo_look[, algorithm := gsub("_date", "", algorithm)]
+  
+  period_prevalence <- CountPrevalence(D3_study_population_SAP1,
+                                       algo_look, "person_id",
+                                       Start_date = "cohort_entry_date",
+                                       End_date = "cohort_exit_date", Birth_date = "birth_date",
+                                       Name_condition = "algorithm", Date_condition = "date_algo",
+                                       Type_prevalence = "period", Increment_period = "year",
+                                       Start_study_time = recommended_start_date, End_study_time = study_end,
+                                       Conditions = algo_cols,
+                                       include_remaning_ages = F,
+                                       Age_bands = ageband_definition)
 }
 
 
