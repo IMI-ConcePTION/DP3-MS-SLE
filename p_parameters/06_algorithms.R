@@ -2,16 +2,16 @@
 
 meanings_of_this_study <- vector(mode="list")
 
-meanings_of_this_study[["HOSP"]]=c("hospitalisation_primary","hospitalisation_secondary","hospital_diagnosis","hopitalisation_diagnosis_unspecified","episode_primary_diagnosis","episode_secondary_diagnosis","diagnosis_procedure","hospitalisation_associated","hospitalisation_linked","HH","NH","hospitalisation_ICU_primary","hospitalisation_ICU_secondary","hospitalisation_ICU_unspecified")
-meanings_of_this_study[["PC"]]=c("primary_care_event","primary_care_diagnosis","primary_care_events_BIFAP","primary_care_antecedents_BIFAP","primary_care_condicionants_BIFAP")
-meanings_of_this_study[["SPECIALIST"]] = c("specialist_diagnosis","outpatient_hospital_planned_primary","outpatient_hospital_planned_secondary","outpatient_contact_primary","outpatient_contact_secondary")
+meanings_of_this_study[["HOSP"]]=c("hospitalisation_primary","hospitalisation_secondary","hospital_diagnosis","hopitalisation_diagnosis_unspecified","episode_primary_diagnosis","episode_secondary_diagnosis","diagnosis_procedure","procedure_during_hospitalisation","hospitalisation_associated","hospitalisation_linked","diag_hospitalisation_automatically_referred_to_PC","hospitalisation_ICU_primary","hospitalisation_ICU_secondary","hospitalisation_ICU_unspecified","emergency_room_diagnosis","emergency_room_presentation","hospitalisation_not_overnight_primary", "hospitalisation_not_overnight_secondary", "radiation_hospitalised_primary", "radiation_hospitalised_secondary")
+meanings_of_this_study[["PC"]]=c("primary_care_event","primary_care_diagnosis","primary_care_events_BIFAP","primary_care_antecedents_BIFAP","primary_care_condicionants_BIFAP","primary_care_main_diagnosis", "primary_care_secondary_diagnosis", "primary_care_midwife_main_diagnosis", "primary_care_midwife_secondary_diagnosis","primary_care_emergency_event")
+meanings_of_this_study[["OUTPATIENT_NO_PC"]] = c("specialist_diagnosis","outpatient_hospital_planned_primary","outpatient_hospital_planned_secondary","outpatient_contact_primary","outpatient_contact_secondary","access_to_mental_health_service_primary", "access_to_mental_health_service_comorbidity","reason_for_specialist_encounter")
 meanings_of_this_study[["LONGTERM"]] = c("exemption","long_term_diagnosis")
 
 # create two conditions on the meaning_of_event variable, associated to HOSP, to PC... as listed above
 
 
 condmeaning <- list()
-for (level1 in c("HOSP","PC","SPECIALIST","LONGTERM")) {
+for (level1 in c("HOSP","PC","OUTPATIENT_NO_PC","LONGTERM")) {
   for (meaning in meanings_of_this_study[[level1]]) {
     if (length(condmeaning[[level1]])==0) {condmeaning[[level1]]=paste0("meaning_renamed == '",meanings_of_this_study[[level1]][[1]],"'")
     }else{
