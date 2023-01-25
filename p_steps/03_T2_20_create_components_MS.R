@@ -7,6 +7,9 @@ smart_load("D3_study_population_SAP1", dirtemp)
 D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, entry_spell_category, cohort_entry_date,
                                                          cohort_exit_date)]
 
+# s = "all" is to be excluded for now
+s <- c(1, 2, 3, 5, 8, "all")
+
 # Load corresponding outcome conceptsets
 outcome_df <- rbindlist(lapply(OUTCOME_variables, function(x) {
   return(get(load(paste0(dirconceptsets, x, ".RData"))[[1]]
@@ -41,27 +44,68 @@ setkey(concept_df, person_id, date, date)
 concept_in_pop <- better_foverlaps(D3_study_population_SAP1, concept_df, by.x = key(D3_study_population_SAP1))
 rm(concept_df)
 
+### Calculate components for lookback
+# Restrict population
+# Keep only women who exit the study at 31st December 2019 and have any events
+concept_in_pop_restricted <- copy(concept_in_pop)[!is.na(date) & cohort_exit_date == study_end, ]
+
+# Calculate length of spell and then remove entry_spell_category
+concept_in_pop_restricted[, length_spell := age_fast(entry_spell_category, cohort_exit_date)]
+concept_in_pop_restricted[, entry_spell_category := NULL]
+
+# Find if spells are longer than 5 and 10 years and then remove length_spell
+concept_in_pop_restricted[, at_least_5_years_of_lookback_at_20191231 := as.integer(length_spell >= 5)]
+concept_in_pop_restricted[, at_least_10_years_of_lookback_at_20191231 := as.integer(length_spell >= 10)]
+concept_in_pop_restricted[, length_spell := NULL]
+
+# Keep only women with at least 5 years of lookback
+concept_in_pop_restricted <- concept_in_pop_restricted[at_least_5_years_of_lookback_at_20191231 == 1, ]
+
+# Clean the dataset
+concept_in_pop_restricted <- unique(concept_in_pop_restricted)
+
 # find 1/2/3/4th occurrences for each meaning only for people with the events (MS/SLE)
-setorder(concept_in_pop, person_id, date)
+component_lookback_algo <- lapply(s, function(x){
+  int_x <- if (x == "all") 99 else as.integer(x)
+  MergeFilterAndCollapse(list(concept_in_pop_restricted),
+                         condition = paste0("!is.na(meaning_renamed) & date > study_end - years(", int_x, ")"),
+                         additionalvar = list(c("length_lookback", paste0("'", x, "'"))),
+                         strata = c("person_id", "cohort_entry_date", "cohort_exit_date",
+                                    "concept", "meaning_renamed", "length_lookback", "at_least_5_years_of_lookback_at_20191231",
+                                    "at_least_10_years_of_lookback_at_20191231"),
+                         sorting = c("person_id", "date"),
+                         summarystat = list(c("first", "date", "component_1"),
+                                            c("second", "date", "component_2"),
+                                            c("third", "date", "component_3"),
+                                            c("fourth", "date", "component_4")))
+})
+
+### Repeat on the whole dataset
 concept_in_pop <- unique(concept_in_pop)
 component_algo <- MergeFilterAndCollapse(list(concept_in_pop),
                                          condition = "!is.na(meaning_renamed)",
+                                         additionalvar = list(c("length_lookback", paste0("'", 'whole', "'"))),
                                          strata = c("person_id", "cohort_entry_date", "cohort_exit_date",
-                                                    "concept", "meaning_renamed"),
+                                                    "concept", "meaning_renamed", "length_lookback"),
+                                         sorting = c("person_id", "date"),
                                          summarystat = list(c("first", "date", "component_1"),
                                                             c("second", "date", "component_2"),
                                                             c("third", "date", "component_3"),
                                                             c("fourth", "date", "component_4")))
 rm(concept_in_pop)
 
+component_algo <- rbindlist(c(component_lookback_algo, list(component_algo)), fill = T)
+
 # Meaning to wide as columns
 main_components_MS <- data.table::dcast(component_algo[concept == "MS", ],
-                                        person_id + cohort_entry_date + cohort_exit_date ~ concept + meaning_renamed,
+                                        person_id + cohort_entry_date + cohort_exit_date + length_lookback +
+                                          at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ concept + meaning_renamed,
                                         drop = T, value.var = c("component_1", "component_2", "component_3", "component_4"))
 
 main_components_SLE <- data.table::dcast(component_algo[concept == "SLE", ],
-                                        person_id + cohort_entry_date + cohort_exit_date ~ concept + meaning_renamed,
-                                        drop = T, value.var = c("component_1", "component_2", "component_3", "component_4"))
+                                         person_id + cohort_entry_date + cohort_exit_date + length_lookback +
+                                           at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ concept + meaning_renamed,
+                                         drop = T, value.var = c("component_1", "component_2", "component_3", "component_4"))
 
 # Changing columns names to what specified in the codebook
 set_names_components <- function(x) {
@@ -82,36 +126,44 @@ combination_algo <- component_algo[, c("component_3", "component_4") := NULL]
 rm(component_algo)
 
 combination_algo <- data.table::melt(combination_algo,
-                                     id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date", "meaning_renamed", "concept"),
+                                     id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date",
+                                                 "meaning_renamed", "concept", "length_lookback",
+                                                 "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
                                      measure.vars = c("component_1", "component_2"), value.name = "date")[, variable := NULL]
 
 # first combination for MS
 first_comb <- MergeFilterAndCollapse(list(combination_algo),
                                      condition = "meaning_renamed %in% c('HOSP', 'PC', 'SPECIALIST', 'LONGTERM',
                                      'DMT_SPEC', 'UNSPECIFIED') & concept =='MS'",
-                                     strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept"),
+                                     strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
+                                                "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
                                      summarystat = list(c("first", "date"), c("second", "date"), c("third", "date")))
 if (nrow(first_comb) != 0) {
-  first_comb <- data.table::dcast(first_comb, person_id + cohort_entry_date + cohort_exit_date ~ concept,
+  first_comb <- data.table::dcast(first_comb, person_id + cohort_entry_date + cohort_exit_date + length_lookback +
+                                    at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ concept,
                                   drop = T, value.var = c("first_date", "second_date", "third_date"))
   setnames(first_comb, colnames(first_comb)[grepl("MS", colnames(first_comb))],
            paste("combination_diag_spec_MS", c(1, 2, 3), sep = "_"))
   main_components_MS <- merge(main_components_MS, first_comb, all = T,
-                           by = c("person_id", "cohort_entry_date", "cohort_exit_date"))
+                           by = c("person_id", "cohort_entry_date", "cohort_exit_date", "length_lookback",
+                                  "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"))
 }
 
 # second combination for MS
 second_comb <- MergeFilterAndCollapse(list(combination_algo),
                                       condition = "meaning_renamed %in% c('PC', 'SPECIALIST', 'UNSPECIFIED') & concept =='MS'",
-                                      strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept"),
+                                      strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
+                                                 "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
                                       summarystat = list(c("second", "date")))
 if (nrow(second_comb) != 0) {
-  second_comb <- data.table::dcast(second_comb, person_id + cohort_entry_date + cohort_exit_date ~ concept,
+  second_comb <- data.table::dcast(second_comb, person_id + cohort_entry_date + cohort_exit_date + length_lookback +
+                                     at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ concept,
                                    drop = T, value.var = c("second_date"))
   setnames(second_comb, colnames(second_comb)[grepl("MS", colnames(second_comb))],
            paste("combination_diag_specialist_PC_unspec_MS", 2, sep = "_"))
   main_components_MS <- merge(main_components_MS, second_comb, all = T,
-                           by = c("person_id", "cohort_entry_date", "cohort_exit_date"))
+                           by = c("person_id", "cohort_entry_date", "cohort_exit_date", "length_lookback",
+                                  "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"))
 }
 
 # Add any missing variable as a missing date and create the correct order
@@ -126,7 +178,9 @@ full_var_names <- c(paste("component_MS_HOSP", c(1, 2, 3, 4), sep = "_"),
                     paste("combination_diag_specialist_PC_unspec_MS", 2, sep = "_"))
 cols_to_add <- setdiff(full_var_names, colnames(main_components_MS))
 main_components_MS[, (cols_to_add) := as.Date(as.double(NA_integer_))]
-setcolorder(main_components_MS, c("person_id", "cohort_entry_date", "cohort_exit_date", full_var_names))
+setcolorder(main_components_MS, c("person_id", "cohort_entry_date", "cohort_exit_date", "length_lookback",
+                                  "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231",
+                                  full_var_names))
 
 # Create the algorithms (For full specification see codebook)
 main_components_MS[, MS_1_date := combination_diag_spec_MS_1]
@@ -141,6 +195,34 @@ main_components_MS[, MS_5_date := pmin(combination_diag_spec_MS_2,
                                     component_MS_HOSP_2,
                                     pmax(combination_diag_spec_MS_1, component_MS_HOSP_1), na.rm = T)]
 
-smart_save(merge(D3_study_population_SAP1, main_components_MS, all.x = T,
+# Select the components calculated on the whole dataset
+main_components_MS_whole <- copy(main_components_MS)[length_lookback == "whole", ]
+main_components_MS_whole <- main_components_MS_whole[, c("length_lookback", "at_least_5_years_of_lookback_at_20191231",
+                                                         "at_least_10_years_of_lookback_at_20191231") := NULL]
+
+smart_save(merge(D3_study_population_SAP1, main_components_MS_whole, all.x = T,
                  by = c("person_id", "cohort_entry_date", "cohort_exit_date")),
            dirtemp, override_name = "D3_components_MS_SAP1")
+
+# Select the components calculated on the whole dataset
+main_components_MS <- main_components_MS[length_lookback != "whole", ]
+
+# Select algorithms columns and remove components
+algo_cols <- colnames(main_components_MS)[grepl("_[0-9]_date", colnames(main_components_MS))]
+not_algo_cols <- colnames(main_components_MS)[grepl("component_|combination_", colnames(main_components_MS))]
+main_components_MS <- main_components_MS[, (not_algo_cols) := NULL]
+
+# Remove impossible values
+main_components_MS <- main_components_MS[!(at_least_10_years_of_lookback_at_20191231 == 0 & length_lookback %in% c("8", "all")), ]
+
+# Lookback period to wide
+main_components_MS <- data.table::dcast(main_components_MS,
+                          person_id + cohort_entry_date + cohort_exit_date + at_least_5_years_of_lookback_at_20191231 +
+                            at_least_10_years_of_lookback_at_20191231 ~ length_lookback,
+                          drop = T, value.var = algo_cols)
+
+cols_to_change <- colnames(main_components_MS)[grepl("^MS_[0-9]_", colnames(main_components_MS))]
+new_col_names <- sapply(strsplit(cols_to_change, "_"), function(x) paste0("M", paste(x[2], x[4], x[3], sep = "_")))
+setnames(main_components_MS, cols_to_change, new_col_names)
+
+smart_save(main_components_MS, dirtemp, override_name = "D3_components_multiple_lookback_MS")
