@@ -133,7 +133,7 @@ combination_algo <- data.table::melt(combination_algo,
 
 # first combination for MS
 first_comb <- MergeFilterAndCollapse(list(combination_algo),
-                                     condition = "meaning_renamed %in% c('HOSP', 'PC', 'SPECIALIST', 'LONGTERM',
+                                     condition = "meaning_renamed %in% c('HOSP', 'PC', 'OUTPATIENT_NO_PC', 'LONGTERM',
                                      'DMT_SPEC', 'UNSPECIFIED') & concept =='MS'",
                                      strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
                                                 "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
@@ -151,7 +151,7 @@ if (nrow(first_comb) != 0) {
 
 # second combination for MS
 second_comb <- MergeFilterAndCollapse(list(combination_algo),
-                                      condition = "meaning_renamed %in% c('PC', 'SPECIALIST', 'UNSPECIFIED') & concept =='MS'",
+                                      condition = "meaning_renamed %in% c('PC', 'OUTPATIENT_NO_PC', 'UNSPECIFIED') & concept =='MS'",
                                       strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
                                                  "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
                                       summarystat = list(c("second", "date")))
@@ -160,7 +160,7 @@ if (nrow(second_comb) != 0) {
                                      at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ concept,
                                    drop = T, value.var = c("second_date"))
   setnames(second_comb, colnames(second_comb)[grepl("MS", colnames(second_comb))],
-           paste("combination_diag_specialist_PC_unspec_MS", 2, sep = "_"))
+           paste("combination_diag_outpatient_no_pc_PC_unspec_MS", 2, sep = "_"))
   main_components_MS <- merge(main_components_MS, second_comb, all = T,
                            by = c("person_id", "cohort_entry_date", "cohort_exit_date", "length_lookback",
                                   "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"))
@@ -168,14 +168,14 @@ if (nrow(second_comb) != 0) {
 
 # Add any missing variable as a missing date and create the correct order
 full_var_names <- c(paste("component_MS_HOSP", c(1, 2, 3, 4), sep = "_"),
-                    paste("component_MS_SPECIALIST", c(1, 2, 3, 4), sep = "_"),
+                    paste("component_MS_OUTPATIENT_NO_PC", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_UNSPECIFIED", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_PC", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_LONGTERM", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_SPEC_DMT", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_UNSPEC_DMT", c(1, 2, 3, 4), sep = "_"),
                     paste("combination_diag_spec_MS", c(1, 2, 3), sep = "_"),
-                    paste("combination_diag_specialist_PC_unspec_MS", 2, sep = "_"))
+                    paste("combination_diag_outpatient_no_pc_PC_unspec_MS", 2, sep = "_"))
 cols_to_add <- setdiff(full_var_names, colnames(main_components_MS))
 main_components_MS[, (cols_to_add) := as.Date(as.double(NA_integer_))]
 setcolorder(main_components_MS, c("person_id", "cohort_entry_date", "cohort_exit_date", "length_lookback",
