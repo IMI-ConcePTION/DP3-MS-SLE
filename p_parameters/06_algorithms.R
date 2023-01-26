@@ -11,7 +11,7 @@ meanings_of_this_study[["LONGTERM"]] = c("exemption","long_term_diagnosis")
 
 
 condmeaning <- list()
-for (level1 in c("HOSP","PC","OUTPATIENT_NO_PC","LONGTERM")) {
+for (level1 in names(meanings_of_this_study)) {
   for (meaning in meanings_of_this_study[[level1]]) {
     if (length(condmeaning[[level1]])==0) {condmeaning[[level1]]=paste0("meaning_renamed == '",meanings_of_this_study[[level1]][[1]],"'")
     }else{
