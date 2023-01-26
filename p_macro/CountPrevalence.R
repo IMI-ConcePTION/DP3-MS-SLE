@@ -16,6 +16,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   print("Assign date format to Start_study_time and End_study_time")
   Start_study_time<-as.IDate(as.character(Start_study_time,"%Y%m%d"),"%Y%m%d")
   End_study_time<-as.IDate(as.character(End_study_time,"%Y%m%d"),"%Y%m%d")
+
   ################################################################################################################################
   #create the object used as choosen key (between key and unit of observation)
   if(!is.null(key)) {
@@ -44,6 +45,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   cols_to_keep_cohort=c(id_columns_tokeep,Start_date,End_date)
   if (!is.null(Strata)) cols_to_keep_cohort<-c(cols_to_keep_cohort,Strata)
   if (!is.null(Birth_date)) cols_to_keep_cohort<-c(cols_to_keep_cohort,Birth_date)
+
   
   if (Type_prevalence == "point") { 
     if (!is.null(Points_in_time)) {
@@ -58,7 +60,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     if (!is.null(Periods_of_time)) {
       if(Periods_of_time[[1]][[1]] %in% names(Dataset_cohort)) {
         cols_to_keep_cohort<-c(cols_to_keep_cohort,unlist(lapply(Periods_of_time, `[[`, 1)),unlist(lapply(Periods_of_time, `[[`, 2)))
-        cols_to_keep_cohort<-c(cols_to_keep_cohort,Points_in_time)
+        cols_to_keep_cohort<-unique(c(cols_to_keep_cohort,Points_in_time))
       }
     }
   }
@@ -381,6 +383,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       #compute all the overlaps between Dataset_cohort and the dataset containig the computed periods
       setkeyv(Dataset_cohort,c(Start_date,End_date))
       setkeyv(DT2,colnames(DT2))
+
       Dataset_cohort<-foverlaps(Dataset_cohort,DT2)
       
       #expand the dataset containig the computed periods (DT2) as many times as the number of unique id in Dataset_cohort
@@ -418,6 +421,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     # Dataset_cohort<-Dataset_cohort[!is.na(get(Start_date)),value1:=c( as.IDate("19900101","%Y%m%d"),value1[-1]),by=choosen_key]
     
     setkeyv(Dataset_cohort,c(choosen_key,"value1","value2"))
+    
     dataset<-foverlaps(Dataset_cohort,Dataset_events)
     
     dataset[,cond_date2:=NULL]
@@ -465,10 +469,12 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       start_period_dates<-unlist(lapply(Periods_of_time, `[[`, 1))
       end_period_dates<-unlist(lapply(Periods_of_time, `[[`, 2))
       
+
       if(start_period_dates[[1]] %in% names(Dataset_cohort)) {
         if (length(start_period_dates)==1){
-          setnames(Dataset_cohort,start_period_dates,"value1")
-          setnames(Dataset_cohort,end_period_dates,"value2")
+            Dataset_cohort[,value1:=get(start_period_dates)]
+          Dataset_cohort[,value2:=get(end_period_dates)]
+
         }else{
           id_variables<-c(id_columns_tokeep,Start_date,End_date )
           if (!is.null(Strata)) id_variables<-c(id_variables,Strata)
@@ -476,7 +482,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
         }
         Dataset_cohort<-Dataset_cohort[!is.na(value1),]
       }else{
-        start_period_dates<-as.IDate(start_period_dates,"%Y%m%d")
+        start_period_dates<- Dataset_cohort[,get(start_period_dates)]
         end_period_dates<-as.IDate(end_period_dates,"%Y%m%d")
       }
       
@@ -525,6 +531,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       DT2<- data.table(value1=start_period_dates,value2=end_period_dates)
       
       #compute all the overlaps between Dataset_cohort and the dataset containig the computed periods
+
       setkeyv(Dataset_cohort,c(Start_date,End_date))
       setkeyv(DT2,colnames(DT2))
       Dataset_cohort<-foverlaps(Dataset_cohort,DT2)

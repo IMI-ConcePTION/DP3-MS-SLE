@@ -84,21 +84,21 @@ for (outcome in OUTCOME_variables) {
     components_lookback <- components_lookback[!is.na(date_algo)]
     temp <- CountPrevalence(D3_study_population_SAP1,
                     components_lookback[grepl(paste0("M[0-9]_", x,"-"), algorithm), ], "person_id",
-                    Start_date = "cohort_entry_date",
-                    End_date = "cohort_exit_date", Birth_date = "birth_date",
+                    Start_date = "censored_entry_date",
+                    End_date = "cohort_exit_date", 
                     Name_condition = "algorithm", Date_condition = "date_algo",
                     Type_prevalence = "period",
-                    Periods_of_time = list(c("censored_entry_date", "cohort_exit_date_2")),
+                    Periods_of_time = list(c("censored_entry_date", "cohort_exit_date")),
                     Start_study_time = recommended_start_date, End_study_time = study_end,
                     Conditions = unique(components_lookback[grepl(paste0("M[0-9]_", x,"-"), algorithm), algorithm]),
                     include_remaning_ages = F,
-                    Age_bands = ageband_definition, Aggregate = F)
+                    Aggregate = F)
     temp <- temp[, timeframe := NULL]
     
   })
   
-  MergedDT = Reduce(function(...) merge(..., all = T, by = c("person_id", "cohort_entry_date", "cohort_exit_date",
-                                                             "in_population", "")), period_prevalence)
+  MergedDT = Reduce(function(...) merge(..., all = T, by = c("person_id", "censored_entry_date", "cohort_exit_date",
+                                                             "in_population" )), period_prevalence)
   period_prevalence <- rbindlist(period_prevalence, fill = T)
   
   # Remove period not in population
