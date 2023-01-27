@@ -30,10 +30,16 @@ recommended_start_date_vect[['THL']] <- ymd(20150101)
 recommended_start_date_vect[['EFEMERIS']] <- ymd(20050101)
 recommended_start_date_vect[['UOSL']] <- ymd(20090101)
 recommended_start_date_vect[['FISABIO']] <- ymd(20100101)
-recommended_start_date_vect[['Wales']] <- ymd(19980101)
+recommended_start_date_vect[['SAIL Databank']] <- ymd(19980101)
 
-recommended_start_date <- fifelse(thisdatasource %not in% names(recommended_start_date_vect),
-                   ymd(19000101), recommended_start_date_vect[[thisdatasource]])
+if (thisdatasource %not in% names(recommended_start_date_vect)) {
+  stop(paste0("DATASOURCE not present inside the list: ",
+             paste(names(recommended_start_date_vect), collapse = ", "),
+             ".\nPlease open an issue"))
+}
+
+
+recommended_start_date <- recommended_start_date_vect[[thisdatasource]]
 rm(recommended_start_date_vect)
 
 ageband_definition <- c(15, 19, 24, 29, 34, 39, 44, 49)
