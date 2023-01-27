@@ -208,6 +208,11 @@ smart_save(merge(D3_study_population_SAP1, main_components_MS_whole, all.x = T,
                  by = c("person_id", "cohort_entry_date", "cohort_exit_date")),
            dirtemp, override_name = "D3_components_MS_SAP1")
 
+if (thisdatasource %in% c("EFEMERIS", "THL")) {
+  print(paste("D3_components_multiple_lookback_", outcome, " can't be calculated in datasource EFEMERIS and THL"))
+  next
+}
+
 # Select the components calculated on the whole dataset
 main_components_MS <- main_components_MS[length_lookback != "whole", ]
 
