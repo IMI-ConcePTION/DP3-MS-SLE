@@ -59,7 +59,7 @@ for (outcome in OUTCOME_variables) {
                                  summarystat = list(c("sum", "flag_algo", "numerator"),
                                                     c("count", "person_id", "denominator")))
   
-  smart_save(algo_look, dirtemp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_"))
+  smart_save(algo_look, direxp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_"))
 }
 
 
