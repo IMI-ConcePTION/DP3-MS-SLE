@@ -26,6 +26,11 @@ min_spell_lenght <- 365
 recommended_start_date_vect <- vector(mode = "list")
 recommended_start_date_vect[['ARS']] <- ymd(20030101)
 recommended_start_date_vect[['TEST']] <- ymd(20030101)
+recommended_start_date_vect[['THL']] <- ymd(20150101)
+recommended_start_date_vect[['EFEMERIS']] <- ymd(20050101)
+recommended_start_date_vect[['UOSL']] <- ymd(20090101)
+recommended_start_date_vect[['FISABIO']] <- ymd(20100101)
+recommended_start_date_vect[['Wales']] <- ymd(19980101)
 
 recommended_start_date <- fifelse(thisdatasource %not in% names(recommended_start_date_vect),
                    ymd(19000101), recommended_start_date_vect[[thisdatasource]])
