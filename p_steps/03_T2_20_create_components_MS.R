@@ -128,13 +128,16 @@ rm(component_algo)
 combination_algo <- data.table::melt(combination_algo,
                                      id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date",
                                                  "meaning_renamed", "concept", "length_lookback",
-                                                 "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
-                                     measure.vars = c("component_1", "component_2"), value.name = "date")[, variable := NULL]
+                                                 "at_least_5_years_of_lookback_at_20191231",
+                                                 "at_least_10_years_of_lookback_at_20191231"),
+                                     measure.vars = c("component_1", "component_2"),
+                                     value.name = "date", na.rm = T)[, variable := NULL]
 
 # first combination for MS
 first_comb <- MergeFilterAndCollapse(list(combination_algo),
                                      condition = "meaning_renamed %in% c('HOSP', 'PC', 'OUTPATIENT_NO_PC', 'LONGTERM',
                                      'DMT_SPEC', 'UNSPECIFIED') & concept =='MS'",
+                                     sorting = c("person_id", "date"),
                                      strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
                                                 "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
                                      summarystat = list(c("first", "date"), c("second", "date"), c("third", "date")))
@@ -152,6 +155,7 @@ if (nrow(first_comb) != 0) {
 # second combination for MS
 second_comb <- MergeFilterAndCollapse(list(combination_algo),
                                       condition = "meaning_renamed %in% c('PC', 'OUTPATIENT_NO_PC', 'UNSPECIFIED') & concept =='MS'",
+                                      sorting = c("person_id", "date"),
                                       strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
                                                  "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
                                       summarystat = list(c("second", "date")))
