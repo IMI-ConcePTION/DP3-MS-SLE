@@ -1,13 +1,6 @@
 #-----------------------------------
 # general parameters of the program
 #-----------------------------------
-
-#---------------------------------------
-# list of data sources
-# to be specified for each project
-
-# datasources <- c("TEST","ARS","BIPS","BIFAP","FISABIO","SIDIAP","PEDIANET","PHARMO")
-#---------------------------------------
 # understand which datasource the script is querying
 
 #setwd("..")
