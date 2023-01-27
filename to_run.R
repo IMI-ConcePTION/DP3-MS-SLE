@@ -1,14 +1,11 @@
 #-------------------------------
 # sample script for IMI ConcePTION Demonstration Projects
 
-# authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina, Giorgio Limoncella
+# authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina
 # based on previous scripts 
 
-# v 2.0 - 25 September 2022
-# Improve of the scriptbased on CVM script 
-
-# v 1.0 - 27 June 2022
-# Initial release
+# v0.1 - 27 January 2022
+# Beta release with just MS
 
 rm(list=ls(all.names=TRUE))
 
@@ -16,14 +13,6 @@ rm(list=ls(all.names=TRUE))
 if (!require("rstudioapi")) install.packages("rstudioapi")
 thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
-
-#-------------------------------
-# @DAP: please modify the following parameter
-# dirinput: set it to the directory where your CDM instance is stored
-dirinput <- paste0(thisdir,"/i_simulated_data_instance/")
-
-# dirpregnancyinput: set it to the directory where your CDM instance is stored
-dirpregnancyinput <- paste0(thisdir,"/i_simulated_data_instance/pregnancy/")
 
 #----------------
 #LOAD PARAMTETERS
@@ -47,40 +36,36 @@ source(paste0(thisdir,"/p_parameters/99_saving_all_parameters.R")) #SAVING AND C
 # CREATE EXCLUSION CRITERIA and CHECK CORRECT DATE OF BIRTH
 launch_step("p_steps/01_T2_10_create_persons.R")
 
-#COMPUTE SPELLS OF TIME FROM OBSERVATION_PERIODS
+# COMPUTE SPELLS OF TIME FROM OBSERVATION_PERIODS
 launch_step("p_steps/01_T2_20_apply_CreateSpells.R")
 
 # APPLY THE FUNCTION CreateConceptSetDatasets TO CREATE ONE DATASET PER CONCEPT SET CONTAINING ONLY RECORDS WITH CODES OF INTEREST
 launch_step("p_steps/01_T2_31_CreateConceptSetDatasets.R")
 
-# RETRIEVE ITEMSET DATASETS
+# RETRIEVE ITEMSET DATASETS AND PROMPT DATASETS
 launch_step("p_steps/01_T2_32_CreateItemSetDatasets.R")
-
-# RETRIEVE PROMPT DATASETS
 launch_step("p_steps/01_T2_33_CreatePromptSetDatasets.R")
 
 # CLEAN THE SPELLS
 launch_step("p_steps/01_T2_40_clean_spells.R")
 
-# CREATE EXCLUSION CRITERIA for persons/spells
+# CREATE EXCLUSION CRITERIA for persons/spells AND APPLY THME TO GET THE STUDY POPULATION
 launch_step("p_steps/01_T2_50_selection_criteria_from_PERSON_to_study_population.R")
-
 launch_step("p_steps/02_T3_10_create_study_population.R")
 
+# CREATE COMPONENTS AND ALGORITHMS
 launch_step("p_steps/03_T2_10_create_study_population_baseline_variables.R")
 launch_step("p_steps/03_T2_20_create_components_MS.R")
 launch_step("p_steps/03_T2_30_create_algorithms_MS.R")
+
+# COMPUTE PREVALENCE
 launch_step("p_steps/03_T3_40_compute_period_prevalence_MS.R")
 launch_step("p_steps/03_T3_41_compute_persontime_prevalence_MS.R")
 launch_step("p_steps/03_T3_42_compute_monthly_point_prevalence_MS.R")
+
+# AGGREGATE PREVALENCE
 launch_step("p_steps/03_T3_50_aggregate_prevalence_MS.R")
 launch_step("p_steps/03_T3_51_point_prevalence_multiple_lookback.R")
+
+# COMPUTE BASIC STATISTICS
 launch_step("p_steps/04_T4_10_create_N_women_and_ranges_MS.R")
-
-
-#will run after the definition of algorithms and variables 
-
-# launch_step("p_steps/03_T2_10_create_D3_outcomes_simple_algorithm.R")
-# launch_step("p_steps/03_T2_11_create_D3_outcomes_complex_algorithm.R")
-# launch_step("p_steps/03_T2_12_create_D3_event_outcomes_ALL.R")
-# launch_step("p_steps/03_T2_40_create_study_population_main_variables.R")
