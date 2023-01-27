@@ -23,7 +23,7 @@ for (outcome in OUTCOME_variables) {
   algo_look[at_least_10_years_of_lookback_at_20191231 == 1, at_least_10_years_of_lookback_at_20191231 := 10]
   
   # Select algorithms columns
-  algo_cols <- colnames(algo_look)[grepl("M[0-9]_([0-9]|all)_date", colnames(algo_look))]
+  algo_cols <- colnames(algo_look)[grepl("M[0-9]_([0-9]|all)", colnames(algo_look))]
   
   # Lookback to a single column
   algo_look <- data.table::melt(algo_look, id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date", algo_cols),
@@ -40,39 +40,27 @@ for (outcome in OUTCOME_variables) {
   algo_look <- data.table::melt(algo_look, id.vars = c("person_id", "years_of_lookback_at_20191231"),
                                 measure.vars = algo_cols,
                                 variable.name = "algorithm", variable.factor = F,
-                                value.name = "date_algo")
+                                value.name = "flag_algo")
   
-  # Clean the algorithm columns and add the years off lookback
-  algo_look[, algorithm := gsub("_date", "", algorithm)]
-  algo_look[, algorithm := paste(algorithm, years_of_lookback_at_20191231, sep = "-")]
-  algo_cols <- paste(gsub("_date", "", algo_cols), unique(algo_look[, years_of_lookback_at_20191231]), sep = "-")
-  algo_look[, years_of_lookback_at_20191231 := NULL]
+  # # Extract years of lookback from algorithm
+  # algo_look[, algo_lookback := sapply(strsplit(algorithm, "_"), function(x) x[2])]
+  # 
+  # # Recode all
+  # algo_look <- algo_look[algo_lookback == "all", algo_lookback := "99"][, algo_lookback := as.integer(algo_lookback)]
+  # 
+  # # Keep correct denominator
+  # algo_look <- algo_look[(algo_lookback <= 5 & years_of_lookback_at_20191231 == 5) |
+  #                          (algo_lookback > 5 & years_of_lookback_at_20191231 == 10), ]
+  # algo_look[, algo_lookback := NULL]
   
-  # Add birth date from study_population
-  smart_load("D3_study_population_SAP1", dirtemp)
-  D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, start_observation_period = entry_spell_category,
-                                                           cohort_entry_date, cohort_exit_date, birth_date)]
+  algo_look <- MergeFilterAndCollapse(list(algo_look),
+                                 condition = "flag_algo == 1",
+                                 additionalvar = list(c("person_denominator", "years_of_lookback_at_20191231")),
+                                 strata = c("algorithm", "years_of_lookback_at_20191231"),
+                                 summarystat = list(c("sum", "flag_algo", "numerator"),
+                                                    c("sum", "person_denominator", "denominator")))
   
-  period_prevalence <- CountPrevalence(D3_study_population_SAP1,
-                                       algo_look, "person_id",
-                                       Start_date = "cohort_entry_date",
-                                       End_date = "cohort_exit_date", Birth_date = "birth_date",
-                                       Name_condition = "algorithm", Date_condition = "date_algo",
-                                       Type_prevalence = "period", Increment_period = "year",
-                                       Start_study_time = recommended_start_date, End_study_time = study_end,
-                                       Conditions = algo_cols,
-                                       include_remaning_ages = F,
-                                       Age_bands = ageband_definition)
-  
-  # Algorithm to a single column
-  algo_look <- data.table::melt(algo_look, id.vars = c("person_id", "years_of_lookback_at_20191231"),
-                                measure.vars = algo_cols,
-                                variable.name = "algorithm", variable.factor = F,
-                                value.name = "date_algo")
-  
-  
-  smart_save(algorithms_dates_spells_short,
-             dirtemp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_"))
+  smart_save(algo_look, dirtemp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_"))
 }
 
 
