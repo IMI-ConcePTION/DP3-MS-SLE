@@ -40,15 +40,15 @@ outcome_df[is.na(meaning_renamed) | meaning_renamed %not in% names(meanings_of_t
 # Load corresponding drug_proxy conceptsets
 dp_df <- rbindlist(lapply(DP_variables, function(x) {
   meaning_components <- strsplit(x, "_|-")[[1]]
+  
+  # Recode meaning with names used in the algorithms
   meaning_renamed <- fifelse(!is.na(meaning_components[3]), paste0(meaning_components[1], "_", meaning_components[3]),
                              meaning_components[1])
   return(get(load(paste0(dirconceptsets, x, ".RData"))[[1]]
   )[, .(person_id, date)][, meaning_renamed := meaning_renamed][, concept := meaning_components[2]])}
 ))
 
-# Recode meaning with names used in the algorithms
-DP_variables_recoded <- unlist(lapply(strsplit(DP_variables, "_|-"),
-                                      function(x) {fifelse(!is.na(x[3]), paste0(x[1], "_", x[3]), x[1])}))
+# Combine outcomes and drug proxies
 concept_df <- rbindlist(list(outcome_df, dp_df))
 rm(outcome_df, dp_df)
 
@@ -120,6 +120,13 @@ main_components_SLE <- data.table::dcast(component_algo[concept == "SLE", ],
                                          person_id + cohort_entry_date + cohort_exit_date + length_lookback +
                                            at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ concept + meaning_renamed,
                                          drop = T, value.var = c("component_1", "component_2", "component_3", "component_4"))
+
+
+main_components <- data.table::dcast(component_algo,
+                                         person_id + cohort_entry_date + cohort_exit_date + length_lookback +
+                                           at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ concept + meaning_renamed,
+                                         drop = T, value.var = c("component_1", "component_2", "component_3", "component_4"))
+
 
 # Changing columns names to what specified in the codebook
 set_names_components <- function(x) {
@@ -208,7 +215,7 @@ main_components_MS[, MS_3_date := pmin(combination_diag_spec_MS_3,
                                     pmax(combination_diag_spec_MS_2, component_MS_UNSPEC_DMT_1),
                                     pmax(combination_diag_spec_MS_1, component_MS_UNSPEC_DMT_2), na.rm = T)]
 main_components_MS[, MS_4_date := pmin(component_MS_HOSP_1,
-                                    combination_diag_spec_MS_2, na.rm = T)]
+                                       combination_diag_specialist_PC_unspec_MS_2, na.rm = T)]
 main_components_MS[, MS_5_date := pmin(combination_diag_spec_MS_2,
                                     component_MS_HOSP_2,
                                     pmax(combination_diag_spec_MS_1, component_MS_HOSP_1), na.rm = T)]
