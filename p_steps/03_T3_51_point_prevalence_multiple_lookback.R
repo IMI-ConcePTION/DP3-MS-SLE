@@ -53,13 +53,14 @@ for (outcome in OUTCOME_variables) {
   #                          (algo_lookback > 5 & years_of_lookback_at_20191231 == 10), ]
   # algo_look[, algo_lookback := NULL]
   
-  test <- MergeFilterAndCollapse(list(algo_look),
+  algo_look <- MergeFilterAndCollapse(list(algo_look),
                                  condition = "!is.na(person_id)",
                                  strata = c("algorithm", "years_of_lookback_at_20191231"),
                                  summarystat = list(c("sum", "flag_algo", "numerator"),
                                                     c("count", "person_id", "denominator")))
   
-  smart_save(algo_look, direxp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_"))
+  smart_save(algo_look, direxp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_"),
+             extension = "RDS")
 }
 
 

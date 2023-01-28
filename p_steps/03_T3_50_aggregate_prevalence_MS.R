@@ -26,6 +26,7 @@ for (outcome in OUTCOME_variables) {
                                             use.names = T, fill = T)
   
   
-  smart_save(D4_prevalence_aggregated_all, direxp, override_name = paste("D4_prevalence_aggregated_all",
-                                                                            outcome, sep = "_"))
+  smart_save(D4_prevalence_aggregated_all, direxp,
+             override_name = paste("D4_prevalence_aggregated_all", outcome, sep = "_"),
+             extension = "RDS")
 }

@@ -48,7 +48,8 @@ for (outcome in OUTCOME_variables) {
                                                                      c("25p", "age", "age_25p"),
                                                                      c("75p", "age", "age_75p")))
   
-  smart_save(D5_N_women_and_ranges, direxp, override_name = paste("D5_N_women_and_ranges", outcome, sep = "_"))
+  smart_save(D5_N_women_and_ranges, direxp, override_name = paste("D5_N_women_and_ranges", outcome, sep = "_"),
+             extension = "RDS")
 }
 
 
