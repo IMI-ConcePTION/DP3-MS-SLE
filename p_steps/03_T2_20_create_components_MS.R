@@ -179,13 +179,13 @@ second_comb <- MergeFilterAndCollapse(list(combination_algo),
                                       sorting = c("person_id", "date"),
                                       strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
                                                  "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
-                                      summarystat = list(c("second", "date")))
+                                      summarystat = list(c("first", "date"), c("second", "date")))
 if (nrow(second_comb) != 0) {
   second_comb <- data.table::dcast(second_comb, person_id + cohort_entry_date + cohort_exit_date + length_lookback +
                                      at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ concept,
                                    drop = T, value.var = c("second_date"))
   setnames(second_comb, colnames(second_comb)[grepl("MS", colnames(second_comb))],
-           paste("combination_diag_outpatient_no_pc_PC_unspec_MS", 2, sep = "_"))
+           paste("combination_diag_outpatient_no_pc_PC_unspec_MS", c(1, 2), sep = "_"))
   main_components_MS <- merge(main_components_MS, second_comb, all = T,
                            by = c("person_id", "cohort_entry_date", "cohort_exit_date", "length_lookback",
                                   "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"))
@@ -200,7 +200,7 @@ full_var_names <- c(paste("component_MS_HOSP", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_SPEC_DMT", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_UNSPEC_DMT", c(1, 2, 3, 4), sep = "_"),
                     paste("combination_diag_spec_MS", c(1, 2, 3), sep = "_"),
-                    paste("combination_diag_outpatient_no_pc_PC_unspec_MS", 2, sep = "_"))
+                    paste("combination_diag_outpatient_no_pc_PC_unspec_MS", c(1, 2), sep = "_"))
 cols_to_add <- setdiff(full_var_names, colnames(main_components_MS))
 main_components_MS[, (cols_to_add) := as.Date(as.double(NA_integer_))]
 setcolorder(main_components_MS, c("person_id", "cohort_entry_date", "cohort_exit_date", "length_lookback",
@@ -216,9 +216,9 @@ main_components_MS[, MS_3_date := pmin(combination_diag_spec_MS_3,
                                     pmax(combination_diag_spec_MS_1, component_MS_UNSPEC_DMT_2), na.rm = T)]
 main_components_MS[, MS_4_date := pmin(component_MS_HOSP_1,
                                        combination_diag_specialist_PC_unspec_MS_2, na.rm = T)]
-main_components_MS[, MS_5_date := pmin(combination_diag_spec_MS_2,
+main_components_MS[, MS_5_date := pmin(combination_diag_specialist_PC_unspec_MS_2,
                                     component_MS_HOSP_2,
-                                    pmax(combination_diag_spec_MS_1, component_MS_HOSP_1), na.rm = T)]
+                                    pmax(combination_diag_specialist_PC_unspec_MS_1, component_MS_HOSP_1), na.rm = T)]
 
 # Select the components calculated on the whole dataset
 main_components_MS_whole <- copy(main_components_MS)[length_lookback == "whole", ]
