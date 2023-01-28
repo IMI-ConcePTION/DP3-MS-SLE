@@ -16,10 +16,24 @@ outcome_df <- rbindlist(lapply(OUTCOME_variables, function(x) {
   )[, .(person_id, date, meaning_renamed)][, concept := x])}
 ))
 
-# Recode meaning with names used in the algorithms
+# Create dataset with meaning to recode
 out <- lapply(names(meanings_of_this_study),
               function(x) data.table(meaning_renamed = meanings_of_this_study[[x]], new = x))
 out <- data.table::rbindlist(out)
+
+# Count meaning occurences and save it in direxp
+meaning_occurences <- copy(outcome_df)[out, on = "meaning_renamed", meaning_recoded := i.new]
+setnames(meaning_occurences, "meaning_renamed", "original_meaning")
+meaning_occurences[is.na(meaning_recoded) | meaning_recoded %not in% names(meanings_of_this_study), meaning_recoded := "UNSPECIFIED"]
+
+meaning_occurences <- MergeFilterAndCollapse(list(meaning_occurences),
+                                             condition = "!is.na(person_id)",
+                                             strata = c("concept", "original_meaning", "meaning_recoded"),
+                                             summarystat = list(c("count", "person_id", "count")))
+smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences", extension = "RDS")
+
+
+# Recode meaning with names used in the algorithms
 outcome_df[out, on = "meaning_renamed", meaning_renamed := i.new]
 outcome_df[is.na(meaning_renamed) | meaning_renamed %not in% names(meanings_of_this_study), meaning_renamed := "UNSPECIFIED"]
 
