@@ -3,6 +3,7 @@
 # output: D3_clean_spells
 
 for (outcome in OUTCOME_variables) {
+  print(outcome)
   
   if (thisdatasource %in% c("EFEMERIS", "THL")) {
     print(paste("D4_prevalence_aggregated_multiple_lookback", outcome, " can't be calculated in datasource EFEMERIS and THL"))

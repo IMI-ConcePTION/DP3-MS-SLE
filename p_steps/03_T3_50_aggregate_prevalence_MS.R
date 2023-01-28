@@ -2,10 +2,8 @@
 # input: D3_study_population_SAP1, conceptset
 # output: D3_clean_spells
 
-#TODO remove when activating SLE
-OUTCOME_variables <- "MS"
-
 for (outcome in OUTCOME_variables) {
+  print(outcome)
   
   # Load period prevalence
   D4_prevalence_period <- smart_load(paste("D4_prevalence_period", outcome, sep = "_"), diroutput, return = T)
