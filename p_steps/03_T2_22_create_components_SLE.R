@@ -53,7 +53,7 @@ full_var_names <- c(paste("component_SLE_HOSP", c(1, 2, 3, 4), sep = "_"),
                     paste("component_SLE_PC", c(1, 2, 3, 4), sep = "_"),
                     paste("component_SLE_LONGTERM", c(1, 2, 3, 4), sep = "_"),
                     paste("component_SLE_DMT", c(1, 2, 3, 4), sep = "_"),
-                    paste("combination_diag_spec_SLE", c(1, 2, 3), sep = "_"))
+                    paste("combination_diag_spec_SLE", c(1, 2, 3, 4), sep = "_"))
 cols_to_add <- setdiff(full_var_names, colnames(main_components_SLE))
 main_components_SLE[, (cols_to_add) := as.Date(as.double(NA_integer_))]
 setcolorder(main_components_SLE, c("person_id", "cohort_entry_date", "cohort_exit_date", "length_lookback",
@@ -61,17 +61,14 @@ setcolorder(main_components_SLE, c("person_id", "cohort_entry_date", "cohort_exi
                                   full_var_names))
 
 # Create the algorithSLE (For full specification see codebook)
-main_components_SLE[, SLE_1_date := combination_diag_spec_SLE_1]
-main_components_SLE[, SLE_2_date := pmin(combination_diag_spec_SLE_2,
-                                       pmax(combination_diag_spec_SLE_1, component_SLE_DMT_1), na.rm = T)]
-main_components_SLE[, SLE_3_date := pmin(combination_diag_spec_SLE_3,
-                                       pmax(combination_diag_spec_SLE_2, component_SLE_DMT_1),
-                                       pmax(combination_diag_spec_SLE_1, component_SLE_DMT_2), na.rm = T)]
-main_components_SLE[, SLE_4_date := pmin(component_SLE_HOSP_1,
-                                       combination_diag_specialist_PC_unspec_SLE_2, na.rm = T)]
-main_components_SLE[, SLE_5_date := pmin(combination_diag_specialist_PC_unspec_SLE_2,
-                                       component_SLE_HOSP_2,
-                                       pmax(combination_diag_specialist_PC_unspec_SLE_1, component_SLE_HOSP_1), na.rm = T)]
+main_components_SLE[, SLE_1_date := pmin(component_SLE_HOSP_1,
+                                         component_SLE_OUTPATIENT_NO_PC_2, na.rm = T)]
+main_components_SLE[, SLE_2_date := combination_diag_spec_SLE_1]
+main_components_SLE[, SLE_3_date := pmin(combination_diag_spec_SLE_2,
+                                         pmax(combination_diag_spec_SLE_1, component_SLE_DMT_1), na.rm = T)]
+main_components_SLE[, SLE_4_date := pmin(combination_diag_spec_SLE_3,
+                                         pmax(combination_diag_spec_SLE_2, component_SLE_DMT_1), na.rm = T)]
+main_components_SLE[, SLE_5_date := combination_diag_spec_SLE_4]
 
 # Select the components calculated on the whole dataset
 main_components_SLE_whole <- copy(main_components_SLE)[length_lookback == "whole", ]
@@ -99,7 +96,7 @@ algo_cols <- colnames(main_components_SLE)[grepl("_[0-9]_date", colnames(main_co
 not_algo_cols <- colnames(main_components_SLE)[grepl("component_|combination_", colnames(main_components_SLE))]
 main_components_SLE <- main_components_SLE[, (not_algo_cols) := NULL]
 
-# Remove impossible values
+# Remove impossible values (not 10 year with lookback 8 or all)
 main_components_SLE <- main_components_SLE[!(at_least_10_years_of_lookback_at_20191231 == 0 & length_lookback %in% c("8", "all")), ]
 
 # Lookback period to wide
