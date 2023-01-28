@@ -55,7 +55,9 @@ launch_step("p_steps/02_T3_10_create_study_population.R")
 
 # CREATE COMPONENTS AND ALGORITHMS
 launch_step("p_steps/03_T2_10_create_study_population_baseline_variables.R")
-launch_step("p_steps/03_T2_20_create_components_MS.R")
+launch_step("p_steps/03_T2_20_create_main_components.R")
+launch_step("p_steps/03_T2_21_create_components_MS.R")
+launch_step("p_steps/03_T2_22_create_components_SLE.R")
 launch_step("p_steps/03_T2_30_create_algorithms_MS.R")
 
 # COMPUTE PREVALENCE
