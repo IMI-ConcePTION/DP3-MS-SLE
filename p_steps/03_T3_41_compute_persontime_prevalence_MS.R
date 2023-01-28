@@ -2,10 +2,8 @@
 # input: D3_study_population_SAP1, conceptset
 # output: D3_clean_spells
 
-#TODO remove when activating SLE
-OUTCOME_variables <- "MS"
-
 for (outcome in OUTCOME_variables) {
+  print(outcome)
   
   # Load algorithms
   algo_df <- smart_load(paste("D3_algorithms", outcome, sep = "_"), dirtemp, return = T)
@@ -18,10 +16,8 @@ for (outcome in OUTCOME_variables) {
   D3_study_population_SAP1 <- D3_study_population_SAP1[, c("person_id", "cohort_entry_date", "cohort_exit_date",
                                                            "birth_date")]
   
-  type_algo_vect <- paste0("MS", seq_len(5))
-  
   rows_to_add <- data.table(person_id = D3_study_population_SAP1[1, person_id], date = ymd(99991231),
-                            algorithm = type_algo_vect)
+                            algorithm = unique(algo_df[, algorithm]))
   algo_df <- rbind(algo_df, rows_to_add)
   
   persontime_prevalence <- CountPersonTime(
@@ -37,7 +33,7 @@ for (outcome in OUTCOME_variables) {
     Date_event = "date",
     Age_bands = ageband_definition,
     Increment = "year",
-    Outcomes_nrec = type_algo_vect,
+    Outcomes_nrec = unique(algo_df[, algorithm]),
     Unit_of_age = "year",
     include_remaning_ages = F,
     Aggregate = T

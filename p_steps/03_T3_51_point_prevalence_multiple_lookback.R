@@ -2,12 +2,6 @@
 # input: D3_study_population_SAP1, conceptset
 # output: D3_clean_spells
 
-#TODO remove when activating SLE
-OUTCOME_variables <- "MS"
-
-# s = "all" is to be excluded for now
-s <- c(1, 2, 3, 5, 8)
-
 for (outcome in OUTCOME_variables) {
   
   if (thisdatasource %in% c("EFEMERIS", "THL")) {

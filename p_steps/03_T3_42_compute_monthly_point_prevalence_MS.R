@@ -2,10 +2,8 @@
 # input: D3_study_population_SAP1, conceptset
 # output: D3_clean_spells
 
-#TODO remove when activating SLE
-OUTCOME_variables <- "MS"
-
 for (outcome in OUTCOME_variables) {
+  print(outcome)
   
   # Load algorithms
   algo_df <- smart_load(paste("D3_algorithms", outcome, sep = "_"), dirtemp, return = T)
@@ -18,8 +16,6 @@ for (outcome in OUTCOME_variables) {
   D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, start_observation_period = entry_spell_category,
                                                            cohort_entry_date, cohort_exit_date, birth_date)]
   
-  type_algo_vect <- paste0("MS", seq_len(5))
-  
   period_prevalence <- CountPrevalence(D3_study_population_SAP1,
                                        algo_df, c("person_id"),
                                        Start_date = "cohort_entry_date",
@@ -27,7 +23,7 @@ for (outcome in OUTCOME_variables) {
                                        Name_condition = "algorithm", Date_condition = "date",
                                        Type_prevalence = "period", Increment_period = "month",
                                        Start_study_time = recommended_start_date, End_study_time = study_end,
-                                       Conditions = type_algo_vect, Strata = "start_observation_period",
+                                       Conditions = unique(algo_df[, algorithm]), Strata = "start_observation_period",
                                        include_remaning_ages = F,
                                        Age_bands = ageband_definition,
                                        Aggregate = F)
@@ -40,11 +36,14 @@ for (outcome in OUTCOME_variables) {
   period_prevalence[, n_month := month(timeframe)]
   period_prevalence[, timeframe := as.character(year(timeframe))]
   
+  # Select algorithms columns
+  algo_cols <- colnames(period_prevalence)[grepl("[MS|SLE][0-9]", colnames(period_prevalence))]
+  
   # Melt algorithms columns
   period_prevalence_long <- data.table::melt(period_prevalence,
                                              id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date",
                                                          "start_observation_period", "Ageband", "timeframe", "n_month"),
-                                             measure.vars = paste0("prev_MS", seq_len(5)), variable.name = "algorithm",
+                                             measure.vars = algo_cols, variable.name = "algorithm",
                                              variable.factor = F, value.name = "numerator")
   
   # Fix algorithms names

@@ -2,10 +2,8 @@
 # input: D3_study_population_SAP1, conceptset
 # output: D3_clean_spells
 
-#TODO remove when activating SLE
-OUTCOME_variables <- "MS"
-
 for (outcome in OUTCOME_variables) {
+  print(outcome)
   
   # Load algorithms
   algo_df <- smart_load(paste("D3_algorithms", outcome, sep = "_"), dirtemp, return = T)
@@ -17,8 +15,6 @@ for (outcome in OUTCOME_variables) {
   smart_load("D3_study_population_SAP1", dirtemp)
   D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, start_observation_period = entry_spell_category,
                                                            cohort_entry_date, cohort_exit_date, birth_date)]
-  
-  type_algo_vect <- paste0("MS", seq_len(5))
   
   period_prevalence <- CountPrevalence(D3_study_population_SAP1,
                                        algo_df, c("person_id"),
