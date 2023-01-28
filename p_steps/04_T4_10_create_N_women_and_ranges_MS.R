@@ -2,10 +2,8 @@
 # input: D3_study_population_SAP1, conceptset
 # output: D3_clean_spells
 
-#TODO remove when activating SLE
-OUTCOME_variables <- "MS"
-
 for (outcome in OUTCOME_variables) {
+  print(outcome)
   
   # Load components
   components <- smart_load(paste("D3_components", outcome, "SAP1", sep = "_"), dirtemp, return = T)
