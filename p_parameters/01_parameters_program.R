@@ -233,3 +233,13 @@ better_foverlaps <- function(x, y, by.x = if (!is.null(key(x))) key(x) else key(
   return(foverlaps(x = x, y = y, by.x = by.x, by.y = by.y, maxgap = maxgap, minoverlap = minoverlap, type = type,
                    mult = mult, nomatch = nomatch, which = which, verbose = verbose))
 }
+
+set_names_components <- function(x) {
+  cols_to_change <- names(x)[grepl("component", names(x))]
+  new_cols_names <- lapply(strsplit(cols_to_change, "_"), function (y) {
+    fifelse(is.na(y[5]), paste(y[1], y[3], y[4], y[2], sep = "_"), paste(y[1], y[3], y[5], y[4], y[2], sep = "_"))
+  })
+  setnames(x, cols_to_change, unlist(new_cols_names))
+  return(x)
+}
+
