@@ -43,3 +43,5 @@ recommended_start_date <- recommended_start_date_vect[[thisdatasource]]
 rm(recommended_start_date_vect)
 
 ageband_definition <- c(15, 19, 24, 29, 34, 39, 44, 49)
+
+s <- c(1, 2, 3, 5, 8, "all")
