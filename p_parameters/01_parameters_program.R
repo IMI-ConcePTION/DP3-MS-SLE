@@ -178,6 +178,8 @@ smart_save <- function(df, folder, subpop = F, extension = "qs", override_name =
     qs::qsave(df, file_name, preset = "high", nthreads = parallel::detectCores()/2)
   } else if (extension == ".fst") {
     fst::write.fst(df, file_name, compress = 100)
+  } else if (extension == ".csv") {
+    data.table::fwrite(df, file_name)
   } else {
     saveRDS(df, file_name)
   }
@@ -243,3 +245,8 @@ set_names_components <- function(x) {
   return(x)
 }
 
+stop_quietly <- function() {
+  opt <- options(show.error.messages = FALSE)
+  on.exit(options(opt))
+  stop()
+}
