@@ -23,8 +23,9 @@ for (outcome in OUTCOME_variables) {
   D4_prevalence_aggregated_all <- rbindlist(list(D4_prevalence_period, D4_prevalence_persontime, D4_prevalence_average_point),
                                             use.names = T, fill = T)
   
+  D4_prevalence_aggregated_all <- D4_prevalence_aggregated_all[, datasource := thisdatasource]
   
   smart_save(D4_prevalence_aggregated_all, direxp,
              override_name = paste("D4_prevalence_aggregated_all", outcome, sep = "_"),
-             extension = "RDS")
+             extension = "csv")
 }

@@ -54,8 +54,10 @@ for (outcome in OUTCOME_variables) {
                                  summarystat = list(c("sum", "flag_algo", "numerator"),
                                                     c("count", "person_id", "denominator")))
   
+  algo_look <- algo_look[, datasource := thisdatasource]
+  
   smart_save(algo_look, direxp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_"),
-             extension = "RDS")
+             extension = "csv")
 }
 
 

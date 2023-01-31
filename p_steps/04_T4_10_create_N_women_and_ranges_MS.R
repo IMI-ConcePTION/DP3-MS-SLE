@@ -47,7 +47,7 @@ for (outcome in OUTCOME_variables) {
                                                                      c("75p", "age", "age_75p")))
   
   smart_save(D5_N_women_and_ranges, direxp, override_name = paste("D5_N_women_and_ranges", outcome, sep = "_"),
-             extension = "RDS")
+             extension = "csv")
 }
 
 
