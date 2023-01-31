@@ -30,7 +30,7 @@ meaning_occurences <- MergeFilterAndCollapse(list(meaning_occurences),
                                              condition = "!is.na(person_id)",
                                              strata = c("concept", "original_meaning", "meaning_recoded"),
                                              summarystat = list(c("count", "person_id", "count")))
-smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences", extension = "RDS")
+smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences", extension = "csv")
 
 
 # Recode meaning with names used in the algorithms
@@ -95,6 +95,11 @@ component_lookback_algo <- lapply(s, function(x){
 })
 
 ### Repeat on the whole dataset
+# from multiple spell per person to single row
+concept_in_pop[, c("cohort_entry_date", "cohort_exit_date") := list(min(cohort_entry_date, na.rm = T),
+                                                                    max(cohort_exit_date, na.rm = T)), by = "person_id"]
+concept_in_pop[, entry_spell_category := NULL]
+
 concept_in_pop <- unique(concept_in_pop)
 component_algo <- MergeFilterAndCollapse(list(concept_in_pop),
                                          condition = "!is.na(meaning_renamed)",
