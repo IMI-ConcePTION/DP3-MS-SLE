@@ -29,7 +29,7 @@ combination_algo <- data.table::melt(combination_algo,
 
 # first combination for MS
 first_comb <- MergeFilterAndCollapse(list(combination_algo),
-                                     condition = "meaning_renamed %in% c('HOSP', 'PC', 'OUTPATIENT_NO_PC', 'LONGTERM',
+                                     condition = "meaning_renamed %in% c('INPATIENT', 'PC', 'OUTPATIENT_NO_PC', 'LONGTERM',
                                      'DMT_SPEC', 'UNSPECIFIED') & concept =='MS'",
                                      sorting = c("person_id", "date"),
                                      strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
@@ -65,7 +65,7 @@ if (nrow(second_comb) != 0) {
 }
 
 # Add any missing variable as a missing date and create the correct order
-full_var_names <- c(paste("component_MS_HOSP", c(1, 2, 3, 4), sep = "_"),
+full_var_names <- c(paste("component_MS_INPATIENT", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_OUTPATIENT_NO_PC", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_UNSPECIFIED", c(1, 2, 3, 4), sep = "_"),
                     paste("component_MS_PC", c(1, 2, 3, 4), sep = "_"),
@@ -87,11 +87,11 @@ main_components_MS[, MS_2_date := pmin(combination_diag_spec_MS_2,
 main_components_MS[, MS_3_date := pmin(combination_diag_spec_MS_3,
                                        pmax(combination_diag_spec_MS_2, component_MS_UNSPEC_DMT_1),
                                        pmax(combination_diag_spec_MS_1, component_MS_UNSPEC_DMT_2), na.rm = T)]
-main_components_MS[, MS_4_date := pmin(component_MS_HOSP_1,
+main_components_MS[, MS_4_date := pmin(component_MS_INPATIENT_1,
                                        combination_diag_outpatient_no_pc_PC_unspec_MS_2, na.rm = T)]
 main_components_MS[, MS_5_date := pmin(combination_diag_outpatient_no_pc_PC_unspec_MS_2,
-                                       component_MS_HOSP_2,
-                                       pmax(combination_diag_outpatient_no_pc_PC_unspec_MS_1, component_MS_HOSP_1), na.rm = T)]
+                                       component_MS_INPATIENT_2,
+                                       pmax(combination_diag_outpatient_no_pc_PC_unspec_MS_1, component_MS_INPATIENT_1), na.rm = T)]
 
 # Select the components calculated on the whole dataset
 main_components_MS_whole <- copy(main_components_MS)[length_lookback == "whole", ]
@@ -108,7 +108,7 @@ smart_save(merge(D3_study_population_SAP1, main_components_MS_whole, all.x = T,
 
 if (thisdatasource %in% c("EFEMERIS", "THL")) {
   print(paste("D3_components_multiple_lookback_", outcome, " can't be calculated in datasource EFEMERIS and THL"))
-  next
+  stop_quietly()
 }
 
 # Select the components calculated on the whole dataset

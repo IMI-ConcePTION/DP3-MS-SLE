@@ -29,7 +29,7 @@ combination_algo <- data.table::melt(combination_algo,
 
 # first combination for SLE
 first_comb <- MergeFilterAndCollapse(list(combination_algo),
-                                     condition = "meaning_renamed %in% c('HOSP', 'PC', 'OUTPATIENT_NO_PC', 'LONGTERM',
+                                     condition = "meaning_renamed %in% c('INPATIENT', 'PC', 'OUTPATIENT_NO_PC', 'LONGTERM',
                                      'UNSPECIFIED') & concept =='SLE'",
                                      sorting = c("person_id", "date"),
                                      strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
@@ -47,7 +47,7 @@ if (nrow(first_comb) != 0) {
 }
 
 # Add any missing variable as a missing date and create the correct order
-full_var_names <- c(paste("component_SLE_HOSP", c(1, 2, 3, 4), sep = "_"),
+full_var_names <- c(paste("component_SLE_INPATIENT", c(1, 2, 3, 4), sep = "_"),
                     paste("component_SLE_OUTPATIENT_NO_PC", c(1, 2, 3, 4), sep = "_"),
                     paste("component_SLE_UNSPECIFIED", c(1, 2, 3, 4), sep = "_"),
                     paste("component_SLE_PC", c(1, 2, 3, 4), sep = "_"),
@@ -61,7 +61,7 @@ setcolorder(main_components_SLE, c("person_id", "cohort_entry_date", "cohort_exi
                                   full_var_names))
 
 # Create the algorithSLE (For full specification see codebook)
-main_components_SLE[, SLE_1_date := pmin(component_SLE_HOSP_1,
+main_components_SLE[, SLE_1_date := pmin(component_SLE_INPATIENT_1,
                                          component_SLE_OUTPATIENT_NO_PC_2, na.rm = T)]
 main_components_SLE[, SLE_2_date := combination_diag_spec_SLE_1]
 main_components_SLE[, SLE_3_date := pmin(combination_diag_spec_SLE_2,
@@ -85,7 +85,7 @@ smart_save(merge(D3_study_population_SAP1, main_components_SLE_whole, all.x = T,
 
 if (thisdatasource %in% c("EFEMERIS", "THL")) {
   print(paste("D3_components_multiple_lookback_", outcome, " can't be calculated in datasource EFEMERIS and THL"))
-  next
+  stop_quietly()
 }
 
 # Select the components calculated on the whole dataset
