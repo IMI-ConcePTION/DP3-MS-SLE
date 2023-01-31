@@ -75,9 +75,14 @@ main_components_SLE_whole <- copy(main_components_SLE)[length_lookback == "whole
 main_components_SLE_whole <- main_components_SLE_whole[, c("length_lookback", "at_least_5_years_of_lookback_at_20191231",
                                                          "at_least_10_years_of_lookback_at_20191231") := NULL]
 
+# Load population and keep one line per person
 smart_load("D3_study_population_SAP1", dirtemp)
 D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, entry_spell_category, cohort_entry_date,
                                                          cohort_exit_date)]
+D3_study_population_SAP1[, c("entry_spell_category", "cohort_entry_date", "cohort_exit_date") :=
+                           list(min(entry_spell_category, na.rm = T), min(cohort_entry_date, na.rm = T),
+                                max(cohort_exit_date, na.rm = T)), by = "person_id"]
+D3_study_population_SAP1 <- unique(D3_study_population_SAP1)
 
 smart_save(merge(D3_study_population_SAP1, main_components_SLE_whole, all.x = T,
                  by = c("person_id", "cohort_entry_date", "cohort_exit_date")),
