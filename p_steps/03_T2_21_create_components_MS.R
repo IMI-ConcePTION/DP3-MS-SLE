@@ -113,28 +113,29 @@ smart_save(merge(D3_study_population_SAP1, main_components_MS_whole, all.x = T,
 
 if (thisdatasource %in% c("EFEMERIS", "THL")) {
   print(paste("D3_components_multiple_lookback_MS can't be calculated in datasource EFEMERIS and THL"))
-  stop_quietly()
+} else {
+  
+  # Select the components calculated on the whole dataset
+  main_components_MS <- main_components_MS[length_lookback != "whole", ]
+  
+  # Select algorithms columns and remove components
+  algo_cols <- colnames(main_components_MS)[grepl("_[0-9]_date", colnames(main_components_MS))]
+  not_algo_cols <- colnames(main_components_MS)[grepl("component_|combination_", colnames(main_components_MS))]
+  main_components_MS <- main_components_MS[, (not_algo_cols) := NULL]
+  
+  # Remove impossible values
+  main_components_MS <- main_components_MS[!(at_least_10_years_of_lookback_at_20191231 == 0 & length_lookback %in% c("8", "all")), ]
+  
+  # Lookback period to wide
+  main_components_MS <- data.table::dcast(main_components_MS,
+                                          person_id + cohort_entry_date + cohort_exit_date + at_least_5_years_of_lookback_at_20191231 +
+                                            at_least_10_years_of_lookback_at_20191231 ~ length_lookback,
+                                          drop = T, value.var = algo_cols)
+  
+  cols_to_change <- colnames(main_components_MS)[grepl("^MS_[0-9]_", colnames(main_components_MS))]
+  new_col_names <- sapply(strsplit(cols_to_change, "_"), function(x) paste0("M", paste(x[2], x[4], x[3], sep = "_")))
+  setnames(main_components_MS, cols_to_change, new_col_names)
+  
+  smart_save(main_components_MS, dirtemp, override_name = "D3_components_multiple_lookback_MS")
+  
 }
-
-# Select the components calculated on the whole dataset
-main_components_MS <- main_components_MS[length_lookback != "whole", ]
-
-# Select algorithms columns and remove components
-algo_cols <- colnames(main_components_MS)[grepl("_[0-9]_date", colnames(main_components_MS))]
-not_algo_cols <- colnames(main_components_MS)[grepl("component_|combination_", colnames(main_components_MS))]
-main_components_MS <- main_components_MS[, (not_algo_cols) := NULL]
-
-# Remove impossible values
-main_components_MS <- main_components_MS[!(at_least_10_years_of_lookback_at_20191231 == 0 & length_lookback %in% c("8", "all")), ]
-
-# Lookback period to wide
-main_components_MS <- data.table::dcast(main_components_MS,
-                                        person_id + cohort_entry_date + cohort_exit_date + at_least_5_years_of_lookback_at_20191231 +
-                                          at_least_10_years_of_lookback_at_20191231 ~ length_lookback,
-                                        drop = T, value.var = algo_cols)
-
-cols_to_change <- colnames(main_components_MS)[grepl("^MS_[0-9]_", colnames(main_components_MS))]
-new_col_names <- sapply(strsplit(cols_to_change, "_"), function(x) paste0("M", paste(x[2], x[4], x[3], sep = "_")))
-setnames(main_components_MS, cols_to_change, new_col_names)
-
-smart_save(main_components_MS, dirtemp, override_name = "D3_components_multiple_lookback_MS")
