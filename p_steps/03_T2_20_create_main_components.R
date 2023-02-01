@@ -60,8 +60,8 @@ outcome_df <- outcome_df %>%
   )) %>%
   as.data.table()
 
-# keep only value with cumulate == 0 (so first row or after threshold)
-outcome_df <- unique(outcome_df[diff_date == 0, ][, diff_date := NULL])
+# keep only value with cumulate == 0 (so first row or after threshold) or LONGTERM
+outcome_df <- unique(outcome_df[diff_date == 0 | meaning_renamed == "LONGTERM", ][, diff_date := NULL])
 
 # Load corresponding drug_proxy conceptsets
 dp_df <- rbindlist(lapply(DP_variables, function(x) {
