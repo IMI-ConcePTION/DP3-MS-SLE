@@ -73,8 +73,8 @@ for (outcome in OUTCOME_variables) {
   
   # Calculate the aggregated dataset by ageband
   aggregated_ageband <- copy(persontime_prevalence)[, lapply(.SD, sum), by = c("type_of_prevalence", "timeframe",
-                                                                           "algorithm", "Persontime"),
-                                                .SDcols = c("numerator", "denominator")]
+                                                                           "algorithm"),
+                                                .SDcols = c("numerator", "denominator", "Persontime")]
   aggregated_ageband[, ageband := "all"]
   persontime_prevalence <- rbindlist(list(persontime_prevalence, aggregated_ageband), use.names = T)
   
