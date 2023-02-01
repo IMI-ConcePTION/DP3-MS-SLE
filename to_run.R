@@ -4,6 +4,12 @@
 # authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina
 # based on previous scripts 
 
+# v0.2 - 27 January 2022
+# Added SLE
+# Combine EFEMERIS/THL spells in a single one for prevalence calculation. Not for lookback in D5
+# MS/SLE diagnosis as recurrent events
+# Minor fixes
+
 # v0.1 - 27 January 2022
 # Beta release with just MS
 
