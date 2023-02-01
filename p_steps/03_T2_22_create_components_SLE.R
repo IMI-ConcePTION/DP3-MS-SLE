@@ -89,7 +89,7 @@ smart_save(merge(D3_study_population_SAP1, main_components_SLE_whole, all.x = T,
            dirtemp, override_name = "D3_components_SLE_SAP1")
 
 if (thisdatasource %in% c("EFEMERIS", "THL")) {
-  print(paste("D3_components_multiple_lookback_", outcome, " can't be calculated in datasource EFEMERIS and THL"))
+  print(paste("D3_components_multiple_lookback_SLE can't be calculated in datasource EFEMERIS and THL"))
   stop_quietly()
 }
 
