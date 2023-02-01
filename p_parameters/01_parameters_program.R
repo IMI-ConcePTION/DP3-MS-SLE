@@ -67,6 +67,7 @@ thisdatasource <- as.character(CDM_SOURCE[1,3])
 instance_creation <- ymd(CDM_SOURCE[1,"date_creation"])
 recommended_end_date <- ymd(CDM_SOURCE[1,"recommended_end_date"])
 rm(CDM_SOURCE)
+# thisdatasource = "EFEMERIS"
 
 ###################################################################
 # CREATE EMPTY FILES
