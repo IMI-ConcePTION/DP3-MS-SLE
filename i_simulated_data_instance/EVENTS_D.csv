@@ -15,6 +15,7 @@ ConCDM_SIM_200421_00009,20071117,20071111,0088,ICD9,"","",no,"",hospitalisation_
 ConCDM_SIM_200421_00011,20081115,20081017,V3000,ICD9,"","",no,"",hospitalisation_primary,SDO,SDO_9
 ConCDM_SIM_200421_00012,20000630,20000424,0389,ICD9,"","",no,"",hospitalisation_primary,SDO,SDO_10
 ConCDM_SIM_200421_00012,20000630,20000424,340,ICD9CM,"","",no,"",hospitalisation_primary,SDO,SDO_10
+ConCDM_SIM_200421_00012,20000930,20000424,340,ICD9CM,"","",no,"",hospitalisation_primary,SDO,SDO_10
 ConCDM_SIM_200421_00012,20000630,20000424,5920,ICD9,"","",no,"",hospitalisation_secondary,SDO,SDO_10
 ConCDM_SIM_200421_00012,20100303,20100302,5920,ICD9,"","",no,"",hospitalisation_primary,SDO,SDO_11
 ConCDM_SIM_200421_00012,20100303,20100302,340,ICD9,"","",no,"",hospitalisation_primary,SDO,SDO_11
