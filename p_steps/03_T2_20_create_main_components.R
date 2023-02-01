@@ -37,6 +37,32 @@ smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences", 
 outcome_df[out, on = "meaning_renamed", meaning_renamed := i.new]
 outcome_df[is.na(meaning_renamed) | meaning_renamed %not in% names(meanings_of_this_study), meaning_renamed := "UNSPECIFIED"]
 
+### IMPORTANT recurrent event for MS and SLE
+# Create lag date
+outcome_df[, date := as.integer(date)]
+setorder(outcome_df, person_id, concept, meaning_renamed, date)
+outcome_df[, diff_date := date - shift(date, 1, first(date), "lag"), by = c("person_id", "concept", "meaning_renamed")]
+outcome_df[, date := as.Date(date, "1970-01-01")]
+
+# Cumulative sum with treshold
+sum_reset_at <- function(thresh) {
+  function(x) {
+    accumulate(x, ~if_else(.x + .y >= thresh, as.integer(0), .x + .y))
+  }  
+}
+
+outcome_df <- outcome_df %>%
+  tibble() %>% 
+  group_by(person_id) %>% 
+  mutate(diff_date = case_when(
+    concept == "MS" ~ sum_reset_at(30)(diff_date),
+    concept == "SLE" ~ sum_reset_at(28)(diff_date)
+  )) %>%
+  as.data.table()
+
+# keep only value with cumulate == 0 (so first row or after threshold)
+outcome_df <- unique(outcome_df[diff_date == 0, ][, diff_date := NULL])
+
 # Load corresponding drug_proxy conceptsets
 dp_df <- rbindlist(lapply(DP_variables, function(x) {
   meaning_components <- strsplit(x, "_|-")[[1]]
