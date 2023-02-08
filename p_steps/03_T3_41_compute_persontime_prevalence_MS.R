@@ -15,34 +15,50 @@ for (outcome in OUTCOME_variables) {
                                                        birth_date := ymd(20001107)]
   D3_study_population_SAP1 <- D3_study_population_SAP1[person_id == "ConCDM_SIM_200421_00628",
                                                        person_id := "ConCDM_SIM_200421_00629"]
+  
   # Clean name of algorithm
   algo_df[, algorithm := gsub("_", "", algorithm)]
+  algo_df <- algo_df[person_id == "ConCDM_SIM_200421_00629", date := ymd(20051107)]
   
   # Dcast to wide algorithm
-  algo_df[, flag := 1]
-  algo_df <- data.table::dcast(algo_df, person_id + date ~ algorithm, fill = 0, drop = T, value.var = "flag")
+  
+  
+  # TODO remove 
+  # algo_df[, flag := 1]
+  # algo_df <- data.table::dcast(algo_df, person_id + date ~ algorithm, fill = 0, drop = T, value.var = "flag")
+  algo_df <- algo_df[algorithm == "MS1", ]
   
   # Add observation period when persons are not positive
-  nrow_unique_algo_df <- length(unique(algo_df[, person_id]))
-  algo_df_negative <- data.table(person_id = unique(algo_df[, person_id]))
-  algo_df_negative[, (paste0(outcome, seq_len(5))) := 0]
-  
-  algo_df_negative <- merge(algo_df_negative,
-                            D3_study_population_SAP1[, .(date = start_observation_period), by = "person_id"],
-                            all.x = T, by = "person_id")
+  algo_df_negative <- copy(D3_study_population_SAP1)[, .(person_id, date = start_observation_period, algorithm = NA)]
   
   # Combine the datasets
-  algo_df <- rbindlist(list(algo_df, algo_df_negative), use.names = T)
+  algo_df <- rbindlist(list(algo_df, algo_df_negative))
   
   # Set keys and then foverlaps to find the events inside each spell
   setkey(D3_study_population_SAP1, person_id, start_observation_period, cohort_exit_date)
   setkey(algo_df, person_id, date, date)
   algo_df_pop <- better_foverlaps(D3_study_population_SAP1, algo_df, by.x = key(D3_study_population_SAP1))
+  temp <- copy(algo_df_pop)
+  # Remove additional row when event happen at the start of period
   
   algo_df_pop[, cohort_entry_date := pmax(date, cohort_entry_date, na.rm = T)]
   algo_df_pop[, cohort_exit_date := pmin(cohort_exit_date, shift(cohort_entry_date, type = "lead") - 1, na.rm = T),
               by = "person_id"]
+  
+  algo_df_pop <- algo_df_pop[cohort_exit_date >= cohort_entry_date, ]
+  
+  algo_df_pop[, algorithm := fifelse(is.na(algorithm), shift(algorithm, fill = NA), algorithm), by = "person_id"]
   algo_df_pop[, date := NULL]
+  
+  algo_df_pop[, flag := 1]
+  algo_df_pop <- data.table::dcast(algo_df_pop,
+                                   person_id + cohort_entry_date + cohort_exit_date + birth_date ~ algorithm, fill = 0, drop = T, value.var = "flag")
+  
+  
+  
+  
+  
+  
   algo_df_pop[, (paste0(outcome, seq_len(5))) := nafill(.SD, fill = 0), .SDcols = paste0(outcome, seq_len(5))]
   
 # temp <- data.table::dcast(algo_df_pop, person_id + date + ~ algorithm, drop = T)
