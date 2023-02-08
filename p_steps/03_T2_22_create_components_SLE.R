@@ -3,7 +3,7 @@
 # output: D3_clean_spells
 # Load person_id in study_populations
 
-component_algo <- smart_load("D3_main_components", dirtemp, return = T)
+component_algo <- smart_load("D3_main_components", dirtemp, return = T, extension = extension)
 
 # Meaning to wide as columns
 main_components_SLE <- data.table::dcast(component_algo[concept == "SLE", ],
@@ -76,7 +76,7 @@ main_components_SLE_whole <- main_components_SLE_whole[, c("length_lookback", "a
                                                          "at_least_10_years_of_lookback_at_20191231") := NULL]
 
 # Load population and keep one line per person
-smart_load("D3_study_population_SAP1", dirtemp)
+smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
 D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, entry_spell_category, cohort_entry_date,
                                                          cohort_exit_date)]
 D3_study_population_SAP1[, c("entry_spell_category", "cohort_entry_date", "cohort_exit_date") :=
@@ -86,7 +86,7 @@ D3_study_population_SAP1 <- unique(D3_study_population_SAP1)
 
 smart_save(merge(D3_study_population_SAP1, main_components_SLE_whole, all.x = T,
                  by = c("person_id", "cohort_entry_date", "cohort_exit_date")),
-           dirtemp, override_name = "D3_components_SLE_SAP1")
+           dirtemp, override_name = "D3_components_SLE_SAP1", extension = extension)
 
 if (thisdatasource %in% c("EFEMERIS", "THL")) {
   print(paste("D3_components_multiple_lookback_SLE can't be calculated in datasource EFEMERIS and THL"))
@@ -113,6 +113,6 @@ if (thisdatasource %in% c("EFEMERIS", "THL")) {
   new_col_names <- sapply(strsplit(cols_to_change, "_"), function(x) paste0("M", paste(x[2], x[4], x[3], sep = "_")))
   setnames(main_components_SLE, cols_to_change, new_col_names)
   
-  smart_save(main_components_SLE, dirtemp, override_name = "D3_components_multiple_lookback_SLE")
+  smart_save(main_components_SLE, dirtemp, override_name = "D3_components_multiple_lookback_SLE", extension = extension)
   
 }

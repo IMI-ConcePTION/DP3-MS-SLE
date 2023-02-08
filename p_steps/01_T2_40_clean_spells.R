@@ -4,8 +4,8 @@
 # output: D3_clean_spells
 
 # Load datasets
-smart_load("D3_PERSONS", dirtemp)
-smart_load("D3_output_spells_category", dirtemp)
+smart_load("D3_PERSONS", dirtemp, extension = extension)
+smart_load("D3_output_spells_category", dirtemp, extension = extension)
 
 # Combine persons and spells, then select only the column we need and create new ones
 person_spell <- merge(D3_output_spells_category, D3_PERSONS, all.x = T, by = "person_id")
@@ -68,4 +68,4 @@ person_spell[is_the_study_spell == 1, cohort_exit_date := pmin(exit_spell_catego
 person_spell[, cohort_entry_date_cleaned := data.table::fifelse(cohort_entry_date != entry_spell_category_crude, 0, 1)]
 person_spell[, cohort_exit_date_cleaned := data.table::fifelse(cohort_exit_date != exit_spell_category_crude, 0, 1)]
 
-smart_save(person_spell, dirtemp, override_name = "D3_clean_spells")
+smart_save(person_spell, dirtemp, override_name = "D3_clean_spells", extension = extension)

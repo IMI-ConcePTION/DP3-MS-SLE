@@ -4,10 +4,10 @@
 # output: D3_clean_spells
 
 # Load person_id in study_populations
-smart_load("D4_study_population_SAP1", diroutput)
+smart_load("D4_study_population_SAP1", diroutput, extension = extension)
 
 # Import the spells and clean
-smart_load("D3_clean_spells", dirtemp)
+smart_load("D3_clean_spells", dirtemp, extension = extension)
 D3_clean_spells <- D3_clean_spells[, .(person_id, entry_spell_category, exit_spell_category, birth_date,
                                        is_the_study_spell)]
 D3_clean_spells <- D3_clean_spells[is_the_study_spell == 1, ][, is_the_study_spell := NULL]
@@ -27,4 +27,4 @@ D3_study_population_SAP1[, age_at_entry_spell_category := age_fast(birth_date, c
 D3_study_population_SAP1[, for_n_years_in_study := age_fast(cohort_entry_date, cohort_exit_date + 1)]
 
 # Save the dataset
-smart_save(D3_study_population_SAP1, dirtemp)
+smart_save(D3_study_population_SAP1, dirtemp, extension = extension)

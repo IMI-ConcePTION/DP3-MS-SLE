@@ -6,8 +6,8 @@ for (outcome in OUTCOME_variables) {
   print(outcome)
   
   # Load algorithms and study_population
-  algo_df <- smart_load(paste("D3_algorithms", outcome, sep = "_"), dirtemp, return = T)
-  smart_load("D3_study_population_SAP1", dirtemp)
+  algo_df <- smart_load(paste("D3_algorithms", outcome, sep = "_"), dirtemp, return = T, extension = extension)
+  smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
   D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, start_observation_period = entry_spell_category,
                                                            cohort_entry_date, cohort_exit_date, birth_date)]
   # TODO remove for release
@@ -120,5 +120,6 @@ for (outcome in OUTCOME_variables) {
   aggregated_ageband[, ageband := "all"]
   persontime_prevalence <- rbindlist(list(persontime_prevalence, aggregated_ageband), use.names = T)
   
-  smart_save(persontime_prevalence, diroutput, override_name = paste("D4_prevalence_persontime", outcome, sep = "_"))
+  smart_save(persontime_prevalence, diroutput, override_name = paste("D4_prevalence_persontime", outcome, sep = "_"),
+             extension = extension)
 }

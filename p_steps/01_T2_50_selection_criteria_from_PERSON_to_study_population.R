@@ -6,7 +6,7 @@
 
 print('CREATE EXCLUSION CRITERIA FOR STUDY POPULATION')
 
-smart_load("D3_PERSONS", dirtemp)
+smart_load("D3_PERSONS", dirtemp, extension = extension)
 
 ### Create the criteria based on D3_PERSONS. They are the same for adults and children populations.
 # Remove persons with sex or birth day missing (recoded to year 9999)
@@ -20,7 +20,7 @@ D3_sel_cri[, not_female := fifelse(sex_at_instance_creation != "F", 1, 0)]
 D3_sel_cri <- D3_sel_cri[, .(person_id, sex_or_birth_date_is_not_defined, not_female)]
 
 # Import the spells and clean
-smart_load("D3_clean_spells", dirtemp)
+smart_load("D3_clean_spells", dirtemp, extension = extension)
 D3_clean_spells <- D3_clean_spells[, c("birth_date", "death_date", "entry_spell_category_crude",
                                        "exit_spell_category_crude", "op_meaning", "num_spell") := NULL]
 
@@ -122,4 +122,4 @@ D3_sel_cri <- merge(D3_sel_cri, D3_clean_spells, all.x = T, by = "person_id")
 # D3_sel_cri_spells[, c("entry_spell_category", "exit_spell_category") := NULL]
 
 # Saving exclusion criteria for populations
-smart_save(D3_sel_cri, dirtemp, override_name = "D3_selection_criteria_from_PERSONS_to_study_population")
+smart_save(D3_sel_cri, dirtemp, override_name = "D3_selection_criteria_from_PERSONS_to_study_population", extension = extension)

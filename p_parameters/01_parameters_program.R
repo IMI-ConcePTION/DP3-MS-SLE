@@ -10,6 +10,8 @@
 
 dirinput <- paste0(thisdir,"/i_simulated_data_instance/")
 
+extension = "rds"
+
 set_and_create_dir <- function(x) {
   x <- paste0(thisdir, x)
   dir.create(file.path(x), showWarnings = F)

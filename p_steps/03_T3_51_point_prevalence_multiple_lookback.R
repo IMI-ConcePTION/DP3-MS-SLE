@@ -11,7 +11,7 @@ for (outcome in OUTCOME_variables) {
   }
   
   # Load components
-  algo_look <- smart_load(paste("D3_algorithms_multiple_lookback", outcome, sep = "_"), dirtemp, return = T)
+  algo_look <- smart_load(paste("D3_algorithms_multiple_lookback", outcome, sep = "_"), dirtemp, return = T, extension = extension)
   
   # Recode all 1 to the length of lokkback
   algo_look[at_least_5_years_of_lookback_at_20191231 == 1, at_least_5_years_of_lookback_at_20191231 := 5]

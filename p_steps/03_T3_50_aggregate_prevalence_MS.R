@@ -6,16 +6,16 @@ for (outcome in OUTCOME_variables) {
   print(outcome)
   
   # Load period prevalence
-  D4_prevalence_period <- smart_load(paste("D4_prevalence_period", outcome, sep = "_"), diroutput, return = T)
+  D4_prevalence_period <- smart_load(paste("D4_prevalence_period", outcome, sep = "_"), diroutput, return = T, extension = extension)
   D4_prevalence_period <- D4_prevalence_period[grepl("-", timeframe) | ageband == "all", ]
   
   # Load persontime prevalence
-  D4_prevalence_persontime <- smart_load(paste("D4_prevalence_persontime", outcome, sep = "_"), diroutput, return = T)
+  D4_prevalence_persontime <- smart_load(paste("D4_prevalence_persontime", outcome, sep = "_"), diroutput, return = T, extension = extension)
   D4_prevalence_persontime[, Persontime := NULL]
   D4_prevalence_persontime <- D4_prevalence_persontime[grepl("-", timeframe) | ageband == "all", ]
   
   # Load average point prevalence
-  D4_prevalence_average_point <- smart_load(paste("D4_prevalence_average_point", outcome, sep = "_"), diroutput, return = T)
+  D4_prevalence_average_point <- smart_load(paste("D4_prevalence_average_point", outcome, sep = "_"), diroutput, return = T, extension = extension)
   D4_prevalence_average_point <- D4_prevalence_average_point[, lapply(.SD, sum, na.rm = T),
                                                              by = c("type_of_prevalence", "ageband",
                                                                     "timeframe", "algorithm"),

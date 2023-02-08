@@ -6,7 +6,7 @@ for (outcome in OUTCOME_variables) {
   print(outcome)
   
   # Load components
-  components <- smart_load(paste("D3_components", outcome, "SAP1", sep = "_"), dirtemp, return = T)
+  components <- smart_load(paste("D3_components", outcome, "SAP1", sep = "_"), dirtemp, return = T, extension = extension)
   
   # Select algorithms and components columns
   algo_cols <- colnames(components)[grepl("_[0-9]_date$", colnames(components))]
@@ -35,7 +35,7 @@ for (outcome in OUTCOME_variables) {
   components <- components[!is.na(date_component)]
   
   # Load D3_PERSONS and select on id and birth date
-  smart_load("D3_study_population_SAP1", dirtemp)
+  smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
   D3_study_population_SAP1 <- D3_study_population_SAP1[, c("person_id", "birth_date", "entry_spell_category",
                                                            "cohort_exit_date")]
   

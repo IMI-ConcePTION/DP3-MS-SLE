@@ -6,13 +6,13 @@ for (outcome in OUTCOME_variables) {
   print(outcome)
   
   # Load algorithms
-  algo_df <- smart_load(paste("D3_algorithms", outcome, sep = "_"), dirtemp, return = T)
+  algo_df <- smart_load(paste("D3_algorithms", outcome, sep = "_"), dirtemp, return = T, extension = extension)
   
   # Clean name of algorithm
   algo_df[, algorithm := gsub("_", "", algorithm)]
   
   # Add birth date from study_population
-  smart_load("D3_study_population_SAP1", dirtemp)
+  smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
   D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, start_observation_period = entry_spell_category,
                                                            cohort_entry_date, cohort_exit_date, birth_date)]
   
@@ -69,5 +69,5 @@ for (outcome in OUTCOME_variables) {
   period_prevalence <- rbindlist(list(period_prevalence, aggregated_ageband), use.names = T)
   
   
-  smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_period", outcome, sep = "_"))
+  smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension)
 }

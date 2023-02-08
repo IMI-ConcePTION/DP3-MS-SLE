@@ -6,7 +6,7 @@ for (outcome in OUTCOME_variables) {
   print(outcome)
   
   # Load components
-  components <- smart_load(paste("D3_components", outcome, "SAP1", sep = "_"), dirtemp, return = T)
+  components <- smart_load(paste("D3_components", outcome, "SAP1", sep = "_"), dirtemp, return = T, extension = extension)
   
   # Select algorithms columns
   algo_cols <- colnames(components)[grepl("_[0-9]_date", colnames(components))]
@@ -26,7 +26,7 @@ for (outcome in OUTCOME_variables) {
   # Remove row without a date
   D3_algorithms <- D3_algorithms[!is.na(date), ]
   
-  smart_save(D3_algorithms, dirtemp, override_name = paste("D3_algorithms", outcome, sep = "_"))
+  smart_save(D3_algorithms, dirtemp, override_name = paste("D3_algorithms", outcome, sep = "_"), extension = extension)
   
   if (thisdatasource %in% c("EFEMERIS", "THL")) {
     print(paste("D3_algorithms_multiple_lookback_", outcome, " can't be calculated in datasource EFEMERIS and THL"))
@@ -34,7 +34,7 @@ for (outcome in OUTCOME_variables) {
   }
   
   # Load components
-  components_lookback <- smart_load(paste("D3_components_multiple_lookback", outcome, sep = "_"), dirtemp, return = T)
+  components_lookback <- smart_load(paste("D3_components_multiple_lookback", outcome, sep = "_"), dirtemp, return = T, extension = extension)
   
   # remove at_least_n_years_of_lookback_at_20191231
   components_lookback[, c("at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231") := NULL]
@@ -53,7 +53,7 @@ for (outcome in OUTCOME_variables) {
   algo_cols <- gsub("_date", "", algo_cols)
   
   # Get study_population as dataset cohort
-  smart_load("D3_study_population_SAP1", dirtemp)
+  smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
   D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, entry_spell_category, cohort_entry_date,
                                                            cohort_exit_date)]
   
@@ -88,7 +88,8 @@ for (outcome in OUTCOME_variables) {
   algorithm_lookback[, at_least_10_years_of_lookback_at_20191231 := as.integer(length_spell >= 10)]
   algorithm_lookback[, length_spell := NULL]
   
-  smart_save(algorithm_lookback, dirtemp, override_name = paste("D3_algorithms_multiple_lookback", outcome, sep = "_"))
+  smart_save(algorithm_lookback, dirtemp, override_name = paste("D3_algorithms_multiple_lookback", outcome, sep = "_"),
+             extension = extension)
 }
 
 

@@ -3,7 +3,7 @@
 # output: D3_clean_spells
 # Load person_id in study_populations
 
-smart_load("D3_study_population_SAP1", dirtemp)
+smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
 D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, entry_spell_category, cohort_entry_date,
                                                          cohort_exit_date)]
 
@@ -141,4 +141,4 @@ rm(concept_in_pop)
 
 component_algo <- rbindlist(c(component_lookback_algo, list(component_algo)), fill = T)
 
-smart_save(component_algo, dirtemp, override_name = "D3_main_components")
+smart_save(component_algo, dirtemp, override_name = "D3_main_components", extension = extension)
