@@ -57,11 +57,11 @@ for (outcome in OUTCOME_variables) {
   
   # Recode the timeframe and add it to the original
   recoded_timeframe <- copy(period_prevalence_long)[, n_month := fcase(
-    timeframe == "2005" | timeframe == "2010" | timeframe == "2015", n_month + 12 * 0,
-    timeframe == "2006" | timeframe == "2011" | timeframe == "2016", n_month + 12 * 1,
-    timeframe == "2007" | timeframe == "2012" | timeframe == "2017", n_month + 12 * 2,
-    timeframe == "2008" | timeframe == "2013" | timeframe == "2018", n_month + 12 * 3,
-    timeframe == "2009" | timeframe == "2014" | timeframe == "2019", n_month + 12 * 4
+    timeframe == "2005" | timeframe == "2010" | timeframe == "2015", sprintf("%02d", n_month + 12 * 0),
+    timeframe == "2006" | timeframe == "2011" | timeframe == "2016", sprintf("%02d", n_month + 12 * 1),
+    timeframe == "2007" | timeframe == "2012" | timeframe == "2017", sprintf("%02d", n_month + 12 * 2),
+    timeframe == "2008" | timeframe == "2013" | timeframe == "2018", sprintf("%02d", n_month + 12 * 3),
+    timeframe == "2009" | timeframe == "2014" | timeframe == "2019", sprintf("%02d", n_month + 12 * 4)
   )]
   recoded_timeframe <- recoded_timeframe[.(timeframe = as.character(seq(2005, 2019)),
                                            to = c(rep(c("2005-2009", "2010-2014", "2015-2019"), each = 5))),
