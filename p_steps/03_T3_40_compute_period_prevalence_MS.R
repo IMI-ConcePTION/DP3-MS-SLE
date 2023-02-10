@@ -52,6 +52,13 @@ for (outcome in OUTCOME_variables) {
   setcolorder(period_prevalence, c("type_of_prevalence", "timeframe", "ageband", "numerator", "denominator",
                                    "algorithm"))
   
+  # Calculate the aggregated dataset by ageband
+  aggregated_ageband <- copy(period_prevalence)[, lapply(.SD, sum), by = c("type_of_prevalence", "timeframe",
+                                                                           "algorithm"),
+                                                .SDcols = c("numerator", "denominator")]
+  aggregated_ageband[, ageband := "all"]
+  period_prevalence <- rbindlist(list(period_prevalence, aggregated_ageband), use.names = T)
+  
   # Calculate the aggregated dataset by timeframe and add it to the original
   aggregated_timeframe <- copy(period_prevalence)[.(timeframe = as.character(seq(2005, 2019)),
                                                     to = c(rep(c("2005-2009", "2010-2014", "2015-2019"), each = 5))),
@@ -59,14 +66,11 @@ for (outcome in OUTCOME_variables) {
   aggregated_timeframe <- aggregated_timeframe[, lapply(.SD, sum), by = c("type_of_prevalence", "ageband", "timeframe",
                                                                           "algorithm"),
                                                .SDcols = c("numerator", "denominator")]
-  period_prevalence <- rbindlist(list(period_prevalence, aggregated_timeframe), use.names = T)
-  
-  # Calculate the aggregated dataset by ageband
-  aggregated_ageband <- copy(period_prevalence)[, lapply(.SD, sum), by = c("type_of_prevalence", "timeframe",
-                                                                             "algorithm"),
-                                               .SDcols = c("numerator", "denominator")]
-  aggregated_ageband[, ageband := "all"]
-  period_prevalence <- rbindlist(list(period_prevalence, aggregated_ageband), use.names = T)
+  tot_timeframe <- copy(period_prevalence)[, lapply(.SD, sum),
+                                           by = c("type_of_prevalence", "ageband", "algorithm"),
+                                           .SDcols = c("numerator", "denominator")]
+  tot_timeframe[, timeframe := "2005-2019"]
+  persontime_prevalence <- rbindlist(list(period_prevalence[ageband == "all"], aggregated_timeframe, tot_timeframe), use.names = T)
   
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension)
