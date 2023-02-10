@@ -4,6 +4,11 @@
 # authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina
 # based on previous scripts 
 
+# v0.3 - 10 February 2022
+# Censored spells in EFEMERIS/THL are removed
+# Fixed persontime calculation
+# Minor fixes
+
 # v0.2 - 27 January 2022
 # Added SLE
 # Combine EFEMERIS/THL spells in a single one for prevalence calculation. Not for lookback in D5
