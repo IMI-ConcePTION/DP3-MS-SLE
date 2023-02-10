@@ -16,7 +16,7 @@ selected_population <- CreateFlowChart(
   dataset = selection_criteria,
   listcriteria = c("sex_or_birth_date_is_not_defined", "not_female", "too_young_female", "too_old_female", "no_spells",
                    "all_spells_start_after_ending", "no_spell_overlapping_the_study_period",
-                   "less_than_12_months_fup"),
+                   "less_than_12_months_fup", "all_entry_spell_category_cleaned", "all_exit_spell_category_cleaned"),
   flowchartname = "Flowchart_exclusion_criteria")
 
 fwrite(get("Flowchart_exclusion_criteria"),
