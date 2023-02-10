@@ -3,9 +3,6 @@
 #-----------------------------------
 
 #study_years_datasource
-
-study_start <- ymd(20050101)
-
 study_end <- min(instance_creation, recommended_end_date, ymd(20191231), na.rm = T)
 rm(recommended_end_date)
 
@@ -42,6 +39,8 @@ if (thisdatasource %not in% names(recommended_start_date_vect)) {
 
 recommended_start_date <- recommended_start_date_vect[[thisdatasource]]
 rm(recommended_start_date_vect)
+
+study_start <- max(ymd(20050101), recommended_start_date)
 
 ageband_definition <- c(15, 19, 24, 29, 34, 39, 44, 49)
 
