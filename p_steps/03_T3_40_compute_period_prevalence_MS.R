@@ -70,7 +70,7 @@ for (outcome in OUTCOME_variables) {
                                            by = c("type_of_prevalence", "ageband", "algorithm"),
                                            .SDcols = c("numerator", "denominator")]
   tot_timeframe[, timeframe := "2005-2019"]
-  persontime_prevalence <- rbindlist(list(period_prevalence[ageband == "all"], aggregated_timeframe, tot_timeframe), use.names = T)
+  period_prevalence <- rbindlist(list(period_prevalence[ageband == "all"], aggregated_timeframe, tot_timeframe), use.names = T)
   
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension)
