@@ -22,7 +22,7 @@ person_spell[, entry_spell_category := data.table::fifelse(birth_date < entry_sp
 person_spell[, exit_spell_category := pmin(exit_spell_category_crude, death_date, birth_date + floor(50 * 365.25) - 1, na.rm = T)]
 
 # find spells that end before they start (using original start/end)
-person_spell[, starts_after_ending := data.table::fifelse(exit_spell_category <= exit_spell_category, 0, 1)]
+person_spell[, starts_after_ending := data.table::fifelse(exit_spell_category <= entry_spell_category, 0, 1)]
 
 # find spells that do not overlap the study period (using original start/end)
 person_spell[, no_overlap_study_period := data.table::fifelse(
@@ -36,7 +36,7 @@ person_spell[, exit_spell_category := pmin(exit_spell_category, study_end, na.rm
 
 # Find if person is too old or young when spell start/end
 person_spell[, too_old_at_start_spell := data.table::fifelse(entry_spell_category > exit_spell_category, 1, 0)]
-person_spell[, too_young_at_exit_spell := data.table::fifelse(exit_spell_category < birth_date + floor(15 * 365.25), 1, 0)]
+person_spell[, too_young_at_exit_spell := data.table::fifelse(exit_spell_category < birth_date + ceiling(15 * 365.25), 1, 0)]
 
 # find spells that are shorter than x days (using cleaned start/end)
 person_spell[, spell_less_than_12_months_fup := data.table::fifelse(
@@ -44,7 +44,7 @@ person_spell[, spell_less_than_12_months_fup := data.table::fifelse(
     thisdatasource %not in% c("EFEMERIS", "THL"), 1, 0)]
 
 # Calculate cohort entry and exit date (censor for age and study_start)
-person_spell[, cohort_entry_date := pmax(entry_spell_category, study_start, birth_date + floor(15 * 365.25))]
+person_spell[, cohort_entry_date := pmax(entry_spell_category, study_start, birth_date + ceiling(15 * 365.25))]
 person_spell[, cohort_exit_date := pmin(exit_spell_category, birth_date + floor(50 * 365.25) - 1)]
 
 # Create variable which says if the start/end of spell has been changed

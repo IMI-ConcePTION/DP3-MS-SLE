@@ -16,7 +16,7 @@ D3_clean_spells <- D3_clean_spells[is_the_study_spell == 1, ][, is_the_study_spe
 D3_study_population_SAP1 <- merge(D4_study_population_SAP1, D3_clean_spells, all.x = T, by = "person_id")
 
 # Calculate cohort entry and exit date (censor for age and study_start)
-D3_study_population_SAP1[, cohort_entry_date := pmax(entry_spell_category, study_start, birth_date + floor(15 * 365.25))]
+D3_study_population_SAP1[, cohort_entry_date := pmax(entry_spell_category, study_start, birth_date + ceiling(15 * 365.25))]
 D3_study_population_SAP1[, cohort_exit_date := pmin(exit_spell_category, birth_date + floor(50 * 365.25) - 1)]
 D3_study_population_SAP1[, exit_spell_category := NULL]
 
