@@ -9,7 +9,7 @@
 # Fixed period prevalence with aggregated agebands
 
 # v0.3.1 - 13 February 2022
-# Bugfix wrong dataset name
+# Fixed calculation of timeframe/age band in period prevalence
 
 # v0.3 - 10 February 2022
 # Censored spells in EFEMERIS/THL are removed
