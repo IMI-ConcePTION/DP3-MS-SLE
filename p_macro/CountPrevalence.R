@@ -469,7 +469,6 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       start_period_dates<-unlist(lapply(Periods_of_time, `[[`, 1))
       end_period_dates<-unlist(lapply(Periods_of_time, `[[`, 2))
       
-
       if(start_period_dates[[1]] %in% names(Dataset_cohort)) {
         if (length(start_period_dates)==1){
             Dataset_cohort[,value1:=get(start_period_dates)]
@@ -482,7 +481,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
         }
         Dataset_cohort<-Dataset_cohort[!is.na(value1),]
       }else{
-        start_period_dates<- Dataset_cohort[,get(start_period_dates)]
+        start_period_dates<- as.IDate(start_period_dates,"%Y%m%d")
         end_period_dates<-as.IDate(end_period_dates,"%Y%m%d")
       }
       
