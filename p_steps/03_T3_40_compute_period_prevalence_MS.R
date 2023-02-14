@@ -16,8 +16,7 @@ for (outcome in OUTCOME_variables) {
   D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, start_observation_period = entry_spell_category,
                                                            cohort_entry_date, cohort_exit_date, birth_date)]
   
-  period_prevalence <- CountPrevalence(D3_study_population_SAP1,
-                                       algo_df, c("person_id"),
+  period_prevalence <- CountPrevalence(D3_study_population_SAP1, algo_df, c("person_id"),
                                        Start_date = "cohort_entry_date",
                                        End_date = "cohort_exit_date", Birth_date = "birth_date",
                                        Name_condition = "algorithm", Date_condition = "date",
@@ -27,9 +26,29 @@ for (outcome in OUTCOME_variables) {
                                        include_remaning_ages = F,
                                        Age_bands = ageband_definition)
   
+  period_prevalence_aggregated <- CountPrevalence(D3_study_population_SAP1, algo_df, c("person_id"),
+                                                  Start_date = "cohort_entry_date",
+                                                  End_date = "cohort_exit_date", Birth_date = "birth_date",
+                                                  Name_condition = "algorithm", Date_condition = "date",
+                                                  Type_prevalence = "period",
+                                                  Periods_of_time = list(
+                                                    list("20050101", "20091231"),
+                                                    list("20100101", "20141231"),
+                                                    list("20150101", "20191231"),
+                                                    list("20050101", "20191231")
+                                                  ),
+                                                  Start_study_time = recommended_start_date, End_study_time = study_end,
+                                                  Conditions = unique(algo_df[, algorithm]),
+                                                  include_remaning_ages = F,
+                                                  Age_bands = ageband_definition)
+  
   # Extract year from timeframe
-  period_prevalence[, timeframe := as.Date(substr(timeframe, 1, 10))]
-  period_prevalence[, timeframe := year(timeframe)]
+  period_prevalence[, timeframe := year(as.Date(substr(timeframe, 1, 10)))]
+  period_prevalence_aggregated[, timeframe := paste(year(as.Date(substr(timeframe, 1, 10))),
+                                                    year(as.Date(substr(timeframe, 12, 21))), sep = "-")]
+  
+  # Combine datasets
+  period_prevalence <- rbindlist(list(period_prevalence, period_prevalence_aggregated))
   
   # Select algorithms columns
   algo_cols <- colnames(period_prevalence)[grepl("[MS|SLE][0-9]", colnames(period_prevalence))]
@@ -59,19 +78,8 @@ for (outcome in OUTCOME_variables) {
   aggregated_ageband[, ageband := "all"]
   period_prevalence <- rbindlist(list(period_prevalence, aggregated_ageband), use.names = T)
   
-  # Calculate the aggregated dataset by timeframe and add it to the original
-  aggregated_timeframe <- copy(period_prevalence)[.(timeframe = as.character(seq(2005, 2019)),
-                                                    to = c(rep(c("2005-2009", "2010-2014", "2015-2019"), each = 5))),
-                                                  on = "timeframe", timeframe := i.to]
-  aggregated_timeframe <- aggregated_timeframe[, lapply(.SD, sum), by = c("type_of_prevalence", "ageband", "timeframe",
-                                                                          "algorithm"),
-                                               .SDcols = c("numerator", "denominator")]
-  tot_timeframe <- copy(period_prevalence)[, lapply(.SD, sum),
-                                           by = c("type_of_prevalence", "ageband", "algorithm"),
-                                           .SDcols = c("numerator", "denominator")]
-  tot_timeframe[, timeframe := "2005-2019"]
-  period_prevalence <- rbindlist(list(period_prevalence[ageband == "all"], aggregated_timeframe, tot_timeframe), use.names = T)
-  
+  # Remove unnened values
+  period_prevalence <- period_prevalence[grepl("-", timeframe) | ageband == "all", ]
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension)
 }
