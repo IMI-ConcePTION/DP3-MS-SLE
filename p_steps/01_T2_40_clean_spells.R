@@ -43,9 +43,14 @@ person_spell[, spell_less_than_12_months_fup := data.table::fifelse(
   correct_difftime(exit_spell_category, entry_spell_category) < min_spell_lenght &
     thisdatasource %not in% c("EFEMERIS", "THL"), 1, 0)]
 
+# Calculate cohort entry and exit date (censor for age and study_start)
+person_spell[, cohort_entry_date := pmax(entry_spell_category, study_start, birth_date + floor(15 * 365.25))]
+person_spell[, cohort_exit_date := pmin(exit_spell_category, birth_date + floor(50 * 365.25) - 1)]
+
 # Create variable which says if the start/end of spell has been changed
-person_spell[, entry_spell_category_cleaned := data.table::fifelse(entry_spell_category != entry_spell_category_crude, 1, 0)]
-person_spell[, exit_spell_category_cleaned := data.table::fifelse(exit_spell_category != exit_spell_category_crude, 1, 0)]
+person_spell[, entry_spell_category_cleaned := data.table::fifelse(cohort_entry_date != entry_spell_category_crude, 1, 0)]
+person_spell[, exit_spell_category_cleaned := data.table::fifelse(cohort_exit_date != exit_spell_category_crude, 1, 0)]
+person_spell[, c("cohort_entry_date", "exit_spell_category_cleaned") := NULL]
 
 # add a criteria that identify the specific spell of interest
 person_spell[, is_the_study_spell := data.table::fifelse(starts_after_ending == 0 & no_overlap_study_period == 0 & too_old_at_start_spell == 0 & too_young_at_exit_spell == 0 & spell_less_than_12_months_fup == 0, 1, 0)]
