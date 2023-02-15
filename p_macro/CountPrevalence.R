@@ -530,7 +530,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       DT2<- data.table(value1=start_period_dates,value2=end_period_dates)
       
       #compute all the overlaps between Dataset_cohort and the dataset containig the computed periods
-
+      
       setkeyv(Dataset_cohort,c(Start_date,End_date))
       setkeyv(DT2,colnames(DT2))
       Dataset_cohort<-foverlaps(Dataset_cohort,DT2)
@@ -580,8 +580,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     #prepare the dataset for the dcast:
     #converte Date_condition in integer 
     # add "prev_" in all the column Name_condition
-    dataset[,(Date_condition):=as.integer(get(Date_condition))]
-    dataset<-unique(dataset[!is.na(get(Date_condition)),(Date_condition):=1])
+    dataset<-unique(dataset[, (Date_condition):= fifelse(!is.na(get(Date_condition)) & get(Date_condition) >= get(Start_date) & get(Date_condition) <= get(End_date), 1, 0)])
     dataset<-dataset[,(Name_condition):=paste0("prev_",gsub(" ", "",get(Name_condition)))]
     
     #define the formula for the dcast
@@ -591,7 +590,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     if (!is.null(Strata)) dcast_vars<-c(dcast_vars,Strata)
     
     f = as.formula(sprintf('%s ~ %s', paste(dcast_vars, collapse = "+ "), Name_condition))
-    
+
     dataset<-dcast(dataset,f, value.var = Date_condition ,fill=0)
     
     
