@@ -71,9 +71,9 @@ for (outcome in OUTCOME_variables) {
   algorithm_lookback[, c("timeframe", "in_population") := NULL]
   
   # TODO: remove when countprevalence is fixed
-  # Select algorithms columns that need to be recodede
+  # Select algorithms columns that need to be recoded
   cols_to_add <- colnames(algorithm_lookback)[grepl("^M[0-9]_([0-9]|all)", colnames(algorithm_lookback))]
-  algorithm_lookback[, (cols_to_add) := lapply(.SD, as.integer), .SDcols = cols_to_add]
+  algorithm_lookback[, (cols_to_add) := lapply(.SD, as.numeric), .SDcols = cols_to_add]
   
   cols_to_change <- colnames(algorithm_lookback)[grepl("^prev_", colnames(algorithm_lookback))]
   new_col_names <- sapply(strsplit(cols_to_change, "_"), function(x) paste(x[2], x[3], sep = "_"))
