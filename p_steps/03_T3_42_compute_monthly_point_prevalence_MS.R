@@ -39,6 +39,15 @@ for (outcome in OUTCOME_variables) {
   # Select algorithms columns
   algo_cols <- colnames(period_prevalence)[grepl("[MS|SLE][0-9]", colnames(period_prevalence))]
   
+  # Aggregate to get only one row per person/timeframe and then add it to the original dataset
+  period_prevalence_period_no_ageband <- copy(period_prevalence)[, lapply(.SD, max),
+                                                                 .SDcols = c(algo_cols),
+                                                                 by = c("timeframe", "person_id", "cohort_entry_date",
+                                                                        "cohort_exit_date", "start_observation_period",
+                                                                        "n_month")]
+  period_prevalence_period_no_ageband[, Ageband := "all"]
+  period_prevalence <- rbindlist(list(period_prevalence, period_prevalence_period_no_ageband), use.names = T)
+  
   # Melt algorithms columns
   period_prevalence_long <- data.table::melt(period_prevalence,
                                              id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date",
