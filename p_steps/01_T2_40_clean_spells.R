@@ -22,7 +22,7 @@ person_spell[, entry_spell_category := data.table::fifelse(birth_date < entry_sp
 person_spell[, exit_spell_category := pmin(exit_spell_category_crude, death_date, birth_date + floor(50 * 365.25) - 1, na.rm = T)]
 
 # find spells that end before they start (using original start/end)
-person_spell[, starts_after_ending := data.table::fifelse(exit_spell_category <= entry_spell_category, 0, 1)]
+person_spell[, starts_after_ending := data.table::fifelse(exit_spell_category < entry_spell_category, 1, 0)]
 
 # find spells that do not overlap the study period (using original start/end)
 person_spell[, no_overlap_study_period := data.table::fifelse(
@@ -50,7 +50,7 @@ person_spell[, cohort_exit_date := pmin(exit_spell_category, birth_date + floor(
 # Create variable which says if the start/end of spell has been changed
 person_spell[, entry_spell_category_cleaned := data.table::fifelse(cohort_entry_date != entry_spell_category_crude, 1, 0)]
 person_spell[, exit_spell_category_cleaned := data.table::fifelse(cohort_exit_date != exit_spell_category_crude, 1, 0)]
-person_spell[, c("cohort_entry_date", "exit_spell_category_cleaned") := NULL]
+person_spell[, c("cohort_entry_date", "cohort_exit_date") := NULL]
 
 # add a criteria that identify the specific spell of interest
 person_spell[, is_the_study_spell := data.table::fifelse(starts_after_ending == 0 & no_overlap_study_period == 0 & too_old_at_start_spell == 0 & too_young_at_exit_spell == 0 & spell_less_than_12_months_fup == 0, 1, 0)]
