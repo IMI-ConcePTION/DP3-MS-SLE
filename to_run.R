@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina
 # based on previous scripts 
 
+# v0.3.4 - 20 February 2022
+# Fixed persons counted multiple times inside a strata
+# Fixed months calculation
+
 # v0.3.3 - 16 February 2022
 # Fixed ageband "all" calculation
 # Remove possible 14th years old at study entry date
