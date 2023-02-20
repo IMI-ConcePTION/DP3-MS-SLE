@@ -61,6 +61,11 @@ for (outcome in OUTCOME_variables) {
   period_prevalence_period_no_ageband[, Ageband := "all"]
   period_prevalence <- rbindlist(list(period_prevalence, period_prevalence_period_no_ageband), use.names = T)
   
+  # Aggregate to get only one row per person/timeframe 
+  period_prevalence <- period_prevalence[, lapply(.SD, max),
+                                         .SDcols = c(algo_cols, "in_population"),
+                                         by = c("timeframe", "Ageband", "person_id")]
+  
   # Original aggregate inside countprevalence
   period_prevalence <- period_prevalence[, lapply(.SD, sum),
                                          .SDcols = c(algo_cols, "in_population"),
