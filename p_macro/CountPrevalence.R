@@ -563,8 +563,9 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     # Dataset_events<-merge(Dataset_events,Dataset_cohort[,.(choosen_key,Start_date)],all.x=T,by=choosen_key)
     
     #add the information on diagnosis (Dataset_events)
+
     Dataset_events[,cond_date2:=as.IDate(End_study_time)]
-    Dataset_events[,date:=as.IDate(date)]
+    Dataset_events[,date_algo:=as.IDate(date_algo)]
     setkeyv(Dataset_events,c(choosen_key,Date_condition,"cond_date2"))
     
     #Dataset_cohort<-Dataset_cohort[,Start_date_past:=NULL]
@@ -597,13 +598,12 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     
     #reorder and remove not necessary columns 
     setorder(dataset,"value1")
-    
     dataset<-dataset[,"value1":=NULL]
     if ("prev_NA" %in% colnames(dataset)) dataset<-dataset[,prev_NA:=NULL]
     
     #extract all the column names containing "prev_"
     cols<-colnames( dataset )[ grepl("^prev_", colnames( dataset )) ]
-    # dataset<-dataset[ in_population==1,(cols) := lapply(.SD, function(x)cummax(x)), .SDcols = cols,by=choosen_key] #non farlo per use
+    dataset<-dataset[ in_population==1,(cols) := lapply(.SD, function(x)cummax(x)), .SDcols = cols,by=choosen_key] #non farlo per use
     
   }
   
