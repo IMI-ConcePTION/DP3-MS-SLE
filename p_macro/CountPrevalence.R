@@ -565,7 +565,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     #add the information on diagnosis (Dataset_events)
 
     Dataset_events[,cond_date2:=as.IDate(End_study_time)]
-    Dataset_events[,date_algo:=as.IDate(date_algo)]
+    Dataset_events[,(Date_condition):=as.IDate(get(Date_condition))]
     setkeyv(Dataset_events,c(choosen_key,Date_condition,"cond_date2"))
     
     #Dataset_cohort<-Dataset_cohort[,Start_date_past:=NULL]
