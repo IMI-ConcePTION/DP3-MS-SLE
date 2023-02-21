@@ -563,7 +563,8 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     # Dataset_events<-merge(Dataset_events,Dataset_cohort[,.(choosen_key,Start_date)],all.x=T,by=choosen_key)
     
     #add the information on diagnosis (Dataset_events)
-    Dataset_events[,cond_date2:=get(Date_condition)]
+    Dataset_events[,cond_date2:=as.IDate(End_study_time)]
+    Dataset_events[,date:=as.IDate(date)]
     setkeyv(Dataset_events,c(choosen_key,Date_condition,"cond_date2"))
     
     #Dataset_cohort<-Dataset_cohort[,Start_date_past:=NULL]
@@ -580,7 +581,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     #prepare the dataset for the dcast:
     #converte Date_condition in integer 
     # add "prev_" in all the column Name_condition
-    dataset<-unique(dataset[, (Date_condition):= fifelse(!is.na(get(Date_condition)) & get(Date_condition) >= get(Start_date) & get(Date_condition) <= get(End_date), 1, 0)])
+    dataset<-unique(dataset[, (Date_condition):= fifelse(!is.na(get(Date_condition)) & get(Date_condition) <= get(End_date), 1, 0)])
     dataset<-dataset[,(Name_condition):=paste0("prev_",gsub(" ", "",get(Name_condition)))]
     
     #define the formula for the dcast
@@ -596,12 +597,13 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     
     #reorder and remove not necessary columns 
     setorder(dataset,"value1")
+    
     dataset<-dataset[,"value1":=NULL]
     if ("prev_NA" %in% colnames(dataset)) dataset<-dataset[,prev_NA:=NULL]
     
     #extract all the column names containing "prev_"
     cols<-colnames( dataset )[ grepl("^prev_", colnames( dataset )) ]
-    dataset<-dataset[ in_population==1,(cols) := lapply(.SD, function(x)cummax(x)), .SDcols = cols,by=choosen_key] #non farlo per use
+    # dataset<-dataset[ in_population==1,(cols) := lapply(.SD, function(x)cummax(x)), .SDcols = cols,by=choosen_key] #non farlo per use
     
   }
   
