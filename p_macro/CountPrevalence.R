@@ -603,7 +603,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     
     #extract all the column names containing "prev_"
     cols<-colnames( dataset )[ grepl("^prev_", colnames( dataset )) ]
-    dataset<-dataset[ in_population==1,(cols) := lapply(.SD, function(x)cummax(x)), .SDcols = cols,by=choosen_key] #non farlo per use
+    #dataset<-dataset[ in_population==1,(cols) := lapply(.SD, function(x)cummax(x)), .SDcols = cols,by=choosen_key] #non farlo per use
     
   }
   
