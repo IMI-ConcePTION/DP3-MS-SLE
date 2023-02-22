@@ -21,7 +21,7 @@ for (outcome in OUTCOME_variables) {
                                        Start_date = "cohort_entry_date",
                                        End_date = "cohort_exit_date", Birth_date = "birth_date",
                                        Name_condition = "algorithm", Date_condition = "date",
-                                       Type_prevalence = "period", Increment_period = "month",
+                                       Type_prevalence = "point", Increment = "month",
                                        Start_study_time = recommended_start_date, End_study_time = study_end,
                                        Conditions = unique(algo_df[, algorithm]), Strata = "start_observation_period",
                                        include_remaning_ages = F,
