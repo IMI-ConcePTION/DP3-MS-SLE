@@ -303,7 +303,10 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     
     setnames(dataset,"value","timeframe")
     cols<-paste0("prev_", Conditions)
-    myvector<-c(choosen_key,UoO_id,Start_date,End_date,"timeframe","in_population",cols)
+    myvector<-c(choosen_key,Start_date,End_date,"timeframe","in_population",cols)
+    if (choosen_key != UoO_id) myvector<-c(myvector, UoO_id)
+    if (!is.null(Age_bands)) myvector<-c(myvector, "Ageband")
+    if (!is.null(Strata)) myvector<-c(myvector, Strata)
     dataset<-unique(dataset[,..myvector])
     
     dataset<-dataset[,(cols) := lapply(.SD, function(x)max(x)), .SDcols = cols,by=c("timeframe",choosen_key)]
