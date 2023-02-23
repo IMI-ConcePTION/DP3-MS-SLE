@@ -4,9 +4,13 @@
 # authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina
 # based on previous scripts 
 
+# v0.3.6 - 23 February 2022
+# Fixed point prevalence numerator in CountPrevalence
+# Fill missing values as 0 in average point prevalence to get correct numerator/denominator
+
 # v0.3.5 - 22 February 2022
 # Average prevalence as point prevalence
-# Fixed for point prevalence in CountPrevalence
+# Fix for point prevalence in CountPrevalence
 
 # v0.3.4 - 20 February 2022
 # Fixed persons counted multiple times inside a strata
