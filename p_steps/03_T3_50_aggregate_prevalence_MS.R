@@ -22,8 +22,8 @@ for (outcome in OUTCOME_variables) {
                                                                     "timeframe", "algorithm", "person_id"),
                                                              .SDcols = c(paste("numerator", sprintf("%02d", seq_len(60)), sep="_"),
                                                                          paste("denominator", sprintf("%02d", seq_len(60)), sep="_"))]
-  
-  D4_prevalence_average_point <- D4_prevalence_average_point[, lapply(.SD, sum, na.rm = T),
+
+  D4_prevalence_average_point <- D4_prevalence_average_point[, lapply(.SD, sum),
                                                              by = c("type_of_prevalence", "ageband",
                                                                     "timeframe", "algorithm"),
                                                              .SDcols = c(paste("numerator", sprintf("%02d", seq_len(60)), sep="_"),
