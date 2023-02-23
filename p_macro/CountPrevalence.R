@@ -293,8 +293,8 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     if (!is.null(Strata)) dcast_vars<-c(dcast_vars,Strata)
     
     f = as.formula(sprintf('%s ~ %s', paste(dcast_vars, collapse = "+ "), Name_condition))
-    
-    dataset<-dcast(dataset,f, value.var = "constant" ,fill=0,fun.aggregate = length)
+
+    dataset<-dcast(dataset,f, value.var = "constant" ,fill=0)
     dataset<-dataset[,"NA":=NULL]
     
     cols_to_rename <- names(dataset)[names(dataset) %in% Conditions]
