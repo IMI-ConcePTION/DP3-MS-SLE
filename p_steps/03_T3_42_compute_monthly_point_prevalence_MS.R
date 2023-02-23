@@ -16,6 +16,11 @@ for (outcome in OUTCOME_variables) {
   D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, start_observation_period = entry_spell_category,
                                                            cohort_entry_date, cohort_exit_date, birth_date)]
   
+  # D3_study_population_SAP1[person_id == "ConCDM_SIM_200421_00628", person_id := "ConCDM_SIM_200421_00629"]
+  # D3_study_population_SAP1[person_id == "ConCDM_SIM_200421_00629", birth_date := ymd(19840201)]
+  # 
+  # algo_df[person_id == "ConCDM_SIM_200421_00629" & algorithm == "MS1", date := ymd(20050201)]
+  
   period_prevalence <- CountPrevalence(D3_study_population_SAP1,
                                        algo_df, c("person_id"),
                                        Start_date = "cohort_entry_date",
@@ -82,7 +87,7 @@ for (outcome in OUTCOME_variables) {
   
   # Month to wide as columns
   period_prevalence <- data.table::dcast(period_prevalence_long,
-                                         person_id + start_observation_period + cohort_entry_date + cohort_exit_date + type_of_prevalence + timeframe + Ageband + algorithm ~ n_month,
+                                         person_id + start_observation_period + cohort_entry_date + cohort_exit_date + type_of_prevalence + timeframe + Ageband + algorithm ~ n_month, fill = 0,
                                          drop = T, value.var = c("numerator", "denominator"))
   
   # Calculating additional variables
