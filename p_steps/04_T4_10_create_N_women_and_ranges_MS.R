@@ -64,9 +64,12 @@ for (outcome in OUTCOME_variables) {
                                                                      c("75p", "age", "age_75p")))
   
   D5_N_women_and_ranges <- D5_N_women_and_ranges[!is.na(component_name)]
-  D5_N_women_and_ranges <- D5_N_women_and_ranges[, lapply(.SD, round, 0), by = c("component_name", "N"),
-                                                 .SDcols = c("lookback_median", "lookback_25p", "lookback_75p",
-                                                             "age_median", "age_25p", "age_75p")]
+  D5_N_women_and_ranges <- D5_N_women_and_ranges[, lapply(.SD, round, 1), by = c("component_name", "N", "age_median",
+                                                                                 "age_25p", "age_75p"),
+                                                 .SDcols = c("lookback_median", "lookback_25p", "lookback_75p")]
+  D5_N_women_and_ranges <- D5_N_women_and_ranges[, lapply(.SD, round, 0), by = c("component_name", "N",
+                                                                                 "lookback_median", "lookback_25p", "lookback_75p"),
+                                                 .SDcols = c("age_median", "age_25p", "age_75p")]
   
   smart_save(D5_N_women_and_ranges, direxp, override_name = paste("D5_N_women_and_ranges", outcome, sep = "_"),
              extension = "csv")
