@@ -41,9 +41,12 @@ for (outcome in OUTCOME_variables) {
   
   # Calculate length of spell and then remove entry_spell_category
   D3_study_population_SAP1[, length_spell := difftime(cohort_exit_date, entry_spell_category, "days")]
+  D3_study_population_SAP1[, entry_spell_category := min(entry_spell_category), by = "person_id"]
+  D3_study_population_SAP1[, age_at_entry_spell := age_fast(birth_date, entry_spell_category)]
   D3_study_population_SAP1[, c("entry_spell_category", "cohort_exit_date") := NULL]
   
-  D3_study_population_SAP1 <- D3_study_population_SAP1[, lapply(.SD, sum), by = c("person_id", "birth_date"),
+  D3_study_population_SAP1 <- D3_study_population_SAP1[, lapply(.SD, sum),
+                                                       by = c("person_id", "birth_date", "age_at_entry_spell"),
                                                        .SDcols = "length_spell"]
   D3_study_population_SAP1[, length_spell := as.numeric(length_spell) / 365.25]
   
@@ -62,6 +65,22 @@ for (outcome in OUTCOME_variables) {
                                                                      c("median", "age", "age_median"),
                                                                      c("25p", "age", "age_25p"),
                                                                      c("75p", "age", "age_75p")))
+  
+  setnames(D3_study_population_SAP1, "age_at_entry_spell", "age")
+  D3_study_population_SAP1[, component_name := "Study population"]
+  
+  D5_N_women_and_ranges_tot <- MergeFilterAndCollapse(list(D3_study_population_SAP1),
+                                                  condition = "!is.na(person_id)",
+                                                  strata = c("component_name"),
+                                                  summarystat = list(c("count", "person_id", "N"),
+                                                                     c("median", "length_spell", "lookback_median"),
+                                                                     c("25p", "length_spell", "lookback_25p"),
+                                                                     c("75p", "length_spell", "lookback_75p"),
+                                                                     c("median", "age", "age_median"),
+                                                                     c("25p", "age", "age_25p"),
+                                                                     c("75p", "age", "age_75p")))
+  
+  D5_N_women_and_ranges <- rbindlist(list(D5_N_women_and_ranges, D5_N_women_and_ranges_tot))
   
   D5_N_women_and_ranges <- D5_N_women_and_ranges[!is.na(component_name)]
   D5_N_women_and_ranges <- D5_N_women_and_ranges[, lapply(.SD, round, 1), by = c("component_name", "N", "age_median",
