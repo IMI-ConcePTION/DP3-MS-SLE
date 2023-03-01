@@ -16,7 +16,7 @@ main_components_MS <- set_names_components(main_components_MS)
 
 ### Create the combinations
 # Remove unneded components and transform the dataset back to long format
-combination_algo <- component_algo[, c("component_3", "component_4") := NULL]
+combination_algo <- component_algo[, c("component_4") := NULL]
 rm(component_algo)
 
 combination_algo <- data.table::melt(combination_algo,
@@ -24,7 +24,7 @@ combination_algo <- data.table::melt(combination_algo,
                                                  "meaning_renamed", "concept", "length_lookback",
                                                  "at_least_5_years_of_lookback_at_20191231",
                                                  "at_least_10_years_of_lookback_at_20191231"),
-                                     measure.vars = c("component_1", "component_2"),
+                                     measure.vars = c("component_1", "component_2", "component_3"),
                                      value.name = "date", na.rm = T)[, variable := NULL]
 
 # first combination for MS
@@ -48,7 +48,7 @@ if (nrow(first_comb) != 0) {
 
 # second combination for MS
 second_comb <- MergeFilterAndCollapse(list(combination_algo),
-                                      condition = "meaning_renamed %in% c('PC', 'OUTPATIENT_NO_PC', 'UNSPECIFIED') & concept =='MS'",
+                                      condition = "meaning_renamed %in% c('PC', 'OUTPATIENT_NO_PC', 'UNSPECIFIED', 'LONGTERM') & concept =='MS'",
                                       sorting = c("person_id", "date"),
                                       strata = c("person_id", "cohort_entry_date", "cohort_exit_date", "concept", "length_lookback",
                                                  "at_least_5_years_of_lookback_at_20191231", "at_least_10_years_of_lookback_at_20191231"),
