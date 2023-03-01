@@ -4,6 +4,11 @@
 # authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina
 # based on previous scripts 
 
+# v0.3.7 - 01 March 2022
+# Fixed MS3
+# Added LONGTERM to MS4 and MS5
+# Changed rounding to lookback in final table and add population statistics
+
 # v0.3.6 - 23 February 2022
 # Fixed point prevalence numerator in CountPrevalence
 # Fill missing values as 0 in average point prevalence to get correct numerator/denominator
