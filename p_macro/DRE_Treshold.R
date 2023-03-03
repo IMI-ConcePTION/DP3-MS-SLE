@@ -1,28 +1,33 @@
-DRE_Treshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter, NAlist = NULL, FileContains = NULL){
+DRE_Treshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter = "auto", NAlist = NULL, FileContains = NULL){
   
-  files <- list.files(path = Inputfolder, recursive = T, pattern = paste0("*.", "csv$") )
-  if(!is.null(FileContains)) files <- files[grep(FileContains, files, fixed = T)]
+  if(is.null(FileContains)) FileContains <- "."
   
-  for(i in 1:length(files)){
-    
-    File <- fread(paste0(Inputfolder, '/', files[i]), sep = Delimiter, stringsAsFactors = F)
+  Inputfolder <- gsub("/$", "", Inputfolder)
+  Outputfolder <- gsub("/$", "", Outputfolder)
+  
+  files_names <- list.files(path = Inputfolder, recursive = T, pattern = "\\.csv$")
+  files_names <- files_names[grep(FileContains, files_names)]
+  
+  for (file_name in files_names) {
+    File <- fread(file.path(Inputfolder, file_name), sep = Delimiter, stringsAsFactors = F)
     
     if(any(colnames(File) %in% names(Varlist))) {
       
-      Varlist2 <- Varlist[names(Varlist)  %in% colnames(File)]
-      File[,(names(Varlist2)) := lapply(.SD,as.character), .SDcols=names(Varlist2)]
-      for(x in 1:length(Varlist2)) {
-        if(any(colnames(File) %in% NAlist)) File[as.numeric(get(names(Varlist2[x]))) < Varlist2[[x]],which(colnames(File) %in% NAlist)] <- NA
-        File[as.numeric(get(names(Varlist2[x]))) < Varlist2[[x]] & as.numeric(get(names(Varlist2[x]))) > 0 , eval(names(Varlist2[x])) := as.character(paste0("< ",Varlist2[x]))] 
+      Varlist_in_file <- Varlist[names(Varlist) %in% colnames(File)]
+      # File[, (names(Varlist_in_file)) := lapply(.SD, as.character), .SDcols = names(Varlist_in_file)]
+      
+      for(x in 1:length(Varlist_in_file)) {
+        Var_in_file <- names(Varlist_in_file[x])
+        
+        if(any(colnames(File) %in% NAlist)) File[get(Var_in_file) < Varlist_in_file[[x]], which(colnames(File) %in% NAlist)] <- NA
+        File[get(Var_in_file) < Varlist_in_file[[x]] & get(Var_in_file) > 0 , (Var_in_file) := paste0("< ", Varlist_in_file[x])] 
       }
     }
     
-    pos <- gregexpr(pattern ='/', files[i])[[1]]
-    pos <-pos[length(pos)]
-    temp_dir <- paste0(Outputfolder, "/", substr(files[i], 1, pos-1))
-    if(!dir.exists(temp_dir)) dir.create(temp_dir, showWarnings = T, recursive = T)
-    fwrite(File, file = paste0(Outputfolder, "/", files[i]), sep = Delimiter, col.names = T, row.names = F, na = "", append = F)
+    final_file_path <- file.path(Outputfolder, file_name)
+    temp_dir <- dirname(final_file_path)
     
+    if(!dir.exists(temp_dir)) dir.create(temp_dir, showWarnings = T, recursive = T)
+    fwrite(File, file = final_file_path, sep = Delimiter, col.names = T, row.names = F, na = "", append = F)
   }
-  
 }
