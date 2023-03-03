@@ -56,7 +56,7 @@ second_comb <- MergeFilterAndCollapse(list(combination_algo),
 if (nrow(second_comb) != 0) {
   second_comb <- data.table::dcast(second_comb, person_id + cohort_entry_date + cohort_exit_date + length_lookback +
                                      at_least_5_years_of_lookback_at_20191231 + at_least_10_years_of_lookback_at_20191231 ~ concept,
-                                   drop = T, value.var = c("second_date"))
+                                   drop = T, value.var = c("first_date", "second_date"))
   setnames(second_comb, colnames(second_comb)[grepl("MS", colnames(second_comb))],
            paste("combination_diag_outpatient_no_pc_PC_unspec_MS", c(1, 2), sep = "_"))
   main_components_MS <- merge(main_components_MS, second_comb, all = T,
