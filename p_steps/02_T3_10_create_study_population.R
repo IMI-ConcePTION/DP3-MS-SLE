@@ -23,3 +23,6 @@ fwrite(get("Flowchart_exclusion_criteria"),
        paste0(direxp, "Flowchart_exclusion_criteria.csv"))
 
 smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_study_population_SAP1", extension = extension)
+
+update_list("datasets_to_censor", dirpargen, "Flowchart_exclusion_criteria.csv")
+update_list("variables_to_censor", dirpargen, c("N" = 5))
