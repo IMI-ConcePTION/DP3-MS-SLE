@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina
 # based on previous scripts 
 
+# v0.3.8 - 03 March 2022
+# Fixed MS4, SLE3 and SLE5
+# Bugfix for combination_diag_outpatient_no_pc_PC_unspec_MS
+
 # v0.3.7 - 01 March 2022
 # Fixed MS3
 # Added LONGTERM to MS4 and MS5
