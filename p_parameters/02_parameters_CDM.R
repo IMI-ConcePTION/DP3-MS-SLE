@@ -238,7 +238,8 @@ if (length(ConcePTION_CDM_EAV_tables)!=0){
 # # THE NEXT LINES OF CODES ARE TO BE REVISED - ARE THEY STILL NECESSARY?
 # 
 # 
-files_par<- sub('\\.RData$', '',grep(list.files(dirpargen), pattern='parameters', invert=TRUE, value=TRUE))
+# files_par<- sub('\\.RData$', '',grep(list.files(dirpargen), pattern='parameters', invert=TRUE, value=TRUE))
+files_par <- list.files(dirpargen)[grepl("ConcePTION_CDM", list.files(dirpargen))]
 
 str<-c("ConcePTION_CDM_coding_system_list","ConcePTION_CDM_EAV_attributes")
 

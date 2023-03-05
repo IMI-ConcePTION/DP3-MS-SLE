@@ -58,6 +58,8 @@ source(paste0(dirmacro,"CreateSpells_v15.R"))
 source(paste0(dirmacro,"CreateFlowChart.R"))
 source(paste0(dirmacro,"CountPrevalence.R"))
 source(paste0(dirmacro,"CountPersonTimeV13.6.R"))
+source(paste0(dirmacro,"Smart_load.R"))
+source(paste0(dirmacro,"Smart_save.R"))
 source(paste0(dirmacro,"launch_step.R"))
 
 ###################################################################
@@ -123,6 +125,12 @@ file.copy(paste0(dirinput,'/INSTANCE.csv'), direxp, overwrite = T)
 file.copy(paste0(thisdir,'/to_run.R'), direxp, overwrite = T)
 
 #############################################
+#Add lists for censoring final dataset
+#############################################
+smart_save(c(), dirpargen, extension = ".rds", override_name = "datasets_to_censor")
+smart_save(c(), dirpargen, extension = ".rds", override_name = "variables_to_censor")
+
+#############################################
 #FUNCTION TO COMPUTE AGE
 #############################################
 
@@ -169,47 +177,6 @@ read_CDM_tables <- function(x) {
   return(final_table)
 }
 
-smart_save <- function(df, folder, subpop = F, extension = "qs", override_name = F) {
-  
-  subpop_str <- if (isFALSE(subpop)) "" else suffix[[subpop]]
-  df_name <- if (isFALSE(override_name)) deparse(substitute(df)) else override_name
-  extension <- if (!grepl("\\.", extension)) paste0(".", extension)
-  
-  file_name <- paste0(folder, df_name, subpop_str, extension)
-  
-  if (extension == ".qs") {
-    qs::qsave(df, file_name, preset = "high", nthreads = parallel::detectCores()/2)
-  } else if (extension == ".fst") {
-    fst::write.fst(df, file_name, compress = 100)
-  } else if (extension == ".csv") {
-    data.table::fwrite(df, file_name)
-  } else {
-    saveRDS(df, file_name)
-  }
-}
-
-smart_load <- function(df, folder, subpop = F, extension = "qs", return = F) {
-  
-  subpop_str <- if (isFALSE(subpop)) "" else suffix[[subpop]]
-  extension <- paste0(".", extension)
-  
-  file_name <- paste0(folder, df, subpop_str, extension)
-  if (extension == ".qs") {
-    tmp <- qs::qread(file_name, nthreads = parallel::detectCores()/2)
-  } else if (extension == ".fst") {
-    tmp <- fst::read.fst(file_name, as.data.table = T)
-  } else if  (extension == ".rds") {
-    tmp <- readRDS(file_name)
-  } else {
-    load(file_name, envir = .GlobalEnv, verbose = FALSE)
-  }
-  if (return) {
-    return(tmp)
-  } else {
-    assign(df, tmp, envir = .GlobalEnv)
-  }
-}
-
 better_foverlaps <- function(x, y, by.x = if (!is.null(key(x))) key(x) else key(y), 
                              by.y = key(y), maxgap = 0L, minoverlap = 1L,
                              type = c("any", "within", "start", "end", "equal"),
@@ -252,4 +219,10 @@ stop_quietly <- function() {
   opt <- options(show.error.messages = FALSE)
   on.exit(options(opt))
   stop()
+}
+
+update_list <- function(df, folder, value) {
+  tmp <- smart_load(df, folder, extension = ".rds", return = T)
+  tmp <- c(tmp, value)
+  smart_save(tmp, folder, extension = ".rds", override_name = df)
 }
