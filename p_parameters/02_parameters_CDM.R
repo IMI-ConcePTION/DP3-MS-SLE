@@ -3,7 +3,7 @@
 # this file should not be modified
 ###################################################################
 
-datasources_prescriptions <- c("CPRD", "PHARMO")
+datasources_prescriptions <- c("THL", "SNDS")
 thisdatasource_has_prescriptions <- ifelse(thisdatasource %in% datasources_prescriptions, TRUE, FALSE)
 rm(datasources_prescriptions)
 
