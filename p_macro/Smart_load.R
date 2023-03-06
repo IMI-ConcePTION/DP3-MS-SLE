@@ -11,6 +11,8 @@ smart_load <- function(df, folder, subpop = F, extension = "qs", return = F) {
     tmp <- fst::read.fst(file_name, as.data.table = T)
   } else if  (extension == ".rds") {
     tmp <- readRDS(file_name)
+  } else if (extension == ".csv") {
+    tmp <- data.table::fread(file_name)
   } else {
     load(file_name, envir = .GlobalEnv, verbose = FALSE)
   }
