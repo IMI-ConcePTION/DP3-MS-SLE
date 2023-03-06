@@ -162,7 +162,7 @@ for (conceptset in concept_sets_of_our_study){
 
 save(concept_set_codes_our_study,file = paste0(direxp, "concept_set_codes_our_study.RData"))
 # save(concept_set_codes_our_study_excl,file=paste0(direxp,"concept_set_codes_our_study_excl.RData"))
-save(concept_set_codes_our_study,file = paste0(dirsmallcountsremoved, "concept_set_codes_our_study.RData"))
+# save(concept_set_codes_our_study,file = paste0(dirsmallcountsremoved, "concept_set_codes_our_study.RData"))
 # save(concept_set_codes_our_study_excl,file=paste0(dirsmallcountsremoved,"concept_set_codes_our_study_excl.RData"))
 
 rm(conceptset, level1, meaning, concept_set_codes_our_study_pre)
