@@ -1,0 +1,9 @@
+concept,original_meaning,meaning_recoded,count
+MS,hospitalisation_primary,INPATIENT,13
+MS,emergency_room_diagnosis,INPATIENT,< 5
+MS,exemption,LONGTERM,11
+SLE,hospitalisation_primary,INPATIENT,10
+SLE,access_to_mental_health_service_primary,OUTPATIENT_NO_PC,< 5
+SLE,emergency_room_diagnosis,INPATIENT,< 5
+SLE,hospitalisation_secondary,INPATIENT,5
+SLE,exemption,LONGTERM,5
