@@ -32,6 +32,9 @@ meaning_occurences <- MergeFilterAndCollapse(list(meaning_occurences),
                                              summarystat = list(c("count", "person_id", "count")))
 smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences", extension = "csv")
 
+update_vector("datasets_to_censor", dirpargen, "D5_meaning_occurences")
+update_vector("variables_to_censor", dirpargen, c("count" = 5))
+
 
 # Recode meaning with names used in the algorithms
 outcome_df[out, on = "meaning_renamed", meaning_renamed := i.new]

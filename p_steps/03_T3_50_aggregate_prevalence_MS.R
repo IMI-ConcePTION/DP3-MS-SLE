@@ -34,7 +34,11 @@ for (outcome in OUTCOME_variables) {
   
   D4_prevalence_aggregated_all[, datasource := thisdatasource][, algorithm := gsub("^MS", "M", algorithm)]
   
+  export_name <- paste("D4_prevalence_aggregated_all", outcome, sep = "_")
   smart_save(D4_prevalence_aggregated_all, direxp,
-             override_name = paste("D4_prevalence_aggregated_all", outcome, sep = "_"),
+             override_name = export_name,
              extension = "csv")
+  
+  update_vector("datasets_to_censor", dirpargen, export_name)
+  update_vector("variables_to_censor", dirpargen, c("count" = 5))
 }

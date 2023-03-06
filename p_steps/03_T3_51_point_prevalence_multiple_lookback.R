@@ -56,8 +56,12 @@ for (outcome in OUTCOME_variables) {
   
   algo_look <- algo_look[, datasource := thisdatasource]
   
-  smart_save(algo_look, direxp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_"),
+  export_name <- paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_")
+  smart_save(algo_look, direxp, override_name = export_name,
              extension = "csv")
+  
+  update_vector("datasets_to_censor", dirpargen, export_name)
+  update_vector("variables_to_censor", dirpargen, c("N" = 5))
 }
 
 
