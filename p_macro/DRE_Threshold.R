@@ -1,4 +1,4 @@
-DRE_Treshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter = ",", NAlist = NULL, FileContains = NULL){
+DRE_Threshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter = ",", NAlist = NULL, FileContains = NULL){
   
   if(is.null(FileContains)) FileContains <- "."
   Varlist <- sapply(unique(names(Varlist)), function(x) Varlist[[x]])

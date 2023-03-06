@@ -60,7 +60,7 @@ source(paste0(dirmacro,"CountPrevalence.R"))
 source(paste0(dirmacro,"CountPersonTimeV13.6.R"))
 source(paste0(dirmacro,"Smart_load.R"))
 source(paste0(dirmacro,"Smart_save.R"))
-source(paste0(dirmacro,"DRE_Treshold.R"))
+source(paste0(dirmacro,"DRE_Threshold.R"))
 source(paste0(dirmacro,"launch_step.R"))
 
 ###################################################################
