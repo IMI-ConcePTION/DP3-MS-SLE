@@ -30,7 +30,7 @@ dirmacro <- set_and_create_dir("/p_macro/")
 dirpargen <- set_and_create_dir("/g_parameters/")
 direvents <- set_and_create_dir("/g_intermediate/events/")
 dircomponents <- set_and_create_dir("/g_intermediate/components/")
-dirsmallcountsremoved<- set_and_create_dir("/g_intermediate/dirsmallcountsremoved/")
+dirsmallcountsremoved<- set_and_create_dir("/g_export_smallcountsremoved/")
   
 rm(set_and_create_dir)
 
@@ -60,6 +60,7 @@ source(paste0(dirmacro,"CountPrevalence.R"))
 source(paste0(dirmacro,"CountPersonTimeV13.6.R"))
 source(paste0(dirmacro,"Smart_load.R"))
 source(paste0(dirmacro,"Smart_save.R"))
+source(paste0(dirmacro,"DRE_Treshold.R"))
 source(paste0(dirmacro,"launch_step.R"))
 
 ###################################################################
@@ -221,7 +222,7 @@ stop_quietly <- function() {
   stop()
 }
 
-update_list <- function(df, folder, value) {
+update_vector <- function(df, folder, value) {
   tmp <- smart_load(df, folder, extension = ".rds", return = T)
   tmp <- c(tmp, value)
   smart_save(tmp, folder, extension = ".rds", override_name = df)
