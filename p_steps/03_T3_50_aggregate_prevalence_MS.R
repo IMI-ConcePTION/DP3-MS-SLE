@@ -39,6 +39,10 @@ for (outcome in OUTCOME_variables) {
              override_name = export_name,
              extension = "csv")
   
+  names_vars_to_censor <- c("numerator", paste("numerator", sprintf("%02d", seq_len(60)), sep="_"))
+  value_vars_to_censor <- rep(5, length(names_vars_to_censor))
+  names(value_vars_to_censor) <- names_vars_to_censor
+  
   update_vector("datasets_to_censor", dirpargen, export_name)
-  update_vector("variables_to_censor", dirpargen, c("count" = 5))
+  update_vector("variables_to_censor", dirpargen, value_vars_to_censor)
 }
