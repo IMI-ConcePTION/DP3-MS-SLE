@@ -1,7 +1,7 @@
 #-------------------------------
-# sample script for IMI ConcePTION Demonstration Projects
+# DP3 for IMI ConcePTION Demonstration Projects
 
-# authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina
+# authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts 
 
 # v1.0.0 - 07 March 2023
