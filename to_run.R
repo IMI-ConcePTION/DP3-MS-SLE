@@ -4,52 +4,12 @@
 # authors: Rosa Gini, Claudia Bartolini, Olga Paoletti, Davide Messina
 # based on previous scripts 
 
-# v0.3.8 - 03 March 2022
-# Fixed MS4, SLE3 and SLE5
-# Bugfix for combination_diag_outpatient_no_pc_PC_unspec_MS
-
-# v0.3.7 - 01 March 2022
-# Fixed MS3
-# Added LONGTERM to MS4 and MS5
-# Changed rounding to lookback in final table and add population statistics
-
-# v0.3.6 - 23 February 2022
-# Fixed point prevalence numerator in CountPrevalence
-# Fill missing values as 0 in average point prevalence to get correct numerator/denominator
-
-# v0.3.5 - 22 February 2022
-# Average prevalence as point prevalence
-# Fix for point prevalence in CountPrevalence
-
-# v0.3.4 - 20 February 2022
-# Fixed persons counted multiple times inside a strata
-# Fixed months calculation
-
-# v0.3.3 - 16 February 2022
-# Fixed ageband "all" calculation
-# Remove possible 14th years old at study entry date
-# Bugfixes
-
-# v0.3.2 - 14 February 2022
-# Tentative bugfix for 14th years old at cohort entry date
-# Fixed period prevalence with aggregated agebands
-
-# v0.3.1 - 13 February 2022
-# Fixed calculation of timeframe/age band in period prevalence
-
-# v0.3 - 10 February 2022
-# Censored spells in EFEMERIS/THL are removed
-# Fixed persontime calculation
-# Minor fixes
-
-# v0.2 - 27 January 2022
-# Added SLE
-# Combine EFEMERIS/THL spells in a single one for prevalence calculation. Not for lookback in D5
-# MS/SLE diagnosis as recurrent events
-# Minor fixes
-
-# v0.1 - 27 January 2022
-# Beta release with just MS
+# v1.0.0 - 07 March 2023
+# Release opened to the DAPs
+# Added missing ATC codes
+# Created parameter datasources_only_preg for EFEMERIS, THL and FISABIO
+# Creation of folder g_export_smallcountsremoved which contains datasets with count less than 5 censored
+# Datasource with not empty "date_prescription" in CDM is only SNDS
 
 rm(list=ls(all.names=TRUE))
 
