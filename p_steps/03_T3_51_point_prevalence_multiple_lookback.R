@@ -5,8 +5,8 @@
 for (outcome in OUTCOME_variables) {
   print(outcome)
   
-  if (thisdatasource %in% c("EFEMERIS", "THL")) {
-    print(paste("D4_prevalence_aggregated_multiple_lookback", outcome, " can't be calculated in datasource EFEMERIS and THL"))
+  if (thisdatasource %in% datasources_only_preg) {
+    print(paste("D4_prevalence_aggregated_multiple_lookback", outcome, " can't be calculated in datasource with only pregnancies"))
     next
   }
   

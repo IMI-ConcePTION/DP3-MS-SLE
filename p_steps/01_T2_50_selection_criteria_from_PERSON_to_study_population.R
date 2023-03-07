@@ -68,7 +68,7 @@ D3_clean_spells[, c("spell_less_than_12_months_fup", "tot_x_days", "tot_spell_nu
 D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
 D3_clean_spells[removed_row == 0, tot_entry_spell_category_cleaned := sum(entry_spell_category_cleaned), by = person_id]
 D3_clean_spells[removed_row == 0, all_entry_spell_category_cleaned := fifelse(tot_entry_spell_category_cleaned == tot_spell_num &
-                                                                                thisdatasource %in% c("EFEMERIS", "THL"), 1, 0)]
+                                                                                thisdatasource %in% datasources_only_preg, 1, 0)]
 D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD),
                 .SDcols = c("removed_row", "entry_spell_category_cleaned")]
 D3_clean_spells[, c("entry_spell_category_cleaned", "tot_entry_spell_category_cleaned", "tot_spell_num") := NULL]
@@ -77,7 +77,7 @@ D3_clean_spells[, c("entry_spell_category_cleaned", "tot_entry_spell_category_cl
 D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
 D3_clean_spells[removed_row == 0, tot_exit_spell_category_cleaned := sum(exit_spell_category_cleaned), by = person_id]
 D3_clean_spells[removed_row == 0, all_exit_spell_category_cleaned := fifelse(tot_exit_spell_category_cleaned == tot_spell_num &
-                                                                               thisdatasource %in% c("EFEMERIS", "THL"), 1, 0)]
+                                                                               thisdatasource %in% datasources_only_preg, 1, 0)]
 D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD),
                 .SDcols = c("removed_row", "exit_spell_category_cleaned")]
 D3_clean_spells[, c("exit_spell_category_cleaned", "tot_exit_spell_category_cleaned", "tot_spell_num", "removed_row") := NULL]

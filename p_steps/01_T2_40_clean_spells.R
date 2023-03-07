@@ -41,7 +41,7 @@ person_spell[, too_young_at_exit_spell := data.table::fifelse(exit_spell_categor
 # find spells that are shorter than x days (using cleaned start/end)
 person_spell[, spell_less_than_12_months_fup := data.table::fifelse(
   correct_difftime(exit_spell_category, entry_spell_category) < min_spell_lenght &
-    thisdatasource %not in% c("EFEMERIS", "THL"), 1, 0)]
+    thisdatasource %not in% datasources_only_preg, 1, 0)]
 
 # Calculate cohort entry and exit date (censor for age and study_start)
 person_spell[, cohort_entry_date := pmax(entry_spell_category, study_start, birth_date + ceiling(15 * 365.25))]
@@ -58,12 +58,12 @@ person_spell[, is_the_study_spell := data.table::fifelse(starts_after_ending == 
 # Remove spells which are not last
 person_spell[is_the_study_spell == 1, max_exit_spell_category := max(exit_spell_category), by = person_id]
 person_spell[exit_spell_category != max_exit_spell_category &
-               thisdatasource %not in% c("EFEMERIS", "THL"), is_the_study_spell := 0]
+               thisdatasource %not in% datasources_only_preg, is_the_study_spell := 0]
 person_spell[, c("max_exit_spell_category") := NULL]
 
 # Remove censored spells
 person_spell[(entry_spell_category_cleaned == 1 | exit_spell_category_cleaned == 1) &
-               thisdatasource %in% c("EFEMERIS", "THL"), is_the_study_spell := 0]
+               thisdatasource %in% datasources_only_preg, is_the_study_spell := 0]
 
 person_spell[is.na(is_the_study_spell), is_the_study_spell := 0]
 

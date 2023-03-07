@@ -28,8 +28,8 @@ for (outcome in OUTCOME_variables) {
   
   smart_save(D3_algorithms, dirtemp, override_name = paste("D3_algorithms", outcome, sep = "_"), extension = extension)
   
-  if (thisdatasource %in% c("EFEMERIS", "THL")) {
-    print(paste("D3_algorithms_multiple_lookback_", outcome, " can't be calculated in datasource EFEMERIS and THL"))
+  if (thisdatasource %in% datasources_only_preg) {
+    print(paste("D3_algorithms_multiple_lookback_", outcome, " can't be calculated in datasource with only pregnancies"))
     next
   }
   
