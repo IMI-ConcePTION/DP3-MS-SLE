@@ -34,3 +34,4 @@ vignettes/*.pdf
 /g_parameters
 /g_output
 /g_intermediate
+/g_export_smallcountsremoved
