@@ -44,11 +44,11 @@ launch_step("p_steps/01_T2_10_create_persons.R")
 launch_step("p_steps/01_T2_20_apply_CreateSpells.R")
 
 # APPLY THE FUNCTION CreateConceptSetDatasets TO CREATE ONE DATASET PER CONCEPT SET CONTAINING ONLY RECORDS WITH CODES OF INTEREST
-launch_step("p_steps/01_T2_31_CreateConceptSetDatasets.R")
+launch_step("p_steps/01_T2_30_CreateConceptSetDatasets.R")
 
 # RETRIEVE ITEMSET DATASETS AND PROMPT DATASETS
-launch_step("p_steps/01_T2_32_CreateItemSetDatasets.R")
-launch_step("p_steps/01_T2_33_CreatePromptSetDatasets.R")
+launch_step("p_steps/01_T2_31_CreateItemSetDatasets.R")
+launch_step("p_steps/01_T2_32_CreatePromptSetDatasets.R")
 
 # CLEAN THE SPELLS
 launch_step("p_steps/01_T2_40_clean_spells.R")
