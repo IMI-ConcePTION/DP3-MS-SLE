@@ -16,7 +16,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   print("Assign date format to Start_study_time and End_study_time")
   Start_study_time<-as.IDate(as.character(Start_study_time,"%Y%m%d"),"%Y%m%d")
   End_study_time<-as.IDate(as.character(End_study_time,"%Y%m%d"),"%Y%m%d")
-
+  
   ################################################################################################################################
   #create the object used as choosen key (between key and unit of observation)
   if(!is.null(key)) {
@@ -45,7 +45,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   cols_to_keep_cohort=c(id_columns_tokeep,Start_date,End_date)
   if (!is.null(Strata)) cols_to_keep_cohort<-c(cols_to_keep_cohort,Strata)
   if (!is.null(Birth_date)) cols_to_keep_cohort<-c(cols_to_keep_cohort,Birth_date)
-
+  
   
   if (Type_prevalence == "point") { 
     if (!is.null(Points_in_time)) {
@@ -285,17 +285,25 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     Dataset_cohort[,in_population:=fifelse(get(Start_date)<=value & value<=get(End_date),1,0) ]
     
     dataset<-merge(Dataset_cohort,Dataset_events, by=choosen_key,all.x=T,allow.cartesian=T )
-    
-    dataset<-dataset[get(Date_condition)<=value & in_population==1 & !is.na(get( Date_condition)),constant:=1][is.na(constant),constant:=0]
+    dataset <- split(dataset, by = "in_population")
+    dataset[["1"]]<-dataset[["1"]][get(Date_condition)<=value & in_population==1 & !is.na(get( Date_condition)),constant:=1][is.na(constant),constant:=0]
     
     dcast_vars=c(id_columns_tokeep,Start_date,End_date,"value","in_population",Date_condition)
     if (!is.null(Age_bands)) dcast_vars<-c(dcast_vars,"Ageband")
     if (!is.null(Strata)) dcast_vars<-c(dcast_vars,Strata)
     
     f = as.formula(sprintf('%s ~ %s', paste(dcast_vars, collapse = "+ "), Name_condition))
-
-    dataset<-dcast(dataset,f, value.var = "constant" ,fill=0)
-    dataset<-dataset[,"NA":=NULL]
+    
+    dataset[["1"]]<-dcast(dataset[["1"]],f, value.var = "constant" ,fill=0)
+    dataset[["1"]]<-dataset[["1"]][,"NA":=NULL]
+    
+    cols_to_remove <- setdiff(colnames(dataset[["0"]]), colnames(dataset[["1"]]))
+    cols_to_add <- setdiff(colnames(dataset[["1"]]), colnames(dataset[["0"]]))
+    
+    dataset[["0"]][, (cols_to_remove) := NULL]
+    dataset[["0"]][, (cols_to_add) := 0]
+    
+    dataset <- rbindlist(dataset, use.names = T, fill = T)
     
     cols_to_rename <- names(dataset)[names(dataset) %in% Conditions]
     setnames(dataset, cols_to_rename, paste0("prev_",cols_to_rename))
@@ -386,7 +394,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       #compute all the overlaps between Dataset_cohort and the dataset containig the computed periods
       setkeyv(Dataset_cohort,c(Start_date,End_date))
       setkeyv(DT2,colnames(DT2))
-
+      
       Dataset_cohort<-foverlaps(Dataset_cohort,DT2)
       
       #expand the dataset containig the computed periods (DT2) as many times as the number of unique id in Dataset_cohort
@@ -474,9 +482,9 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       
       if(start_period_dates[[1]] %in% names(Dataset_cohort)) {
         if (length(start_period_dates)==1){
-            Dataset_cohort[,value1:=get(start_period_dates)]
+          Dataset_cohort[,value1:=get(start_period_dates)]
           Dataset_cohort[,value2:=get(end_period_dates)]
-
+          
         }else{
           id_variables<-c(id_columns_tokeep,Start_date,End_date )
           if (!is.null(Strata)) id_variables<-c(id_variables,Strata)
@@ -566,7 +574,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     # Dataset_events<-merge(Dataset_events,Dataset_cohort[,.(choosen_key,Start_date)],all.x=T,by=choosen_key)
     
     #add the information on diagnosis (Dataset_events)
-
+    
     Dataset_events[,cond_date2:=as.IDate(End_study_time)]
     Dataset_events[,(Date_condition):=as.IDate(get(Date_condition))]
     setkeyv(Dataset_events,c(choosen_key,Date_condition,"cond_date2"))
@@ -595,7 +603,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     if (!is.null(Strata)) dcast_vars<-c(dcast_vars,Strata)
     
     f = as.formula(sprintf('%s ~ %s', paste(dcast_vars, collapse = "+ "), Name_condition))
-
+    
     dataset<-dcast(dataset,f, value.var = Date_condition ,fill=0)
     
     
