@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts 
 
+# v1.0.1 - 08 March 2023
+# CountPrevalence uses less RAM (and dataset rows) for point prevalence computation
+# Minor fixes
+
 # v1.0.0 - 07 March 2023
 # Release opened to the DAPs
 # Added missing ATC codes
