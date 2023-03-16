@@ -1,4 +1,4 @@
-CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Start_date, End_date,  Birth_date = NULL,Name_condition,Date_condition, Date_end_condition=NULL, Type_prevalence, Points_in_time=NULL, Increment = NULL, Periods_of_time=NULL, Increment_period=NULL, Conditions , Start_study_time, End_study_time, Age_bands = NULL, Unit_of_age = "year" ,include_remaning_ages = T, Strata =NULL, Aggregate = T){
+CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Start_date, End_date,  Birth_date = NULL,Name_condition,Date_condition, Date_end_condition=NULL, Type_prevalence, Points_in_time=NULL, Increment = NULL, Periods_of_time=NULL, Increment_period=NULL, Conditions , Start_study_time, End_study_time, Age_bands = NULL, Unit_of_age = "year" ,include_remaning_ages = T, Strata =NULL, Aggregate = T, drop_not_in_population = F){
   
   print("Version 1.0")
   # Check if demanded R packages are installed, install if not,  and activate
@@ -282,9 +282,15 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     
     Dataset_cohort<-rbindlist(lapply(Points_in_time, function(x) data.frame(Dataset_cohort, value=x)))
     
-    Dataset_cohort[,in_population:=fifelse(get(Start_date)<=value & value<=get(End_date),1,0) ]
+    Dataset_cohort[,in_population:=as.factor(fifelse(get(Start_date)<=value & value<=get(End_date),1,0))]
+    
+    if (drop_not_in_population) {
+      Dataset_cohort <- Dataset_cohort[in_population == 1, ]
+    }
     
     dataset<-merge(Dataset_cohort,Dataset_events, by=choosen_key,all.x=T,allow.cartesian=T )
+    rm(Dataset_cohort, Dataset_events)
+    
     dataset <- split(dataset, by = "in_population")
     dataset[["1"]]<-dataset[["1"]][get(Date_condition)<=value & in_population==1 & !is.na(get( Date_condition)),constant:=1][is.na(constant),constant:=0]
     
@@ -304,6 +310,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     dataset[["0"]][, (cols_to_add) := 0]
     
     dataset <- rbindlist(dataset, use.names = T, fill = T)
+    dataset[, in_population := as.numeric(levels(in_population))[in_population]]
     
     cols_to_rename <- names(dataset)[names(dataset) %in% Conditions]
     setnames(dataset, cols_to_rename, paste0("prev_",cols_to_rename))
