@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+g_parameters
+g_intermediate
+g_export_smallcountsremoved
+g_export
+g_output
