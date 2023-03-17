@@ -28,10 +28,10 @@ for (outcome in OUTCOME_variables) {
                                        Name_condition = "algorithm", Date_condition = "date",
                                        Type_prevalence = "point", Increment = "month",
                                        Start_study_time = recommended_start_date, End_study_time = study_end,
-                                       Conditions = unique(algo_df[, algorithm]), Strata = "start_observation_period",
+                                       Conditions = unique(algo_df[, algorithm]),
                                        include_remaning_ages = F,
                                        Age_bands = ageband_definition,
-                                       Aggregate = F,
+                                       Aggregate = T,
                                        drop_not_in_population = T)
   rm(D3_study_population_SAP1)
   
