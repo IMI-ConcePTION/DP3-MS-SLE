@@ -21,25 +21,32 @@ for (outcome in OUTCOME_variables) {
   # 
   # algo_df[person_id == "ConCDM_SIM_200421_00629" & algorithm == "MS1", date := ymd(20050201)]
   
-  period_prevalence <- CountPrevalence(D3_study_population_SAP1,
-                                       algo_df, c("person_id"),
-                                       Start_date = "cohort_entry_date",
-                                       End_date = "cohort_exit_date", Birth_date = "birth_date",
-                                       Name_condition = "algorithm", Date_condition = "date",
-                                       Type_prevalence = "point", Increment = "month",
-                                       Start_study_time = recommended_start_date, End_study_time = study_end,
-                                       Conditions = unique(algo_df[, algorithm]),
-                                       include_remaning_ages = F,
-                                       Age_bands = ageband_definition,
-                                       Aggregate = T,
-                                       drop_not_in_population = T)
+  sequence_start_end_year <- seq(year(recommended_start_date), year(study_end))
+  sequence_start_end_year <- split(sequence_start_end_year, ceiling(seq_along(sequence_start_end_year) / 5))
+  sequence_start_year <- lapply(sequence_start_end_year, function(x) ymd(paste0(first(x), "0101")))
+  sequence_end_year <- lapply(sequence_start_end_year, function(x) ymd(paste0(last(x), "1231")))
+  
+  period_prevalence_list <- lapply(seq_len(length(sequence_start_year)), function(x) {
+    CountPrevalence(D3_study_population_SAP1,
+                    algo_df, c("person_id"),
+                    Start_date = "cohort_entry_date",
+                    End_date = "cohort_exit_date", Birth_date = "birth_date",
+                    Name_condition = "algorithm", Date_condition = "date",
+                    Type_prevalence = "point", Increment = "month",
+                    Start_study_time = sequence_start_year[[x]],
+                    End_study_time = sequence_end_year[[x]],
+                    Conditions = unique(algo_df[, algorithm]),
+                    include_remaning_ages = F,
+                    Age_bands = ageband_definition,
+                    Aggregate = T,
+                    drop_not_in_population = T)
+  })
   rm(D3_study_population_SAP1)
   
-  # Remove when person is not in population
-  period_prevalence <- period_prevalence[in_population != 0, ][, in_population := NULL]
+  period_prevalence <- rbindlist(period_prevalence_list)
   
   # Extract year/month from timeframe
-  period_prevalence[, timeframe := as.Date(substr(timeframe, 1, 10))]
+  period_prevalence[, timeframe := as.Date(timeframe)]
   period_prevalence[, n_month := month(timeframe)]
   period_prevalence[, timeframe := as.character(year(timeframe))]
   
@@ -47,19 +54,16 @@ for (outcome in OUTCOME_variables) {
   algo_cols <- colnames(period_prevalence)[grepl("[MS|SLE][0-9]", colnames(period_prevalence))]
   
   # Aggregate to get only one row per person/timeframe and then add it to the original dataset
-  period_prevalence_period_no_ageband <- copy(period_prevalence)[, lapply(.SD, max),
-                                                                 .SDcols = c(algo_cols),
-                                                                 by = c("timeframe", "person_id", "cohort_entry_date",
-                                                                        "cohort_exit_date", "start_observation_period",
-                                                                        "n_month")]
+  period_prevalence_period_no_ageband <- copy(period_prevalence)[, lapply(.SD, sum),
+                                                                 .SDcols = c(algo_cols, "in_population"),
+                                                                 by = c("timeframe", "n_month")]
   period_prevalence_period_no_ageband[, Ageband := "all"]
   period_prevalence <- rbindlist(list(period_prevalence, period_prevalence_period_no_ageband), use.names = T)
   rm(period_prevalence_period_no_ageband)
   
   # Melt algorithms columns
   period_prevalence <- data.table::melt(period_prevalence,
-                                        id.vars = c("person_id", "cohort_entry_date", "cohort_exit_date",
-                                                    "start_observation_period", "Ageband", "timeframe", "n_month"),
+                                        id.vars = c("timeframe", "Ageband", "in_population", "n_month"),
                                         measure.vars = algo_cols, variable.name = "algorithm",
                                         variable.factor = F, value.name = "numerator")
   
@@ -67,7 +71,7 @@ for (outcome in OUTCOME_variables) {
   period_prevalence[, algorithm := gsub("prev_", "", algorithm)]
   
   # Create column denominator (all 1 since everyone is in_population for previous filter)
-  period_prevalence[, denominator := 1]
+  setnames(period_prevalence, "in_population", "denominator")
   
   # Add a column to define the type of prevalence
   period_prevalence[, type_of_prevalence := "average_monthly_prevalence"]
@@ -90,20 +94,8 @@ for (outcome in OUTCOME_variables) {
   
   # Month to wide as columns
   period_prevalence <- data.table::dcast(period_prevalence,
-                                         person_id + start_observation_period + cohort_entry_date + cohort_exit_date + type_of_prevalence + timeframe + Ageband + algorithm ~ n_month, fill = 0,
+                                         type_of_prevalence + timeframe + Ageband + algorithm ~ n_month, fill = 0,
                                          drop = T, value.var = c("numerator", "denominator"))
-  
-  # Calculating additional variables
-  period_prevalence[, start_timeframe := ymd(paste0(substr(timeframe, 1, 4),"0101"))]
-  period_prevalence[, lookback_time_at_start_timeframe := correct_difftime(start_timeframe, cohort_entry_date)]
-  period_prevalence[, start_timeframe := NULL]
-  
-  period_prevalence[, in_study_at_start_timeframe := fifelse(lookback_time_at_start_timeframe >= 0, 1, 0)]
-  
-  period_prevalence[, years_since_in_study := floor(lookback_time_at_start_timeframe / 365.25)]
-  period_prevalence[, paste("in_study_since", seq_len(10), "years", sep = "_") := lapply(
-    seq_len(10), function(x) fifelse(years_since_in_study >= x, 1, 0))]
-  period_prevalence[, years_since_in_study := NULL]
   
   # Change column names
   setnames(period_prevalence, "Ageband", "ageband")
