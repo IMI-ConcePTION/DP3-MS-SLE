@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts 
 
+# v1.0.2 - 20 March 2023
+# D4_prevalence_average_point now at aggregated level
+# Countprevalence for average point in a cycle to reduce RAM utilization
+
 # v1.0.1 - 08 March 2023
 # CountPrevalence uses less RAM (and dataset rows) for point prevalence computation
 # Minor fixes
