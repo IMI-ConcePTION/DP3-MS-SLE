@@ -21,7 +21,7 @@ for (outcome in OUTCOME_variables) {
   # 
   # algo_df[person_id == "ConCDM_SIM_200421_00629" & algorithm == "MS1", date := ymd(20050201)]
   
-  sequence_start_end_year <- seq(year(recommended_start_date), year(study_end))
+  sequence_start_end_year <- seq(max(year(recommended_start_date), year(study_start)), year(study_end))
   sequence_start_end_year <- split(sequence_start_end_year, ceiling(seq_along(sequence_start_end_year) / 5))
   sequence_start_year <- lapply(sequence_start_end_year, function(x) ymd(paste0(first(x), "0101")))
   sequence_end_year <- lapply(sequence_start_end_year, function(x) ymd(paste0(last(x), "1231")))
