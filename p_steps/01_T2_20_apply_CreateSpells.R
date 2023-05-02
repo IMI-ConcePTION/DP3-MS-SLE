@@ -10,7 +10,7 @@ print("COMPUTE SPELLS OF TIME FROM OBSERVATION_PERIODS")
 # import input datasets
 OBSERVATION_PERIODS <- read_CDM_tables("OBSERVATION_PERIODS")
 
-if (!datasources_with_single_subpopulation) {
+if (thisdatasource %not in% datasources_with_single_subpopulation) {
   
   OBSERVATION_PERIODS <- OBSERVATION_PERIODS[, op_meaning:="all"]
   D3_output_spells_category <- CreateSpells(
