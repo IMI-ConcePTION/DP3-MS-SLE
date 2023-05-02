@@ -37,13 +37,13 @@ for (outcome in OUTCOME_variables) {
   # Load D3_PERSONS and select on id and birth date
   smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
   D3_study_population_SAP1 <- D3_study_population_SAP1[, c("person_id", "birth_date", "entry_spell_category",
-                                                           "cohort_exit_date")]
+                                                           "cohort_entry_date", "cohort_exit_date")]
   
   # Calculate length of spell and then remove entry_spell_category
   D3_study_population_SAP1[, length_spell := difftime(cohort_exit_date, entry_spell_category, "days")]
-  D3_study_population_SAP1[, entry_spell_category := min(entry_spell_category), by = "person_id"]
-  D3_study_population_SAP1[, age_at_entry_spell := age_fast(birth_date, entry_spell_category)]
-  D3_study_population_SAP1[, c("entry_spell_category", "cohort_exit_date") := NULL]
+  D3_study_population_SAP1[, cohort_entry_date := min(cohort_entry_date), by = "person_id"]
+  D3_study_population_SAP1[, age_at_entry_spell := age_fast(birth_date, cohort_entry_date)]
+  D3_study_population_SAP1[, c("entry_spell_category", "cohort_exit_date", "cohort_entry_date") := NULL]
   
   D3_study_population_SAP1 <- D3_study_population_SAP1[, lapply(.SD, sum),
                                                        by = c("person_id", "birth_date", "age_at_entry_spell"),
