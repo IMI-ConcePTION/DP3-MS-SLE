@@ -3,7 +3,7 @@
 # this file should not be modified
 ###################################################################
 
-datasources_prescriptions <- c("SNDS")
+datasources_prescriptions <- c("SNDS", "SAIL Databank")
 thisdatasource_has_prescriptions <- ifelse(thisdatasource %in% datasources_prescriptions, TRUE, FALSE)
 rm(datasources_prescriptions)
 
