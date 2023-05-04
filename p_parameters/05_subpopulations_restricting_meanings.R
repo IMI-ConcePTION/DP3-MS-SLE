@@ -28,7 +28,7 @@ op_meaning_sets_in_subpopulations <- vector(mode="list")
 # datasource THL
 subpopulations[["THL"]] = c("GP")
 
-op_meaning_sets[["THL"]] <- c("meaningsHOSP", "meaningsER")
+op_meaning_sets[["THL"]] <- c("meanings_GP")
 op_meanings_list_per_set[["THL"]][["meanings_GP"]] <- c("observed_in_medicine_data")
 
 op_meaning_sets_in_subpopulations[["THL"]][["GP"]] <- c("meanings_GP")
@@ -36,7 +36,7 @@ op_meaning_sets_in_subpopulations[["THL"]][["GP"]] <- c("meanings_GP")
 # datasource SAIL Databank
 subpopulations[["SAIL Databank"]] = c("GP")
 
-op_meaning_sets[["SAIL Databank"]] <- c("meaningsPC", "meaningsHOSP", "meaningsWITH_ICU")
+op_meaning_sets[["SAIL Databank"]] <- c("meanings_GP", "meanings_residency")
 op_meanings_list_per_set[["SAIL Databank"]][["meanings_GP"]] <- c("gp_lookback","gp_registration")
 op_meanings_list_per_set[["SAIL Databank"]][["meanings_residency"]] <- c("residency")
 
