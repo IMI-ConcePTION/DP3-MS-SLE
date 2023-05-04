@@ -6,6 +6,8 @@
 
 # v1.0.4 - 04 May 2023
 # Fixed subpopulation for THL and SAIL databank
+# SAIL databank has prescriptions
+# Fix create spell step for subpopulation
 
 # v1.0.3 - 02 May 2023
 # Added subpopulations for THL and SAIL databank
