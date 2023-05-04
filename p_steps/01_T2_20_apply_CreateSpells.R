@@ -67,7 +67,7 @@ if (thisdatasource %not in% datasources_with_single_subpopulation) {
   
   # creates spells of overlapping op_meaning sets
   load(paste0(dirtemp,"output_spells_category_meaning_set.RData"))
-  for (subpop in subpopulations_non_empty){
+  for (subpop in subpopulations[[thisdatasource]]){
     op_meaning_sets_in_subpop <- op_meaning_sets_in_subpopulations[[thisdatasource]][[subpop]]
     if (length(op_meaning_sets_in_subpop)>1){
       runninglen = 1
@@ -113,7 +113,7 @@ if (thisdatasource %not in% datasources_with_single_subpopulation) {
   }
   
   D3_output_spells_category <- vector(mode="list")
-  for (subpop in subpopulations_non_empty){
+  for (subpop in subpopulations[[thisdatasource]]){
     print(subpop)
     op_meaning_sets_in_subpop <- op_meaning_sets_in_subpopulations[[thisdatasource]][[subpop]]
     print(op_meaning_sets_in_subpop)

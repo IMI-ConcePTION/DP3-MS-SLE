@@ -120,6 +120,4 @@ op_meaning_sets_in_subpopulations[["SAIL Databank"]][["GP"]] <- c("meanings_GP",
 #   close(fileConn)
 # }
 
-rm(subpopulations)
-
 
