@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v1.0.4 - 04 May 2023
+# Fixed subpopulation for THL and SAIL databank
+
 # v1.0.3 - 02 May 2023
 # Added subpopulations for THL and SAIL databank
 # Age in D5_N_women_and_ranges for study_population at cohort entry date
