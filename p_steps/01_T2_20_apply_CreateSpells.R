@@ -9,6 +9,19 @@ print("COMPUTE SPELLS OF TIME FROM OBSERVATION_PERIODS")
 
 # import input datasets
 OBSERVATION_PERIODS <- read_CDM_tables("OBSERVATION_PERIODS")
+if (thisdatasource == "FISABIO") {
+  
+  # in the case of FISABIO; the subpopulation must overlap pregnancy, therefore we create a new OBSERVATION_PERIODS based on the output of the pregnancy algorithm
+  # OBSERVATION_PERIODS_preg <- load() pregnancy algorithm output
+  # add op_meaning := "pregnancy"
+  # generate op_start_date := pregnancy start - 3 months
+  # generate op_end_date := pregnancy end + 12 months
+  # generate op_origin := "output_pregnancy_algorithm"
+  # keep only person_id op_start_date op_end_date op_meaning op_origin
+  
+  # OBSERVATION_PERIODS <- rbind(OBSERVATION_PERIODS,OBSERVATION_PERIODS_preg)
+  # rm(OBSERVATION_PERIODS_preg)
+}
 
 if (thisdatasource %not in% this_datasource_has_subpopulations) {
   

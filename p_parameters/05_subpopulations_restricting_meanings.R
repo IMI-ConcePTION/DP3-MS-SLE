@@ -43,6 +43,24 @@ op_meanings_list_per_set[["SAIL Databank"]][["meanings_residency"]] <- c("reside
 op_meaning_sets_in_subpopulations[["SAIL Databank"]][["GP"]] <- c("meanings_GP", "meanings_residency")
 
 
+# datasource FISABIO
+
+# in FISABIO we have two periods of availabiity of data: from 2010 for hospital and from 2013 for medicines; however, they are still biased because the total population only includes women who had a pregnancy in the period. for this reason we only include observations period overlapping with start_pregnancy -3 months, end_of_pregnancy + 12 month. this is done in step 01_T2_20, where an additional OBSERVATIONS_PERIOD is created, with op_meaning 'pregnancy' and a corresponding subpopulation PREG is created, in the periods where the 3 sources are overlapping; since MDICINES is included in HOSP, let's use only MEDICINES
+
+# subpopulations[["FISABIO"]] = c("HOSP","MEDICINES","PREG")
+
+subpopulations[["FISABIO"]] = c("PREG")
+
+op_meaning_sets[["FISABIO"]][["PREG"]] = c("meanings_pregnancy","meanings_MEDICINES")
+
+op_meaning_sets_in_subpopulations[["FISABIO"]][["meanings_pregnancy"]] <- c("pregnancy")
+
+op_meaning_sets_in_subpopulations[["FISABIO"]][["meanings_HOSP"]] <- c("from_birth_registry_available_hospitalisation","from_perimortality_registry_available_hospitalisation","from_congenital_anomaly_registry_available_hospitalisation","child_from_perimortality_registry_available_hospitalisation","child_from_congenital_anomaly_registry_available_hospitalisation")
+
+op_meaning_sets_in_subpopulations[["FISABIO"]][["meanings_MEDICINES"]] <- c("from_birth_registry_available_medicines_data","from_perimortality_registry_available_medicine_record","from_congenital_anomaly_registry_available_medicine_data","child_from_birth_registry_available_medicine_data","child_from_perimortality_registry_available_hospitalisation","child_from_congenital_anomaly_registry_available_medicine_data")
+
+
+
 # if (this_datasource_has_subpopulations == TRUE){ 
 #   # define selection criterion for events
 #   select_in_subpopulationsEVENTS <- vector(mode="list")
