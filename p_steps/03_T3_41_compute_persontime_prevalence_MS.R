@@ -54,8 +54,8 @@ for (outcome in OUTCOME_variables) {
   persontime_prevalence <- CountPersonTime(
     Dataset = algo_df_pop,
     Person_id = "person_id",
-    Start_study_time = as.character(recommended_start_date, "%Y%m%d"),
-    End_study_time = as.character(study_end, "%Y%m%d"),
+    Start_study_time = recommended_start_date,
+    End_study_time = study_end,
     Start_date = "cohort_entry_date",
     End_date = "cohort_exit_date",
     Birth_date = "birth_date",
