@@ -4,7 +4,7 @@
 
 # datasources_with_subpopulations lists the datasources where some meanings of events should be excluded during some observation periods, associated with some op_meanings
 
-this_datasource_has_subpopulations <- c("THL", "SAIL Databank")
+this_datasource_has_subpopulations <- c("THL", "SAIL Databank", "FISABIO")
 
 # this_datasource_has_subpopulations <- ifelse(thisdatasource %in% datasources_with_subpopulations, TRUE, FALSE) 
 
@@ -51,15 +51,12 @@ op_meaning_sets_in_subpopulations[["SAIL Databank"]][["GP"]] <- c("meanings_GP",
 
 subpopulations[["FISABIO"]] = c("PREG")
 
-op_meaning_sets[["FISABIO"]][["PREG"]] = c("meanings_pregnancy","meanings_MEDICINES")
+op_meaning_sets[["FISABIO"]] = c("meanings_pregnancy","meanings_MEDICINES")
+op_meanings_list_per_set[["FISABIO"]][["meanings_pregnancy"]] <- c("pregnancy")
+op_meanings_list_per_set[["FISABIO"]][["meaningsHOSP"]] <- c("from_birth_registry_available_hospitalisation","from_perimortality_registry_available_hospitalisation","from_congenital_anomaly_registry_available_hospitalisation","child_from_perimortality_registry_available_hospitalisation","child_from_congenital_anomaly_registry_available_hospitalisation")
+op_meanings_list_per_set[["FISABIO"]][["meanings_MEDICINES"]] <- c("from_birth_registry_available_medicines_data","from_perimortality_registry_available_medicine_record","from_congenital_anomaly_registry_available_medicine_data","child_from_birth_registry_available_medicine_data","child_from_perimortality_registry_available_hospitalisation","child_from_congenital_anomaly_registry_available_medicine_data")
 
-op_meaning_sets_in_subpopulations[["FISABIO"]][["meanings_pregnancy"]] <- c("pregnancy")
-
-op_meaning_sets_in_subpopulations[["FISABIO"]][["meanings_HOSP"]] <- c("from_birth_registry_available_hospitalisation","from_perimortality_registry_available_hospitalisation","from_congenital_anomaly_registry_available_hospitalisation","child_from_perimortality_registry_available_hospitalisation","child_from_congenital_anomaly_registry_available_hospitalisation")
-
-op_meaning_sets_in_subpopulations[["FISABIO"]][["meanings_MEDICINES"]] <- c("from_birth_registry_available_medicines_data","from_perimortality_registry_available_medicine_record","from_congenital_anomaly_registry_available_medicine_data","child_from_birth_registry_available_medicine_data","child_from_perimortality_registry_available_hospitalisation","child_from_congenital_anomaly_registry_available_medicine_data")
-
-
+op_meaning_sets_in_subpopulations[["FISABIO"]][["PREG"]] <- c("meanings_pregnancy", "meanings_MEDICINES")
 
 # if (this_datasource_has_subpopulations == TRUE){ 
 #   # define selection criterion for events

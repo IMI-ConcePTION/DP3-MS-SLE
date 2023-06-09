@@ -9,18 +9,23 @@ print("COMPUTE SPELLS OF TIME FROM OBSERVATION_PERIODS")
 
 # import input datasets
 OBSERVATION_PERIODS <- read_CDM_tables("OBSERVATION_PERIODS")
+
 if (thisdatasource == "FISABIO") {
   
-  # in the case of FISABIO; the subpopulation must overlap pregnancy, therefore we create a new OBSERVATION_PERIODS based on the output of the pregnancy algorithm
-  # OBSERVATION_PERIODS_preg <- load() pregnancy algorithm output
-  # add op_meaning := "pregnancy"
-  # generate op_start_date := pregnancy start - 3 months
-  # generate op_end_date := pregnancy end + 12 months
-  # generate op_origin := "output_pregnancy_algorithm"
-  # keep only person_id op_start_date op_end_date op_meaning op_origin
+  OBSERVATION_PERIODS_preg <- as.data.table(get(load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))[[1]]))
   
-  # OBSERVATION_PERIODS <- rbind(OBSERVATION_PERIODS,OBSERVATION_PERIODS_preg)
-  # rm(OBSERVATION_PERIODS_preg)
+  setnames(OBSERVATION_PERIODS_preg, c("pregnancy_start_date", "pregnancy_end_date"), c("op_start_date", "op_end_date"))
+  OBSERVATION_PERIODS_preg <- OBSERVATION_PERIODS_preg[, .(person_id, op_start_date, op_end_date)]
+  
+  OBSERVATION_PERIODS_preg[, op_meaning := "pregnancy"]
+  OBSERVATION_PERIODS_preg[, op_origin := "output_pregnancy_algorithm"]
+  OBSERVATION_PERIODS_preg[, op_start_date := op_start_date %m-% months(3)]
+  OBSERVATION_PERIODS_preg[, op_end_date := op_end_date %m+% months(3)]
+  OBSERVATION_PERIODS_preg[, op_start_date := as.character(op_start_date, "%Y%m%d")]
+  OBSERVATION_PERIODS_preg[, op_end_date := as.character(op_end_date, "%Y%m%d")]
+  
+  OBSERVATION_PERIODS <- rbindlist(list(OBSERVATION_PERIODS, OBSERVATION_PERIODS_preg), use.names=TRUE)
+  
 }
 
 if (thisdatasource %not in% this_datasource_has_subpopulations) {
