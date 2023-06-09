@@ -81,8 +81,8 @@ CountPersonTime <- function(Dataset_events = NULL, Dataset, Person_id, Start_stu
     #Set character input for study dates to date format
     ################################################################################################################################
     if(print) print("Assign date format to Start_study_time and End_study_time")
-    Start_study_time <- as.IDate(as.character(Start_study_time),"%Y%m%d")
-    End_study_time <- as.IDate(as.character(End_study_time),"%Y%m%d")
+    Start_study_time <- as.IDate(Start_study_time,"%Y%m%d")
+    End_study_time <- as.IDate(End_study_time,"%Y%m%d")
     ################################################################################################################################
     
     
