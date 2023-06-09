@@ -14,8 +14,8 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   #Set character input for study dates to date format
   ################################################################################################################################
   print("Assign date format to Start_study_time and End_study_time")
-  Start_study_time<-as.IDate(as.character(Start_study_time,"%Y%m%d"),"%Y%m%d")
-  End_study_time<-as.IDate(as.character(End_study_time,"%Y%m%d"),"%Y%m%d")
+  Start_study_time<-as.IDate(Start_study_time, "%Y%m%d")
+  End_study_time<-as.IDate(End_study_time, "%Y%m%d")
   
   ################################################################################################################################
   #create the object used as choosen key (between key and unit of observation)
