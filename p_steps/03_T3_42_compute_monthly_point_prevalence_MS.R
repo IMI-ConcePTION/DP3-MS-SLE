@@ -37,7 +37,7 @@ for (outcome in OUTCOME_variables) {
                     End_study_time = sequence_end_year[[x]],
                     Conditions = unique(algo_df[, algorithm]),
                     include_remaning_ages = F,
-                    Age_bands = ageband_definition,
+                    Age_bands = ageband_definition_level_1,
                     Aggregate = T,
                     drop_not_in_population = T)
   })
