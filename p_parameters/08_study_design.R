@@ -44,6 +44,8 @@ rm(recommended_start_date_vect)
 
 study_start <- max(ymd(20050101), recommended_start_date)
 
-ageband_definition <- c(15, 19, 24, 29, 34, 39, 44, 49)
+ageband_definition_level_1 <- c(15, 19, 24, 29, 34, 39, 44, 49)
+ageband_definition_level_2 <- c(15, 24, 29, 34, 39, 49)
+ageband_definition_level_3 <- c(15, 24, 34, 49)
 
 s <- c(1, 2, 3, 5, 8, "all")
