@@ -24,7 +24,7 @@ for (outcome in OUTCOME_variables) {
                                        Start_study_time = recommended_start_date, End_study_time = study_end,
                                        Conditions = unique(algo_df[, algorithm]),
                                        include_remaning_ages = F,
-                                       Age_bands = ageband_definition, Aggregate = F)
+                                       Age_bands = ageband_definition_level_1, Aggregate = F)
   
   level_2_periods <- list(list("20050101", "20071231"),
                           list("20080101", "20101231"),
@@ -47,7 +47,7 @@ for (outcome in OUTCOME_variables) {
                                                   Start_study_time = recommended_start_date, End_study_time = study_end,
                                                   Conditions = unique(algo_df[, algorithm]),
                                                   include_remaning_ages = F,
-                                                  Age_bands = ageband_definition, Aggregate = F)
+                                                  Age_bands = ageband_definition_level_1, Aggregate = F)
   
   period_prevalence <- period_prevalence[!is.na(Ageband), ]
   period_prevalence_period <- period_prevalence_period[!is.na(Ageband), ]
@@ -145,5 +145,5 @@ for (outcome in OUTCOME_variables) {
   # Remove unnened values
   period_prevalence <- period_prevalence[grepl("-", timeframe) | ageband == "all", ]
   
-  smart_save(period_prevalence, dirperiod_prevalence, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension)
+  smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension)
 }
