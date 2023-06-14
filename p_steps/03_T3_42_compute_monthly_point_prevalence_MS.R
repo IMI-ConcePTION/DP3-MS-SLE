@@ -53,13 +53,13 @@ for (outcome in OUTCOME_variables) {
   # Select algorithms columns
   algo_cols <- colnames(period_prevalence)[grepl("[MS|SLE][0-9]", colnames(period_prevalence))]
   
-  # Aggregate to get only one row per person/timeframe and then add it to the original dataset
-  period_prevalence_period_no_ageband <- copy(period_prevalence)[, lapply(.SD, sum),
-                                                                 .SDcols = c(algo_cols, "in_population"),
-                                                                 by = c("timeframe", "n_month")]
-  period_prevalence_period_no_ageband[, Ageband := "all"]
-  period_prevalence <- rbindlist(list(period_prevalence, period_prevalence_period_no_ageband), use.names = T)
-  rm(period_prevalence_period_no_ageband)
+  # # Aggregate to get only one row per person/timeframe and then add it to the original dataset
+  # period_prevalence_period_no_ageband <- copy(period_prevalence)[, lapply(.SD, sum),
+  #                                                                .SDcols = c(algo_cols, "in_population"),
+  #                                                                by = c("timeframe", "n_month")]
+  # period_prevalence_period_no_ageband[, Ageband := "all"]
+  # period_prevalence <- rbindlist(list(period_prevalence, period_prevalence_period_no_ageband), use.names = T)
+  # rm(period_prevalence_period_no_ageband)
   
   # Melt algorithms columns
   period_prevalence <- data.table::melt(period_prevalence,
@@ -73,8 +73,41 @@ for (outcome in OUTCOME_variables) {
   # Create column denominator (all 1 since everyone is in_population for previous filter)
   setnames(period_prevalence, "in_population", "denominator")
   
-  # Add a column to define the type of prevalence
-  period_prevalence[, type_of_prevalence := "average_monthly_prevalence"]
+  
+  base_agebands <- c("15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49")
+  
+  df_recode_Ageband_2 <- data.table::data.table(Ageband_2 = c("15-24", "15-24", "25-29", "30-34", "35-39", "40-49", "40-49"),
+                                                base_agebands = base_agebands)
+  df_recode_Ageband_3 <- data.table::data.table(Ageband_3 = c("15-24", "15-24", "25-34", "25-34", "35-49", "35-49", "35-49"),
+                                                base_agebands = base_agebands)
+  
+  period_prevalence[, timeframe := as.integer(timeframe)]
+  
+  setnames(period_prevalence, "Ageband", "Ageband_1")
+  period_prevalence[df_recode_Ageband_2, on = .(Ageband_1 = base_agebands), Ageband_2 := i.Ageband_2]
+  period_prevalence[df_recode_Ageband_3, on = .(Ageband_1 = base_agebands), Ageband_3 := i.Ageband_3]
+  
+  assigned_levels <- vector(mode = "list")
+  assigned_levels[["Ageband"]] <- c("Ageband_1", "Ageband_2", "Ageband_3")
+  assigned_levels[["timeframe"]] <- c("timeframe")
+  assigned_levels[["algorithm"]] <- c("algorithm")
+  assigned_levels[["n_month"]] <- c("n_month")
+  
+  period_prevalence <- Cube(input = period_prevalence,
+                            dimensions = c("Ageband","timeframe","algorithm", "n_month"),
+                            levels = assigned_levels,
+                            computetotal = c("Ageband"),
+                            measures = c("numerator", "denominator")
+  )
+  
+  period_prevalence[get("Ageband-label_value") == "AllAgeband", c("Ageband-label_value") := "all"]
+  
+  setnames(period_prevalence, paste(c("numerator", "denominator"), "sum", sep = "_"), c("numerator", "denominator"))
+  setnames(period_prevalence, paste(c("timeframe", "Ageband", "algorithm", "n_month"), "label_value", sep = "-"),
+           c("timeframe", "Ageband", "algorithm", "n_month"))
+  
+  period_prevalence[, paste(c("algorithm", "timeframe", "n_month"), "level_order", sep = "-") := NULL]
+  period_prevalence[, timeframe := as.character(timeframe)]
   
   # Recode the timeframe and add it to the original
   recoded_timeframe <- copy(period_prevalence)[, n_month := fcase(
@@ -87,18 +120,23 @@ for (outcome in OUTCOME_variables) {
   recoded_timeframe <- recoded_timeframe[.(timeframe = as.character(seq(2005, 2019)),
                                            to = c(rep(c("2005-2009", "2010-2014", "2015-2019"), each = 5))),
                                          on = "timeframe", timeframe := i.to]
-  period_prevalence <- rbindlist(list(period_prevalence, recoded_timeframe), use.names = T)
+  recoded_timeframe[, "timeframe-level_order" := 99]
+  period_prevalence <- rbindlist(list(period_prevalence[, "timeframe-level_order" := 1], recoded_timeframe), use.names = T)
   
   # Recode the timeframe and add it to the original
   period_prevalence[, n_month := sprintf("%02d", n_month)]
   
   # Month to wide as columns
   period_prevalence <- data.table::dcast(period_prevalence,
-                                         type_of_prevalence + timeframe + Ageband + algorithm ~ n_month, fill = 0,
+                                         timeframe + `timeframe-level_order` + Ageband + `Ageband-level_order` + algorithm ~ n_month, fill = 0,
                                          drop = T, value.var = c("numerator", "denominator"))
   
   # Change column names
   setnames(period_prevalence, "Ageband", "ageband")
+  setnames(period_prevalence, "Ageband-level_order", "ageband-level_order")
+  
+  # Add a column to define the type of prevalence
+  period_prevalence[, type_of_prevalence := "average_monthly_prevalence"]
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_average_point", outcome, sep = "_"), extension = extension)
 }
