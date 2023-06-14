@@ -78,9 +78,6 @@ for (outcome in OUTCOME_variables) {
   # Calculate numerator and denominator
   persontime_prevalence <- persontime_prevalence[, .(numerator = sum(Persontime * num_dem),
                                                      denominator = sum(Persontime)), by = c("timeframe", "Ageband", "algorithm")]
-  DT = copy(persontime_prevalence)
-  
-  setnames(DT, "Ageband", "Ageband_1")
   
   base_agebands <- c("15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49")
   
@@ -88,43 +85,22 @@ for (outcome in OUTCOME_variables) {
                                                 base_agebands = base_agebands)
   df_recode_Ageband_3 <- data.table::data.table(Ageband_3 = c("15-24", "15-24", "25-34", "25-34", "35-49", "35-49", "35-49"),
                                                 base_agebands = base_agebands)
-  df_recode_Ageband_4 <- data.table::data.table(Ageband_4 = c("all", "all", "all", "all", "all", "all", "all"),
-                                                base_agebands = base_agebands)
-  DT[df_recode_Ageband_2, on = .(Ageband_1 = base_agebands), Ageband_2 := i.Ageband_2]
-  DT[df_recode_Ageband_3, on = .(Ageband_1 = base_agebands), Ageband_3 := i.Ageband_3]
-  DT[df_recode_Ageband_4, on = .(Ageband_1 = base_agebands), Ageband_4 := i.Ageband_4]
-  DT[, timeframe := as.integer(timeframe)]
-  DT[, timeframe_2 := cut(timeframe, c(2005, 2010, 2015, 2020),
-                          labels = c("2005-2009", "2010-2014", "2015-2019"), right = F)]
-  DT[, timeframe_3 := "2005-2019"]
   
-  DT_1 = copy(persontime_prevalence)
-  DT_1[, timeframe := as.integer(timeframe)]
+  persontime_prevalence[, timeframe := as.integer(timeframe)]
   
-  setnames(DT_1, "Ageband", "Ageband_1")
-  DT_1[df_recode_Ageband_2, on = .(Ageband_1 = base_agebands), Ageband_2 := i.Ageband_2]
-  DT_1[df_recode_Ageband_3, on = .(Ageband_1 = base_agebands), Ageband_3 := i.Ageband_3]
+  setnames(persontime_prevalence, "Ageband", "Ageband_1")
+  persontime_prevalence[df_recode_Ageband_2, on = .(Ageband_1 = base_agebands), Ageband_2 := i.Ageband_2]
+  persontime_prevalence[df_recode_Ageband_3, on = .(Ageband_1 = base_agebands), Ageband_3 := i.Ageband_3]
   
   assigned_levels <- vector(mode = "list")
-  assigned_levels[["Ageband"]] <- c("Ageband_1", "Ageband_2", "Ageband_3", "Ageband_4")
-  assigned_levels[["timeframe"]] <- c("timeframe", "timeframe_2", "timeframe_3")
+  assigned_levels[["Ageband"]] <- c("Ageband_1", "Ageband_2", "Ageband_3")
+  assigned_levels[["timeframe"]] <- c("timeframe", "timeframe_2")
   assigned_levels[["algorithm"]] <- c("algorithm")
-  
-  assigned_levels_1 <- vector(mode = "list")
-  assigned_levels_1[["Ageband"]] <- c("Ageband_1", "Ageband_2", "Ageband_3")
-  assigned_levels_1[["timeframe"]] <- c("timeframe", "timeframe_2")
-  assigned_levels_1[["algorithm"]] <- c("algorithm")
   
   assigned_rule <- vector(mode = "list")
   assigned_rule[["timeframe"]][["timeframe_2"]] <- list("split_in_bands","timeframe", c(2005, 2010, 2015, 2020))
   
-  test <- Cube(input = DT,
-               dimensions = c("Ageband","timeframe","algorithm"),
-               levels = assigned_levels,
-               measures = c("numerator", "denominator")
-  )
-  
-  test_new <- Cube(input = DT_1,
+  persontime_prevalence <- Cube(input = persontime_prevalence,
                   dimensions = c("Ageband","timeframe","algorithm"),
                   levels = assigned_levels_1,
                   computetotal = c("timeframe", "Ageband"),
@@ -132,16 +108,14 @@ for (outcome in OUTCOME_variables) {
                   rule_from_numeric_to_categorical = assigned_rule
   )
   
-  test_new[get("timeframe-label_value") == "Alltimeframe", c("timeframe-label_value") := "2005-2019"]
-  test_new[get("Ageband-label_value") == "AllAgeband", c("Ageband-label_value") := "all"]
+  persontime_prevalence[get("timeframe-label_value") == "Alltimeframe", c("timeframe-label_value") := "2005-2019"]
+  persontime_prevalence[get("Ageband-label_value") == "AllAgeband", c("Ageband-label_value") := "all"]
   
-  setorderv(test, c("Ageband-label_value", "timeframe-label_value", "algorithm-label_value", "Ageband-level_order",
-                    "timeframe-level_order", "algorithm-level_order", "numerator_sum", "denominator_sum"))
-  setorderv(test_new, c("Ageband-label_value", "timeframe-label_value", "algorithm-label_value", "Ageband-level_order",
-                        "timeframe-level_order", "algorithm-level_order", "numerator_sum", "denominator_sum"))
-  summary(arsenal::comparedf(test, test_new))
-  all.equal(test, test_new)
+  setnames(persontime_prevalence, paste(c("numerator", "denominator"), "sum", sep = "_"), c("numerator", "denominator"))
+  setnames(persontime_prevalence, paste(c("timeframe", "Ageband", "algorithm"), "label_value", sep = "-"),
+           c("timeframe", "Ageband", "algorithm"))
   
+  persontime_prevalence[, paste(c("algorithm"), "level_order", sep = "-") := NULL]
   
   # Add a column to define the type of prevalence
   persontime_prevalence[, type_of_prevalence := "persontime_prevalence"]
@@ -149,26 +123,6 @@ for (outcome in OUTCOME_variables) {
   # Clean and reorder the columns
   setnames(persontime_prevalence, "Ageband", "ageband")
   setcolorder(persontime_prevalence, c("type_of_prevalence", "timeframe", "ageband", "algorithm"))
-  
-  # Calculate the aggregated dataset by ageband
-  aggregated_ageband <- copy(persontime_prevalence)[, lapply(.SD, sum), by = c("type_of_prevalence", "timeframe",
-                                                                               "algorithm"),
-                                                    .SDcols = c("numerator", "denominator")]
-  aggregated_ageband[, ageband := "all"]
-  persontime_prevalence <- rbindlist(list(persontime_prevalence, aggregated_ageband), use.names = T)
-  
-  # Calculate the aggregated dataset by timeframe and add it to the original
-  aggregated_timeframe <- copy(persontime_prevalence)[.(timeframe = as.character(seq(2005, 2019)),
-                                                    to = c(rep(c("2005-2009", "2010-2014", "2015-2019"), each = 5))),
-                                                  on = "timeframe", timeframe := i.to]
-  aggregated_timeframe <- aggregated_timeframe[, lapply(.SD, sum),
-                                               by = c("type_of_prevalence", "timeframe", "ageband", "algorithm"),
-                                               .SDcols = c("numerator", "denominator")]
-  tot_timeframe <- copy(persontime_prevalence)[, lapply(.SD, sum),
-                                               by = c("type_of_prevalence", "ageband", "algorithm"),
-                                               .SDcols = c("numerator", "denominator")]
-  tot_timeframe[, timeframe := "2005-2019"]
-  persontime_prevalence <- rbindlist(list(persontime_prevalence[ageband == "all"], aggregated_timeframe, tot_timeframe), use.names = T)
   
   smart_save(persontime_prevalence, diroutput, override_name = paste("D4_prevalence_persontime", outcome, sep = "_"),
              extension = extension)
