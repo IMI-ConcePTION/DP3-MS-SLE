@@ -102,7 +102,7 @@ for (outcome in OUTCOME_variables) {
   
   persontime_prevalence <- Cube(input = persontime_prevalence,
                   dimensions = c("Ageband","timeframe","algorithm"),
-                  levels = assigned_levels_1,
+                  levels = assigned_levels,
                   computetotal = c("timeframe", "Ageband"),
                   measures = c("numerator", "denominator"),
                   rule_from_numeric_to_categorical = assigned_rule
