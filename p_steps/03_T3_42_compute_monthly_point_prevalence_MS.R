@@ -155,7 +155,12 @@ for (outcome in OUTCOME_variables) {
   tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
              .SDcols = c(numerator_to_censor, denominator_to_censor)]
   
-  smart_save(tmp, direxp, override_name = paste("D4_prevalence_average_point_summary_levels", outcome, sep = "_"), extension = extension)
+  tmp[, numerator := all(.SD), .SDcols = numerator_to_censor]
+  tmp[, c(numerator_to_censor) := NULL]
+  tmp[, denominator := all(.SD), .SDcols = denominator_to_censor]
+  tmp[, c(denominator_to_censor) := NULL]
+  
+  smart_save(tmp, direxp, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels", sep = "_"), extension = extension)
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_average_point", outcome, sep = "_"), extension = extension)
 }
