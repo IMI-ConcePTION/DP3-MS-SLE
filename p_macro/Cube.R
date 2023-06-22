@@ -30,7 +30,7 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
         tmp <- unique(input[, unlist(c(names(order[[dm]]), order[[dm]]), use.names = F), with = F])
         setorderv(tmp, unlist(order[[dm]]))
         order[[dm]][[names(order[[dm]])]] <- unlist(tmp[, names(order[[dm]]), with = F], use.names = F)
-
+        
       }
     }
   }
@@ -101,7 +101,8 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
       #   statistic <- paste0("do.call(", statistic, ", .SD)")
       # }
       
-      measure_list <- paste(measure, statistic, sep = "_")
+      measure_name <- paste(measure, statistic, sep = "_")
+      measure_list <- c(measure_list, measure_name)
       measure_name_list <- measure
       statistic <- parse(text = paste0("lapply(.SD,", statistic, ")"))
       
@@ -116,7 +117,7 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
         to_change_name <- "V1"
       }
       
-      setnames(tmp, to_change_name, measure_list)
+      setnames(tmp, to_change_name, measure_name)
       # setnames(tmp, paste0("V", seq_along(measures)), measure_list)
       
       tmp_2 <- if (!exists("tmp_2")) copy(tmp) else cbind(tmp_2, tmp[, ncol(tmp), with = F])
@@ -147,7 +148,7 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
   order_cols <- c()
   for (dm in names(levels)) {
     
-    new_col <- paste(dm, "level_order", sep = "-")
+    new_col <- paste(dm, "LevelOrder", sep = "_")
     
     last_lvl <- levels[[dm]][[length(levels[[dm]])]]
     
@@ -187,7 +188,7 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
     for (dm in names(proportion)) {
       for (proportion_measure in names(proportion[[dm]])) {
         for (denominator in proportion[[dm]][[proportion_measure]]) {
-          dm_order_name <- paste(dm, "level_order", sep = "-")
+          dm_order_name <- paste(dm, "LevelOrder", sep = "_")
           
           temp <- copy(input)[get(dm_order_name) == denominator, ]
           
@@ -197,7 +198,7 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
           measure_name <- paste(proportion_measure, "denominator", sep = "_")
           setnames(temp, paste(proportion_measure, "sum", sep = "_"), measure_name)
           
-          cols_keep <- c(measure_name, dimensions, paste(setdiff(dimensions, dm), "level_order", sep = "-"))
+          cols_keep <- c(measure_name, dimensions, paste(setdiff(dimensions, dm), "LevelOrder", sep = "_"))
           temp <- temp[, cols_keep, with = F]
           # temp <- temp[get(dm_order_name) != 99, (dm_order_name) := get(dm_order_name) - 1]
           # temp <- temp[get(dm_order_name) == 99, (dm_order_name) := -1]
@@ -221,7 +222,7 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
           
           input <- merge(input, temp2, by = cols_group_by, all.x = T)
           proportion_name <- paste("prop", dm, proportion_measure, denominator, sep = "_")
-
+          
           input[, (proportion_name) := get(paste(proportion_measure, "sum", sep = "_")) / get(measure_name)]
           
           input[, c(measure_name) := NULL]
@@ -237,7 +238,7 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
     for (dm in names(order)){
       ordered_list <- unlist(order[[dm]], use.names = F)
       ordered_list <- c(ordered_list, sort(setdiff(unique(input[[dm]]), ordered_list)))
-
+      
       input <- merge(input,
                      data.table::data.table(ordered_list, seq_along(ordered_list)),
                      by.x = dm,
@@ -245,11 +246,11 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
                      all.x = T)
       setorderv(input, "V2")
       
-      setnames(input, "V2", paste(dm, "value_order", sep = "-"))
+      setnames(input, "V2", paste(dm, "ValueOrder", sep = "_"))
     }
   }
   
-  level_label_names <- paste(names(levels), "label_value", sep = "-")
+  level_label_names <- paste(names(levels), "LabelValue", sep = "_")
   setnames(input, names(levels), level_label_names)
   
   if (is.numeric(summary_threshold)) {
