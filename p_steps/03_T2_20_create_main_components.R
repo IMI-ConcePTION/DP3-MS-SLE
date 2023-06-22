@@ -30,7 +30,7 @@ meaning_occurences <- MergeFilterAndCollapse(list(meaning_occurences),
                                              condition = "!is.na(person_id)",
                                              strata = c("concept", "original_meaning", "meaning_recoded"),
                                              summarystat = list(c("count", "person_id", "count")))
-smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences", extension = "csv")
+smart_save(meaning_occurences, diroutput, override_name = "D5_meaning_occurences", extension = "csv")
 
 update_vector("datasets_to_censor", dirpargen, "D5_meaning_occurences")
 update_vector("variables_to_censor", dirpargen, c("count" = 5))

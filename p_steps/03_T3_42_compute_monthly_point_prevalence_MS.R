@@ -139,7 +139,7 @@ for (outcome in OUTCOME_variables) {
   period_prevalence[, type_of_prevalence := "average_monthly_prevalence"]
   
   # Remove all ageband in case of a single year
-  period_prevalence <- period_prevalence[timeframe_LevelOrder != 1 | ageband_LevelOrder == 99, ]
+  period_prevalence <- period_prevalence[timeframe_LevelOrder != 1 | Ageband_LevelOrder == 99, ]
   
   # Find if a level contains at least a value to censor
   summary_threshold <- 5
@@ -155,7 +155,7 @@ for (outcome in OUTCOME_variables) {
   tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
              .SDcols = c(numerator_to_censor, denominator_to_censor)]
   
-  smart_save(tmp, diroutput, override_name = paste("D4_prevalence_average_point_summary_levels", outcome, sep = "_"), extension = extension)
+  smart_save(tmp, direxp, override_name = paste("D4_prevalence_average_point_summary_levels", outcome, sep = "_"), extension = extension)
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_average_point", outcome, sep = "_"), extension = extension)
 }
