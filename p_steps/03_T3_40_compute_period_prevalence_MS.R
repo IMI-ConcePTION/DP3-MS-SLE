@@ -93,27 +93,27 @@ for (outcome in OUTCOME_variables) {
                  dimensions = c("Ageband","person_id","timeframe"),
                  levels = assigned_levels,
                  measures = c(algo_cols, "in_population"),
-                 statistics = assigned_statistics,
+                 statistics = assigned_statistics
   ))
   
   setnames(period_prevalence, paste(c(algo_cols, "in_population"), "max", sep = "_"), c(algo_cols, "in_population"))
-  setnames(period_prevalence, paste(c("timeframe", "Ageband", "person_id"), "label_value", sep = "-"),
+  setnames(period_prevalence, paste(c("timeframe", "Ageband", "person_id"), "LabelValue", sep = "_"),
            c("timeframe", "Ageband", "person_id"))
   
-  period_prevalence[, paste(c("timeframe", "person_id"), "level_order", sep = "-") := NULL]
+  period_prevalence[, paste(c("timeframe", "person_id"), "LevelOrder", sep = "_") := NULL]
   
   # Aggregate to get only one row per person/timeframe 
   period_prevalence <- period_prevalence[, lapply(.SD, max),
                                          .SDcols = c(algo_cols, "in_population"),
-                                         by = c("timeframe", "Ageband", "person_id", "Ageband-level_order")]
+                                         by = c("timeframe", "Ageband", "person_id", "Ageband_LevelOrder")]
   
   # Original aggregate inside countprevalence
   period_prevalence <- period_prevalence[, lapply(.SD, sum),
                                          .SDcols = c(algo_cols, "in_population"),
-                                         by = c("timeframe", "Ageband", "Ageband-level_order")]
+                                         by = c("timeframe", "Ageband", "Ageband_LevelOrder")]
   
   # Melt algorithms columns
-  period_prevalence <- data.table::melt(period_prevalence, id.vars = c("timeframe", "Ageband", "Ageband-level_order", "in_population"),
+  period_prevalence <- data.table::melt(period_prevalence, id.vars = c("timeframe", "Ageband", "Ageband_LevelOrder", "in_population"),
                                         measure.vars = algo_cols, variable.name = "algorithm", variable.factor = F,
                                         value.name = "numerator")
   
@@ -129,14 +129,15 @@ for (outcome in OUTCOME_variables) {
   setcolorder(period_prevalence, c("type_of_prevalence", "timeframe", "ageband", "numerator", "denominator",
                                    "algorithm"))
   
-  df_recode_year_level_1 <- data.table::data.table(timeframe = as.character(seq(year(recommended_start_date), year(study_end))),
-                                                   "timeframe-level_order" = 1)
+  df_recode_year_level_1 <- data.table::data.table(timeframe = as.character(seq(year(recommended_start_date),
+                                                                                year(study_end))),
+                                                   timeframe_LevelOrder = 1)
   df_recode_year_level_2 <- data.table::data.table(timeframe = c("2005-2007", "2008-2010", "2011-2013", "2014-2016", "2017-2019"),
-                                                   "timeframe-level_order" = 2)
+                                                   timeframe_LevelOrder = 2)
   df_recode_year_level_3 <- data.table::data.table(timeframe = c("2005-2009", "2010-2014", "2015-2019"),
-                                                   "timeframe-level_order" = 3)
+                                                   timeframe_LevelOrder = 3)
   df_recode_year_level_4 <- data.table::data.table(timeframe = c("2005-2019"),
-                                                   "timeframe-level_order" = 4)
+                                                   timeframe_LevelOrder = 4)
   df_recode_year_level <- data.table::rbindlist(list(df_recode_year_level_1, df_recode_year_level_2,
                                                      df_recode_year_level_3, df_recode_year_level_4))
   
@@ -144,6 +145,18 @@ for (outcome in OUTCOME_variables) {
   
   # Remove unnened values
   period_prevalence <- period_prevalence[grepl("-", timeframe) | ageband == "all", ]
+  
+  # Find if a level contains at least a value to censor
+  summary_threshold <- 5
+  tmp <- copy(period_prevalence)
+  
+  for(measure in c("numerator", "denominator")) {
+    tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
+  }
+  
+  tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"), .SDcols = c("numerator", "denominator")]
+  
+  smart_save(tmp, diroutput, override_name = paste("D4_prevalence_period_summary_levels", outcome, sep = "_"), extension = extension)
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension)
 }

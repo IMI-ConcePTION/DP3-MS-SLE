@@ -108,14 +108,14 @@ for (outcome in OUTCOME_variables) {
                   rule_from_numeric_to_categorical = assigned_rule
   )
   
-  persontime_prevalence[get("timeframe-label_value") == "Alltimeframe", c("timeframe-label_value") := "2005-2019"]
-  persontime_prevalence[get("Ageband-label_value") == "AllAgeband", c("Ageband-label_value") := "all"]
+  persontime_prevalence[get("timeframe_LabelValue") == "Alltimeframe", timeframe_LabelValue := "2005-2019"]
+  persontime_prevalence[get("Ageband_LabelValue") == "AllAgeband", Ageband_LabelValue := "all"]
   
   setnames(persontime_prevalence, paste(c("numerator", "denominator"), "sum", sep = "_"), c("numerator", "denominator"))
-  setnames(persontime_prevalence, paste(c("timeframe", "Ageband", "algorithm"), "label_value", sep = "-"),
+  setnames(persontime_prevalence, paste(c("timeframe", "Ageband", "algorithm"), "LabelValue", sep = "_"),
            c("timeframe", "Ageband", "algorithm"))
   
-  persontime_prevalence[, paste(c("algorithm"), "level_order", sep = "-") := NULL]
+  persontime_prevalence[, paste(c("algorithm"), "LevelOrder", sep = "_") := NULL]
   
   # Add a column to define the type of prevalence
   persontime_prevalence[, type_of_prevalence := "persontime_prevalence"]
@@ -123,6 +123,18 @@ for (outcome in OUTCOME_variables) {
   # Clean and reorder the columns
   setnames(persontime_prevalence, "Ageband", "ageband")
   setcolorder(persontime_prevalence, c("type_of_prevalence", "timeframe", "ageband", "algorithm"))
+  
+  # Find if a level contains at least a value to censor
+  summary_threshold <- 5 * 365
+  tmp <- copy(persontime_prevalence)
+  
+  for(measure in c("numerator", "denominator")) {
+    tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
+  }
+  
+  tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"), .SDcols = c("numerator", "denominator")]
+  
+  smart_save(tmp, diroutput, override_name = paste("D4_prevalence_persontime_summary_levels", outcome, sep = "_"), extension = extension)
   
   smart_save(persontime_prevalence, diroutput, override_name = paste("D4_prevalence_persontime", outcome, sep = "_"),
              extension = extension)

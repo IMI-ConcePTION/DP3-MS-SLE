@@ -100,13 +100,13 @@ for (outcome in OUTCOME_variables) {
                             measures = c("numerator", "denominator")
   )
   
-  period_prevalence[get("Ageband-label_value") == "AllAgeband", c("Ageband-label_value") := "all"]
+  period_prevalence[get("Ageband_LabelValue") == "AllAgeband", Ageband_LabelValue := "all"]
   
   setnames(period_prevalence, paste(c("numerator", "denominator"), "sum", sep = "_"), c("numerator", "denominator"))
-  setnames(period_prevalence, paste(c("timeframe", "Ageband", "algorithm", "n_month"), "label_value", sep = "-"),
+  setnames(period_prevalence, paste(c("timeframe", "Ageband", "algorithm", "n_month"), "LabelValue", sep = "_"),
            c("timeframe", "Ageband", "algorithm", "n_month"))
   
-  period_prevalence[, paste(c("algorithm", "timeframe", "n_month"), "level_order", sep = "-") := NULL]
+  period_prevalence[, paste(c("algorithm", "timeframe", "n_month"), "LevelOrder", sep = "_") := NULL]
   period_prevalence[, timeframe := as.character(timeframe)]
   
   # Recode the timeframe and add it to the original
@@ -120,23 +120,42 @@ for (outcome in OUTCOME_variables) {
   recoded_timeframe <- recoded_timeframe[.(timeframe = as.character(seq(2005, 2019)),
                                            to = c(rep(c("2005-2009", "2010-2014", "2015-2019"), each = 5))),
                                          on = "timeframe", timeframe := i.to]
-  recoded_timeframe[, "timeframe-level_order" := 99]
-  period_prevalence <- rbindlist(list(period_prevalence[, "timeframe-level_order" := 1], recoded_timeframe), use.names = T)
+  recoded_timeframe[, timeframe_LevelOrder := 99]
+  period_prevalence <- rbindlist(list(period_prevalence[, timeframe_LevelOrder := 1], recoded_timeframe), use.names = T)
   
   # Recode the timeframe and add it to the original
   period_prevalence[, n_month := sprintf("%02d", n_month)]
   
   # Month to wide as columns
   period_prevalence <- data.table::dcast(period_prevalence,
-                                         timeframe + `timeframe-level_order` + Ageband + `Ageband-level_order` + algorithm ~ n_month, fill = 0,
+                                         timeframe + timeframe_LevelOrder + Ageband + Ageband_LevelOrder + algorithm ~ n_month, fill = 0,
                                          drop = T, value.var = c("numerator", "denominator"))
   
   # Change column names
   setnames(period_prevalence, "Ageband", "ageband")
-  setnames(period_prevalence, "Ageband-level_order", "ageband-level_order")
+  setnames(period_prevalence, "Ageband_LevelOrder", "ageband_LevelOrder")
   
   # Add a column to define the type of prevalence
   period_prevalence[, type_of_prevalence := "average_monthly_prevalence"]
+  
+  # Remove all ageband in case of a single year
+  period_prevalence <- period_prevalence[timeframe_LevelOrder != 1 | ageband_LevelOrder == 99, ]
+  
+  # Find if a level contains at least a value to censor
+  summary_threshold <- 5
+  tmp <- copy(period_prevalence)
+  
+  numerator_to_censor <- paste("numerator", sprintf("%02d", seq_len(60)), sep="_")
+  denominator_to_censor <- paste("denominator", sprintf("%02d", seq_len(60)), sep="_")
+  
+  for(measure in c(numerator_to_censor, denominator_to_censor)) {
+    tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
+  }
+  
+  tmp <- tmp[, lapply(.SD, all), by = c("ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
+             .SDcols = c(numerator_to_censor, denominator_to_censor)]
+  
+  smart_save(tmp, diroutput, override_name = paste("D4_prevalence_average_point_summary_levels", outcome, sep = "_"), extension = extension)
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_average_point", outcome, sep = "_"), extension = extension)
 }
