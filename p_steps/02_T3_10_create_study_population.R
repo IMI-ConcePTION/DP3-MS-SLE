@@ -20,7 +20,7 @@ selected_population <- CreateFlowChart(
   flowchartname = "Flowchart_exclusion_criteria")
 
 fwrite(get("Flowchart_exclusion_criteria"),
-       paste0(direxp, "Flowchart_exclusion_criteria.csv"))
+       paste0(diroutput, "Flowchart_exclusion_criteria.csv"))
 
 smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_study_population_SAP1", extension = extension)
 
