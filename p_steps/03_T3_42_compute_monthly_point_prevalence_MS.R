@@ -131,9 +131,9 @@ for (outcome in OUTCOME_variables) {
                                          timeframe + timeframe_LevelOrder + Ageband + Ageband_LevelOrder + algorithm ~ n_month, fill = 0,
                                          drop = T, value.var = c("numerator", "denominator"))
   
-  # Change column names
-  setnames(period_prevalence, "Ageband", "ageband")
-  setnames(period_prevalence, "Ageband_LevelOrder", "ageband_LevelOrder")
+  # # Change column names
+  # setnames(period_prevalence, "Ageband", "ageband")
+  # setnames(period_prevalence, "Ageband_LevelOrder", "ageband_LevelOrder")
   
   # Add a column to define the type of prevalence
   period_prevalence[, type_of_prevalence := "average_monthly_prevalence"]
@@ -152,7 +152,7 @@ for (outcome in OUTCOME_variables) {
     tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
   }
   
-  tmp <- tmp[, lapply(.SD, all), by = c("ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
+  tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
              .SDcols = c(numerator_to_censor, denominator_to_censor)]
   
   smart_save(tmp, diroutput, override_name = paste("D4_prevalence_average_point_summary_levels", outcome, sep = "_"), extension = extension)
