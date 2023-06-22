@@ -65,7 +65,7 @@ for (outcome in OUTCOME_variables) {
                           Name_condition = "algorithm", Date_condition = "date_algo",
                           Strata = "entry_spell_category",
                           Type_prevalence = "period", Periods_of_time = list(c("cohort_entry_date", "cohort_exit_date")),
-                          Start_study_time = recommended_start_date, End_study_time = study_end,
+                          Start_study_time = max(recommended_start_date, study_start), End_study_time = study_end,
                           Conditions = unique(components_lookback[, algorithm]),
                           Aggregate = F)
   algorithm_lookback[, c("timeframe", "in_population") := NULL]

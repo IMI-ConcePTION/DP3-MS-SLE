@@ -21,7 +21,8 @@ for (outcome in OUTCOME_variables) {
                                        End_date = "cohort_exit_date", Birth_date = "birth_date",
                                        Name_condition = "algorithm", Date_condition = "date",
                                        Type_prevalence = "period", Increment_period = "year",
-                                       Start_study_time = recommended_start_date, End_study_time = study_end,
+                                       Start_study_time = max(recommended_start_date, study_start),
+                                       End_study_time = study_end,
                                        Conditions = unique(algo_df[, algorithm]),
                                        include_remaning_ages = F,
                                        Age_bands = ageband_definition_level_1, Aggregate = F)
@@ -44,7 +45,8 @@ for (outcome in OUTCOME_variables) {
                                                   Name_condition = "algorithm", Date_condition = "date",
                                                   Type_prevalence = "period",
                                                   Periods_of_time = c(level_2_periods, level_3_periods, level_4_periods),
-                                                  Start_study_time = recommended_start_date, End_study_time = study_end,
+                                                  Start_study_time = max(recommended_start_date, study_start),
+                                              End_study_time = study_end,
                                                   Conditions = unique(algo_df[, algorithm]),
                                                   include_remaning_ages = F,
                                                   Age_bands = ageband_definition_level_1, Aggregate = F)
