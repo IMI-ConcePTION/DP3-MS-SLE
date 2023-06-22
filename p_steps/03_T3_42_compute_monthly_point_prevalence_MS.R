@@ -121,7 +121,7 @@ for (outcome in OUTCOME_variables) {
                                            to = c(rep(c("2005-2009", "2010-2014", "2015-2019"), each = 5))),
                                          on = "timeframe", timeframe := i.to]
   recoded_timeframe[, timeframe_LevelOrder := 99]
-  period_prevalence <- rbindlist(list(period_prevalence[, timeframe_LevelOrder := 1], recoded_timeframe), use.names = T)
+  period_prevalence <- rbindlist(list(period_prevalence[, timeframe_LevelOrder := 3], recoded_timeframe), use.names = T)
   
   # Recode the timeframe and add it to the original
   period_prevalence[, n_month := sprintf("%02d", n_month)]
@@ -159,6 +159,8 @@ for (outcome in OUTCOME_variables) {
   tmp[, c(numerator_to_censor) := NULL]
   tmp[, denominator := all(.SD), .SDcols = denominator_to_censor]
   tmp[, c(denominator_to_censor) := NULL]
+  
+  setorder(tmp, "algorithm")
   
   smart_save(tmp, direxp, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels", sep = "_"), extension = extension)
   

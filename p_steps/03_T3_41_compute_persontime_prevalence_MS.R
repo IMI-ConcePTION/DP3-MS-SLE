@@ -134,6 +134,8 @@ for (outcome in OUTCOME_variables) {
   
   tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"), .SDcols = c("numerator", "denominator")]
   
+  setorder(tmp, "algorithm")
+  
   smart_save(tmp, direxp, override_name = paste("D4_prevalence_persontime", outcome, "summary_levels", sep = "_"), extension = extension)
   
   smart_save(persontime_prevalence, diroutput, override_name = paste("D4_prevalence_persontime", outcome, sep = "_"),
