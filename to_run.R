@@ -88,8 +88,8 @@ launch_step("p_steps/03_T3_41_compute_persontime_prevalence_MS.R")
 launch_step("p_steps/03_T3_42_compute_monthly_point_prevalence_MS.R")
 
 # AGGREGATE PREVALENCE
-launch_step("p_steps/03_T3_50_aggregate_prevalence_MS.R")
-launch_step("p_steps/03_T3_51_point_prevalence_multiple_lookback.R")
+# launch_step("p_steps/03_T3_50_aggregate_prevalence_MS.R")
+launch_step("p_steps/03_T3_50_point_prevalence_multiple_lookback.R")
 
 # COMPUTE BASIC STATISTICS
 launch_step("p_steps/04_T4_10_create_N_women_and_ranges_MS.R")
