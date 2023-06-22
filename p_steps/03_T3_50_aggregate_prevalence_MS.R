@@ -22,7 +22,7 @@ for (outcome in OUTCOME_variables) {
   D4_prevalence_aggregated_all[, datasource := thisdatasource][, algorithm := gsub("^MS", "M", algorithm)]
   
   export_name <- paste("D4_prevalence_aggregated_all", outcome, sep = "_")
-  smart_save(D4_prevalence_aggregated_all, direxp,
+  smart_save(D4_prevalence_aggregated_all, diroutput,
              override_name = export_name,
              extension = "csv")
   
