@@ -94,11 +94,12 @@ for (outcome in OUTCOME_variables) {
   
   assigned_levels <- vector(mode = "list")
   assigned_levels[["Ageband"]] <- c("Ageband_1", "Ageband_2", "Ageband_3")
-  assigned_levels[["timeframe"]] <- c("timeframe", "timeframe_2")
+  assigned_levels[["timeframe"]] <- c("timeframe", "timeframe_2", "timeframe_3")
   assigned_levels[["algorithm"]] <- c("algorithm")
   
   assigned_rule <- vector(mode = "list")
-  assigned_rule[["timeframe"]][["timeframe_2"]] <- list("split_in_bands","timeframe", c(2005, 2010, 2015, 2020))
+  assigned_rule[["timeframe"]][["timeframe_2"]] <- list("split_in_bands","timeframe", c(2005, 2008, 2011, 2014, 2017, 2020))
+  assigned_rule[["timeframe"]][["timeframe_3"]] <- list("split_in_bands","timeframe", c(2005, 2010, 2015, 2020))
   
   persontime_prevalence <- Cube(input = persontime_prevalence,
                   dimensions = c("Ageband","timeframe","algorithm"),
