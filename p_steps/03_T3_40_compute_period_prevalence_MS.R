@@ -137,7 +137,7 @@ for (outcome in OUTCOME_variables) {
   df_recode_year_level_3 <- data.table::data.table(timeframe = c("2005-2009", "2010-2014", "2015-2019"),
                                                    timeframe_LevelOrder = 3)
   df_recode_year_level_4 <- data.table::data.table(timeframe = c("2005-2019"),
-                                                   timeframe_LevelOrder = 4)
+                                                   timeframe_LevelOrder = 99)
   df_recode_year_level <- data.table::rbindlist(list(df_recode_year_level_1, df_recode_year_level_2,
                                                      df_recode_year_level_3, df_recode_year_level_4))
   
