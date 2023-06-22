@@ -24,7 +24,7 @@ DRE_Threshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter =
         if(any(colnames(File) %in% NAlist)) File[as.integer(get(Var_in_file)) < Varlist_in_file[[x]],
                                                  which(colnames(File) %in% NAlist)] <- NA
         File[as.integer(get(Var_in_file)) < Varlist_in_file[[x]] & as.integer(get(Var_in_file)) > 0 ,
-             (Var_in_file) := paste0("< ", Varlist_in_file[x])] 
+             (Var_in_file) := paste0("<", Varlist_in_file[x])] 
       }
     }
     
