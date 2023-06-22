@@ -160,7 +160,7 @@ for (outcome in OUTCOME_variables) {
   
   setorder(tmp, "algorithm")
   
-  smart_save(tmp, direxp, override_name = paste("D4_prevalence_period", outcome, "summary_levels", sep = "_"), extension = extension)
+  smart_save(tmp, direxp, override_name = paste("D4_prevalence_period", outcome, "summary_levels", sep = "_"), extension = "csv")
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension)
 }
