@@ -120,7 +120,7 @@ for (outcome in OUTCOME_variables) {
   recoded_timeframe <- recoded_timeframe[.(timeframe = as.character(seq(2005, 2019)),
                                            to = c(rep(c("2005-2009", "2010-2014", "2015-2019"), each = 5))),
                                          on = "timeframe", timeframe := i.to]
-  recoded_timeframe[, timeframe_LevelOrder := 99]
+  recoded_timeframe[, timeframe_LevelOrder := 3]
   period_prevalence <- rbindlist(list(period_prevalence[, timeframe_LevelOrder := 1], recoded_timeframe), use.names = T)
   
   # Recode the timeframe and add it to the original
@@ -139,7 +139,7 @@ for (outcome in OUTCOME_variables) {
   period_prevalence[, type_of_prevalence := "average_monthly_prevalence"]
   
   # Remove all ageband in case of a single year
-  period_prevalence <- period_prevalence[timeframe_LevelOrder != 1 | Ageband_LevelOrder == 99, ]
+  period_prevalence <- period_prevalence[timeframe_LevelOrder != 1 | Ageband_LevelOrder == 3, ]
   
   # Find if a level contains at least a value to censor
   summary_threshold <- 5
