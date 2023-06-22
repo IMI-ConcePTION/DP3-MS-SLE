@@ -1,6 +1,6 @@
-file.copy(from = list.files(direxp, full.names = T), to = dirsmallcountsremoved, 
-          overwrite = TRUE, recursive = FALSE, 
-          copy.mode = TRUE)
+# file.copy(from = list.files(direxp, full.names = T), to = dirsmallcountsremoved, 
+#           overwrite = TRUE, recursive = FALSE, 
+#           copy.mode = TRUE)
 
 save.image(file = paste0(dirpargen, "parameters.RData"))
 

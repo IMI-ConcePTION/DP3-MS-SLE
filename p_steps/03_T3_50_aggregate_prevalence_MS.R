@@ -30,6 +30,6 @@ for (outcome in OUTCOME_variables) {
   value_vars_to_censor <- rep(5, length(names_vars_to_censor))
   names(value_vars_to_censor) <- names_vars_to_censor
   
-  update_vector("datasets_to_censor", dirpargen, export_name)
-  update_vector("variables_to_censor", dirpargen, value_vars_to_censor)
+  # update_vector("datasets_to_censor", dirpargen, export_name)
+  # update_vector("variables_to_censor", dirpargen, value_vars_to_censor)
 }

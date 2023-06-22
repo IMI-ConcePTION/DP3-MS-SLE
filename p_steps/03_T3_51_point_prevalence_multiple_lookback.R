@@ -60,8 +60,8 @@ for (outcome in OUTCOME_variables) {
   smart_save(algo_look, diroutput, override_name = export_name,
              extension = "csv")
   
-  update_vector("datasets_to_censor", dirpargen, export_name)
-  update_vector("variables_to_censor", dirpargen, c("N" = 5))
+  # update_vector("datasets_to_censor", dirpargen, export_name)
+  # update_vector("variables_to_censor", dirpargen, c("N" = 5))
 }
 
 

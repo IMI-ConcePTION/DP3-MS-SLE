@@ -43,7 +43,6 @@ dirmacro <- set_and_create_dir("/p_macro/")
 dirpargen <- set_and_create_dir("/g_parameters/")
 direvents <- set_and_create_dir("/g_intermediate/events/")
 dircomponents <- set_and_create_dir("/g_intermediate/components/")
-dirsmallcountsremoved<- set_and_create_dir("/g_export_smallcountsremoved/")
   
 rm(set_and_create_dir)
 
