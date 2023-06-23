@@ -1,4 +1,4 @@
-DRE_Threshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter = ",", NAlist = NULL, FileContains = NULL){
+DRE_Threshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter = ",", NAlist = NULL, FileContains = NULL, suffix = NULL){
   
   if(is.null(FileContains)) FileContains <- "."
   Varlist <- sapply(unique(names(Varlist)), function(x) Varlist[[x]])
@@ -28,7 +28,12 @@ DRE_Threshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter =
       }
     }
     
-    final_file_path <- file.path(Outputfolder, file_name)
+    file_name_final <- file_name
+    if (!is.null(suffix)) {
+      file_name_final <- paste(file_name_final, suffix, sep = "_")
+    }
+    
+    final_file_path <- file.path(Outputfolder, file_name_final)
     temp_dir <- dirname(final_file_path)
     
     if(!dir.exists(temp_dir)) dir.create(temp_dir, showWarnings = T, recursive = T)
