@@ -152,11 +152,11 @@ for (outcome in OUTCOME_variables) {
   summary_threshold <- 5
   tmp <- copy(period_prevalence)
   
-  for(measure in c("numerator", "denominator")) {
+  for(measure in c("numerator")) {
     tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
   }
   
-  tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"), .SDcols = c("numerator", "denominator")]
+  tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"), .SDcols = c("numerator")]
   
   setorder(tmp, "algorithm")
   

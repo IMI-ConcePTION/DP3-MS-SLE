@@ -146,19 +146,16 @@ for (outcome in OUTCOME_variables) {
   tmp <- copy(period_prevalence)
   
   numerator_to_censor <- paste("numerator", sprintf("%02d", seq_len(60)), sep="_")
-  denominator_to_censor <- paste("denominator", sprintf("%02d", seq_len(60)), sep="_")
   
-  for(measure in c(numerator_to_censor, denominator_to_censor)) {
+  for(measure in c(numerator_to_censor)) {
     tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
   }
   
   tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
-             .SDcols = c(numerator_to_censor, denominator_to_censor)]
+             .SDcols = c(numerator_to_censor)]
   
   tmp[, numerator := all(.SD), .SDcols = numerator_to_censor]
   tmp[, c(numerator_to_censor) := NULL]
-  tmp[, denominator := all(.SD), .SDcols = denominator_to_censor]
-  tmp[, c(denominator_to_censor) := NULL]
   
   setorder(tmp, "algorithm")
   
