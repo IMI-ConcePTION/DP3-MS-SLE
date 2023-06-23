@@ -56,6 +56,25 @@ for (outcome in OUTCOME_variables) {
   
   algo_look <- algo_look[, datasource := thisdatasource]
   
+  algo_look[, Ageband_LevelOrder := tstrsplit(algorithm, "_")[[2]]]
+  algo_look[.(Ageband_LevelOrder = c(1, 2, 3, 5, 8, "all"), to = c(1, 2, 3, 4, 5, 99)), on = "Ageband_LevelOrder", Ageband_LevelOrder := i.to]
+  algo_look[, Ageband_LevelOrder := as.integer(Ageband_LevelOrder)]
+  algo_look[, timeframe_LevelOrder := fifelse(years_of_lookback_at_20191231 == 5, 1, 99)]
+  
+  tmp <- copy(algo_look)
+  summary_threshold <- 5
+  
+  for(measure in c("numerator")) {
+    tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
+  }
+  
+  tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"), .SDcols = c("numerator")]
+  
+  setorder(tmp, "algorithm")
+  
+  smart_save(tmp, direxp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, "summary_levels", sep = "_"), extension = "csv")
+  
+  
   export_name <- paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_")
   smart_save(algo_look, diroutput, override_name = export_name,
              extension = "csv")
