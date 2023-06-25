@@ -51,6 +51,28 @@ Cube <- function(input, dimensions, levels, measures, statistics = NULL, compute
     }
   }
   
+  # Check if the dimension is valid (higher dimension is multiple of lower one)
+  for (dm in names(levels)) {
+    if (length(levels[[dm]]) > 1) {
+      for (i in 2:length(levels[[dm]])) {
+        
+        test_df <- unique(input[, c(levels[[dm]][[i - 1]], levels[[dm]][[i]]), with = F])
+        
+        test_df_single_col <- test_df[, levels[[dm]][[i - 1]], with = F]
+        
+        if (any(table(test_df_single_col) > 1)) {
+          stop(paste("The assigned dimension", dm, "is not a dimension, because values",
+                     paste(names(table(test_df_single_col)[which(table(test_df_single_col) > 1)]), collapse = "/"),
+                     "of the level", levels[[dm]][[i - 1]], "are not uniquely assigned to one value in the next level",
+                     levels[[dm]][[i]]))
+        } 
+        
+      }
+    }
+  }
+  
+  
+  
   statistic_list <- list()
   measure_list <- c()
   measure_name_list <- c()
