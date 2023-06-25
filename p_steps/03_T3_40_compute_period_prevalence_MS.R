@@ -28,10 +28,11 @@ for (outcome in OUTCOME_variables) {
                                        Age_bands = ageband_definition_level_1, Aggregate = F)
   
   level_2_periods <- list(list("20050101", "20071231"),
-                          list("20080101", "20101231"),
-                          list("20110101", "20131231"),
-                          list("20140101", "20161231"),
-                          list("20170101", "20191231"))
+                          list("20080101", "20091231"),
+                          list("20100101", "20121231"),
+                          list("20130101", "20141231"),
+                          list("20150101", "20171231"),
+                          list("20180101", "20191231"))
   
   level_3_periods <- list(list("20050101", "20091231"),
                           list("20100101", "20141231"),
@@ -134,7 +135,8 @@ for (outcome in OUTCOME_variables) {
   df_recode_year_level_1 <- data.table::data.table(timeframe = as.character(seq(year(recommended_start_date),
                                                                                 year(study_end))),
                                                    timeframe_LevelOrder = 1)
-  df_recode_year_level_2 <- data.table::data.table(timeframe = c("2005-2007", "2008-2010", "2011-2013", "2014-2016", "2017-2019"),
+  df_recode_year_level_2 <- data.table::data.table(timeframe = c("2005-2007", "2008-2009", "2010-20132", "2013-20154",
+                                                                 "2015-2017", "2018-2019"),
                                                    timeframe_LevelOrder = 2)
   df_recode_year_level_3 <- data.table::data.table(timeframe = c("2005-2009", "2010-2014", "2015-2019"),
                                                    timeframe_LevelOrder = 3)
