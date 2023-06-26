@@ -9,7 +9,7 @@
 # Removed final datasets
 # Reworked the masking of datasets
 # FISABIO has subpopulation
-# Oslo has recommended_start_date in 2008
+# UOSL has recommended_start_date in 2008
 # Bugfixes
 
 # v1.0.4 - 04 May 2023
