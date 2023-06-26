@@ -125,19 +125,19 @@ for (outcome in OUTCOME_variables) {
   setnames(persontime_prevalence, "Ageband", "ageband")
   setcolorder(persontime_prevalence, c("type_of_prevalence", "timeframe", "ageband", "algorithm"))
   
-  # Find if a level contains at least a value to censor
-  summary_threshold <- 5 * 365
-  tmp <- copy(persontime_prevalence)
-  
-  for(measure in c("numerator")) {
-    tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
-  }
-  
-  tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"), .SDcols = c("numerator")]
-  
-  setorder(tmp, "algorithm")
-  
-  smart_save(tmp, direxp, override_name = paste("D4_prevalence_persontime", outcome, "summary_levels", sep = "_"), extension = "csv")
+  # # Find if a level contains at least a value to censor
+  # summary_threshold <- 5 * 365
+  # tmp <- copy(persontime_prevalence)
+  # 
+  # for(measure in c("numerator")) {
+  #   tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
+  # }
+  # 
+  # tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"), .SDcols = c("numerator")]
+  # 
+  # setorder(tmp, "algorithm")
+  # 
+  # smart_save(tmp, direxp, override_name = paste("D4_prevalence_persontime", outcome, "summary_levels", sep = "_"), extension = "csv")
   
   smart_save(persontime_prevalence, diroutput, override_name = paste("D4_prevalence_persontime", outcome, sep = "_"),
              extension = extension)
