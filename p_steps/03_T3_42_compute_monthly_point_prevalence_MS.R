@@ -138,9 +138,6 @@ for (outcome in OUTCOME_variables) {
   # Add a column to define the type of prevalence
   period_prevalence[, type_of_prevalence := "average_monthly_prevalence"]
   
-  # Remove all ageband in case of a single year
-  period_prevalence <- period_prevalence[timeframe_LevelOrder != 1 | Ageband_LevelOrder == 3, ]
-  
   # Find if a level contains at least a value to censor
   summary_threshold <- 5
   tmp <- copy(period_prevalence)
