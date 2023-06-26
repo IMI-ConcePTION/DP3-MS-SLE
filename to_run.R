@@ -4,7 +4,7 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
-# v1.0.5 - 26 June 2023
+# v2.0.0 - 26 June 2023
 # Added Cube function to aggregate data in dimensions
 # Removed final datasets
 # Reworked the masking of datasets
