@@ -135,7 +135,7 @@ for (outcome in OUTCOME_variables) {
   df_recode_year_level_1 <- data.table::data.table(timeframe = as.character(seq(year(recommended_start_date),
                                                                                 year(study_end))),
                                                    timeframe_LevelOrder = 1)
-  df_recode_year_level_2 <- data.table::data.table(timeframe = c("2005-2007", "2008-2009", "2010-20132", "2013-20154",
+  df_recode_year_level_2 <- data.table::data.table(timeframe = c("2005-2007", "2008-2009", "2010-2012", "2013-2014",
                                                                  "2015-2017", "2018-2019"),
                                                    timeframe_LevelOrder = 2)
   df_recode_year_level_3 <- data.table::data.table(timeframe = c("2005-2009", "2010-2014", "2015-2019"),
