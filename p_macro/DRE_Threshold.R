@@ -1,4 +1,5 @@
-DRE_Threshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter = ",", NAlist = NULL, FileContains = NULL, suffix = NULL){
+DRE_Threshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter = ",", NAlist = NULL, FileContains = NULL,
+                          suffix = NULL){
   
   if(is.null(FileContains)) FileContains <- "."
   Varlist <- sapply(unique(names(Varlist)), function(x) Varlist[[x]])
@@ -29,10 +30,12 @@ DRE_Threshold <- function(Inputfolder, Outputfolder, Varlist = NULL, Delimiter =
     }
     
     file_name_final <- file_name
-    if (!is.null(suffix)) {
-      file_name_final <- paste(file_name_final, suffix, sep = "_")
-    }
     
+    if (!is.null(suffix)) {
+      file_name_final <- strsplit(file_name_final, "\\.")[[1]][[1]]
+      file_name_final <- paste(file_name_final, suffix, sep = "_")
+      file_name_final <- paste0(file_name_final, ".csv")
+    }
     final_file_path <- file.path(Outputfolder, file_name_final)
     temp_dir <- dirname(final_file_path)
     
