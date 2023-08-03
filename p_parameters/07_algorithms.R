@@ -1,11 +1,87 @@
 # we need to create several groups of meanings: one referring to hospitals HOSP (excluding emergency care), one referring to primary care PC, etc
 
-meanings_of_this_study <- vector(mode="list")
+# meanings_of_this_study <- vector(mode="list")
+# 
+# meanings_of_this_study[["INPATIENT"]]=c("hospitalisation_primary","hospitalisation_secondary","hospital_diagnosis","hopitalisation_diagnosis_unspecified","episode_primary_diagnosis","episode_secondary_diagnosis","diagnosis_procedure","procedure_during_hospitalisation","hospitalisation_associated","hospitalisation_linked","diag_hospitalisation_automatically_referred_to_PC","hospitalisation_ICU_primary","hospitalisation_ICU_secondary","hospitalisation_ICU_unspecified","emergency_room_diagnosis","emergency_room_presentation","hospitalisation_not_overnight_primary", "hospitalisation_not_overnight_secondary", "radiation_hospitalised_primary", "radiation_hospitalised_secondary", "meaning_of_procedure", "hp", "CRITICAL_CARE_STAY", "sd", "pd", "ed")
+# meanings_of_this_study[["PC"]]=c("primary_care_event","primary_care_diagnosis","primary_care_events_BIFAP","primary_care_antecedents_BIFAP","primary_care_condicionants_BIFAP","primary_care_main_diagnosis", "primary_care_secondary_diagnosis", "primary_care_midwife_main_diagnosis", "primary_care_midwife_secondary_diagnosis","primary_care_emergency_event", "gpe")
+# meanings_of_this_study[["OUTPATIENT_NO_PC"]] = c("specialist_diagnosis","outpatient_hospital_planned_primary","outpatient_hospital_planned_secondary","outpatient_contact_primary","outpatient_contact_secondary","access_to_mental_health_service_primary", "access_to_mental_health_service_comorbidity","reason_for_specialist_encounter", "op")
+# meanings_of_this_study[["LONGTERM"]] = c("exemption","long_term_diagnosis")
 
-meanings_of_this_study[["INPATIENT"]]=c("hospitalisation_primary","hospitalisation_secondary","hospital_diagnosis","hopitalisation_diagnosis_unspecified","episode_primary_diagnosis","episode_secondary_diagnosis","diagnosis_procedure","procedure_during_hospitalisation","hospitalisation_associated","hospitalisation_linked","diag_hospitalisation_automatically_referred_to_PC","hospitalisation_ICU_primary","hospitalisation_ICU_secondary","hospitalisation_ICU_unspecified","emergency_room_diagnosis","emergency_room_presentation","hospitalisation_not_overnight_primary", "hospitalisation_not_overnight_secondary", "radiation_hospitalised_primary", "radiation_hospitalised_secondary")
-meanings_of_this_study[["PC"]]=c("primary_care_event","primary_care_diagnosis","primary_care_events_BIFAP","primary_care_antecedents_BIFAP","primary_care_condicionants_BIFAP","primary_care_main_diagnosis", "primary_care_secondary_diagnosis", "primary_care_midwife_main_diagnosis", "primary_care_midwife_secondary_diagnosis","primary_care_emergency_event")
-meanings_of_this_study[["OUTPATIENT_NO_PC"]] = c("specialist_diagnosis","outpatient_hospital_planned_primary","outpatient_hospital_planned_secondary","outpatient_contact_primary","outpatient_contact_secondary","access_to_mental_health_service_primary", "access_to_mental_health_service_comorbidity","reason_for_specialist_encounter")
-meanings_of_this_study[["LONGTERM"]] = c("exemption","long_term_diagnosis")
+meanings_of_this_study <- list()
+
+meanings_of_this_study[["UOSL"]][["meaning_of_event"]][["PC"]] <- "primary_care_diagnosis"
+
+meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
+meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
+                                                                           "hospitalisation_not_overnight", 
+                                                                           "radiation_hospitalised",
+                                                                           "hospital_encounter")
+meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- "outpatient_contact"
+
+
+meanings_of_this_study[["THL"]][["meaning_of_event"]][["PC"]] <- "primary_care_diagnosis"
+meanings_of_this_study[["THL"]][["meaning_of_event"]][["LONGTERM"]] <- "long_term_diagnosis"
+
+meanings_of_this_study[["THL"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
+meanings_of_this_study[["THL"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
+                                                                          "hospitalisation_not_overnight")
+meanings_of_this_study[["THL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- "outpatient_specialist_visit"
+
+
+meanings_of_this_study[["Sail_databank"]][["meaning_of_event"]][["PC"]] <- "gpe"
+meanings_of_this_study[["Sail_databank"]][["meaning_of_event"]][["INPATIENT"]] <- c("pd", "sd", "hp",
+                                                                                    "CRITICAL_CARE_STAY")
+meanings_of_this_study[["Sail_databank"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("op", "ed")
+
+meanings_of_this_study[["Sail_databank"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
+meanings_of_this_study[["Sail_databank"]][["meaning_of_visit"]][["INPATIENT"]] <- "hospitalisation"
+meanings_of_this_study[["Sail_databank"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("outpatient_specialist_visit",
+                                                                                           "emergency_contact")
+
+
+meanings_of_this_study[["FISABIO"]][["meaning_of_event"]] <- list()
+
+meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]][["INPATIENT"]] <- "hospitalisation"
+meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("outpatient_specialist_visit",
+                                                                                     "emergency_contact")
+
+
+meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis", 
+                                                                                            "emergency_room_presentation")
+meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_event"]][["LONGTERM"]] <- "exemption"
+
+meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
+                                                                                     "hospitalisation_not_overnight")
+meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("outpatient_specialist_visit")
+
+
+meanings_of_this_study[["EFEMERIS"]][["meaning_of_event"]][["INPATIENT"]] <- c("hospitalisation_primary",
+                                                                               "hospitalisation_associated",
+                                                                               "hospitalisation_linked")
+
+meanings_of_this_study[["EFEMERIS"]][["meaning_of_visit"]] <- list()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # create two conditions on the meaning_of_event variable, associated to HOSP, to PC... as listed above
 
