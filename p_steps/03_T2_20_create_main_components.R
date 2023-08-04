@@ -16,38 +16,51 @@ outcome_df <- rbindlist(lapply(OUTCOME_variables, function(x) {
   )[, .(person_id, date, meaning_renamed, visit_occurrence_id)][, concept := x])}
 ))
 
+setnames(outcome_df, "meaning_renamed", "meaning_of_event")
+
 # Create dataset with meaning to recode
 temp_meanings_event <- meanings_of_this_study_dap[["meaning_of_event"]]
 meanings_event <- lapply(names(temp_meanings_event),
-                         function(x) data.table(meaning_renamed = temp_meanings_event[[x]], new = x))
+                         function(x) data.table(meaning_of_event = temp_meanings_event[[x]], new = x))
 meanings_event <- data.table::rbindlist(meanings_event)
 
 temp_meanings_visit <- meanings_of_this_study_dap[["meaning_of_visit"]]
 meanings_visit <- lapply(names(temp_meanings_visit),
-                           function(x) data.table(meaning_renamed = temp_meanings_visit[[x]], new = x))
+                           function(x) data.table(meaning_of_visit = temp_meanings_visit[[x]], new = x))
 meanings_visit <- data.table::rbindlist(meanings_visit)
 
 VISIT_OCCURRENCE <- unique(read_CDM_tables("VISIT_OCCURRENCE")[, .(visit_occurrence_id, meaning_of_visit)])
-temp <- copy(outcome_df)[VISIT_OCCURRENCE, on = "visit_occurrence_id", meaning_of_visit := i.meaning_of_visit]
+outcome_df <- copy(outcome_df)[VISIT_OCCURRENCE, on = "visit_occurrence_id", meaning_of_visit := i.meaning_of_visit]
+
+# Recode meaning with names used in the algorithms
+outcome_df <- outcome_df[meanings_event, on = "meaning_of_event", meaning_of_event_recoded := i.new]
+outcome_df <- outcome_df[meanings_visit, on = "meaning_of_visit", meaning_of_visit_recoded := i.new]
+
+outcome_df[is.na(meaning_of_event_recoded), meaning_of_event_recoded := "UNSPECIFIED"]
+outcome_df[is.na(meaning_of_visit_recoded), meaning_of_visit_recoded := "UNSPECIFIED"]
 
 # Count meaning occurences and save it in direxp
-meaning_occurences <- copy(outcome_df)[out, on = "meaning_renamed", meaning_recoded := i.new]
-setnames(meaning_occurences, "meaning_renamed", "original_meaning")
-meaning_occurences[is.na(meaning_recoded) | meaning_recoded %not in% names(meanings_of_this_study), meaning_recoded := "UNSPECIFIED"]
-
-meaning_occurences <- MergeFilterAndCollapse(list(meaning_occurences),
+meaning_occurences <- MergeFilterAndCollapse(list(outcome_df),
                                              condition = "!is.na(person_id)",
-                                             strata = c("concept", "original_meaning", "meaning_recoded"),
+                                             strata = c("concept", "meaning_of_event", "meaning_of_event_recoded",
+                                                        "meaning_of_visit", "meaning_of_visit_recoded"),
                                              summarystat = list(c("count", "person_id", "count")))
 smart_save(meaning_occurences, diroutput, override_name = "D5_meaning_occurences", extension = "csv")
 
 update_vector("datasets_to_censor", dirpargen, "D5_meaning_occurences")
 update_vector("variables_to_censor", dirpargen, c("count" = 5))
 
+outcome_df[, c("meaning_of_event", "meaning_of_visit", "visit_occurrence_id") := NULL]
 
-# Recode meaning with names used in the algorithms
-outcome_df[out, on = "meaning_renamed", meaning_renamed := i.new]
-outcome_df[is.na(meaning_renamed) | meaning_renamed %not in% names(meanings_of_this_study), meaning_renamed := "UNSPECIFIED"]
+outcome_df[meaning_of_event_recoded == "UNSPECIFIED", meaning_of_event_recoded := meaning_of_visit_recoded]
+outcome_df[meaning_of_visit_recoded == "UNSPECIFIED", meaning_of_visit_recoded := meaning_of_event_recoded]
+
+if (nrow(outcome_df[meaning_of_visit_recoded != meaning_of_event_recoded, ]) > 0) {
+  stop(paste("inconsistent meaning_of_event and meaning_of_visit for at least one person"))
+}
+
+outcome_df[, meaning_renamed := meaning_of_event_recoded]
+outcome_df[, c("meaning_of_event_recoded", "meaning_of_visit_recoded") := NULL]
 
 ### IMPORTANT recurrent event for MS and SLE
 # Create lag date
@@ -87,7 +100,7 @@ dp_df <- rbindlist(lapply(DP_variables, function(x) {
 ))
 
 # Combine outcomes and drug proxies
-concept_df <- rbindlist(list(outcome_df, dp_df))
+concept_df <- rbindlist(list(outcome_df, dp_df), use.names = T)
 rm(outcome_df, dp_df)
 
 # Set keys and then foverlaps to find the events inside each spell
