@@ -62,7 +62,16 @@ meanings_of_this_study[["EFEMERIS"]][["meaning_of_event"]][["INPATIENT"]] <- c("
 meanings_of_this_study[["EFEMERIS"]][["meaning_of_visit"]] <- list()
 
 
+meanings_of_this_study[["TEST"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis", 
+                                                                                  "emergency_room_presentation")
+meanings_of_this_study[["TEST"]][["meaning_of_event"]][["LONGTERM"]] <- "exemption"
 
+meanings_of_this_study[["TEST"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
+                                                                                     "hospitalisation_not_overnight")
+meanings_of_this_study[["TEST"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("oupatient_specialist_visit")
+
+meanings_of_this_study_dap <- meanings_of_this_study[[thisdatasource]]
+rm(meanings_of_this_study)
 
 
 
