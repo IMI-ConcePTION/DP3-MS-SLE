@@ -92,18 +92,18 @@ rm(meanings_of_this_study)
 
 
 
-# create two conditions on the meaning_of_event variable, associated to HOSP, to PC... as listed above
-
-
-condmeaning <- list()
-for (level1 in names(meanings_of_this_study)) {
-  for (meaning in meanings_of_this_study[[level1]]) {
-    if (length(condmeaning[[level1]])==0) {condmeaning[[level1]]=paste0("meaning_renamed == '",meanings_of_this_study[[level1]][[1]],"'")
-    }else{
-      condmeaning[[level1]]=paste0(condmeaning[[level1]], " | meaning_renamed == '",meaning,"'")
-    }
-  }
-}
+# # create two conditions on the meaning_of_event variable, associated to HOSP, to PC... as listed above
+# 
+# 
+# condmeaning <- list()
+# for (level1 in names(meanings_of_this_study)) {
+#   for (meaning in meanings_of_this_study[[level1]]) {
+#     if (length(condmeaning[[level1]])==0) {condmeaning[[level1]]=paste0("meaning_renamed == '",meanings_of_this_study[[level1]][[1]],"'")
+#     }else{
+#       condmeaning[[level1]]=paste0(condmeaning[[level1]], " | meaning_renamed == '",meaning,"'")
+#     }
+#   }
+# }
 
 # #----------------------------
 # # SECONDARY COMPONENTS
@@ -250,4 +250,4 @@ save(concept_set_codes_our_study,file = paste0(direxp, "concept_set_codes_our_st
 # save(concept_set_codes_our_study,file = paste0(dirsmallcountsremoved, "concept_set_codes_our_study.RData"))
 # save(concept_set_codes_our_study_excl,file=paste0(dirsmallcountsremoved,"concept_set_codes_our_study_excl.RData"))
 
-rm(conceptset, level1, meaning, concept_set_codes_our_study_pre)
+rm(conceptset, concept_set_codes_our_study_pre)
