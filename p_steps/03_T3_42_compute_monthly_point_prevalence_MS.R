@@ -81,8 +81,6 @@ for (outcome in OUTCOME_variables) {
   df_recode_Ageband_3 <- data.table::data.table(Ageband_3 = c("15-24", "15-24", "25-34", "25-34", "35-49", "35-49", "35-49"),
                                                 base_agebands = base_agebands)
   
-  period_prevalence[, timeframe := as.integer(timeframe)]
-  
   setnames(period_prevalence, "Ageband", "Ageband_1")
   period_prevalence[df_recode_Ageband_2, on = .(Ageband_1 = base_agebands), Ageband_2 := i.Ageband_2]
   period_prevalence[df_recode_Ageband_3, on = .(Ageband_1 = base_agebands), Ageband_3 := i.Ageband_3]
@@ -151,7 +149,7 @@ for (outcome in OUTCOME_variables) {
   tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
              .SDcols = c(numerator_to_censor)]
   
-  tmp[, numerator := all(as.integer(.SD)), .SDcols = numerator_to_censor]
+  tmp[, numerator := all(.SD), .SDcols = numerator_to_censor]
   tmp[, c(numerator_to_censor) := NULL]
   
   setorder(tmp, "algorithm")
