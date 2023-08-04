@@ -13,13 +13,22 @@ s <- c(1, 2, 3, 5, 8, "all")
 # Load corresponding outcome conceptsets
 outcome_df <- rbindlist(lapply(OUTCOME_variables, function(x) {
   return(get(load(paste0(dirconceptsets, x, ".RData"))[[1]]
-  )[, .(person_id, date, meaning_renamed)][, concept := x])}
+  )[, .(person_id, date, meaning_renamed, visit_occurrence_id)][, concept := x])}
 ))
 
 # Create dataset with meaning to recode
-out <- lapply(names(meanings_of_this_study),
-              function(x) data.table(meaning_renamed = meanings_of_this_study[[x]], new = x))
-out <- data.table::rbindlist(out)
+temp_meanings_event <- meanings_of_this_study_dap[["meaning_of_event"]]
+meanings_event <- lapply(names(temp_meanings_event),
+                         function(x) data.table(meaning_renamed = temp_meanings_event[[x]], new = x))
+meanings_event <- data.table::rbindlist(meanings_event)
+
+temp_meanings_visit <- meanings_of_this_study_dap[["meaning_of_visit"]]
+meanings_visit <- lapply(names(temp_meanings_visit),
+                           function(x) data.table(meaning_renamed = temp_meanings_visit[[x]], new = x))
+meanings_visit <- data.table::rbindlist(meanings_visit)
+
+VISIT_OCCURRENCE <- unique(read_CDM_tables("VISIT_OCCURRENCE")[, .(visit_occurrence_id, meaning_of_visit)])
+temp <- copy(outcome_df)[VISIT_OCCURRENCE, on = "visit_occurrence_id", meaning_of_visit := i.meaning_of_visit]
 
 # Count meaning occurences and save it in direxp
 meaning_occurences <- copy(outcome_df)[out, on = "meaning_renamed", meaning_recoded := i.new]
