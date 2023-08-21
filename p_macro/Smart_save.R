@@ -1,4 +1,4 @@
-smart_save <- function(df, folder, subpop = F, extension = "qs", override_name = F) {
+smart_save <- function(df, folder, subpop = F, extension = "qs", override_name = F, save_copy = "csv") {
   
   subpop_str <- if (isFALSE(subpop)) "" else suffix[[subpop]]
   df_name <- if (isFALSE(override_name)) deparse(substitute(df)) else override_name
@@ -15,5 +15,20 @@ smart_save <- function(df, folder, subpop = F, extension = "qs", override_name =
     data.table::fwrite(df, file_name)
   } else {
     saveRDS(df, file_name)
+  }
+  
+  save_copy <- if (!grepl("\\.", save_copy)) paste0(".", save_copy) else save_copy
+  file_name <- paste0(folder, df_name, subpop_str, save_copy)
+  
+  if (is.list(df)) {
+    if (save_copy == ".qs") {
+      qs::qsave(df, file_name, preset = "high", nthreads = parallel::detectCores()/2)
+    } else if (save_copy == ".fst") {
+      fst::write.fst(df, file_name, compress = 100)
+    } else if (save_copy == ".csv") {
+      data.table::fwrite(df, file_name)
+    } else {
+      saveRDS(df, file_name)
+    }
   }
 }
