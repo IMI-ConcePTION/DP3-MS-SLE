@@ -14,9 +14,8 @@ meanings_of_this_study[["UOSL"]][["meaning_of_event"]][["PC"]] <- "primary_care_
 meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
 meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
                                                                            "hospitalisation_not_overnight", 
-                                                                           "radiation_hospitalised",
-                                                                           "hospital_encounter")
-meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- "outpatient_contact"
+                                                                           "radiation_hospitalised")
+meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("hospital_encounter", "outpatient_contact")
 
 
 meanings_of_this_study[["THL"]][["meaning_of_event"]][["PC"]] <- "primary_care_diagnosis"
@@ -42,8 +41,7 @@ meanings_of_this_study[["Sail_databank"]][["meaning_of_visit"]][["OUTPATIENT_NO_
 meanings_of_this_study[["FISABIO"]][["meaning_of_event"]] <- list()
 
 meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]][["INPATIENT"]] <- "hospitalisation"
-meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("outpatient_specialist_visit",
-                                                                                     "emergency_contact")
+meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- "outpatient_specialist_visit"
 
 
 meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis", 
