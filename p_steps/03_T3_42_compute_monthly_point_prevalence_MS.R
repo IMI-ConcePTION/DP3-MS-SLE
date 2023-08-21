@@ -146,15 +146,24 @@ for (outcome in OUTCOME_variables) {
     tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
   }
   
+  
+  
+  tmp_1 <- copy(tmp)[, lapply(.SD, all), by = c("timeframe", "Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
+             .SDcols = c(numerator_to_censor)]
+  
   tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
              .SDcols = c(numerator_to_censor)]
   
   tmp[, numerator := all(.SD), .SDcols = numerator_to_censor]
   tmp[, c(numerator_to_censor) := NULL]
   
+  tmp_1[, numerator := all(.SD), .SDcols = numerator_to_censor]
+  tmp_1[, c(numerator_to_censor) := NULL]
+  
   setorder(tmp, "algorithm")
   
   smart_save(tmp, direxp, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels", sep = "_"), extension = "csv")
+  smart_save(tmp_1, direxp, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels_yearly", sep = "_"), extension = "csv")
   
   smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_average_point", outcome, sep = "_"), extension = extension)
 }
