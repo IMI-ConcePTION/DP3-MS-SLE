@@ -4,6 +4,12 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.1.0 - 22 August 2023
+# Added summary_levels_yearly for average prevalence
+# Added meaning_of_visit matching
+# Create a copy in csv of each intermediate dataset
+# Bugfixes
+
 # v2.0.0 - 26 June 2023
 # Added Cube function to aggregate data in dimensions
 # Removed final datasets
