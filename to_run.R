@@ -7,6 +7,7 @@
 # v2.1.0 - 22 August 2023
 # Added summary_levels_yearly for average prevalence
 # Added meaning_of_visit matching
+# Updated and validate meanings for UOSL, THL and EFEMERIS
 # Create a copy in csv of each intermediate dataset
 # Bugfixes
 
