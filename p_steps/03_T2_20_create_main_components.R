@@ -29,7 +29,13 @@ meanings_visit <- lapply(names(temp_meanings_visit),
                            function(x) data.table(meaning_of_visit = temp_meanings_visit[[x]], new = x))
 meanings_visit <- data.table::rbindlist(meanings_visit)
 
-VISIT_OCCURRENCE <- unique(read_CDM_tables("VISIT_OCCURRENCE")[, .(visit_occurrence_id, meaning_of_visit)])
+# Read VISIT_OCCURRENCE otherwise create it empty
+VISIT_OCCURRENCE <- unique(read_CDM_tables("VISIT_OCCURRENCE"))
+if (nrow(VISIT_OCCURRENCE) == 0) {
+  VISIT_OCCURRENCE <- data.table::data.table(visit_occurrence_id = character(), meaning_of_visit = character())
+}
+
+VISIT_OCCURRENCE <- VISIT_OCCURRENCE[, .(visit_occurrence_id, meaning_of_visit)]
 outcome_df <- copy(outcome_df)[VISIT_OCCURRENCE, on = "visit_occurrence_id", meaning_of_visit := i.meaning_of_visit]
 
 # Recode meaning with names used in the algorithms
