@@ -181,11 +181,11 @@ join_and_replace <- function(df1, df2, join_cond, old_name) {
   setnames(temp, old_name, join_cond[1])
 }
 
-read_CDM_tables <- function(x) {
+read_CDM_tables <- function(x, keepcols = NULL) {
   final_table <- data.table()
   for (file in files_ConcePTION_CDM_tables[[x]]) {
-    temp <- fread(paste0(dirinput, file, ".csv"), colClasses = list(character = "person_id"))
-    final_table <- rbind(final_table, temp, fill = T)
+    temp <- fread(paste0(dirinput, file, ".csv"), colClasses = list(character = "person_id"), select = keepcols)
+    final_table <- rbindlist(list(final_table, temp), fill = T)
     rm(temp)
   }
   return(final_table)
