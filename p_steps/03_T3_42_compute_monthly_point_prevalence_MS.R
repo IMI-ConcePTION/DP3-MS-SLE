@@ -154,11 +154,12 @@ for (outcome in OUTCOME_variables) {
   tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"),
              .SDcols = c(numerator_to_censor)]
   
-  tmp[, numerator := all(.SD), .SDcols = numerator_to_censor]
+  tmp[, numerator := as.logical(do.call(pmin, .SD)), .SDcols = numerator_to_censor]
   tmp[, c(numerator_to_censor) := NULL]
   
-  tmp_1[, numerator := all(.SD), .SDcols = numerator_to_censor]
+  tmp_1[, numerator := as.logical(do.call(pmin, .SD)), .SDcols = numerator_to_censor]
   tmp_1[, c(numerator_to_censor) := NULL]
+  
   
   setorder(tmp, "algorithm")
   
