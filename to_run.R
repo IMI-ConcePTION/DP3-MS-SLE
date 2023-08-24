@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.1.1 - 24 August 2023
+# Fix in case a DAPs does not have meaning_of_event or meaning_of_visit to search for
+# Fix for summary_levels for average prevalence
+
 # v2.1.0 - 22 August 2023
 # Added summary_levels_yearly for average prevalence
 # Added meaning_of_visit matching
