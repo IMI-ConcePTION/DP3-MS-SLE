@@ -23,14 +23,20 @@ temp_meanings_event <- meanings_of_this_study_dap[["meaning_of_event"]]
 meanings_event <- lapply(names(temp_meanings_event),
                          function(x) data.table(meaning_of_event = temp_meanings_event[[x]], new = x))
 meanings_event <- data.table::rbindlist(meanings_event)
+if (nrow(meanings_event) == 0) {
+  meanings_event <- data.table::data.table(meaning_of_event = character(), new = character())
+}
 
 temp_meanings_visit <- meanings_of_this_study_dap[["meaning_of_visit"]]
 meanings_visit <- lapply(names(temp_meanings_visit),
                            function(x) data.table(meaning_of_visit = temp_meanings_visit[[x]], new = x))
 meanings_visit <- data.table::rbindlist(meanings_visit)
+if (nrow(meanings_visit) == 0) {
+  meanings_visit <- data.table::data.table(meaning_of_visit = character(), new = character())
+}
 
 # Read VISIT_OCCURRENCE otherwise create it empty
-VISIT_OCCURRENCE <- unique(read_CDM_tables("VISIT_OCCURRENCE"))
+VISIT_OCCURRENCE <- unique(read_CDM_tables("VISIT_OCCURRENCE", c("visit_occurrence_id", "meaning_of_visit")))
 if (nrow(VISIT_OCCURRENCE) == 0) {
   VISIT_OCCURRENCE <- data.table::data.table(visit_occurrence_id = character(), meaning_of_visit = character())
 }
