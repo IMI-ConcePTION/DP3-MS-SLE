@@ -27,14 +27,14 @@ meanings_of_this_study[["THL"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospi
 meanings_of_this_study[["THL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- "outpatient_specialist_visit"
 
 
-meanings_of_this_study[["Sail_databank"]][["meaning_of_event"]][["PC"]] <- "gpe"
-meanings_of_this_study[["Sail_databank"]][["meaning_of_event"]][["INPATIENT"]] <- c("pd", "sd", "hp",
+meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["PC"]] <- "gpe"
+meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["INPATIENT"]] <- c("pd", "sd", "hp",
                                                                                     "CRITICAL_CARE_STAY")
-meanings_of_this_study[["Sail_databank"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("op", "ed")
+meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("op", "ed")
 
-meanings_of_this_study[["Sail_databank"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
-meanings_of_this_study[["Sail_databank"]][["meaning_of_visit"]][["INPATIENT"]] <- "hospitalisation"
-meanings_of_this_study[["Sail_databank"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("outpatient_specialist_visit",
+meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
+meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]][["INPATIENT"]] <- "hospitalisation"
+meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("outpatient_specialist_visit",
                                                                                            "emergency_contact")
 
 
