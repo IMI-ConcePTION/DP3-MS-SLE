@@ -39,6 +39,8 @@ diroutput <- set_and_create_dir("/g_output/")
 dirtemp <- set_and_create_dir("/g_intermediate/")
 dirconceptsets <- set_and_create_dir("/g_intermediate/concept_sets/")
 direxp <- set_and_create_dir("/g_export/")
+direxpmask <- set_and_create_dir("/g_export_masked/")
+direxpcheck <- set_and_create_dir("/g_export_to_check/")
 dirmacro <- set_and_create_dir("/p_macro/")
 dirpargen <- set_and_create_dir("/g_parameters/")
 direvents <- set_and_create_dir("/g_intermediate/events/")
@@ -142,6 +144,7 @@ file.copy(paste0(thisdir,'/to_run.R'), direxp, overwrite = T)
 #Add lists for censoring final dataset
 #############################################
 smart_save(c(), dirpargen, extension = ".rds", override_name = "datasets_to_censor")
+smart_save(c(), dirpargen, extension = ".rds", override_name = "datasets_to_censor_check")
 smart_save(c(), dirpargen, extension = ".rds", override_name = "variables_to_censor")
 
 #############################################
