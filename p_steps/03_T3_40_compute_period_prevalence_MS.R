@@ -162,7 +162,9 @@ for (outcome in OUTCOME_variables) {
   
   setorder(tmp, "algorithm")
   
-  smart_save(tmp, direxp, override_name = paste("D4_prevalence_period", outcome, "summary_levels", sep = "_"), extension = "csv")
+  smart_save(tmp, direxpcheck, override_name = paste("D4_prevalence_period", outcome, "summary_levels", sep = "_"), extension = "csv")
   
-  smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension)
+  smart_save(period_prevalence, direxp, override_name = paste("D4_prevalence_period", outcome, sep = "_"), extension = extension, save_copy = "csv")
+  update_vector("datasets_to_censor", dirpargen, paste("D4_prevalence_period", outcome, sep = "_"))
+  update_vector("variables_to_censor", dirpargen, c("numerator" = 5))
 }

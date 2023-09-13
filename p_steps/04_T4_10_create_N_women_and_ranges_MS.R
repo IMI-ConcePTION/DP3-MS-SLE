@@ -91,11 +91,13 @@ for (outcome in OUTCOME_variables) {
                                                  .SDcols = c("age_median", "age_25p", "age_75p")]
   
   export_name <- paste("D5_N_women_and_ranges", outcome, sep = "_")
-  smart_save(D5_N_women_and_ranges, diroutput, override_name = export_name,
+  smart_save(D5_N_women_and_ranges, direxp, override_name = export_name,
              extension = "csv")
   
   update_vector("datasets_to_censor", dirpargen, export_name)
   update_vector("variables_to_censor", dirpargen, c("N" = 5))
+  
+  update_vector("datasets_to_censor_check", dirpargen, "D5_N_women_and_ranges")
 }
 
 

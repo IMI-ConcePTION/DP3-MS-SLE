@@ -139,6 +139,8 @@ for (outcome in OUTCOME_variables) {
   # 
   # smart_save(tmp, direxp, override_name = paste("D4_prevalence_persontime", outcome, "summary_levels", sep = "_"), extension = "csv")
   
-  smart_save(persontime_prevalence, diroutput, override_name = paste("D4_prevalence_persontime", outcome, sep = "_"),
-             extension = extension)
+  smart_save(persontime_prevalence, direxp, override_name = paste("D4_prevalence_persontime", outcome, sep = "_"),
+             extension = extension, save_copy = "csv")
+  update_vector("datasets_to_censor", dirpargen, paste("D4_prevalence_persontime", outcome, sep = "_"))
+  update_vector("variables_to_censor", dirpargen, c("numerator" = 5))
 }

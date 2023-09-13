@@ -72,15 +72,15 @@ for (outcome in OUTCOME_variables) {
   
   setorder(tmp, "algorithm")
   
-  smart_save(tmp, direxp, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, "summary_levels", sep = "_"), extension = "csv")
+  smart_save(tmp, direxpcheck, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, "summary_levels", sep = "_"), extension = "csv")
   
   
   export_name <- paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_")
-  smart_save(algo_look, diroutput, override_name = export_name,
+  smart_save(algo_look, direxp, override_name = export_name,
              extension = "csv")
   
-  # update_vector("datasets_to_censor", dirpargen, export_name)
-  # update_vector("variables_to_censor", dirpargen, c("N" = 5))
+  update_vector("datasets_to_censor", dirpargen, export_name)
+  update_vector("variables_to_censor", dirpargen, c("N" = 5))
 }
 
 

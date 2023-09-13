@@ -57,10 +57,12 @@ meaning_occurences <- MergeFilterAndCollapse(list(outcome_df),
                                              strata = c("concept", "meaning_of_event", "meaning_of_event_recoded",
                                                         "meaning_of_visit", "meaning_of_visit_recoded"),
                                              summarystat = list(c("count", "person_id", "count")))
-smart_save(meaning_occurences, diroutput, override_name = "D5_meaning_occurences", extension = "csv")
+smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences", extension = "csv")
 
 update_vector("datasets_to_censor", dirpargen, "D5_meaning_occurences")
 update_vector("variables_to_censor", dirpargen, c("count" = 5))
+
+update_vector("datasets_to_censor_check", dirpargen, "D5_meaning_occurences")
 
 outcome_df[, c("meaning_of_event", "meaning_of_visit", "visit_occurrence_id") := NULL]
 
@@ -178,4 +180,4 @@ rm(concept_in_pop)
 
 component_algo <- rbindlist(c(component_lookback_algo, list(component_algo)), fill = T)
 
-smart_save(component_algo, dirtemp, override_name = "D3_main_components", extension = extension)
+smart_save(component_algo, dirtemp, override_name = "D3_main_components", extension = extension, save_copy = "csv")

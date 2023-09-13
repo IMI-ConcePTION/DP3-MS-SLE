@@ -20,9 +20,11 @@ selected_population <- CreateFlowChart(
   flowchartname = "Flowchart_exclusion_criteria")
 
 fwrite(get("Flowchart_exclusion_criteria"),
-       paste0(diroutput, "Flowchart_exclusion_criteria.csv"))
+       paste0(direxp, "Flowchart_exclusion_criteria.csv"))
 
-smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_study_population_SAP1", extension = extension)
+smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_study_population_SAP1", extension = extension, save_copy = "csv")
 
 update_vector("datasets_to_censor", dirpargen, "Flowchart_exclusion_criteria")
 update_vector("variables_to_censor", dirpargen, c("N" = 5))
+
+update_vector("datasets_to_censor_check", dirpargen, "Flowchart_exclusion_criteria")

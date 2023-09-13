@@ -163,8 +163,10 @@ for (outcome in OUTCOME_variables) {
   
   setorder(tmp, "algorithm")
   
-  smart_save(tmp, direxp, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels", sep = "_"), extension = "csv")
-  smart_save(tmp_1, direxp, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels_yearly", sep = "_"), extension = "csv")
+  smart_save(tmp, direxpcheck, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels", sep = "_"), extension = "csv")
+  smart_save(tmp_1, direxpcheck, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels_yearly", sep = "_"), extension = "csv")
   
-  smart_save(period_prevalence, diroutput, override_name = paste("D4_prevalence_average_point", outcome, sep = "_"), extension = extension)
+  smart_save(period_prevalence, direxp, override_name = paste("D4_prevalence_average_point", outcome, sep = "_"), extension = extension, save_copy = "csv")
+  update_vector("datasets_to_censor", dirpargen, paste("D4_prevalence_average_point", outcome, sep = "_"))
+  update_vector("variables_to_censor", dirpargen, c("numerator" = 5))
 }
