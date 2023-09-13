@@ -27,4 +27,4 @@ D3_study_population_SAP1[, age_at_entry_spell_category := age_fast(birth_date, c
 D3_study_population_SAP1[, for_n_years_in_study := age_fast(cohort_entry_date, cohort_exit_date + 1)]
 
 # Save the dataset
-smart_save(D3_study_population_SAP1, dirtemp, extension = extension)
+smart_save(D3_study_population_SAP1, dirtemp, extension = extension, save_copy = "csv")

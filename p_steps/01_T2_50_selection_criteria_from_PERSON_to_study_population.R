@@ -140,4 +140,4 @@ D3_sel_cri <- merge(D3_sel_cri, D3_clean_spells, all.x = T, by = "person_id")
 # D3_sel_cri_spells[, c("entry_spell_category", "exit_spell_category") := NULL]
 
 # Saving exclusion criteria for populations
-smart_save(D3_sel_cri, dirtemp, override_name = "D3_selection_criteria_from_PERSONS_to_study_population", extension = extension)
+smart_save(D3_sel_cri, dirtemp, override_name = "D3_selection_criteria_from_PERSONS_to_study_population", extension = extension, save_copy = "csv")

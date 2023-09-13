@@ -67,4 +67,4 @@ person_spell[(entry_spell_category_cleaned == 1 | exit_spell_category_cleaned ==
 
 person_spell[is.na(is_the_study_spell), is_the_study_spell := 0]
 
-smart_save(person_spell, dirtemp, override_name = "D3_clean_spells", extension = extension)
+smart_save(person_spell, dirtemp, override_name = "D3_clean_spells", extension = extension, save_copy = "csv")

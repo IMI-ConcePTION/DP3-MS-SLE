@@ -150,4 +150,4 @@ if (thisdatasource %not in% this_datasource_has_subpopulations) {
 }
 
 
-smart_save(D3_output_spells_category, dirtemp, extension = extension)
+smart_save(D3_output_spells_category, dirtemp, extension = extension, save_copy = "csv")

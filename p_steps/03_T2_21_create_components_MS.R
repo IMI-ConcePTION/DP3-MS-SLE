@@ -109,7 +109,7 @@ D3_study_population_SAP1 <- unique(D3_study_population_SAP1)
 
 smart_save(merge(D3_study_population_SAP1, main_components_MS_whole, all.x = T,
                  by = c("person_id", "cohort_entry_date", "cohort_exit_date")),
-           dirtemp, override_name = "D3_components_MS_SAP1", extension = extension)
+           dirtemp, override_name = "D3_components_MS_SAP1", extension = extension, save_copy = "csv")
 
 if (thisdatasource %in% datasources_only_preg) {
   print(paste("D3_components_multiple_lookback_MS can't be calculated in datasource with only pregnancies"))
@@ -136,6 +136,6 @@ if (thisdatasource %in% datasources_only_preg) {
   new_col_names <- sapply(strsplit(cols_to_change, "_"), function(x) paste0("M", paste(x[2], x[4], x[3], sep = "_")))
   setnames(main_components_MS, cols_to_change, new_col_names)
   
-  smart_save(main_components_MS, dirtemp, override_name = "D3_components_multiple_lookback_MS", extension = extension)
+  smart_save(main_components_MS, dirtemp, override_name = "D3_components_multiple_lookback_MS", extension = extension, save_copy = "csv")
   
 }

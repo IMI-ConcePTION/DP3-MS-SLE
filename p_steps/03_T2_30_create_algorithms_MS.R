@@ -26,7 +26,7 @@ for (outcome in OUTCOME_variables) {
   # Remove row without a date
   D3_algorithms <- D3_algorithms[!is.na(date), ]
   
-  smart_save(D3_algorithms, dirtemp, override_name = paste("D3_algorithms", outcome, sep = "_"), extension = extension)
+  smart_save(D3_algorithms, dirtemp, override_name = paste("D3_algorithms", outcome, sep = "_"), extension = extension, save_copy = "csv")
   
   if (thisdatasource %in% datasources_only_preg) {
     print(paste("D3_algorithms_multiple_lookback_", outcome, " can't be calculated in datasource with only pregnancies"))
@@ -89,7 +89,7 @@ for (outcome in OUTCOME_variables) {
   algorithm_lookback[, length_spell := NULL]
   
   smart_save(algorithm_lookback, dirtemp, override_name = paste("D3_algorithms_multiple_lookback", outcome, sep = "_"),
-             extension = extension)
+             extension = extension, save_copy = "csv")
 }
 
 
