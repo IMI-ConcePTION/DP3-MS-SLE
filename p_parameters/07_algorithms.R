@@ -18,7 +18,7 @@ meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hosp
 meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("hospital_encounter", "outpatient_contact")
 
 
-meanings_of_this_study[["THL"]][["meaning_of_event"]][["PC"]] <- "primary_care_diagnosis"
+meanings_of_this_study[["THL"]][["meaning_of_event"]][["PC"]] <- c("primary_care_diagnosis", "birth_registry")
 meanings_of_this_study[["THL"]][["meaning_of_event"]][["LONGTERM"]] <- "long_term_diagnosis"
 
 meanings_of_this_study[["THL"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
@@ -28,24 +28,20 @@ meanings_of_this_study[["THL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- "
 
 
 meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["PC"]] <- "gpe"
-meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["INPATIENT"]] <- c("pd", "sd", "hp",
-                                                                                    "CRITICAL_CARE_STAY")
-meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("op", "ed")
+meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["INPATIENT"]] <- c("pd", "hp", "CRITICAL_CARE_STAY")
 
-meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
-meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]][["INPATIENT"]] <- "hospitalisation"
-meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("outpatient_specialist_visit",
-                                                                                           "emergency_contact")
+meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]] <- list()
 
 
-meanings_of_this_study[["FISABIO"]][["meaning_of_event"]] <- list()
+meanings_of_this_study[["FISABIO"]][["meaning_of_event"]][["INPATIENT"]] <- c("hospitalisation_primary",
+                                                                              "hospitalisation_secondary")
 
-meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]][["INPATIENT"]] <- "hospitalisation"
-meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- "outpatient_specialist_visit"
+meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]] <- list()
 
 
-meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis", 
-                                                                                            "emergency_room_presentation")
+meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis",
+                                                                                            "access_to_mental_health_service_primary",
+                                                                                            "access_to_mental_health_service_primary baby and teenager")
 meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_event"]][["LONGTERM"]] <- "exemption"
 
 meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
@@ -60,6 +56,7 @@ meanings_of_this_study[["EFEMERIS"]][["meaning_of_event"]][["INPATIENT"]] <- c("
 meanings_of_this_study[["EFEMERIS"]][["meaning_of_visit"]] <- list()
 
 
+meanings_of_this_study[["TEST"]][["meaning_of_event"]][["PC"]] <- c("primary_care_diagnosis", "birth_registry")
 meanings_of_this_study[["TEST"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis", 
                                                                                   "emergency_room_presentation")
 meanings_of_this_study[["TEST"]][["meaning_of_event"]][["LONGTERM"]] <- "exemption"
