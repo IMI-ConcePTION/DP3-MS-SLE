@@ -39,14 +39,14 @@ meanings_of_this_study[["FISABIO"]][["meaning_of_event"]][["INPATIENT"]] <- c("h
 meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]] <- list()
 
 
-meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis",
+meanings_of_this_study[["FERR"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis",
                                                                                             "access_to_mental_health_service_primary",
                                                                                             "access_to_mental_health_service_primary baby and teenager")
-meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_event"]][["LONGTERM"]] <- "exemption"
+meanings_of_this_study[["FERR"]][["meaning_of_event"]][["LONGTERM"]] <- "exemption"
 
-meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
+meanings_of_this_study[["FERR"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
                                                                                      "hospitalisation_not_overnight")
-meanings_of_this_study[["Emilia_Romagna"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("outpatient_specialist_visit")
+meanings_of_this_study[["FERR"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("outpatient_specialist_visit")
 
 
 meanings_of_this_study[["EFEMERIS"]][["meaning_of_event"]][["INPATIENT"]] <- c("hospitalisation_primary",
