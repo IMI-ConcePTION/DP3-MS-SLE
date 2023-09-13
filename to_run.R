@@ -7,7 +7,7 @@
 # v2.2.0 - 13 September 2023
 # Corrected datasource name for SAIL Databank and FERR
 # Reworked g_export. Added g_export_masked and g_export_to_check
-# Validated meanings for SAIL Databank, FISABIO and Emilia_Romagna
+# Validated meanings for SAIL Databank, FISABIO and FERR
 # Added meaning "birth_registry" for THL
 
 # v2.1.1 - 24 August 2023
