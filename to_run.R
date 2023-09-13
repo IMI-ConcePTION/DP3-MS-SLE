@@ -4,6 +4,12 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.2.0 - 13 September 2023
+# Corrected datasource name for SAIL Databank and FERR
+# Reworked g_export. Added g_export_masked and g_export_to_check
+# Validated meanings for SAIL Databank, FISABIO and Emilia_Romagna
+# Added meaning "birth_registry" for THL
+
 # v2.1.1 - 24 August 2023
 # Fix in case a DAPs does not have meaning_of_event or meaning_of_visit to search for
 # Fix for summary_levels for average prevalence
