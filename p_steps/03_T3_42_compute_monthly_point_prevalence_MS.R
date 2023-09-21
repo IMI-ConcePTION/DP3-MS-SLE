@@ -163,10 +163,31 @@ for (outcome in OUTCOME_variables) {
   
   setorder(tmp, "algorithm")
   
-  smart_save(tmp, direxpcheck, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels", sep = "_"), extension = "csv")
-  smart_save(tmp_1, direxpcheck, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels_yearly", sep = "_"), extension = "csv")
+  if (enable_summary_levels) {
+    smart_save(tmp, direxpcheck, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels", sep = "_"), extension = "csv")
+    smart_save(tmp_1, direxpcheck, override_name = paste("D4_prevalence_average_point", outcome, "summary_levels_yearly", sep = "_"), extension = "csv")
+  }
   
-  smart_save(period_prevalence, direxp, override_name = paste("D4_prevalence_average_point", outcome, sep = "_"), extension = extension, save_copy = "csv")
-  update_vector("datasets_to_censor", dirpargen, paste("D4_prevalence_average_point", outcome, sep = "_"))
-  update_vector("variables_to_censor", dirpargen, c("numerator" = 5))
+  # Keep only levels from Cube decided after discussion
+  period_prevalence <- filter_by_Cube_levels(period_prevalence)
+  
+  # Add percentage base on wilson method (default)
+  period_prevalence[, c("percentage", "lowerCI", "upperCI") := Hmisc::binconf(numerator, denominator, return.df = T)]
+  period_prevalence[numerator == 0, lowerCI := 0]
+  
+  # Create a filtered version of the prevalence excluding the row with at least a small count
+  period_prevalence_masked <- remove_Threshold(period_prevalence, 5, "numerator")
+  
+  # Only for THL remove numerator and denominator
+  if (thisdatasource == "THL") {
+    period_prevalence[, c("numerator", "denominator") := NULL]
+    period_prevalence_masked[, c("numerator", "denominator") := NULL]
+  }
+  
+  smart_save(period_prevalence_masked, direxpmask, override_name = paste("D5_prevalence_average_point", outcome, "masked", sep = "_"),
+             extension = extension, save_copy = "csv")
+  smart_save(period_prevalence, direxp, override_name = paste("D5_prevalence_average_point", outcome, sep = "_"), extension = extension, save_copy = "csv")
+  
+  # update_vector("datasets_to_censor", dirpargen, paste("D4_prevalence_average_point", outcome, sep = "_"))
+  # update_vector("variables_to_censor", dirpargen, c("numerator" = 5))
 }
