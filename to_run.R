@@ -4,6 +4,12 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.3.0 - 22 September 2023
+# Added filtering of dataset based on discussion about Cube levels
+# Now there are only g_export and g_export_masked
+# Added percentages and CI
+# Removed numerator and denominator for THL
+
 # v2.2.0 - 13 September 2023
 # Corrected datasource name for SAIL Databank and FERR
 # Reworked g_export. Added g_export_masked and g_export_to_check
@@ -118,6 +124,8 @@ launch_step("p_steps/03_T3_50_point_prevalence_multiple_lookback.R")
 
 # COMPUTE BASIC STATISTICS
 launch_step("p_steps/04_T4_10_create_N_women_and_ranges_MS.R")
+launch_step("p_steps/04_T4_20_filter_by_cube_and_calculate_CI.R")
+launch_step("p_steps/04_T4_30_aggregate_prevalence.R")
 
 # Remove SMALL COUNT FROM EXPORT DATASET
-launch_step("p_steps/05_T5_10_censor_small_count.R")
+# launch_step("p_steps/05_T5_10_censor_small_count.R")
