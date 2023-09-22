@@ -139,26 +139,9 @@ for (outcome in OUTCOME_variables) {
   # 
   # smart_save(tmp, direxp, override_name = paste("D4_prevalence_persontime", outcome, "summary_levels", sep = "_"), extension = "csv")
   
-  # Keep only levels from Cube decided after discussion
-  period_prevalence <- filter_by_Cube_levels(period_prevalence)
-  
-  # Add percentage base on wilson method (default)
-  persontime_prevalence[, c("percentage", "lowerCI", "upperCI") := Hmisc::binconf(numerator, denominator, return.df = T)]
-  persontime_prevalence[numerator == 0, lowerCI := 0]
-  
-  # Create a filtered version of the prevalence excluding the row with at least a small count
-  persontime_prevalence_masked <- remove_Threshold(period_prevalence, 5, "numerator")
-  
-  # Only for THL remove numerator and denominator
-  if (thisdatasource == "THL") {
-    persontime_prevalence[, c("numerator", "denominator") := NULL]
-    persontime_prevalence_masked[, c("numerator", "denominator") := NULL]
-  }
-  
-  smart_save(persontime_prevalence, direxp, override_name = paste("D5_prevalence_persontime", outcome, sep = "_"),
+  smart_save(persontime_prevalence, diroutput, override_name = paste("D4_prevalence_persontime", outcome, sep = "_"),
              extension = extension, save_copy = "csv")
-  smart_save(persontime_prevalence_masked, direxpmask, override_name = paste("D5_prevalence_persontime", outcome, "masked", sep = "_"),
-             extension = extension, save_copy = "csv")
+  
   # update_vector("datasets_to_censor", dirpargen, paste("D4_prevalence_persontime", outcome, sep = "_"))
   # update_vector("variables_to_censor", dirpargen, c("numerator" = 5))
 }
