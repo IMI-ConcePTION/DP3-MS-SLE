@@ -246,14 +246,14 @@ update_vector <- function(df, folder, value) {
 }
 
 remove_Threshold <- function(df, threshold, columns) {
-  return(df[df[, Reduce(`&`, lapply(.SD, function(x) x >= threshold | x == 0)), .SDcols = columns], ])
+  return(df[df[, Reduce(`&`, lapply(.SD, function(x) x >= threshold | x == 0 | is.na(x))), .SDcols = columns], ])
 }
 
 filter_by_Cube_levels <- function(df){
   return(df[fcase(timeframe_LevelOrder == 1 & Ageband_LevelOrder == 99, T,
-                  timeframe_LevelOrder == 2 & Ageband_LevelOrder == 3, T,
-                  timeframe_LevelOrder == 2 & Ageband_LevelOrder == 99, T,
-                  timeframe_LevelOrder == 99 & Ageband_LevelOrder == 3, T,
+                  timeframe_LevelOrder == 3 & Ageband_LevelOrder == 2, T,
+                  timeframe_LevelOrder == 99 & Ageband_LevelOrder == 2, T,
+                  timeframe_LevelOrder == 3 & Ageband_LevelOrder == 99, T,
                   timeframe_LevelOrder == 99 & Ageband_LevelOrder == 99, T,
                   default = F), ])
 }
