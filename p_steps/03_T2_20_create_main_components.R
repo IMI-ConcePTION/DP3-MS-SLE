@@ -59,10 +59,14 @@ meaning_occurences <- MergeFilterAndCollapse(list(outcome_df),
                                              summarystat = list(c("count", "person_id", "count")))
 smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences", extension = "csv")
 
-update_vector("datasets_to_censor", dirpargen, "D5_meaning_occurences")
-update_vector("variables_to_censor", dirpargen, c("count" = 5))
+# Create a filtered version of the prevalence excluding the row with at least a small count
+meaning_occurences <- remove_Threshold(meaning_occurences, 5, "count")
+smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences_masked", extension = "csv")
 
-update_vector("datasets_to_censor_check", dirpargen, "D5_meaning_occurences")
+# update_vector("datasets_to_censor", dirpargen, "D5_meaning_occurences")
+# update_vector("variables_to_censor", dirpargen, c("count" = 5))
+# 
+# update_vector("datasets_to_censor_check", dirpargen, "D5_meaning_occurences")
 
 outcome_df[, c("meaning_of_event", "meaning_of_visit", "visit_occurrence_id") := NULL]
 
