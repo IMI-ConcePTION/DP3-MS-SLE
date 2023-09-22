@@ -76,30 +76,11 @@ for (outcome in OUTCOME_variables) {
     smart_save(tmp, direxpcheck, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, "summary_levels", sep = "_"), extension = "csv")
   }
   
-  # Keep only levels from Cube decided after discussion
-  period_prevalence <- filter_by_Cube_levels(period_prevalence)
-  
-  # Add percentage base on wilson method (default)
-  algo_look[, c("percentage", "lowerCI", "upperCI") := Hmisc::binconf(numerator, denominator, return.df = T)]
-  algo_look[numerator == 0, lowerCI := 0]
-  
-  # Create a filtered version of the prevalence excluding the row with at least a small count
-  algo_look_masked <- remove_Threshold(period_prevalence, 5, "numerator")
-  
-  # Only for THL remove numerator and denominator
-  if (thisdatasource == "THL") {
-    algo_look[, c("numerator", "denominator") := NULL]
-    algo_look_masked[, c("numerator", "denominator") := NULL]
-  }
-  
   export_name <- paste("D4_prevalence_aggregated_multiple_lookback", outcome, sep = "_")
-  smart_save(algo_look, direxp, override_name = export_name,
-             extension = "csv")
-  smart_save(algo_look_masked, direxpmask, override_name = paste("D4_prevalence_aggregated_multiple_lookback", outcome, "masked", sep = "_"),
-             extension = extension, save_copy = "csv")
+  smart_save(algo_look, diroutput, override_name = export_name, extension = extension, save_copy = "csv")
   
-  update_vector("datasets_to_censor", dirpargen, export_name)
-  update_vector("variables_to_censor", dirpargen, c("N" = 5))
+  # update_vector("datasets_to_censor", dirpargen, export_name)
+  # update_vector("variables_to_censor", dirpargen, c("N" = 5))
 }
 
 
