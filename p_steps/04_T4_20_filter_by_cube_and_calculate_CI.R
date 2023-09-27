@@ -27,7 +27,8 @@ for (outcome in OUTCOME_variables) {
     
     # Add percentage base on wilson method (default)
     prevalence_df[, (percentage_to_select) := unlist(lapply(seq_along(numerator_to_censor), function(x) {
-      as.list(Hmisc::binconf(get(numerator_to_censor[[x]]), get(denominator_to_select[[x]]), return.df = T))
+      lapply(round(Hmisc::binconf(get(numerator_to_censor[[x]]), get(denominator_to_select[[x]]), return.df = T), 10),
+             format, scientific = FALSE)
       }), recursive = F)]
     # prevalence_df[numerator == 0, lowerCI := 0]
     
