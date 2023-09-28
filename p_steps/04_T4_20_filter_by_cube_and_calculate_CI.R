@@ -19,6 +19,10 @@ for (outcome in OUTCOME_variables) {
       percentage_to_select <- c("percentage", "lowerCI", "upperCI")
     }
     
+    if (!file.exists(paste0(diroutput, paste("D4", name_df, sep = "_"), ".", extension))) {
+      next
+    }
+    
     # Load algorithms
     prevalence_df <- smart_load(paste("D4", name_df, sep = "_"), diroutput, return = T, extension = extension)
     
