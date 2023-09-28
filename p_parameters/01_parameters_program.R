@@ -33,14 +33,25 @@ set_and_create_dir <- function(x) {
 }
 
 ###################################################################
+# RETRIEVE INFORMATION FROM CDM_SOURCE
+###################################################################
+
+CDM_SOURCE<- fread(paste0(dirinput,"CDM_SOURCE.csv"))
+thisdatasource <- as.character(CDM_SOURCE[1,3])
+instance_creation <- ymd(CDM_SOURCE[1,"date_creation"])
+recommended_end_date <- ymd(CDM_SOURCE[1,"recommended_end_date"])
+rm(CDM_SOURCE)
+# thisdatasource = "EFEMERIS"
+
+###################################################################
 # SET AND CREATE FOLDERS IF NECESSARY
 ###################################################################
 
 diroutput <- set_and_create_dir("/g_output/")
 dirtemp <- set_and_create_dir("/g_intermediate/")
 dirconceptsets <- set_and_create_dir("/g_intermediate/concept_sets/")
-direxp <- set_and_create_dir("/g_export/")
-direxpmask <- set_and_create_dir("/g_export_masked/")
+direxp <- set_and_create_dir(paste0("/g_export_", thisdatasource, "/"))
+direxpmask <- set_and_create_dir(paste0("/g_export_masked_", thisdatasource, "/"))
 # direxpcheck <- set_and_create_dir("/g_export_to_check/")
 dirmacro <- set_and_create_dir("/p_macro/")
 dirpargen <- set_and_create_dir("/g_parameters/")
@@ -78,17 +89,6 @@ source(paste0(dirmacro,"Smart_save.R"))
 source(paste0(dirmacro,"DRE_Threshold.R"))
 source(paste0(dirmacro,"Cube.R"))
 source(paste0(dirmacro,"launch_step.R"))
-
-###################################################################
-# RETRIEVE INFORMATION FROM CDM_SOURCE
-###################################################################
-
-CDM_SOURCE<- fread(paste0(dirinput,"CDM_SOURCE.csv"))
-thisdatasource <- as.character(CDM_SOURCE[1,3])
-instance_creation <- ymd(CDM_SOURCE[1,"date_creation"])
-recommended_end_date <- ymd(CDM_SOURCE[1,"recommended_end_date"])
-rm(CDM_SOURCE)
-# thisdatasource = "EFEMERIS"
 
 ###################################################################
 # CREATE EMPTY FILES

@@ -36,3 +36,5 @@ vignettes/*.pdf
 /g_export_smallcountsremoved
 g_export_masked
 g_export_to_check
+g_export_masked_TEST
+g_export_TEST
