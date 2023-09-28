@@ -29,14 +29,17 @@ for (outcome in OUTCOME_variables) {
     prevalence_df[, (percentage_to_select) := unlist(lapply(seq_along(numerator_to_censor), function(x) {
       lapply(round(Hmisc::binconf(get(numerator_to_censor[[x]]), get(denominator_to_select[[x]]), return.df = T), 10),
              format, scientific = FALSE)
-      }), recursive = F)]
+    }), recursive = F)]
     # prevalence_df[numerator == 0, lowerCI := 0]
     
     # Create a filtered version of the prevalence excluding the row with at least a small count
-    prevalence_df_masked <- remove_Threshold(prevalence_df, 5, numerator_to_censor)
+    prevalence_df_masked[, (numerator_to_censor) := lapply(.SD,
+                                                           function(x) fifelse(as.integer(x) < 5  & as.integer(x) > 0,
+                                                                               paste0("<5"), as.character(x))),
+                         .SDcols = numerator_to_censor]
     
     # Only for THL remove numerator and denominator
-    if (thisdatasource == "THL") {
+    if (thisdatasource == "THL" & name_df == paste("prevalence_average_point", outcome, sep = "_")) {
       prevalence_df[, c(numerator_to_censor, denominator_to_select) := NULL]
       prevalence_df_masked[, c(numerator_to_censor, denominator_to_select) := NULL]
     }
