@@ -32,6 +32,19 @@ set_and_create_dir <- function(x) {
   return(x)
 }
 
+# load packages
+read_library <- function(...) {
+  x <- c(...)
+  invisible(lapply(x, library, character.only = TRUE))
+}
+
+list.of.packages <- c("lubridate", "stringr", "readr", "data.table", "readxl", "qs", "dplyr", "purrr", "RcppAlgos")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
+if (length(new.packages)) install.packages(new.packages)
+invisible(lapply(list.of.packages, require, character.only = T))
+
+rm(read_library, new.packages, list.of.packages)
+
 ###################################################################
 # RETRIEVE INFORMATION FROM CDM_SOURCE
 ###################################################################
@@ -60,18 +73,7 @@ dircomponents <- set_and_create_dir("/g_intermediate/components/")
   
 rm(set_and_create_dir)
 
-# load packages
-read_library <- function(...) {
-  x <- c(...)
-  invisible(lapply(x, library, character.only = TRUE))
-}
 
-list.of.packages <- c("lubridate", "stringr", "readr", "data.table", "readxl", "qs", "dplyr", "purrr", "RcppAlgos")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
-if (length(new.packages)) install.packages(new.packages)
-invisible(lapply(list.of.packages, require, character.only = T))
-
-rm(read_library, new.packages, list.of.packages)
 #----------------
 
 #--------------
