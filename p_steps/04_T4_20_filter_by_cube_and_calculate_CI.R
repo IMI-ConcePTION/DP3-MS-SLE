@@ -37,7 +37,7 @@ for (outcome in OUTCOME_variables) {
     # prevalence_df[numerator == 0, lowerCI := 0]
     
     # Create a filtered version of the prevalence excluding the row with at least a small count
-    prevalence_df_masked <- prevalence_df[, (numerator_to_censor) := lapply(.SD,
+    prevalence_df_masked <- copy(prevalence_df)[, (numerator_to_censor) := lapply(.SD,
                                                                             function(x) fifelse(as.integer(x) < 5  & as.integer(x) > 0,
                                                                                                 paste0("<5"), as.character(x))),
                                           .SDcols = numerator_to_censor]

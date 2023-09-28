@@ -60,7 +60,10 @@ meaning_occurences <- MergeFilterAndCollapse(list(outcome_df),
 smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences", extension = "csv")
 
 # Create a filtered version of the prevalence excluding the row with at least a small count
-meaning_occurences <- remove_Threshold(meaning_occurences, 5, "count")
+meaning_occurences <- meaning_occurences[, count := lapply(.SD,
+                                                           function(x) fifelse(as.integer(x) < 5  & as.integer(x) > 0,
+                                                                               paste0("<5"), as.character(x))),
+                                         .SDcols = "count"]
 smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences_masked", extension = "csv")
 
 # update_vector("datasets_to_censor", dirpargen, "D5_meaning_occurences")

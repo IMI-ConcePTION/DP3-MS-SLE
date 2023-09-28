@@ -94,7 +94,10 @@ for (outcome in OUTCOME_variables) {
   smart_save(D5_N_women_and_ranges, direxp, override_name = export_name, extension = "csv")
   
   # Create a filtered version of the prevalence excluding the row with at least a small count
-  D5_N_women_and_ranges_masked <- remove_Threshold(D5_N_women_and_ranges, 5, "N")
+  D5_N_women_and_ranges_masked <- copy(D5_N_women_and_ranges)[, N := lapply(.SD,
+                                                                          function(x) fifelse(as.integer(x) < 5  & as.integer(x) > 0,
+                                                                                              paste0("<5"), as.character(x))),
+                                        .SDcols = "N"]
   
   smart_save(D5_N_women_and_ranges_masked, direxpmask, override_name = paste(export_name, "masked", sep = "_"),
              extension = "csv")
