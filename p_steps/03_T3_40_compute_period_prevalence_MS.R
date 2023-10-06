@@ -2,6 +2,7 @@
 # input: D3_study_population_SAP1, conceptset
 # period_prevalence: D3_clean_spells
 
+
 for (outcome in OUTCOME_variables) {
   print(outcome)
   
