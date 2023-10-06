@@ -128,4 +128,4 @@ launch_step("p_steps/04_T4_20_filter_by_cube_and_calculate_CI.R")
 launch_step("p_steps/04_T4_30_aggregate_prevalence.R")
 
 # Remove SMALL COUNT FROM EXPORT DATASET
-# launch_step("p_steps/05_T5_10_censor_small_count.R")
+launch_step("p_steps/05_T5_10_censor_small_count.R")
