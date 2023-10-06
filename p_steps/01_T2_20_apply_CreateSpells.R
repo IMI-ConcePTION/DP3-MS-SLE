@@ -10,7 +10,7 @@ print("COMPUTE SPELLS OF TIME FROM OBSERVATION_PERIODS")
 # import input datasets
 OBSERVATION_PERIODS <- read_CDM_tables("OBSERVATION_PERIODS")
 
-if (thisdatasource == "FISABIO") {
+if (thisdatasource == "RDRU_FISABIO") {
   
   OBSERVATION_PERIODS_preg <- as.data.table(get(load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))[[1]]))
   

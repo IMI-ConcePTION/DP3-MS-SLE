@@ -33,10 +33,10 @@ meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["INPATIENT"]] <
 meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]] <- list()
 
 
-meanings_of_this_study[["FISABIO"]][["meaning_of_event"]][["INPATIENT"]] <- c("hospitalisation_primary",
+meanings_of_this_study[["RDRU_FISABIO"]][["meaning_of_event"]][["INPATIENT"]] <- c("hospitalisation_primary",
                                                                               "hospitalisation_secondary")
 
-meanings_of_this_study[["FISABIO"]][["meaning_of_visit"]] <- list()
+meanings_of_this_study[["RDRU_FISABIO"]][["meaning_of_visit"]] <- list()
 
 
 meanings_of_this_study[["FERR"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis",

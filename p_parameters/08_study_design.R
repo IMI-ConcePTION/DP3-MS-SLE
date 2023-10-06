@@ -20,7 +20,7 @@ rm(admissible_gap_obs_periods)
 # define number of days a spells should not be shorter
 min_spell_lenght <- 365
 
-datasources_only_preg <- c('EFEMERIS', 'THL', 'FISABIO')
+datasources_only_preg <- c('EFEMERIS', 'THL', 'RDRU_FISABIO')
 
 recommended_start_date_vect <- vector(mode = "list")
 recommended_start_date_vect[['ARS']] <- ymd(20030101)
@@ -29,7 +29,7 @@ recommended_start_date_vect[['THL']] <- ymd(19960101)
 recommended_start_date_vect[['SNDS']] <- ymd(20150101)
 recommended_start_date_vect[['EFEMERIS']] <- ymd(20050101)
 recommended_start_date_vect[['UOSL']] <- ymd(20080101)
-recommended_start_date_vect[['FISABIO']] <- ymd(20100101)
+recommended_start_date_vect[['RDRU_FISABIO']] <- ymd(20100101)
 recommended_start_date_vect[['SAIL Databank']] <- ymd(19980101)
 
 if (thisdatasource %not in% names(recommended_start_date_vect)) {
