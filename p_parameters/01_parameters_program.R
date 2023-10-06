@@ -12,7 +12,7 @@ dirinput <- paste0(thisdir,"/i_simulated_data_instance/")
 dirpregnancy <- ""
 
 extension = "rds"
-enable_summary_levels = F
+enable_summary_levels = T
 
 # Sanitize dirpregnancy
 if (dirpregnancy == "" | is.null(dirpregnancy) | is.na(dirpregnancy)) {
@@ -65,7 +65,7 @@ dirtemp <- set_and_create_dir("/g_intermediate/")
 dirconceptsets <- set_and_create_dir("/g_intermediate/concept_sets/")
 direxp <- set_and_create_dir(paste0("/g_export_", thisdatasource, "/"))
 direxpmask <- set_and_create_dir(paste0("/g_export_masked_", thisdatasource, "/"))
-# direxpcheck <- set_and_create_dir("/g_export_to_check/")
+direxpcheck <- set_and_create_dir(paste0("/g_export_masked_", thisdatasource, "/summary_levels/"))
 dirmacro <- set_and_create_dir("/p_macro/")
 dirpargen <- set_and_create_dir("/g_parameters/")
 direvents <- set_and_create_dir("/g_intermediate/events/")
