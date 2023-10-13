@@ -10,7 +10,7 @@ print("COMPUTE SPELLS OF TIME FROM OBSERVATION_PERIODS")
 # import input datasets
 OBSERVATION_PERIODS <- read_CDM_tables("OBSERVATION_PERIODS")
 
-if (thisdatasource == "RDRU_FISABIO") {
+if (thisdatasource %in% c("RDRU_FISABIO")) {
   
   OBSERVATION_PERIODS_preg <- as.data.table(get(load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))[[1]]))
   
@@ -21,8 +21,8 @@ if (thisdatasource == "RDRU_FISABIO") {
   OBSERVATION_PERIODS_preg[, op_origin := "output_pregnancy_algorithm"]
   OBSERVATION_PERIODS_preg[, op_start_date := op_start_date %m-% months(3)]
   OBSERVATION_PERIODS_preg[, op_end_date := op_end_date %m+% months(3)]
-  OBSERVATION_PERIODS_preg[, op_start_date := as.character(op_start_date, "%Y%m%d")]
-  OBSERVATION_PERIODS_preg[, op_end_date := as.character(op_end_date, "%Y%m%d")]
+  OBSERVATION_PERIODS_preg[, op_start_date := as.character(format(op_start_date, "%Y%m%d"))]
+  OBSERVATION_PERIODS_preg[, op_end_date := as.character(format(op_end_date, "%Y%m%d"))]
   
   OBSERVATION_PERIODS <- rbindlist(list(OBSERVATION_PERIODS, OBSERVATION_PERIODS_preg), use.names=TRUE)
   
