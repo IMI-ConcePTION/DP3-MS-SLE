@@ -4,6 +4,12 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.3.1 - 15 October 2023
+# Fix for pregnancies algorithm result importation
+# Modified READ codelist with additional codes
+# Added ICD10ES and CIE10ES as copy of ICD10
+# Fixed DAP name FISABIO -> RDRU_FISABIO
+
 # v2.3.0 - 06 October 2023
 # Added filtering of dataset based on discussion about Cube levels
 # Now there are only g_export and g_export_masked.
