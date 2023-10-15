@@ -8,7 +8,6 @@
 # Fix for pregnancies algorithm result importation
 # Modified READ codelist with additional codes
 # Added ICD10ES and CIE10ES as copy of ICD10
-# Fixed DAP name FISABIO -> RDRU_FISABIO
 
 # v2.3.0 - 06 October 2023
 # Added filtering of dataset based on discussion about Cube levels
