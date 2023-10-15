@@ -232,6 +232,22 @@ for (conceptset in concept_sets_of_our_study){
 }
 
 #-------------------------------------
+# fix for ICD10ES
+for (conceptset in concept_sets_of_our_study){
+  if (concept_set_domains[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study[[conceptset]][["ICD10ES"]] <- concept_set_codes_our_study[[conceptset]][["ICD10"]]
+  }
+}
+
+#-------------------------------------
+# fix for CIE10ES
+for (conceptset in concept_sets_of_our_study){
+  if (concept_set_domains[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study[[conceptset]][["CIE10ES"]] <- concept_set_codes_our_study[[conceptset]][["ICD10"]]
+  }
+}
+
+#-------------------------------------
 # fix for ICD9CM
 for (conceptset in concept_sets_of_our_study){
   if (concept_set_domains[[conceptset]] == "Diagnosis"){
