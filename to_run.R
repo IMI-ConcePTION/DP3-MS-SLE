@@ -4,11 +4,13 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
-# v2.3.0 - 22 September 2023
+# v2.3.0 - 06 October 2023
 # Added filtering of dataset based on discussion about Cube levels
-# Now there are only g_export and g_export_masked
+# Now there are only g_export and g_export_masked.
+# Folder of summary_levels dataset has been moved in g_export_masked
 # Added percentages and CI
 # Removed numerator and denominator for THL
+# FISABIO datasource name as RDRU_FISABIO
 
 # v2.2.0 - 13 September 2023
 # Corrected datasource name for SAIL Databank and FERR
@@ -128,4 +130,4 @@ launch_step("p_steps/04_T4_20_filter_by_cube_and_calculate_CI.R")
 launch_step("p_steps/04_T4_30_aggregate_prevalence.R")
 
 # Remove SMALL COUNT FROM EXPORT DATASET
-launch_step("p_steps/05_T5_10_censor_small_count.R")
+# launch_step("p_steps/05_T5_10_censor_small_count.R")
