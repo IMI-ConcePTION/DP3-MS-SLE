@@ -53,8 +53,9 @@ subpopulations[["RDRU_FISABIO"]] = c("PREG")
 
 op_meaning_sets[["RDRU_FISABIO"]] = c("meanings_pregnancy","meanings_MEDICINES")
 op_meanings_list_per_set[["RDRU_FISABIO"]][["meanings_pregnancy"]] <- c("pregnancy")
-op_meanings_list_per_set[["RDRU_FISABIO"]][["meaningsHOSP"]] <- c("from_birth_registry_available_hospitalisation","from_perimortality_registry_available_hospitalisation","from_congenital_anomaly_registry_available_hospitalisation","child_from_perimortality_registry_available_hospitalisation","child_from_congenital_anomaly_registry_available_hospitalisation")
-op_meanings_list_per_set[["RDRU_FISABIO"]][["meanings_MEDICINES"]] <- c("from_birth_registry_available_medicines_data","from_perimortality_registry_available_medicine_record","from_congenital_anomaly_registry_available_medicine_data","child_from_birth_registry_available_medicine_data","child_from_perimortality_registry_available_hospitalisation","child_from_congenital_anomaly_registry_available_medicine_data")
+op_meanings_list_per_set[["RDRU_FISABIO"]][["meaningsHOSP"]] <- c("child_from_birth_registry_available_hospitalisation","from_birth_registry_available_hospitalisation", "from_perimortality_registry_available_hospitalisation","from_congenital_anomaly_registry_available_hospitalisation","child_from_perimortality_registry_available_hospitalisation","child_from_congenital_anomaly_registry_available_hospitalisation")
+op_meanings_list_per_set[["RDRU_FISABIO"]][["meanings_MEDICINES"]] <- c("child_from_birth_registry_medicine_data","from_perimortality_registry_available_medicine_data","from_congenital_anomaly_registry_medicine_data","from_birth_registry_medicine_data","child_from_perimortality_registry_medicine_data","child_from_congenital_anomaly_registry_medicine_data")
+op_meanings_list_per_set[["RDRU_FISABIO"]][["meanings_CANCER"]] <- c("from_cancer_registry_available_hospitalisation","from_cancer_registry_available_medicine_data")
 
 op_meaning_sets_in_subpopulations[["RDRU_FISABIO"]][["PREG"]] <- c("meanings_pregnancy", "meanings_MEDICINES")
 
