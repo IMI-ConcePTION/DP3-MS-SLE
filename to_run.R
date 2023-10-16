@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.3.2 - 16 October 2023
+# Updated OBSERVATION_PERIODS meanings for FISABIO
+
 # v2.3.1 - 15 October 2023
 # Fix for pregnancies algorithm result importation
 # Modified READ codelist with additional codes
