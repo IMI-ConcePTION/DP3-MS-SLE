@@ -28,7 +28,7 @@ meanings_of_this_study[["THL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- "
 
 
 meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["PC"]] <- "gpe"
-meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["INPATIENT"]] <- c("pd", "hp", "CRITICAL_CARE_STAY")
+meanings_of_this_study[["SAIL Databank"]][["meaning_of_event"]][["INPATIENT"]] <- c("pd", "hp", "CRITICAL_CARE_STAY", "sd")
 
 meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]] <- list()
 
