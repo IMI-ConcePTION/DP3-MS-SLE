@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.3.3 - 17 October 2023
+# meaning "sd" to INPATIENT for SAIL Databank
+
 # v2.3.2 - 16 October 2023
 # Updated OBSERVATION_PERIODS meanings for FISABIO
 
