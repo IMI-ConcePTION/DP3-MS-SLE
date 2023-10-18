@@ -5,16 +5,16 @@ thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 # load packages
 list.of.packages <- c("xml2", "tibble", "dplyr", "magrittr", "readr", "readxl", "tidyr", "stringr", "readxl",
-                      "data.table", "rcorpora", "xslt")
+                      "data.table", "rcorpora", "xslt","git2r")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 invisible(lapply(list.of.packages, require, character.only = T))
 
 #load the function
-source(paste0(thisdir,"/../main functions.R"))
-source(paste0(thisdir,"/../auxiliary functions.R"))
-source(paste0(thisdir,"/../styles_and_parameters.R"))
-source(paste0(thisdir,"/../clean and sanitize.R"))
+source(paste0(thisdir,"/p_macro/main functions.R"))
+source(paste0(thisdir,"/p_macro/auxiliary functions.R"))
+source(paste0(thisdir,"/p_macro/styles_and_parameters.R"))
+source(paste0(thisdir,"/p_macro/clean and sanitize.R"))
 
 #set the styles
 thissteps_style <- c(cell_style = "circle")
@@ -23,7 +23,7 @@ thisarrows_style <- c(arrow_style = "curved arrow")
 
 # run the function
 test_xml <- create_diagram(
-  path = paste0(thisdir,"/index.xlsx"), 
+  path = paste0(thisdir,"/i_codebooks/00_index.xlsx"), 
   pages = 1, 
   arrows_style = thisarrows_style, 
   steps_style = thissteps_style, 
