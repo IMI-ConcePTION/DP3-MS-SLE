@@ -26,5 +26,5 @@ sanitize_input <- function(x) {
 }
 
 extract_SLUG <- function(x) {
-  return(x %>% select(FOLDER_VAR, FILE, SLUG))
+  return(x %>% select(FILE, SLUG))
 }

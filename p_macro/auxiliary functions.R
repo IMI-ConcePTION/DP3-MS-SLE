@@ -191,7 +191,7 @@ populate_attrs_fd_roel <- function(path, direction, arrows_style, steps_style, d
   temp_data_output <- sanitize_output(temp_data)
   temp_data_input <- sanitize_input(temp_data)
   
-  only_inputs <- setdiff(select(temp_data_input, FOLDER_VAR, FILE), select(temp_data_output, FOLDER_VAR, FILE)) %>%
+  only_inputs <- setdiff(select(temp_data_input, FILE), select(temp_data_output, FILE)) %>%
     mutate(only_input = T)
   temp_data <- rbind(temp_data_output, temp_data_input)
   
@@ -217,7 +217,7 @@ populate_attrs_fd_roel <- function(path, direction, arrows_style, steps_style, d
     dplyr::mutate(level = as.integer(stringr::str_extract(PROGRAM, "\\d+")),
                   level_datamodel = dplyr::if_else(TYPE == "OUTPUT", level * 2, 999),
                   level_step = (level * 2) - 1) %>%
-    dplyr::group_by(FOLDER_VAR, FILE) %>%
+    dplyr::group_by(FILE) %>%
     dplyr::mutate(level_datamodel = min(level_datamodel),
                   level_datamodel = dplyr::if_else(level_datamodel == 999, 0, level_datamodel)) %>%
     dplyr::ungroup()
@@ -233,10 +233,10 @@ populate_attrs_fd_roel <- function(path, direction, arrows_style, steps_style, d
     dplyr::distinct()
   
   datamodel_cells <- temp_data %>%
-    left_join(only_inputs, by = c("FOLDER_VAR", "FILE")) %>%
-    left_join(SLUG_data, by = c("FOLDER_VAR", "FILE")) %>%
+    left_join(only_inputs, by = c("FILE")) %>%
+    left_join(SLUG_data, by = c("FILE")) %>%
     dplyr::mutate(only_input = dplyr::if_else(is.na(only_input), F, only_input)) %>%
-    dplyr::transmute(cell_name = paste(FOLDER_VAR, FILE, sep = "_"),
+    dplyr::transmute(cell_name = paste(FILE),
                      cell_style = datamodels_style,
                      label = FILE,
                      level = level_datamodel,
@@ -257,8 +257,8 @@ populate_attrs_fd_roel <- function(path, direction, arrows_style, steps_style, d
       temp_data %>%
         dplyr::transmute(
           arrow_style = arrows_style,
-          source = dplyr::if_else(TYPE == "INPUT", paste(FOLDER_VAR, FILE, sep = "_"), paste(PROGRAM, level, sep = "_")),
-          target = dplyr::if_else(TYPE == "INPUT", paste(PROGRAM, level, sep = "_"), paste(FOLDER_VAR, FILE, sep = "_"))
+          source = dplyr::if_else(TYPE == "INPUT", paste(FILE), paste(PROGRAM, level, sep = "_")),
+          target = dplyr::if_else(TYPE == "INPUT", paste(PROGRAM, level, sep = "_"), paste(FILE))
         )
     )
   
