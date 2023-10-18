@@ -29,6 +29,9 @@ for (outcome in OUTCOME_variables) {
     # Keep only levels from Cube decided after discussion
     prevalence_df <- filter_by_Cube_levels(prevalence_df)
     
+    # Remove explicit levels used by Cube
+    prevalence_df[, c("timeframe_LevelOrder", "Ageband_LevelOrder") := NULL]
+    
     # Add percentage base on wilson method (default)
     prevalence_df[, (percentage_to_select) := unlist(lapply(seq_along(numerator_to_censor), function(x) {
       lapply(round(Hmisc::binconf(get(numerator_to_censor[[x]]), get(denominator_to_select[[x]]), return.df = T), 10),
