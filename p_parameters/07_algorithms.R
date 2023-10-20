@@ -34,7 +34,10 @@ meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]] <- list()
 
 
 meanings_of_this_study[["RDRU_FISABIO"]][["meaning_of_event"]][["INPATIENT"]] <- c("hospitalisation_primary",
-                                                                              "hospitalisation_secondary")
+                                                                                   "hospitalisation_secondary",
+                                                                                   "death_registry",
+                                                                                   "perinatal_death_registry_mother",
+                                                                                   "anomalies_mother_registry")
 
 meanings_of_this_study[["RDRU_FISABIO"]][["meaning_of_visit"]] <- list()
 
@@ -240,14 +243,6 @@ for (conceptset in concept_sets_of_our_study){
 }
 
 #-------------------------------------
-# fix for CIE10ES
-for (conceptset in concept_sets_of_our_study){
-  if (concept_set_domains[[conceptset]] == "Diagnosis"){
-    concept_set_codes_our_study[[conceptset]][["CIE10ES"]] <- concept_set_codes_our_study[[conceptset]][["ICD10"]]
-  }
-}
-
-#-------------------------------------
 # fix for ICD9CM
 for (conceptset in concept_sets_of_our_study){
   if (concept_set_domains[[conceptset]] == "Diagnosis"){
@@ -257,6 +252,7 @@ for (conceptset in concept_sets_of_our_study){
 
 
 save(concept_set_codes_our_study,file = paste0(direxp, "concept_set_codes_our_study.RData"))
+save(concept_set_codes_our_study,file = paste0(direxpmask, "concept_set_codes_our_study.RData"))
 # save(concept_set_codes_our_study_excl,file=paste0(direxp,"concept_set_codes_our_study_excl.RData"))
 # save(concept_set_codes_our_study,file = paste0(dirsmallcountsremoved, "concept_set_codes_our_study.RData"))
 # save(concept_set_codes_our_study_excl,file=paste0(dirsmallcountsremoved,"concept_set_codes_our_study_excl.RData"))
