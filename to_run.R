@@ -4,6 +4,11 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.3.4 - 20 October 2023
+# Added more meaning_of_event for FISABIO
+# More robust spell length calculation
+# g_export_masked not defined anymore as copy of g_export
+
 # v2.3.3 - 17 October 2023
 # meaning "sd" to INPATIENT for SAIL Databank
 
