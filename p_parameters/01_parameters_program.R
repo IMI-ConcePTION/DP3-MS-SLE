@@ -7,10 +7,10 @@
 #setwd("..")
 # dirbase <- getwd()
 # dirinput <- paste0(dirbase,"/CDMInstances/CVM2205_EFFICACY_CHILDREN/")
-# dirpregnancy <- paste0(thisdir,"/i_simulated_data_instance/pregnancy/")
+dirpregnancy <- paste0(thisdir,"/i_simulated_data_instance/pregnancy/")
 
 dirinput <- paste0(thisdir,"/i_simulated_data_instance/")
-dirpregnancy <- ""
+# dirpregnancy <- ""
 
 extension = "rds"
 enable_summary_levels = T
@@ -135,14 +135,18 @@ rm(files)
 #############################################
 
 file.copy(paste0(dirinput,'/METADATA.csv'), direxp, overwrite = T)
+file.copy(paste0(dirinput,'/METADATA.csv'), direxpmask, overwrite = T)
 file.copy(paste0(dirinput,'/CDM_SOURCE.csv'), direxp, overwrite = T)
+file.copy(paste0(dirinput,'/CDM_SOURCE.csv'), direxpmask, overwrite = T)
 file.copy(paste0(dirinput,'/INSTANCE.csv'), direxp, overwrite = T)
+file.copy(paste0(dirinput,'/INSTANCE.csv'), direxpmask, overwrite = T)
 
 #############################################
 #SAVE to_run.R TO direxp
 #############################################
 
 file.copy(paste0(thisdir,'/to_run.R'), direxp, overwrite = T)
+file.copy(paste0(thisdir,'/to_run.R'), direxpmask, overwrite = T)
 
 #############################################
 #Add lists for censoring final dataset
