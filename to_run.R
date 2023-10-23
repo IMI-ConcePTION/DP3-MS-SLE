@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.3.5 - 23 October 2023
+# Readded explicit levels used by Cube in the final dataset
+
 # v2.3.4 - 20 October 2023
 # Added more meaning_of_event for FISABIO
 # More robust spell length calculation
