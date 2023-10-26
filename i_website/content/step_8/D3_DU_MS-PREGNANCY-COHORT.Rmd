@@ -1,0 +1,14 @@
+---
+weight: 3
+title: D3_DU_MS-PREGNANCY-COHORT
+author: ''
+date: '2023-10-26'
+slug: https://IMI-ConcePTION.github.io/DP3-MS-SLE/step_8/D3_DU_MS-PREGNANCY-COHORT
+categories: []
+tags: []
+archetype: codebook
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+html_codebook(rmarkdown::metadata$name_excel)
+```

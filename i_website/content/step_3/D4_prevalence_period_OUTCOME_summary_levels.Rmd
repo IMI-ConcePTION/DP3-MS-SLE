@@ -1,0 +1,14 @@
+---
+weight: 9
+title: D4_prevalence_period_OUTCOME_summary_levels
+author: ''
+date: '2023-10-26'
+slug: https://IMI-ConcePTION.github.io/DP3-MS-SLE/step_3/D4_prevalence_period_OUTCOME_summary_levels
+categories: []
+tags: []
+archetype: codebook
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+html_codebook(rmarkdown::metadata$name_excel)
+```
