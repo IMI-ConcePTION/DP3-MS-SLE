@@ -31,6 +31,7 @@ recommended_start_date_vect[['EFEMERIS']] <- ymd(20050101)
 recommended_start_date_vect[['UOSL']] <- ymd(20080101)
 recommended_start_date_vect[['RDRU_FISABIO']] <- ymd(20100101)
 recommended_start_date_vect[['SAIL Databank']] <- ymd(19980101)
+recommended_start_date_vect[['FERR']] <- ymd(20090101)
 
 if (thisdatasource %not in% names(recommended_start_date_vect)) {
   stop(paste0("DATASOURCE not present inside the list: ",
