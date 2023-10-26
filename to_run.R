@@ -6,6 +6,7 @@
 
 # v2.3.6 - 26 October 2023
 # Modified D5_N_women_and_ranges with statistics for DAPs with only pregnancies
+# Fixed bug in spell_length calculation
 
 # v2.3.5 - 23 October 2023
 # Readded explicit levels used by Cube in the final dataset
