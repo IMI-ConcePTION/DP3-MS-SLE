@@ -36,19 +36,24 @@ for (outcome in OUTCOME_variables) {
   
   # Load D3_PERSONS and select on id and birth date
   smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
-  D3_study_population_SAP1 <- D3_study_population_SAP1[, c("person_id", "birth_date", "entry_spell_category",
-                                                           "cohort_entry_date", "cohort_exit_date")]
+  D3_study_population_SAP1 <- D3_study_population_SAP1[, c("person_id", "birth_date", "cohort_entry_date",
+                                                           "cohort_exit_date")]
   
   # Calculate length of spell and then remove entry_spell_category
-  D3_study_population_SAP1[, length_spell := difftime(cohort_exit_date, entry_spell_category, units = "days")]
+  D3_study_population_SAP1[, length_spell := difftime(cohort_exit_date, cohort_entry_date, units = "days")]
+  D3_study_population_SAP1[, min_max_spell := difftime(max(cohort_exit_date), min(cohort_entry_date), units = "days"),
+                           by = "person_id"]
+  D3_study_population_SAP1[, n_spell := .N, by = "person_id"]
+  D3_study_population_SAP1[, coverage := as.numeric(sum(length_spell) / as.numeric(min_max_spell) * 100),
+                           by = "person_id"]
   D3_study_population_SAP1[, cohort_entry_date := min(cohort_entry_date), by = "person_id"]
   D3_study_population_SAP1[, age_at_entry_spell := age_fast(birth_date, cohort_entry_date)]
-  D3_study_population_SAP1[, c("entry_spell_category", "cohort_exit_date", "cohort_entry_date") := NULL]
+  D3_study_population_SAP1[, c("cohort_exit_date", "cohort_entry_date", "length_spell") := NULL]
   
-  D3_study_population_SAP1 <- D3_study_population_SAP1[, lapply(.SD, sum),
-                                                       by = c("person_id", "birth_date", "age_at_entry_spell"),
-                                                       .SDcols = "length_spell"]
-  D3_study_population_SAP1[, length_spell := as.numeric(length_spell) / 365.25]
+  # D3_study_population_SAP1 <- D3_study_population_SAP1[, lapply(.SD, sum),
+  #                                                      by = c("person_id", "birth_date", "age_at_entry_spell"),
+  #                                                      .SDcols = "length_spell"]
+  D3_study_population_SAP1[, min_max_spell := as.numeric(min_max_spell) / 365.25]
   
   D5_N_women_and_ranges <- MergeFilterAndCollapse(list(components),
                                                   D3_study_population_SAP1,
@@ -59,9 +64,15 @@ for (outcome in OUTCOME_variables) {
                                                   ),
                                                   strata = c("component_name"),
                                                   summarystat = list(c("count", "date_component", "N"),
-                                                                     c("median", "length_spell", "lookback_median"),
-                                                                     c("25p", "length_spell", "lookback_25p"),
-                                                                     c("75p", "length_spell", "lookback_75p"),
+                                                                     c("median", "n_spell", "n_spell_median"),
+                                                                     c("25p", "n_spell", "n_spell_25p"),
+                                                                     c("75p", "n_spell", "n_spell_75p"),
+                                                                     c("median", "min_max_spell", "lookback_median"),
+                                                                     c("25p", "min_max_spell", "lookback_25p"),
+                                                                     c("75p", "min_max_spell", "lookback_75p"),
+                                                                     c("mean", "coverage", "coverage_mean"),
+                                                                     c("25p", "coverage", "coverage_25p"),
+                                                                     c("75p", "coverage", "coverage_75p"),
                                                                      c("median", "age", "age_median"),
                                                                      c("25p", "age", "age_25p"),
                                                                      c("75p", "age", "age_75p")))
@@ -73,9 +84,15 @@ for (outcome in OUTCOME_variables) {
                                                   condition = "!is.na(person_id)",
                                                   strata = c("component_name"),
                                                   summarystat = list(c("count", "person_id", "N"),
-                                                                     c("median", "length_spell", "lookback_median"),
-                                                                     c("25p", "length_spell", "lookback_25p"),
-                                                                     c("75p", "length_spell", "lookback_75p"),
+                                                                     c("median", "n_spell", "n_spell_median"),
+                                                                     c("25p", "n_spell", "n_spell_25p"),
+                                                                     c("75p", "n_spell", "n_spell_75p"),
+                                                                     c("median", "min_max_spell", "lookback_median"),
+                                                                     c("25p", "min_max_spell", "lookback_25p"),
+                                                                     c("75p", "min_max_spell", "lookback_75p"),
+                                                                     c("mean", "coverage", "coverage_mean"),
+                                                                     c("25p", "coverage", "coverage_25p"),
+                                                                     c("75p", "coverage", "coverage_75p"),
                                                                      c("median", "age", "age_median"),
                                                                      c("25p", "age", "age_25p"),
                                                                      c("75p", "age", "age_75p")))
@@ -83,12 +100,17 @@ for (outcome in OUTCOME_variables) {
   D5_N_women_and_ranges <- rbindlist(list(D5_N_women_and_ranges, D5_N_women_and_ranges_tot))
   
   D5_N_women_and_ranges <- D5_N_women_and_ranges[!is.na(component_name)]
-  D5_N_women_and_ranges <- D5_N_women_and_ranges[, lapply(.SD, round, 1), by = c("component_name", "N", "age_median",
-                                                                                 "age_25p", "age_75p"),
-                                                 .SDcols = c("lookback_median", "lookback_25p", "lookback_75p")]
+  D5_N_women_and_ranges <- D5_N_women_and_ranges[, lapply(.SD, round, 1), by = c("component_name", "N", "n_spell_median",
+                                                                                 "n_spell_25p", "n_spell_75p",
+                                                                                 "age_median", "age_25p", "age_75p"),
+                                                 .SDcols = c("lookback_median", "lookback_25p", "lookback_75p",
+                                                             "coverage_mean", "coverage_25p", "coverage_75p")]
   D5_N_women_and_ranges <- D5_N_women_and_ranges[, lapply(.SD, round, 0), by = c("component_name", "N",
-                                                                                 "lookback_median", "lookback_25p", "lookback_75p"),
-                                                 .SDcols = c("age_median", "age_25p", "age_75p")]
+                                                                                 "lookback_median", "lookback_25p",
+                                                                                 "lookback_75p", "coverage_mean",
+                                                                                 "coverage_25p", "coverage_75p"),
+                                                 .SDcols = c("n_spell_median", "n_spell_25p", "n_spell_75p",
+                                                             "age_median", "age_25p", "age_75p")]
   
   export_name <- paste("D5_N_women_and_ranges", outcome, sep = "_")
   smart_save(D5_N_women_and_ranges, direxp, override_name = export_name, extension = "csv")
