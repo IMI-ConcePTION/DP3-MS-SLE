@@ -21,6 +21,7 @@ rm(admissible_gap_obs_periods)
 min_spell_lenght <- 365
 
 datasources_only_preg <- c('EFEMERIS', 'THL', 'RDRU_FISABIO')
+datasources_obs_per_from_pregnancies <- c("RDRU_FISABIO", "TEST")
 
 recommended_start_date_vect <- vector(mode = "list")
 recommended_start_date_vect[['ARS']] <- ymd(20030101)
