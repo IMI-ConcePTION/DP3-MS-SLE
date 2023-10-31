@@ -107,3 +107,7 @@ person_id,op_start_date,op_end_date,op_meaning,op_origin
 40402742,19750613,19830507,primary_care,datos_generales_paciente
 40402745,20161012,20210101,primary_care,datos_generales_paciente
 40402951,20021003,20080820,primary_care,datos_generales_paciente
+99999990,20001003,20200820,primary_care,datos_generales_paciente
+99999992,20001003,20200820,primary_care,datos_generales_paciente
+99999993,20100103,20100120,primary_care,datos_generales_paciente
+99999993,20100203,20100920,primary_care,datos_generales_paciente
