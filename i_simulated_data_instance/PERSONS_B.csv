@@ -107,3 +107,6 @@ person_id,day_of_birth,month_of_birth,year_of_birth,day_of_death,month_of_death,
 40402742,5,4,1990,,,,F,,,reliable
 40402745,24,1,1991,,,,F,,,reliable
 40402951,3,10,1980,,,,F,,,reliable
+99999990,5,4,1990,,,,F,,,reliable
+99999992,24,1,1991,,,,F,,,reliable
+99999993,3,10,1980,,,,F,,,reliable
