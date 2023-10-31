@@ -42,6 +42,14 @@ op_meanings_list_per_set[["SAIL Databank"]][["meanings_residency"]] <- c("reside
 
 op_meaning_sets_in_subpopulations[["SAIL Databank"]][["GP"]] <- c("meanings_GP", "meanings_residency")
 
+# datasource TEST
+subpopulations[["TEST"]] = c("GP")
+
+op_meaning_sets[["TEST"]] <- c("meanings_GP", "meanings_pregnancy")
+op_meanings_list_per_set[["TEST"]][["meanings_GP"]] <- c("primary_care")
+op_meanings_list_per_set[["TEST"]][["meanings_pregnancy"]] <- c("pregnancy")
+
+op_meaning_sets_in_subpopulations[["TEST"]][["GP"]] <- c("meanings_GP", "meanings_pregnancy")
 
 # datasource FISABIO
 
