@@ -38,9 +38,7 @@ index_file <- read_excel(index_path) %>%
   sanitize_index() %>%
   dplyr::select(PROGRAM, FILE, SLUG) %>%
   dplyr::mutate(PROGRAM = as.integer(stringr::str_extract(PROGRAM, "\\d+")),
-                SLUG = dplyr::if_else(!is.na(SLUG), SLUG, FILE),
-                SLUG = paste0("https://", basename(dirname(remote)), ".github.io/",
-                              basename(remote), "/step_", PROGRAM, "/", SLUG)) %>%
+                SLUG = dplyr::if_else(!is.na(SLUG), SLUG, FILE)) %>%
   dplyr::group_by(PROGRAM) %>%
   dplyr::mutate(WEIGHT = row_number())
 
@@ -57,7 +55,7 @@ generate_codebook_page <- function(single_row) {
     dir.create(folder_path)
     
     path_file <- blogdown::new_post("_index.en", kind = "chapter_codebook", open = F,
-                                    file = paste0("step_", level, "/_index.en.md"), slug = single_row[3],
+                                    file = paste0("step_", level, "/_index.en.md"),
                                     subdir = paste0("step_", level, "/"), ext = ".md")
     
     x = xfun::read_utf8(paste(getwd(), path_file, sep = "/"))
@@ -68,11 +66,16 @@ generate_codebook_page <- function(single_row) {
                                          menuTitle = paste0("Step_", level)))
   }
   
-  path_file <- blogdown::new_post(single_row[2], kind = "codebook",
+  slug <- single_row[[3]]
+  attr(slug, which = "quoted") <- TRUE
+  path_file <- blogdown::new_post(single_row[[2]], kind = "codebook",
                                   open = F, file = paste0("step_", level, "/", single_row[2], ".Rmd"),
-                                  slug = single_row[3])
+                                  slug = slug)
   
-  do.call(blogdown:::modify_yaml, list(path_file, weight = as.integer(single_row[4])))
+  name_excel <- paste0(single_row[2], ".xlsx")
+  attr(name_excel, which = "quoted") <- TRUE
+  do.call(blogdown:::modify_yaml, list(path_file, weight = as.integer(single_row[4]),
+                                       name_excel = name_excel))
   
   return()
 }
