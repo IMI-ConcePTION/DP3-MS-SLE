@@ -3,8 +3,8 @@ weight: 1
 menuTitle: Step_6
 title: _index.en
 author: ''
-date: '2023-10-26'
-slug: https://ARS-toscana.github.io/draw.ioR/step_6/D4_prevalence_aggregated_OUTCOME_selected
+date: '2023-11-03'
+slug: _index
 categories: []
 tags: []
 archetype: chapter

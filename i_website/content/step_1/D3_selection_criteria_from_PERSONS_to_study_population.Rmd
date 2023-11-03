@@ -1,9 +1,10 @@
 ---
 weight: 7
+name_excel: "D3_selection_criteria_from_PERSONS_to_study_population.xlsx"
 title: D3_selection_criteria_from_PERSONS_to_study_population
 author: ''
-date: '2023-10-26'
-slug: https://IMI-ConcePTION.github.io/DP3-MS-SLE/step_1/D3_selection_criteria_from_PERSONS_to_study_population
+date: '2023-11-03'
+slug: D3_selection_criteria_from_PERSONS_to_study_population
 categories: []
 tags: []
 archetype: codebook

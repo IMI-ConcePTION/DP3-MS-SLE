@@ -1,9 +1,10 @@
 ---
 weight: 6
+name_excel: "D3_DU_matching_diagnostic.xlsx"
 title: D3_DU_matching_diagnostic
 author: ''
-date: '2023-10-26'
-slug: https://IMI-ConcePTION.github.io/DP3-MS-SLE/step_8/D3_DU_matching_diagnostic
+date: '2023-11-03'
+slug: D3_DU_matching_diagnostic
 categories: []
 tags: []
 archetype: codebook

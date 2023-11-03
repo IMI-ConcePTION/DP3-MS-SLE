@@ -1,9 +1,10 @@
 ---
 weight: 1
+name_excel: "D5_DU_flowchart_exclusion_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT.xlsx"
 title: D5_DU_flowchart_exclusion_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT
 author: ''
-date: '2023-10-26'
-slug: https://IMI-ConcePTION.github.io/DP3-MS-SLE/step_8/D5_DU_flowchart_exclusion_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT
+date: '2023-11-03'
+slug: D5_DU_flowchart_exclusion_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT
 categories: []
 tags: []
 archetype: codebook

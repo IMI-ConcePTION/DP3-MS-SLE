@@ -1,9 +1,10 @@
 ---
 weight: 4
+name_excel: "D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort.xlsx"
 title: D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort
 author: ''
-date: '2023-10-26'
-slug: https://IMI-ConcePTION.github.io/DP3-MS-SLE/step_7/D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort
+date: '2023-11-03'
+slug: D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort
 categories: []
 tags: []
 archetype: codebook

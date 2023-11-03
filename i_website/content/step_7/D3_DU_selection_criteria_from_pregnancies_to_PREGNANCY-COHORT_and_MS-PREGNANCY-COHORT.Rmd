@@ -1,9 +1,10 @@
 ---
 weight: 5
+name_excel: "D3_DU_selection_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT.xlsx"
 title: D3_DU_selection_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT
 author: ''
-date: '2023-10-26'
-slug: https://IMI-ConcePTION.github.io/DP3-MS-SLE/step_7/D3_DU_selection_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT
+date: '2023-11-03'
+slug: D3_DU_selection_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT
 categories: []
 tags: []
 archetype: codebook

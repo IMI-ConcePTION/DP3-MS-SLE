@@ -1,10 +1,10 @@
 ---
 weight: 1
-menuTitle: step_1
+menuTitle: Step_1
 title: _index.en
 author: ''
-date: '2023-10-26'
-slug: https://ARS-toscana.github.io/draw.ioR/step_1/D3_persons
+date: '2023-11-03'
+slug: _index
 categories: []
 tags: []
 archetype: chapter

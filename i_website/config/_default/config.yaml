@@ -1,4 +1,4 @@
-publishDir: docs
+publishDir: '../docs'
 baseURL: https://davidemessinaars.github.io/test_website/
 canonifyURLs: yes
 relativeURLs: yes

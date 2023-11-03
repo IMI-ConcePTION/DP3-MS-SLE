@@ -1,9 +1,10 @@
 ---
 weight: 3
+name_excel: "conceptsetdataset.xlsx"
 title: conceptsetdataset
 author: ''
-date: '2023-10-26'
-slug: https://IMI-ConcePTION.github.io/DP3-MS-SLE/step_1/conceptsetdataset
+date: '2023-11-03'
+slug: conceptsetdataset
 categories: []
 tags: []
 archetype: codebook

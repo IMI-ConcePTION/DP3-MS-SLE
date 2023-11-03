@@ -1,9 +1,10 @@
 ---
 weight: 2
+name_excel: "D3_main_components.xlsx"
 title: D3_main_components
 author: ''
-date: '2023-10-26'
-slug: https://IMI-ConcePTION.github.io/DP3-MS-SLE/step_3/D3_main_components
+date: '2023-11-03'
+slug: D3_main_components
 categories: []
 tags: []
 archetype: codebook

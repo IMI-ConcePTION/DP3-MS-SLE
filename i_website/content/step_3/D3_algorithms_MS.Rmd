@@ -1,0 +1,15 @@
+---
+weight: 6
+name_excel: "D3_algorithms_MS.xlsx"
+title: D3_algorithms_MS
+author: ''
+date: '2023-11-03'
+slug: D3_algorithms_MS
+categories: []
+tags: []
+archetype: codebook
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+html_codebook(rmarkdown::metadata$name_excel)
+```

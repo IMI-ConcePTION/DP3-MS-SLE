@@ -3,8 +3,8 @@ weight: 1
 menuTitle: Step_2
 title: _index.en
 author: ''
-date: '2023-10-26'
-slug: https://ARS-toscana.github.io/draw.ioR/step_2/D4_study_population_SAP1
+date: '2023-11-03'
+slug: _index
 categories: []
 tags: []
 archetype: chapter
