@@ -44,9 +44,9 @@ index_file <- read_excel(index_path) %>%
 
 generate_codebook_page <- function(single_row) {
   
-  if (file.exists(paste0(thisdir, "/i_codebooks/", single_row[2], ".xlsx"))){ 
-    return()
-  }
+  # if (file.exists(paste0(thisdir, "/i_codebooks/", single_row[2], ".xlsx"))){ 
+  #   return()
+  # }
   
   level <- single_row[1]
   folder_path <- paste0(getwd(), "/content/step_", level)
@@ -69,13 +69,13 @@ generate_codebook_page <- function(single_row) {
   slug <- single_row[[3]]
   attr(slug, which = "quoted") <- TRUE
   path_file <- blogdown::new_post(single_row[[2]], kind = "codebook",
-                                  open = F, file = paste0("step_", level, "/", single_row[2], ".Rmd"),
-                                  slug = slug)
+                                  open = F, file = paste0("step_", level, "/", single_row[2], ".Rmd"))
   
   name_excel <- paste0(single_row[2], ".xlsx")
   attr(name_excel, which = "quoted") <- TRUE
   do.call(blogdown:::modify_yaml, list(path_file, weight = as.integer(single_row[4]),
-                                       name_excel = name_excel))
+                                       name_excel = name_excel,
+                                       slug = slug))
   
   return()
 }
