@@ -12,6 +12,7 @@ description: '`r paste(rmarkdown::metadata$name_excel, collapse = ''.'')`'
 name_excel:
   - Table 1.xlsx
   - test
+output: html_document
 ---
 
 paste(rmarkdown::metadata$name_excel, collapse = "<br>")

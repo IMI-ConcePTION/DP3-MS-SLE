@@ -1,13 +1,14 @@
 ---
 weight: 4
 name_excel: "D4_DU_prevalence_MS_in_pregnancy_cohort.xlsx"
+slug: "D4_DU_prevalence_MS_in_pregnancy_cohort"
 title: D4_DU_prevalence_MS_in_pregnancy_cohort
 author: ''
 date: '2023-11-03'
-slug: D4_DU_prevalence_MS_in_pregnancy_cohort
 categories: []
 tags: []
 archetype: codebook
+output: html_document
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}

@@ -1,13 +1,14 @@
 ---
 weight: 5
 name_excel: "promptsetdataset.xlsx"
+slug: "promptsetdataset"
 title: promptsetdataset
 author: ''
 date: '2023-11-03'
-slug: promptsetdataset
 categories: []
 tags: []
 archetype: codebook
+output: html_document
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}

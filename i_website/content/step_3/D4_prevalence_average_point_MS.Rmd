@@ -1,13 +1,14 @@
 ---
 weight: 12
 name_excel: "D4_prevalence_average_point_MS.xlsx"
+slug: "D4_prevalence_average_point_MS"
 title: D4_prevalence_average_point_MS
 author: ''
 date: '2023-11-03'
-slug: D4_prevalence_average_point_MS
 categories: []
 tags: []
 archetype: codebook
+output: html_document
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}

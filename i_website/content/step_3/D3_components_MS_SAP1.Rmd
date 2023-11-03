@@ -1,13 +1,14 @@
 ---
 weight: 4
 name_excel: "D3_components_MS_SAP1.xlsx"
+slug: "D3_components_MS_SAP1"
 title: D3_components_MS_SAP1
 author: ''
 date: '2023-11-03'
-slug: D3_components_MS_SAP1
 categories: []
 tags: []
 archetype: codebook
+output: html_document
 ---
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
