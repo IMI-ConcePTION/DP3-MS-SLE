@@ -35,7 +35,7 @@ create_arrow_cell_attrs_tbl <- function(arrow_attr, cells_attr, direction) {
   
   # Substitute the style name from the user-defined cells/arrows with the variable associated with them
   tmp0 <- arrow_attr %>%
-    filter(level0) %>%
+    dplyr::filter(level0) %>%
     left_join(arrow_styles, by = c("arrow_style" = "name_style")) %>%
     mutate(width = coalesce(width.x, width.y),
            relative = coalesce(relative.x, relative.y),
@@ -43,7 +43,7 @@ create_arrow_cell_attrs_tbl <- function(arrow_attr, cells_attr, direction) {
     select(-c(arrow_style, width.x, width.y, relative.x, relative.y, as.x, as.y, level0))
   
   tmp1 <- arrow_attr %>%
-    filter(!level0)  %>%
+    dplyr::filter(!level0)  %>%
     left_join(arrow_styles, by = c("arrow_style" = "name_style")) %>%
     mutate(width = coalesce(width.x, width.y),
            relative = coalesce(relative.x, relative.y),
