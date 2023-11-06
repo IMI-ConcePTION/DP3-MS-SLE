@@ -1,5 +1,6 @@
 # Create new datamodels
-source(paste0(getwd(), "/p_macro/to_run_create_diagram.R"))
+setwd(paste0(getwd(), "/i_website"))
+source(here::here("p_macro", "to_run_create_diagram.R"))
 
 # Transform to html
 setwd(paste0(getwd(), "/i_website"))
