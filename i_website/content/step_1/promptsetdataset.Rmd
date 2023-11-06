@@ -1,10 +1,11 @@
 ---
 weight: 5
 name_excel: "promptsetdataset.xlsx"
+description: "`r get_description(rmarkdown::metadata$name_excel)`"
 slug: "promptsetdataset"
 title: promptsetdataset
 author: ''
-date: '2023-11-03'
+date: '2023-11-04'
 categories: []
 tags: []
 archetype: codebook

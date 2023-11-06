@@ -1,10 +1,11 @@
 ---
 weight: 2
 name_excel: "Flowchart_exclusion_criteria.xlsx"
+description: "`r get_description(rmarkdown::metadata$name_excel)`"
 slug: "Flowchart_exclusion_criteria"
 title: Flowchart_exclusion_criteria
 author: ''
-date: '2023-11-03'
+date: '2023-11-04'
 categories: []
 tags: []
 archetype: codebook

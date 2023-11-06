@@ -7,6 +7,14 @@ if (file.exists("~/.Rprofile")) {
   base::sys.source("~/.Rprofile", envir = environment())
 }
 
+# load packages
+list.of.packages <- c("xml2", "tibble", "dplyr", "magrittr", "readr", "readxl", "tidyr", "stringr", "readxl",
+                      "data.table", "rcorpora", "xslt", "git2r")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+invisible(lapply(list.of.packages, require, character.only = T))
+rm(new.packages, list.of.packages)
+
 tryCatch(invisible(blogdown::find_hugo(version = "0.95.0")),
          error = function(e) blogdown::install_hugo(version = "0.95.0"))
 

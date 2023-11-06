@@ -1,10 +1,11 @@
 ---
 weight: 10
 name_excel: "D4_prevalence_persontime_MS.xlsx"
+description: "`r get_description(rmarkdown::metadata$name_excel)`"
 slug: "D4_prevalence_persontime_MS"
 title: D4_prevalence_persontime_MS
 author: ''
-date: '2023-11-03'
+date: '2023-11-04'
 categories: []
 tags: []
 archetype: codebook

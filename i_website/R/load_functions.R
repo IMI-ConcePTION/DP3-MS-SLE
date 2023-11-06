@@ -46,9 +46,13 @@ html_codebook <- function(name_codebook) {
 get_description <- function(name_codebook) {
   path_excel <- here::here(codebooks_loc, name_codebook)
   
+  if (!file.exists(path_excel)) {
+    return("")
+  }
+  
   metadata_sheet <- readxl::read_excel(path_excel, sheet = "Metadata")
   
-  description <- metadata_sheet$metadata_content[which(metadata_sheet$medatata_name %in% c("description", "Content of the dataset"))]
+  description <- metadata_sheet$metadata_content[which(metadata_sheet$medatata_name %in% c("description", "Content of the dataset", "content", "content of the D3"))]
   
   return(gsub("\"", "'", description))
 }

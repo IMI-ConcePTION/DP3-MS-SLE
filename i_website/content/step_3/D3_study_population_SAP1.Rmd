@@ -1,10 +1,11 @@
 ---
 weight: 1
 name_excel: "D3_study_population_SAP1.xlsx"
+description: "`r get_description(rmarkdown::metadata$name_excel)`"
 slug: "D3_study_population_SAP1"
 title: D3_study_population_SAP1
 author: ''
-date: '2023-11-03'
+date: '2023-11-04'
 categories: []
 tags: []
 archetype: codebook
