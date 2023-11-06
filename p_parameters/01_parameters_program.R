@@ -7,10 +7,10 @@
 #setwd("..")
 # dirbase <- getwd()
 # dirinput <- paste0(dirbase,"/CDMInstances/CVM2205_EFFICACY_CHILDREN/")
-dirpregnancy <- paste0(thisdir,"/i_simulated_data_instance/pregnancy/")
+# dirpregnancy <- paste0(thisdir,"/i_simulated_data_instance/pregnancy/")
 
 dirinput <- paste0(thisdir,"/i_simulated_data_instance/")
-# dirpregnancy <- ""
+dirpregnancy <- paste0(thisdir,"/i_simulated_data_instance/pregnancy/")
 
 extension = "rds"
 enable_summary_levels = T
