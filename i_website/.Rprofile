@@ -11,7 +11,7 @@ if (file.exists("~/.Rprofile")) {
 list.of.packages <- c("xml2", "tibble", "dplyr", "magrittr", "readr", "readxl", "tidyr", "stringr", "readxl",
                       "data.table", "rcorpora", "xslt", "git2r")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
+if(length(new.packages)) utils::install.packages(new.packages)
 invisible(lapply(list.of.packages, require, character.only = T))
 rm(new.packages, list.of.packages)
 
