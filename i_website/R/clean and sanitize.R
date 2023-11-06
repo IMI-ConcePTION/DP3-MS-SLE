@@ -3,7 +3,7 @@ sanitize_index <- function(x) {
               FILE = "dataset_name", INPUT_DATA = "input_datasets_for_the_step")
   return(x %>%
            rename(all_of(lookup)) %>%
-           mutate(LINK = PROGRAM,
+           mutate(LINK = lower(PROGRAM),
                   PROGRAM = stringr::str_extract(PROGRAM, "^([^_]*_){2}[^_]*")) %>%
            select(PROGRAM, FOLDER_VAR, FILE, INPUT_DATA, SLUG, LINK))
 }
