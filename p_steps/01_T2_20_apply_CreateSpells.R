@@ -28,6 +28,10 @@ if (thisdatasource %in% datasources_obs_per_from_pregnancies) {
   
 }
 
+OBSERVATION_PERIODS_inverted <- copy(OBSERVATION_PERIODS)[ymd(op_start_date) > ymd(op_end_date), ]
+smart_save(OBSERVATION_PERIODS_inverted, dirtemp, extension = extension, save_copy = "csv")
+OBSERVATION_PERIODS <- OBSERVATION_PERIODS[ymd(op_start_date) <= ymd(op_end_date), ]
+
 if (thisdatasource %not in% this_datasource_has_subpopulations) {
   
   OBSERVATION_PERIODS <- OBSERVATION_PERIODS[, op_meaning:="all"]

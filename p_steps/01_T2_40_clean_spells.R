@@ -7,6 +7,18 @@
 smart_load("D3_PERSONS", dirtemp, extension = extension)
 smart_load("D3_output_spells_category", dirtemp, extension = extension)
 
+smart_load("OBSERVATION_PERIODS_inverted", dirtemp, extension = extension)
+setnames(OBSERVATION_PERIODS_inverted, c("op_start_date", "op_end_date", "op_meaning"),
+         c("entry_spell_category", "exit_spell_category", "category"))
+OBSERVATION_PERIODS_inverted <- OBSERVATION_PERIODS_inverted[, .(person_id,
+                                                                 entry_spell_category = ymd(entry_spell_category),
+                                                                 exit_spell_category = ymd(exit_spell_category),
+                                                                 category, num_spell = 0)]
+
+D3_output_spells_category <- rbindlist(list(D3_output_spells_category, OBSERVATION_PERIODS_inverted))
+if ("op_meaning" %not in% colnames(D3_output_spells_category)) D3_output_spells_category[, op_meaning := ""]
+
+
 # Combine persons and spells, then select only the column we need and create new ones
 person_spell <- merge(D3_output_spells_category, D3_PERSONS, all.x = T, by = "person_id")
 person_spell <- person_spell[, .(person_id, birth_date, death_date, entry_spell_category_crude = entry_spell_category,
