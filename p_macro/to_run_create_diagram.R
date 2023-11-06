@@ -1,27 +1,16 @@
-# #set the directory where the file is saved as the working directory
-# if (!require("rstudioapi")) install.packages("rstudioapi")
-# thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
-# thisdir <- setwd(dirname(rstudioapi:
-
-if (exists("thisdir")) {
-  setwd(thisdir)
-}
 
 thisdir <- getwd()
 
 # Set index location
-index_path <- paste0(thisdir,"/i_codebooks/00_index.xlsx")
-
+index_path <- here::here("i_codebooks", "00_index.xlsx")
 
 #load the function
-source(paste0(getwd(),"/p_macro/main functions.R"))
-source(paste0(getwd(),"/p_macro/auxiliary functions.R"))
-source(paste0(getwd(),"/p_macro/styles_and_parameters.R"))
-source(paste0(getwd(),"/p_macro/clean and sanitize.R"))
+source(here::here("p_macro", "main functions.R"))
+source(here::here("p_macro","auxiliary functions.R"))
+source(here::here("p_macro", "styles_and_parameters.R"))
+source(here::here("p_macro", "clean and sanitize.R"))
 
-source(here::here("i_website", "R", "load_functions.R"))
-
-setwd(paste0(getwd(), "/i_website"))
+source(here::here("p_macro", "load_functions.R"))
 
 remote = sub('\\.git$', '', git2r::remote_url())
 
@@ -65,9 +54,10 @@ generate_codebook_page <- function(single_row) {
   
   name_excel <- paste0(single_row[2], ".xlsx")
   attr(name_excel, which = "quoted") <- TRUE
-  do.call(blogdown:::modify_yaml, list(path_file, weight = as.integer(single_row[4]),
-                                       name_excel = name_excel,
-                                       slug = slug))
+  description <- "`r get_description(rmarkdown::metadata$name_excel)`"
+  attr(description, which = "quoted") <- TRUE
+  do.call(blogdown:::modify_yaml, list(path_file, weight = as.integer(single_row[4]), name_excel = name_excel,
+                                       description = description, slug = slug))
   
   return()
 }
@@ -90,9 +80,9 @@ test_xml <- create_diagram(
 )
 
 #export the output
-writeLines(test_xml, paste0(getwd(),"/static/diagram_draft.html"))
+writeLines(test_xml, here::here("i_website", "static", "diagram_draft.html"))
 
-log <- suppressWarnings(R.utils::createLink(link = paste0(thisdir, "/diagram_draft.html"),
-                                            target = paste0(getwd(),"/static/diagram_draft.html"),
+log <- suppressWarnings(R.utils::createLink(link = "diagram_draft.html",
+                                            target = here::here("i_website", "static", "diagram_draft.html"),
                                             overwrite = T))
 rm(log)
