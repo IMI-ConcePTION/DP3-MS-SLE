@@ -1,9 +1,9 @@
-create_RMD <- function() {
+generate_RMD <- function() {
   
   # Set index location
   index_path <- here::here("i_codebooks", "00_index.xlsx")
   
-  source(here::here("p_macro", "load_functions.R"))
+  source(here::here("p_macro", "clean and sanitize.R"))
   # remote = sub('\\.git$', '', git2r::remote_url())
   
   #load the index
@@ -37,6 +37,10 @@ create_RMD <- function() {
       
       do.call(blogdown:::modify_yaml, list(path_file, weight = as.integer(single_row[4]),
                                            menuTitle = paste0("Step_", level)))
+    }
+    
+    if (file.exists(here::here("i_website", "content", paste0("step_", level), paste0(single_row[2], ".md")))) {
+      file.remove(here::here("i_website", "content", paste0("step_", level), paste0(single_row[2], ".md")))
     }
     
     slug <- single_row[[3]]
