@@ -245,7 +245,7 @@ populate_attrs_fd_roel <- function(path, direction, arrows_style, steps_style, d
                      SLUG = dplyr::if_else(only_input, NA,
                                            paste0("https://", basename(dirname(remote)), ".github.io/",
                                                   basename(remote), "/step_", level / 2, "/", SLUG))) %>%
-    dplyr::rename(link = SLUG) %>%
+    dplyr::rename(link = lower(SLUG)) %>%
     dplyr::distinct()
   
   cells_attr %<>%
