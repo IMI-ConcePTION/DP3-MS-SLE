@@ -1,4 +1,7 @@
-create_DAG <- function() {
+generate_DAG <- function() {
+  
+  # Set index location
+  index_path <- here::here("i_codebooks", "00_index.xlsx")
   
   #load the function
   source(here::here("p_macro", "main functions.R"))
