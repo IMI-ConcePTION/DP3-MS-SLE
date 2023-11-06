@@ -11,8 +11,8 @@ D3_output_spells_category[, exit_spell_category := data.table:::as.Date.IDate(ex
 
 smart_load("OBSERVATION_PERIODS_inverted", dirtemp, extension = extension)
 setnames(OBSERVATION_PERIODS_inverted, c("op_start_date", "op_end_date"), c("entry_spell_category", "exit_spell_category"))
-OBSERVATION_PERIODS_inverted[, entry_spell_category = ymd(entry_spell_category)]
-OBSERVATION_PERIODS_inverted[, exit_spell_category = ymd(exit_spell_category)]
+OBSERVATION_PERIODS_inverted[, entry_spell_category := ymd(entry_spell_category)]
+OBSERVATION_PERIODS_inverted[, exit_spell_category := ymd(exit_spell_category)]
 
 if ("op_meaning" %in% colnames(D3_output_spells_category)) {
   OBSERVATION_PERIODS_inverted <- OBSERVATION_PERIODS_inverted[, .(person_id, entry_spell_category, exit_spell_category,
