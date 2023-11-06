@@ -4,8 +4,8 @@
 # thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 # load packages
-list.of.packages <- c("blogdown", "here", "xml2", "tibble", "magrittr", "readr", "readxl", "tidyr",
-                      "stringr", "readxl", "data.table", "rcorpora", "xslt", "git2r", "dplyr", "here")
+list.of.packages <- c("blogdown", "here", "xml2", "tibble", "magrittr", "readxl", "tidyr",
+                      "stringr", "data.table", "rcorpora", "xslt", "git2r", "dplyr", "gert")
 new.packages <- list.of.packages[!(list.of.packages %in% utils::installed.packages()[,"Package"])]
 if(length(new.packages)) utils::install.packages(new.packages)
 invisible(lapply(list.of.packages, require, character.only = T))
@@ -14,6 +14,9 @@ rm(new.packages, list.of.packages)
 tryCatch(invisible(blogdown::find_hugo(version = "0.95.0")),
          error = function(e) blogdown::install_hugo(version = "0.95.0"))
 
+# Now set options to customize the behavior of blogdown for this project. Below
+# are a few sample options; for more options, see
+# https://bookdown.org/yihui/blogdown/global-options.html
 options(
   # to automatically serve the site on RStudio startup, set this option to TRUE
   blogdown.serve_site.startup = FALSE,
@@ -27,3 +30,10 @@ options(
 options(blogdown.hugo.version = "0.95.0")
 
 options(blogdown.knit.serve_site = FALSE)
+
+source(here::here("p_macro", "generate_DAG.R"))
+source(here::here("p_macro", "generate_RMD.R"))stage_website
+source(here::here("p_macro", "stage_website.R"))
+
+setwd(paste0(getwd(), "/i_website"))
+
