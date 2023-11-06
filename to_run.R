@@ -1,10 +1,14 @@
 # Create new datamodels
-setwd(paste0(getwd(), "/i_website"))
-source(here::here("p_macro", "to_run_create_diagram.R"))
+generate_DAG()
 
-# Transform to html
-setwd(paste0(getwd(), "/i_website"))
-blogdown::build_site(build_rmd = T)
+# Create Rmd files
+generate_Rmd()
 
-# Move to docs folder(publishable)
-blogdown::serve_site()
+# Transform Rmd to md then to HTML
+generate_website()
+
+# commit i_website and docs
+stage_website()
+
+# Show preview
+serve_site()
