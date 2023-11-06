@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.3.7 - 06 November 2023
+# CreateSpells to v16 to fix subpopulations
+
 # v2.3.6 - 26 October 2023
 # Modified D5_N_women_and_ranges with statistics for DAPs with only pregnancies
 # Fixed bug in spell_length calculation
