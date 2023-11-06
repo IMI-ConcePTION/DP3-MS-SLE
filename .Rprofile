@@ -32,7 +32,7 @@ options(blogdown.hugo.version = "0.95.0")
 options(blogdown.knit.serve_site = FALSE)
 
 source(here::here("p_macro", "generate_DAG.R"))
-source(here::here("p_macro", "generate_Rmd.R"))stage_website
+source(here::here("p_macro", "generate_Rmd.R"))
 source(here::here("p_macro", "stage_website.R"))
 source(here::here("p_macro", "generate_website.R"))
 
