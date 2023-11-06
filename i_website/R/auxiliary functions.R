@@ -231,7 +231,7 @@ populate_attrs_fd_roel <- function(path, direction, arrows_style, steps_style, d
                      # TODO add here complete link
                      link = paste0(file.path(remote, "blob", branch, "p_steps", LINK), ".R")) %>%
     dplyr::distinct()
-  
+  browser()
   datamodel_cells <- temp_data %>%
     left_join(only_inputs, by = c("FOLDER_VAR", "FILE")) %>%
     left_join(SLUG_data, by = c("FOLDER_VAR", "FILE")) %>%
@@ -244,9 +244,10 @@ populate_attrs_fd_roel <- function(path, direction, arrows_style, steps_style, d
                      SLUG = dplyr::if_else(!is.na(SLUG), SLUG, label),
                      SLUG = dplyr::if_else(only_input, NA,
                                            paste0("https://", basename(dirname(remote)), ".github.io/",
-                                                  basename(remote), "/step_", level / 2, "/", SLUG))) %>%
-    dplyr::rename(link = lower(SLUG)) %>%
+                                                  basename(remote), "/step_", level / 2, "/", lower(SLUG)))) %>%
+    dplyr::rename(link = SLUG) %>%
     dplyr::distinct()
+  
   
   cells_attr %<>%
     dplyr::bind_rows(steps_cells, datamodel_cells) %>%
