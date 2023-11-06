@@ -45,7 +45,7 @@ languages:
       shortcuts:
         - identifier: diagram
           name: <i class='fas fa-project-diagram'></i> Diagram
-          url: https://imi-conception.github.io/DP3-MS-SLE/diagram.html
+          url: https://ars-toscana.github.io/Documentation/DAG_ROC20_Readiness.html
           weight: 10
         - identifier: ds
           name: <i class='fab fa-fw fa-github'></i> GitHub repo

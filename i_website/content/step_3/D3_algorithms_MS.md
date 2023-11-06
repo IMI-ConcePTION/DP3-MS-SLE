@@ -1,7 +1,7 @@
 ---
 weight: 6
 name_excel: "D3_algorithms_MS.xlsx"
-description: ""
+description: "contains the dates when each person in the study population becomes positive for MS according to any of the 5 algorithms"
 slug: "D3_algorithms_MS"
 title: D3_algorithms_MS
 author: ''

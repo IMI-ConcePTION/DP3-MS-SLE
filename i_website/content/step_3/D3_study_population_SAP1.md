@@ -1,7 +1,7 @@
 ---
 weight: 1
 name_excel: "D3_study_population_SAP1.xlsx"
-description: ""
+description: "contains the baseline characteristics of the study population"
 slug: "D3_study_population_SAP1"
 title: D3_study_population_SAP1
 author: ''

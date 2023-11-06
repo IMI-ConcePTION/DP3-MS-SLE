@@ -1,7 +1,7 @@
 ---
 weight: 4
 name_excel: "D3_components_MS_SAP1.xlsx"
-description: ""
+description: "contains the components of MS and their combinations. Components and combination are expressed as dates to allow for computation of prevalence. This D3 is based on Table 1 of the SAP1"
 slug: "D3_components_MS_SAP1"
 title: D3_components_MS_SAP1
 author: ''
