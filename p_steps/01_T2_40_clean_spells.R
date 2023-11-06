@@ -23,7 +23,7 @@ if ("op_meaning" %in% colnames(D3_output_spells_category)) {
                                                                    category, num_spell = 0)]
 }
 
-D3_output_spells_category <- rbindlist(list(D3_output_spells_category, OBSERVATION_PERIODS_inverted))
+D3_output_spells_category <- rbindlist(list(D3_output_spells_category, OBSERVATION_PERIODS_inverted), use.names = T)
 if ("op_meaning" %not in% colnames(D3_output_spells_category)) D3_output_spells_category[, op_meaning := ""]
 
 # Combine persons and spells, then select only the column we need and create new ones
