@@ -61,7 +61,7 @@ generate_codebook_page <- function(single_row) {
   
   return()
 }
-
+setwd(paste0(getwd(), "/i_website"))
 res <- apply(index_file, 1, generate_codebook_page)
 
 #set the styles
