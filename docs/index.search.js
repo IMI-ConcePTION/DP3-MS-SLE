@@ -1,61 +1,5 @@
 var relearn_search_index = [
   {
-    "content": "\rD3_persons\rD3_output_spells_category\rconceptsetdataset\ritemsetdataset\rpromptsetdataset\rD3_clean_spells\rD3_selection_criteria_from_PERSONS_to_study_population\r ",
-    "description": "",
-    "tags": [],
-    "title": "_index.en",
-    "uri": "/step_1/index.html"
-  },
-  {
-    "content": "\rD4_study_population_SAP1\rFlowchart_exclusion_criteriacounts of how many indivuals from PERSONS are excluded in the study population\n ",
-    "description": "",
-    "tags": [],
-    "title": "_index.en",
-    "uri": "/step_2/index.html"
-  },
-  {
-    "content": "\rD3_study_population_SAP1contains the baseline characteristics of the study population\nD3_main_components\rD5_meaning_occurencescounts for MS and SLE of each original_meaning\nD3_components_MS_SAP1contains the components of MS and their combinations. Components and combination are expressed as dates to allow for computation of prevalence. This D3 is based on Table 1 of the SAP1\nD3_components_multiple_lookback_MS\rD3_algorithms_MScontains the dates when each person in the study population becomes positive for MS according to any of the 5 algorithms\nD3_algorithms_multiple_lookback_MS\rD4_prevalence_period_MScontains the period prevalence (numerator and denominatore) per algorithm, timeframe and ageband\nD4_prevalence_period_MS_summary_levelsit is the summary of the levels of the file D4_prevalence_period_MS. It is used to decide which levels are preferred for sharing\nD4_prevalence_persontime_MScontains the persontime at the numerator and denominator, per algorithm, time frame and ageband\nD4_prevalence_persontime_MS_summary_level\rD4_prevalence_average_point_MScontains the aggregated prevalence needed to compute prevalence\nD4_prevalence_average_point_MS_summary_levelsit is the summary of the levels of the file D4_prevalence_period_MS. It is used to decide which levels are preferred for sharing\nD4_prevalence_aggregated_multiple_lookback_MSonly for women in the study at 31 december 2019 and in the population since 5 or 10 years: numerator of all 5 algorithms calculated with multiple look back periods, and denominators\nD4_prevalence_aggregated_multiple_lookback_MS_summary_level\r ",
-    "description": "",
-    "tags": [],
-    "title": "_index.en",
-    "uri": "/step_3/index.html"
-  },
-  {
-    "content": "\rD5_N_women_and_ranges_MSvalues needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date\n ",
-    "description": "",
-    "tags": [],
-    "title": "_index.en",
-    "uri": "/step_4/index.html"
-  },
-  {
-    "content": "\rD5_N_women_and_ranges_MS_maskedvalues needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date\nFlowchart_exclusion_criteria_maskedcounts of how many indivuals from PERSONS are excluded in the study population\nD5_meaning_occurences_maskedcounts for MS and SLE of each original_meaning\n ",
-    "description": "",
-    "tags": [],
-    "title": "_index.en",
-    "uri": "/step_5/index.html"
-  },
-  {
-    "content": "\rD4_prevalence_aggregated_MS_selected\rD4_prevalence_aggregated_multiple_lookback_MS_selected\r ",
-    "description": "",
-    "tags": [],
-    "title": "_index.en",
-    "uri": "/step_6/index.html"
-  },
-  {
-    "content": "\rD3_SAP1_MS-COHORT\rD3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort\rD3_DU_MS-COHORTcontains the cohort of study population who have MS based on the algorithm chosen at the end of SAP1\nD5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort\rD3_DU_selection_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT\r ",
-    "description": "",
-    "tags": [],
-    "title": "_index.en",
-    "uri": "/step_7/index.html"
-  },
-  {
-    "content": "\rD5_DU_flowchart_exclusion_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT\rD3_DU_PREGNANCY-COHORTcontains the cohort of pregnancies included in the study\nD3_DU_MS-PREGNANCY-COHORT\rD4_DU_prevalence_MS_in_pregnancy_cohortcontains the aggregated prevalence (numerators and denominators) needed to compute prevalence of MS in the pregnancy cohort, to feed Template 4 and 5\nD4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORTcontains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy\nD3_DU_matching_diagnostic\r ",
-    "description": "",
-    "tags": [],
-    "title": "_index.en",
-    "uri": "/step_8/index.html"
-  },
-  {
     "content": "\r",
     "description": "",
     "tags": [],
@@ -110,6 +54,62 @@ var relearn_search_index = [
     "tags": [],
     "title": "D5_N_women_and_ranges_MS_masked",
     "uri": "/step_5/d5_n_women_and_ranges_ms_masked/index.html"
+  },
+  {
+    "content": "\rD3_persons\rD3_output_spells_category\rconceptsetdataset\ritemsetdataset\rpromptsetdataset\rD3_clean_spells\rD3_selection_criteria_from_PERSONS_to_study_population\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_1/index.html"
+  },
+  {
+    "content": "\rD4_study_population_SAP1\rFlowchart_exclusion_criteriacounts of how many indivuals from PERSONS are excluded in the study population\n ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_2/index.html"
+  },
+  {
+    "content": "\rD3_study_population_SAP1contains the baseline characteristics of the study population\nD3_main_components\rD5_meaning_occurencescounts for MS and SLE of each original_meaning\nD3_components_MS_SAP1contains the components of MS and their combinations. Components and combination are expressed as dates to allow for computation of prevalence. This D3 is based on Table 1 of the SAP1\nD3_components_multiple_lookback_MS\rD3_algorithms_MScontains the dates when each person in the study population becomes positive for MS according to any of the 5 algorithms\nD3_algorithms_multiple_lookback_MS\rD4_prevalence_period_MScontains the period prevalence (numerator and denominatore) per algorithm, timeframe and ageband\nD4_prevalence_period_MS_summary_levelsit is the summary of the levels of the file D4_prevalence_period_MS. It is used to decide which levels are preferred for sharing\nD4_prevalence_persontime_MScontains the persontime at the numerator and denominator, per algorithm, time frame and ageband\nD4_prevalence_persontime_MS_summary_level\rD4_prevalence_average_point_MScontains the aggregated prevalence needed to compute prevalence\nD4_prevalence_average_point_MS_summary_levelsit is the summary of the levels of the file D4_prevalence_period_MS. It is used to decide which levels are preferred for sharing\nD4_prevalence_aggregated_multiple_lookback_MSonly for women in the study at 31 december 2019 and in the population since 5 or 10 years: numerator of all 5 algorithms calculated with multiple look back periods, and denominators\nD4_prevalence_aggregated_multiple_lookback_MS_summary_level\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_3/index.html"
+  },
+  {
+    "content": "\rD5_N_women_and_ranges_MSvalues needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date\n ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_4/index.html"
+  },
+  {
+    "content": "\rD5_N_women_and_ranges_MS_maskedvalues needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date\nFlowchart_exclusion_criteria_maskedcounts of how many indivuals from PERSONS are excluded in the study population\nD5_meaning_occurences_maskedcounts for MS and SLE of each original_meaning\n ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_5/index.html"
+  },
+  {
+    "content": "\rD4_prevalence_aggregated_MS_selected\rD4_prevalence_aggregated_multiple_lookback_MS_selected\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_6/index.html"
+  },
+  {
+    "content": "\rD3_SAP1_MS-COHORT\rD3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort\rD3_DU_MS-COHORTcontains the cohort of study population who have MS based on the algorithm chosen at the end of SAP1\nD5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort\rD3_DU_selection_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_7/index.html"
+  },
+  {
+    "content": "\rD5_DU_flowchart_exclusion_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT\rD3_DU_PREGNANCY-COHORTcontains the cohort of pregnancies included in the study\nD3_DU_MS-PREGNANCY-COHORT\rD4_DU_prevalence_MS_in_pregnancy_cohortcontains the aggregated prevalence (numerators and denominators) needed to compute prevalence of MS in the pregnancy cohort, to feed Template 4 and 5\nD4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORTcontains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy\nD3_DU_matching_diagnostic\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_8/index.html"
   },
   {
     "content": "\r\r\r\r\r\rMetadata\rData Model\rParameters\rExamples\r\r\r{\"x\":{\"tag\":{\"name\":\"Reactable\",\"attribs\":{\"data\":{\"medatata_name\":[\"Name of the dataset\",\"Content of the dataset\",\"Unit of observation\",\"Dataset where the list of UoOs is fully listed and with 1 record per UoO\",\"How many observations per UoO\",\"Variables capturing the UoO\",\"Primary key\",\"Parameters\",null,null,null,null,null,null,null,null,null,null,null,null],\"metadata_content\":[\"D3_DU_PREGNANCY-COHORT\",\"contains the cohort of pregnancies included in the study\",\"a pregnancy\",null,\"1.0\",\"pregnancy_id\",\"pregnancy_id\",null,null,null,null,null,null,null,null,null,null,null,null,null]},\"columns\":[{\"id\":\"medatata_name\",\"name\":\"medatata_name\",\"type\":\"character\"},{\"id\":\"metadata_content\",\"name\":\"metadata_content\",\"type\":\"character\"}],\"sortable\":false,\"searchable\":true,\"pagination\":false,\"highlight\":true,\"bordered\":true,\"striped\":true,\"style\":{\"maxWidth\":1800},\"height\":\"600px\",\"dataKey\":\"e355d6c58ca70b231b2f46a60b826f88\"},\"children\":[]},\"class\":\"reactR_markup\"},\"evals\":[],\"jsHooks\":[]}\r\r\r{\"x\":{\"tag\":{\"name\":\"Reactable\",\"attribs\":{\"data\":{\"VarName\":[\"pregnancy_id\",\"person_id\",\"entry_spell_category\",\"birth_date\",\"pregnancy_entry_date\",\"pregnancy_exit_date\",\"pregnancy_start_date\",\"pregnancy_end_date\",\"type_of_pregnancy_end\",null,null,null,null,null,null,null,null,null,null,null],\"Description\":[\"unique pregnancy identifier\",\"unique person identifier\",\"date when the person starts to be observed in the data source\",null,\"Date when the person enters the period related to the pregnancy\",\"Date when the person exits the period related to the pregnancy\",\"best estimate of the date of pregnancy start\",\"best estimate of the date of pregnancy end\",\"Type of pregnancy end\",null,null,null,null,null,null,null,null,null,null,null],\"Format\":[null,\"character\",\"date\",null,\"date\",\"date\",\"date\",\"date\",\"character\",null,null,null,null,null,null,null,null,null,null,null],\"Vocabulary\":[null,\"from CDM PERSONS\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Parameters\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Notes and examples\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Source tables and variables\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Retrieved\":[\"yes\",\"yes\",\"yes\",\"yes\",\"yes\",\"yes\",\"yes\",\"yes\",\"yes\",null,null,null,null,null,null,null,null,null,null,null],\"Calculated\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Algorithm_id\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Rule\":[\"Selected from D3_algorithms_OUTCOME where algorithm == OUTCOME_x\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},\"columns\":[{\"id\":\"VarName\",\"name\":\"VarName\",\"type\":\"character\"},{\"id\":\"Description\",\"name\":\"Description\",\"type\":\"character\"},{\"id\":\"Format\",\"name\":\"Format\",\"type\":\"character\"},{\"id\":\"Vocabulary\",\"name\":\"Vocabulary\",\"type\":\"character\"},{\"id\":\"Parameters\",\"name\":\"Parameters\",\"type\":\"logical\"},{\"id\":\"Notes and examples\",\"name\":\"Notes and examples\",\"type\":\"logical\"},{\"id\":\"Source tables and variables\",\"name\":\"Source tables and variables\",\"type\":\"logical\"},{\"id\":\"Retrieved\",\"name\":\"Retrieved\",\"type\":\"character\"},{\"id\":\"Calculated\",\"name\":\"Calculated\",\"type\":\"logical\"},{\"id\":\"Algorithm_id\",\"name\":\"Algorithm_id\",\"type\":\"logical\"},{\"id\":\"Rule\",\"name\":\"Rule\",\"type\":\"character\"}],\"sortable\":false,\"searchable\":true,\"pagination\":false,\"highlight\":true,\"bordered\":true,\"striped\":true,\"style\":{\"maxWidth\":1800},\"height\":\"600px\",\"dataKey\":\"b9bf12664e759ae9122ad5214ea4cea4\"},\"children\":[]},\"class\":\"reactR_markup\"},\"evals\":[],\"jsHooks\":[]}\r\r\r{\"x\":{\"tag\":{\"name\":\"Reactable\",\"attribs\":{\"data\":{\"parameter in the variable name\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"values\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"name of macro\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},\"columns\":[{\"id\":\"parameter in the variable name\",\"name\":\"parameter in the variable name\",\"type\":\"logical\"},{\"id\":\"values\",\"name\":\"values\",\"type\":\"logical\"},{\"id\":\"name of macro\",\"name\":\"name of macro\",\"type\":\"logical\"}],\"sortable\":false,\"searchable\":true,\"pagination\":false,\"highlight\":true,\"bordered\":true,\"striped\":true,\"style\":{\"maxWidth\":1800},\"height\":\"600px\",\"dataKey\":\"f545894952d01490ab535e7af1d88bc2\"},\"children\":[]},\"class\":\"reactR_markup\"},\"evals\":[],\"jsHooks\":[]}\r\r\r{\"x\":{\"tag\":{\"name\":\"Reactable\",\"attribs\":{\"data\":{\"person_id\":[\"P00010\",\"P00042\",\"P01069\",\"P01359\",\"P02423\",\"P03855\",\"P04030\",\"P06575\",\"P06637\",\"P07238\",\"P08503\",null,null,null,null,null,null,null,null,null],\"date\":[\"2021-01-12T00:00:00Z\",\"2020-05-25T00:00:00Z\",\"2021-01-16T00:00:00Z\",\"2021-04-27T00:00:00Z\",\"2020-12-28T00:00:00Z\",\"2021-02-06T00:00:00Z\",\"2021-02-11T00:00:00Z\",\"2020-05-30T00:00:00Z\",\"2021-06-29T00:00:00Z\",\"2021-05-07T00:00:00Z\",\"2021-04-04T00:00:00Z\",null,null,null,null,null,null,null,null,null],\"covid_narrow_hosp_m_hospitalisation_primary\":[1,0,0,1,0,1,1,0,1,1,1,\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\"],\"covid_narrow_hosp_m_hospitalisation_secondary\":[0,0,0,0,0,0,0,0,1,0,1,\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\"],\"hospitalisation_after_COVID\":[1,0,0,0,1,0,0,0,0,0,0,\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\"],\"hospitalisation_from_covid_registry\":[0,1,1,0,0,0,0,1,0,0,1,\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\"]},\"columns\":[{\"id\":\"person_id\",\"name\":\"person_id\",\"type\":\"character\"},{\"id\":\"date\",\"name\":\"date\",\"type\":\"Date\"},{\"id\":\"covid_narrow_hosp_m_hospitalisation_primary\",\"name\":\"covid_narrow_hosp_m_hospitalisation_primary\",\"type\":\"numeric\"},{\"id\":\"covid_narrow_hosp_m_hospitalisation_secondary\",\"name\":\"covid_narrow_hosp_m_hospitalisation_secondary\",\"type\":\"numeric\"},{\"id\":\"hospitalisation_after_COVID\",\"name\":\"hospitalisation_after_COVID\",\"type\":\"numeric\"},{\"id\":\"hospitalisation_from_covid_registry\",\"name\":\"hospitalisation_from_covid_registry\",\"type\":\"numeric\"}],\"sortable\":false,\"searchable\":true,\"pagination\":false,\"highlight\":true,\"bordered\":true,\"striped\":true,\"style\":{\"maxWidth\":1800},\"height\":\"600px\",\"dataKey\":\"1a5f291983a9e4b88a31c481755b63a0\"},\"children\":[]},\"class\":\"reactR_markup\"},\"evals\":[],\"jsHooks\":[]}\r\r",

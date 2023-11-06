@@ -5,7 +5,7 @@ description: ""
 slug: "D3_persons"
 title: D3_persons
 author: ''
-date: '2023-11-04'
+date: '2023-11-06'
 categories: []
 tags: []
 archetype: codebook

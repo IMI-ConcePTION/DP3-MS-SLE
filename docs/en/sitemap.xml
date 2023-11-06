@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/step_1/d3_persons/index.html</loc>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>/step_7/d3_sap1_ms-cohort/index.html</loc>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>/step_3/d3_study_population_sap1/index.html</loc>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>/step_6/d4_prevalence_aggregated_ms_selected/index.html</loc>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>/step_2/d4_study_population_sap1/index.html</loc>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>/step_8/d5_du_flowchart_exclusion_criteria_from_pregnancies_to_pregnancy-cohort_and_ms-pregnancy-cohort/index.html</loc>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>/step_4/d5_n_women_and_ranges_ms/index.html</loc>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>/step_5/d5_n_women_and_ranges_ms_masked/index.html</loc>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+  </url>
+  <url>
     <loc>/step_1/index.html</loc>
     <lastmod>2023-11-04T00:00:00+00:00</lastmod>
   </url>
@@ -33,172 +65,140 @@
     <lastmod>2023-11-04T00:00:00+00:00</lastmod>
   </url>
   <url>
-    <loc>/step_1/d3_persons/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
-  </url>
-  <url>
-    <loc>/step_7/d3_sap1_ms-cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
-  </url>
-  <url>
-    <loc>/step_3/d3_study_population_sap1/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
-  </url>
-  <url>
-    <loc>/step_6/d4_prevalence_aggregated_ms_selected/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
-  </url>
-  <url>
-    <loc>/step_2/d4_study_population_sap1/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
-  </url>
-  <url>
-    <loc>/step_8/d5_du_flowchart_exclusion_criteria_from_pregnancies_to_pregnancy-cohort_and_ms-pregnancy-cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
-  </url>
-  <url>
-    <loc>/step_4/d5_n_women_and_ranges_ms/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
-  </url>
-  <url>
-    <loc>/step_5/d5_n_women_and_ranges_ms_masked/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
-  </url>
-  <url>
     <loc>/step_8/d3_du_pregnancy-cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_7/d3_du_selection_criteria_from_sap1_ms_cohort_to_du_ms_cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d3_main_components/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_1/d3_output_spells_category/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_6/d4_prevalence_aggregated_multiple_lookback_ms_selected/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_2/flowchart_exclusion_criteria/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_5/flowchart_exclusion_criteria_masked/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_1/conceptsetdataset/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_7/d3_du_ms-cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_8/d3_du_ms-pregnancy-cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d5_meaning_occurences/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_5/d5_meaning_occurences_masked/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d3_components_ms_sap1/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_8/d4_du_prevalence_ms_in_pregnancy_cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_7/d5_du_flowchart_exclusion_criteria_from_sap1_ms_cohort_to_du_ms_cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_1/itemsetdataset/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d3_components_multiple_lookback_ms/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_7/d3_du_selection_criteria_from_pregnancies_to_pregnancy-cohort_and_ms-pregnancy-cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_8/d4_du_matched_ms-pregnancy-cohort_to_ms-cohort/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_1/promptsetdataset/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d3_algorithms_ms/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_1/d3_clean_spells/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_8/d3_du_matching_diagnostic/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d3_algorithms_multiple_lookback_ms/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_1/d3_selection_criteria_from_persons_to_study_population/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d4_prevalence_period_ms/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d4_prevalence_period_ms_summary_levels/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d4_prevalence_persontime_ms/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d4_prevalence_persontime_ms_summary_level/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d4_prevalence_average_point_ms/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d4_prevalence_average_point_ms_summary_levels/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d4_prevalence_aggregated_multiple_lookback_ms/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d4_prevalence_aggregated_multiple_lookback_ms_summary_level/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/index.html</loc>
-    <lastmod>2023-11-04T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="/index.html" />
     <xhtml:link rel="alternate" hreflang="en" href="/index.html" />
     <xhtml:link rel="alternate" hreflang="pir" href="/pir/index.html" />

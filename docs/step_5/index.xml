@@ -10,21 +10,21 @@
     <item>
       <title>D5_N_women_and_ranges_MS_masked</title>
       <link>/step_5/d5_n_women_and_ranges_ms_masked/index.html</link>
-      <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Nov 2023 00:00:00 +0000</pubDate>
       <guid>/step_5/d5_n_women_and_ranges_ms_masked/index.html</guid>
       <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D5_N_women_and_ranges_MS&#34;,&#34;values needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date&#34;</description>
     </item>
     <item>
       <title>Flowchart_exclusion_criteria_masked</title>
       <link>/step_5/flowchart_exclusion_criteria_masked/index.html</link>
-      <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Nov 2023 00:00:00 +0000</pubDate>
       <guid>/step_5/flowchart_exclusion_criteria_masked/index.html</guid>
       <description>MetadataData ModelParametersExample</description>
     </item>
     <item>
       <title>D5_meaning_occurences_masked</title>
       <link>/step_5/d5_meaning_occurences_masked/index.html</link>
-      <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Nov 2023 00:00:00 +0000</pubDate>
       <guid>/step_5/d5_meaning_occurences_masked/index.html</guid>
       <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D5_meaning_occurences&#34;,&#34;counts for MS and SLE of each original_meaning&#34;,&#34;concept, original_meaning&#34;,null,&#34;1.0&#34;,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},&#34;columns&#34;:[{&#34;id&#34;:&#34;medatata_name&#34;,&#34;name&#34;:&#34;medatata_name&#34;,&#34;type&#34;:&#34;character&#34;},{&#34;id&#34;:&#34;metadata_content&#34;,&#34;name&#34;:&#34;metadata_content&#34;,&#34;type&#34;:&#34;character&#34;}],&#34;sortable&#34;:false,&#34;searchable&#34;:true,&#34;pagination&#34;:false,&#34;highlight&#34;:true,&#34;bordered&#34;:true,&#34;striped&#34;:true,&#34;style&#34;:{&#34;maxWidth&#34;:1800},&#34;height&#34;:&#34;600px&#34;,&#34;dataKey&#34;:&#34;7fe7565bab87fadb7aa0a853a204e6b2&#34;},&#34;children&#34;:[]},&#34;class&#34;:&#34;reactR_markup&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;VarName&#34;:[&#34;concept&#34;,&#34;original_meaning&#34;,&#34;meaning_recoded&#34;,&#34;count&#34;,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],&#34;Description&#34;:[&#34;concept name&#34;,&#34;original meaning name as in instance tables&#34;,&#34;recoded meaning name as specified in SAP1&#34;,&#34;count of occurence by unit of observation&#34;</description>
     </item>

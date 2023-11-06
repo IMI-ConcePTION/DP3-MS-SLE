@@ -5,7 +5,7 @@ description: ""
 slug: "D3_output_spells_category"
 title: D3_output_spells_category
 author: ''
-date: '2023-11-04'
+date: '2023-11-06'
 categories: []
 tags: []
 archetype: codebook

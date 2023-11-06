@@ -10,35 +10,35 @@
     <item>
       <title>D3_SAP1_MS-COHORT</title>
       <link>/step_7/d3_sap1_ms-cohort/index.html</link>
-      <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Nov 2023 00:00:00 +0000</pubDate>
       <guid>/step_7/d3_sap1_ms-cohort/index.html</guid>
       <description></description>
     </item>
     <item>
       <title>D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort</title>
       <link>/step_7/d3_du_selection_criteria_from_sap1_ms_cohort_to_du_ms_cohort/index.html</link>
-      <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Nov 2023 00:00:00 +0000</pubDate>
       <guid>/step_7/d3_du_selection_criteria_from_sap1_ms_cohort_to_du_ms_cohort/index.html</guid>
       <description></description>
     </item>
     <item>
       <title>D3_DU_MS-COHORT</title>
       <link>/step_7/d3_du_ms-cohort/index.html</link>
-      <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Nov 2023 00:00:00 +0000</pubDate>
       <guid>/step_7/d3_du_ms-cohort/index.html</guid>
       <description>MetadataData ModelParametersExamples{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D3_DU_OUTCOME-COHORT&#34;,&#34;contains the cohort of study population who have MS based on the algorithm chosen at the end of SAP1&#34;,&#34;a person who is in the study population of SAP1 and date of OUTCOME inside its study period&#34;</description>
     </item>
     <item>
       <title>D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort</title>
       <link>/step_7/d5_du_flowchart_exclusion_criteria_from_sap1_ms_cohort_to_du_ms_cohort/index.html</link>
-      <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Nov 2023 00:00:00 +0000</pubDate>
       <guid>/step_7/d5_du_flowchart_exclusion_criteria_from_sap1_ms_cohort_to_du_ms_cohort/index.html</guid>
       <description></description>
     </item>
     <item>
       <title>D3_DU_selection_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT</title>
       <link>/step_7/d3_du_selection_criteria_from_pregnancies_to_pregnancy-cohort_and_ms-pregnancy-cohort/index.html</link>
-      <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 06 Nov 2023 00:00:00 +0000</pubDate>
       <guid>/step_7/d3_du_selection_criteria_from_pregnancies_to_pregnancy-cohort_and_ms-pregnancy-cohort/index.html</guid>
       <description></description>
     </item>
