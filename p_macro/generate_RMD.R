@@ -1,10 +1,12 @@
-generate_RMD <- function() {
+generate_Rmd <- function() {
   
   # Set index location
   index_path <- here::here("i_codebooks", "00_index.xlsx")
   
   source(here::here("p_macro", "clean and sanitize.R"))
   # remote = sub('\\.git$', '', git2r::remote_url())
+  
+  all_changes <- gert::git_status(pathspec = "i_codebooks")
   
   #load the index
   index_file <- read_excel(index_path) %>%
@@ -15,11 +17,19 @@ generate_RMD <- function() {
     dplyr::group_by(PROGRAM) %>%
     dplyr::mutate(WEIGHT = row_number())
   
-  generate_codebook_page <- function(single_row) {
+  generate_codebook_page <- function(single_row, changes) {
     
     # if (file.exists(paste0(thisdir, "/i_codebooks/", single_row[2], ".xlsx"))){ 
     #   return()
     # }
+    
+    change_codebook <- all_changes %>%
+      dplyr::mutate(file = sub('\\..*$', '', basename(file))) %>%
+      dplyr::filter(file != "00_index.xlsx")
+    
+    if (!(single_row[2] %in% change_codebook$file)) {
+      return()
+    }
     
     level <- single_row[1]
     folder_path <- paste0(getwd(), "/content/step_", level)
@@ -58,6 +68,6 @@ generate_RMD <- function() {
     return()
   }
   
-  res <- apply(index_file, 1, generate_codebook_page)
+  res <- apply(index_file, 1, generate_codebook_page, all_changes)
   
 }
