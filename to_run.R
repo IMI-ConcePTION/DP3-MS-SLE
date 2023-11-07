@@ -7,8 +7,8 @@ generate_Rmd()
 # Transform Rmd to md then to HTML
 generate_website()
 
-# commit i_website and docs
-stage_website()
-
 # Show preview
 serve_site()
+
+# commit i_website and docs
+stage_website()
