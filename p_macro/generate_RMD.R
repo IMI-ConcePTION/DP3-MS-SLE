@@ -23,9 +23,9 @@ generate_Rmd <- function() {
     #   return()
     # }
     
-    change_codebook <- all_changes %>%
+    change_codebook <- changes %>%
       dplyr::mutate(file = sub('\\..*$', '', basename(file))) %>%
-      dplyr::filter(file != "00_index.xlsx")
+      dplyr::filter(file != "00_index")
     
     if (!(single_row[2] %in% change_codebook$file)) {
       return()
