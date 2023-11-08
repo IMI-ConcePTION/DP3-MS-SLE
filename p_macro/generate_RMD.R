@@ -1,7 +1,9 @@
 generate_Rmd <- function() {
   
-  file.copy(here::here("p_parameters", "md5sum_codebook_backup.txt"), here::here("p_parameters", "md5sum_codebook.txt"),
-            recursive = T)
+  if (file.exists(here::here("g_parameters", "md5sum_codebook_backup.txt"))) {
+    file.copy(here::here("g_parameters", "md5sum_codebook_backup.txt"), here::here("g_parameters", "md5sum_codebook.txt"),
+              overwrite = T)
+  }
   
   changed_codebooks <- blogdown::filter_md5sum(list.files(here::here("i_codebooks"), full.names = T, recursive = T),
                                               db = here::here("g_parameters", "md5sum_codebook.txt"))
@@ -11,8 +13,6 @@ generate_Rmd <- function() {
   
   source(here::here("p_macro", "clean and sanitize.R"))
   # remote = sub('\\.git$', '', git2r::remote_url())
-  
-  all_changes <- gert::git_status(pathspec = "i_codebooks")
   
   #load the index
   index_file <- read_excel(index_path) %>%
@@ -27,20 +27,13 @@ generate_Rmd <- function() {
   
   generate_codebook_page <- function(single_row, changes) {
     
-    # if (file.exists(paste0(thisdir, "/i_codebooks/", single_row[2], ".xlsx"))){ 
-    #   return()
-    # }
-    
-    change_codebook <- changes %>%
-      dplyr::mutate(file = sub('\\..*$', '', basename(file))) %>%
-      dplyr::filter(file != "00_index")
-    
-    if (!(single_row[2] %in% change_codebook$file)) {
-      return()
-    }
-    
     level <- single_row[1]
     folder_path <- paste0(getwd(), "/content/step_", level)
+    
+    if (!(single_row[2] %in% sub('\\..*$', '', basename(changes))) & file.exists(
+      here::here("i_website", "content", paste0("step_", level), paste0(single_row[2], ".Rmd")))) {
+      return()
+    }
     
     if (!file.exists(folder_path)){ 
       dir.create(folder_path)
@@ -54,7 +47,8 @@ generate_Rmd <- function() {
                        paste(getwd(), path_file, sep = "/"))
       
       do.call(blogdown:::modify_yaml, list(path_file, weight = as.integer(single_row[4]),
-                                           menuTitle = paste0("Step_", level)))
+                                           menuTitle = paste0("Step_", level),
+                                           datetime = Sys.time()))
     }
     
     if (file.exists(here::here("i_website", "content", paste0("step_", level), paste0(single_row[2], ".md")))) {
@@ -71,11 +65,17 @@ generate_Rmd <- function() {
     description <- "`r get_description(rmarkdown::metadata$name_excel)`"
     attr(description, which = "quoted") <- TRUE
     do.call(blogdown:::modify_yaml, list(path_file, weight = as.integer(single_row[4]), name_excel = name_excel,
-                                         description = description, slug = slug))
+                                         description = description, slug = slug,
+                                         datetime = Sys.time()))
     
     return()
   }
   
-  res <- apply(index_file, 1, generate_codebook_page, all_changes)
+  res <- apply(index_file, 1, generate_codebook_page, changed_codebooks)
+  
+  file.copy(here::here("g_parameters", "md5sum_codebook.txt"), here::here("g_parameters", "md5sum_codebook_backup.txt"),
+            overwrite = T)
+  
+  invisible(NULL)
   
 }
