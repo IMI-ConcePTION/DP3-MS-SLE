@@ -1,5 +1,11 @@
 generate_Rmd <- function() {
   
+  file.copy(here::here("p_parameters", "md5sum_codebook_backup.txt"), here::here("p_parameters", "md5sum_codebook.txt"),
+            recursive = T)
+  
+  changed_codebooks <- blogdown::filter_md5sum(list.files(here::here("i_codebooks"), full.names = T, recursive = T),
+                                              db = here::here("g_parameters", "md5sum_codebook.txt"))
+  
   # Set index location
   index_path <- here::here("i_codebooks", "00_index.xlsx")
   
@@ -16,6 +22,8 @@ generate_Rmd <- function() {
                   SLUG = dplyr::if_else(!is.na(SLUG), SLUG, FILE)) %>%
     dplyr::group_by(PROGRAM) %>%
     dplyr::mutate(WEIGHT = row_number())
+  
+  changed_codebooks <- changed_codebooks[sub('\\..*$', '', basename(changed_codebooks)) %in% index_file$FILE]
   
   generate_codebook_page <- function(single_row, changes) {
     
