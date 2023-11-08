@@ -3,9 +3,10 @@ weight: 5
 name_excel: "D4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORT.xlsx"
 description: "contains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy"
 slug: "D4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORT"
+datetime: 1.6994714e+09
 title: D4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORT
 author: ''
-date: '2023-11-06'
+date: '2023-11-08'
 categories: []
 tags: []
 archetype: codebook
