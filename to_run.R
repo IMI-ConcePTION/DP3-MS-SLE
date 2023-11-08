@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.3.8 - 08 November 2023
+# Updated codelist for new READ codes and remove old codelist
+
 # v2.3.7 - 06 November 2023
 # CreateSpells to v16 to fix subpopulations
 
