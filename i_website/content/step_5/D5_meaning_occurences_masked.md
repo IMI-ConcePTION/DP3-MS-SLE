@@ -3,10 +3,10 @@ weight: 3
 name_excel: "D5_meaning_occurences_masked.xlsx"
 description: "counts for MS and SLE of each original_meaning"
 slug: "D5_meaning_occurences_masked"
-datetime: 1.6994714e+09
+datetime: 1.6995278e+09
 title: D5_meaning_occurences_masked
 author: ''
-date: '2023-11-08'
+date: '2023-11-09'
 categories: []
 tags: []
 archetype: codebook
