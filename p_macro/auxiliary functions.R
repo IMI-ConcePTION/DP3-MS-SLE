@@ -243,8 +243,7 @@ populate_attrs_fd_roel <- function(path, direction, arrows_style, steps_style, d
                      # TODO add here complete link
                      SLUG = dplyr::if_else(!is.na(SLUG), SLUG, label),
                      SLUG = dplyr::if_else(only_input, NA,
-                                           paste0("https://", basename(dirname(remote)), ".github.io/",
-                                                  basename(remote), "/step_", level / 2, "/", tolower(SLUG)))) %>%
+                                           paste0("http://localhost:4321", "/step_", level / 2, "/", tolower(SLUG)))) %>%
     dplyr::rename(link = SLUG) %>%
     dplyr::distinct()
   
