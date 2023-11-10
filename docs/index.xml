@@ -6,7 +6,16 @@
     <description>Recent content in Documentation for DP3 project on CVM Documentation</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 08 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>_index.en</title>
+      <link>/step_9/index.html</link>
+      <pubDate>Thu, 09 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>/step_9/index.html</guid>
+      <description>D4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORTcontains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy
+D5_DU_matching_diagnosticNA
+ </description>
+    </item>
     <item>
       <title>_index.en</title>
       <link>/step_1/index.html</link>

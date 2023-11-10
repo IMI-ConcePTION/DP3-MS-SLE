@@ -1,14 +1,10 @@
-# Create new datamodels
+# Create/update DAG
 generate_DAG()
 
-# Create Rmd files
+# Create or update codebooks (and site)
 generate_Rmd()
-
-# Transform Rmd to md then to HTML
 generate_website()
-
-# Show preview
 serve_site()
 
-# commit i_website and docs
+# commit updated DAG, index and codebooks
 stage_website()
