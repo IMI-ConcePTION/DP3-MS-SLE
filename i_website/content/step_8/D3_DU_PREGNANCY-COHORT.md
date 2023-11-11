@@ -3,10 +3,10 @@ weight: 2
 name_excel: "D3_DU_PREGNANCY-COHORT.xlsx"
 description: "contains the cohort of pregnancies included in the study"
 slug: "D3_DU_PREGNANCY-COHORT"
-datetime: 1.6995278e+09
+datetime: 1.6997216e+09
 title: D3_DU_PREGNANCY-COHORT
 author: ''
-date: '2023-11-09'
+date: '2023-11-11'
 categories: []
 tags: []
 archetype: codebook

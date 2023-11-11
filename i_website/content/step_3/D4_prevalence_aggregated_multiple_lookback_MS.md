@@ -3,10 +3,10 @@ weight: 14
 name_excel: "D4_prevalence_aggregated_multiple_lookback_MS.xlsx"
 description: "only for women in the study at 31 december 2019 and in the population since 5 or 10 years: numerator of all 5 algorithms calculated with multiple look back periods, and denominators"
 slug: "D4_prevalence_aggregated_multiple_lookback_MS"
-datetime: 1.6995278e+09
+datetime: 1.6997216e+09
 title: D4_prevalence_aggregated_multiple_lookback_MS
 author: ''
-date: '2023-11-09'
+date: '2023-11-11'
 categories: []
 tags: []
 archetype: codebook

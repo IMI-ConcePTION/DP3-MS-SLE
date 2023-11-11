@@ -43,9 +43,13 @@ languages:
     languageName: English
     menu:
       shortcuts:
-        - identifier: diagram
+        - identifier: diagram 
           name: <i class='fas fa-project-diagram'></i> Diagram
           url: https://imi-conception.github.io/DP3-MS-SLE/diagram.html
+          weight: 10
+        - identifier: diagram draft
+          name: <i class='fas fa-project-diagram'></i> Diagram
+          url: https://imi-conception.github.io/DP3-MS-SLE/diagram_draft.html
           weight: 10
         - identifier: ds
           name: <i class='fab fa-fw fa-github'></i> GitHub repo

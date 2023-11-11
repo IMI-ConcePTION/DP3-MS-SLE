@@ -1,12 +1,5 @@
 var relearn_search_index = [
   {
-    "content": "\rD4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORTcontains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy\nD5_DU_matching_diagnosticNA\n ",
-    "description": "",
-    "tags": [],
-    "title": "_index.en",
-    "uri": "/step_9/index.html"
-  },
-  {
     "content": "Metadata\rData Model\rParameters\rExample\r\r\r",
     "description": "contains the baseline characteristics of the study population",
     "tags": [],
@@ -33,6 +26,13 @@ var relearn_search_index = [
     "tags": [],
     "title": "D5_N_women_and_ranges_MS_masked",
     "uri": "/step_5/d5_n_women_and_ranges_ms_masked/index.html"
+  },
+  {
+    "content": "\rD4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORTcontains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy\nD5_DU_matching_diagnosticNA\n ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_9/index.html"
   },
   {
     "content": "\r",
