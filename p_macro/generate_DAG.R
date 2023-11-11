@@ -1,4 +1,4 @@
-generate_DAG <- function() {
+generate_DAG <- function(publish = F) {
   
   # Set index location
   index_path <- here::here("i_codebooks", "00_index.xlsx")
@@ -14,6 +14,16 @@ generate_DAG <- function() {
   thisdatamodels_style <- c(cell_style = "yellow")
   thisarrows_style <- c(arrow_style = "curved arrow")
   
+  if (publish) {
+    link = "diagram_draft.html"
+    target = here::here("i_website", "static", "diagram_draft.html")
+    remote = "http://localhost:4321"
+  } else {
+    link = "diagram_local.html"
+    target = here::here("i_website", "static", "diagram_local.html")
+    remote = sub('\\.git$', '', git2r::remote_url())
+  }
+  
   # run the function
   test_xml <- create_diagram(
     path = index_path, 
@@ -21,15 +31,14 @@ generate_DAG <- function() {
     arrows_style = thisarrows_style, 
     steps_style = thissteps_style, 
     datamodels_style = thisdatamodels_style, 
-    direction = "TB"
+    direction = "TB",
+    remote = remote
   )
   
   #export the output
-  writeLines(test_xml, here::here("i_website", "static", "diagram_draft.html"))
+  writeLines(test_xml, target)
   
-  log <- suppressWarnings(R.utils::createLink(link = "diagram_draft.html",
-                                              target = here::here("i_website", "static", "diagram_draft.html"),
-                                              overwrite = T))
+  log <- suppressWarnings(R.utils::createLink(link = link, target = target, overwrite = T))
   rm(log)
   
 }
