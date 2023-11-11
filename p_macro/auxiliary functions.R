@@ -232,7 +232,7 @@ populate_attrs_fd_roel <- function(path, direction, arrows_style, steps_style, d
                      link = paste0(file.path(remote, "blob", branch, "p_steps", LINK), ".R")) %>%
     dplyr::distinct()
   
-  if (!grepl("localhost:4321", remote)) {
+  if (grepl("localhost:4321", remote)) {
     base_link <- remote
   } else {
     base_link <- paste0("https://", basename(dirname(remote)), ".github.io/", basename(remote))
