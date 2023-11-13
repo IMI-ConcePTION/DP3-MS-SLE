@@ -16,11 +16,11 @@ generate_DAG <- function(publish = F) {
   
   if (publish) {
     link = here::here("diagram_draft.html")
-    target = here::here("i_website", "static", "diagram_draft.html")
+    target = here::here("g_website", "static", "diagram_draft.html")
     remote = sub('\\.git$', '', git2r::remote_url())
   } else {
     link = here::here("diagram_local.html")
-    target = here::here("i_website", "static", "diagram_local.html")
+    target = here::here("g_website", "static", "diagram_local.html")
     remote = "http://localhost:4321"
   }
   

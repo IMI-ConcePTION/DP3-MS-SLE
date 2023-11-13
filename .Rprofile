@@ -36,5 +36,5 @@ source(here::here("p_macro", "generate_Rmd.R"))
 source(here::here("p_macro", "stage_website.R"))
 source(here::here("p_macro", "generate_website.R"))
 
-setwd(paste0(getwd(), "/i_website"))
+setwd(paste0(getwd(), "/g_website"))
 

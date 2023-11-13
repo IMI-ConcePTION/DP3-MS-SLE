@@ -31,7 +31,7 @@ generate_Rmd <- function() {
     folder_path <- paste0(getwd(), "/content/step_", level)
     
     if (!(single_row[2] %in% sub('\\..*$', '', basename(changes))) & file.exists(
-      here::here("i_website", "content", paste0("step_", level), paste0(single_row[2], ".Rmd")))) {
+      here::here("g_website", "content", paste0("step_", level), paste0(single_row[2], ".Rmd")))) {
       return()
     }
     
@@ -51,8 +51,8 @@ generate_Rmd <- function() {
                                            datetime = Sys.time()))
     }
     
-    if (file.exists(here::here("i_website", "content", paste0("step_", level), paste0(single_row[2], ".md")))) {
-      file.remove(here::here("i_website", "content", paste0("step_", level), paste0(single_row[2], ".md")))
+    if (file.exists(here::here("g_website", "content", paste0("step_", level), paste0(single_row[2], ".md")))) {
+      file.remove(here::here("g_website", "content", paste0("step_", level), paste0(single_row[2], ".md")))
     }
     
     slug <- single_row[[3]]
