@@ -15,11 +15,11 @@ generate_DAG <- function(publish = F) {
   thisarrows_style <- c(arrow_style = "curved arrow")
   
   if (publish) {
-    link = "diagram_draft.html"
+    link = here::here("diagram_draft.html")
     target = here::here("i_website", "static", "diagram_draft.html")
     remote = sub('\\.git$', '', git2r::remote_url())
   } else {
-    link = "diagram_local.html"
+    link = here::here("diagram_local.html")
     target = here::here("i_website", "static", "diagram_local.html")
     remote = "http://localhost:4321"
   }
