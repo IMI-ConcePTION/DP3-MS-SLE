@@ -32,7 +32,8 @@ generate_DAG <- function(publish = F) {
     steps_style = thissteps_style, 
     datamodels_style = thisdatamodels_style, 
     direction = "TB",
-    remote = remote
+    remote = remote,
+    branch = "main"
   )
   
   #export the output
