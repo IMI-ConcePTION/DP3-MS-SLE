@@ -1,5 +1,7 @@
 generate_Rmd <- function() {
   
+  blogdown::stop_server()
+  
   if (file.exists(here::here("g_parameters", "md5sum_codebook_backup.txt"))) {
     file.copy(here::here("g_parameters", "md5sum_codebook_backup.txt"), here::here("g_parameters", "md5sum_codebook.txt"),
               overwrite = T)

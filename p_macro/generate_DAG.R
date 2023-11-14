@@ -41,4 +41,9 @@ generate_DAG <- function(publish = F) {
   log <- suppressWarnings(R.utils::createLink(link = link, target = target, overwrite = T))
   rm(log)
   
+  suppressMessages(blogdown::stop_server())
+  
+  suppressMessages(blogdown::build_site())
+  
+  suppressMessages(blogdown::serve_site())
 }
