@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.3.9 - 15 November 2023
+# Moved some meaning_of_event for FISABIO from INPATIENT to UNSPECIFIED
+
 # v2.3.8 - 08 November 2023
 # Updated codelist for new READ codes and remove old codelist
 
