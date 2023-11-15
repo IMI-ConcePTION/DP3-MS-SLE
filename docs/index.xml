@@ -6,7 +6,7 @@
     <description>Recent content in Documentation for DP3 project on CVM Documentation</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 11 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>_index.en</title>
       <link>/step_9/index.html</link>
@@ -71,8 +71,9 @@ D5_meaning_occurences_maskedcounts for MS and SLE of each original_meaning
       <link>/step_7/index.html</link>
       <pubDate>Sat, 04 Nov 2023 00:00:00 +0000</pubDate>
       <guid>/step_7/index.html</guid>
-      <description>D3_SAP1_MS-COHORTD3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohortD3_DU_MS-COHORTcontains the cohort of study population who have MS based on the algorithm chosen at the end of SAP1
-D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohortD3_DU_selection_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT </description>
+      <description>D3_SAP1_MS-COHORTD3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohortcontains the exclusion criteria to go from D3_study_population_SAP1_MS to the study population of the DP3 SAP2
+D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohortD3_DU_selection_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORTD5_DU_flowchart_exclusion_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORTD3_DU_PREGNANCY-COHORTcontains the cohort of pregnancies included in the study
+D3_DU_MS-PREGNANCY-COHORT </description>
     </item>
     <item>
       <title>_index.en</title>
