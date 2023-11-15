@@ -35,9 +35,7 @@ meanings_of_this_study[["SAIL Databank"]][["meaning_of_visit"]] <- list()
 
 meanings_of_this_study[["RDRU_FISABIO"]][["meaning_of_event"]][["INPATIENT"]] <- c("hospitalisation_primary",
                                                                                    "hospitalisation_secondary",
-                                                                                   "death_registry",
-                                                                                   "perinatal_death_registry_mother",
-                                                                                   "anomalies_mother_registry")
+                                                                                   "death_registry")
 
 meanings_of_this_study[["RDRU_FISABIO"]][["meaning_of_visit"]] <- list()
 
