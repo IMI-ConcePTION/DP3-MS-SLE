@@ -157,10 +157,6 @@
     <lastmod>2023-11-14T00:00:00+00:00</lastmod>
   </url>
   <url>
-    <loc>/step_3/d3_algorithms_ms/index.html</loc>
-    <lastmod>2023-11-11T00:00:00+00:00</lastmod>
-  </url>
-  <url>
     <loc>/step_1/d3_clean_spells/index.html</loc>
     <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
@@ -169,12 +165,12 @@
     <lastmod>2023-11-06T00:00:00+00:00</lastmod>
   </url>
   <url>
-    <loc>/step_7/d3_du_pregnancy-cohort/index.html</loc>
-    <lastmod>2023-11-14T00:00:00+00:00</lastmod>
+    <loc>/step_3/d3_algorithms_multiple_lookback_ms/index.html</loc>
+    <lastmod>2023-11-28T00:00:00+00:00</lastmod>
   </url>
   <url>
-    <loc>/step_3/d3_algorithms_multiple_lookback_ms/index.html</loc>
-    <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+    <loc>/step_7/d3_du_pregnancy-cohort/index.html</loc>
+    <lastmod>2023-11-14T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_1/d3_selection_criteria_from_persons_to_study_population/index.html</loc>
@@ -218,7 +214,7 @@
   </url>
   <url>
     <loc>/index.html</loc>
-    <lastmod>2023-11-14T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-28T00:00:00+00:00</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="/index.html" />
     <xhtml:link rel="alternate" hreflang="en" href="/index.html" />
     <xhtml:link rel="alternate" hreflang="pir" href="/pir/index.html" />

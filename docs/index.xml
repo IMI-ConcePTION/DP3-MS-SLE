@@ -6,7 +6,7 @@
     <description>Recent content in Documentation for DP3 project on CVM Documentation</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 14 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>_index.en</title>
       <link>/step_9/index.html</link>
@@ -39,7 +39,7 @@ D5_DU_matching_diagnosticNA
       <description>D3_study_population_SAP1contains the baseline characteristics of the study population
 D3_main_componentsD5_meaning_occurencescounts for MS and SLE of each original_meaning
 D3_components_MS_SAP1contains the components of MS and their combinations. Components and combination are expressed as dates to allow for computation of prevalence. This D3 is based on Table 1 of the SAP1
-D3_components_multiple_lookback_MSD3_algorithms_MScontains the dates when each person in the study population becomes positive for MS according to any of the 5 algorithms</description>
+D3_components_multiple_lookback_MSD3_algorithms_multiple_lookback_MSonly for women in the study at 31 december 2019 and in the population since 5 or 10 years: individual-level prevalence of all 5 algorithms calculated with multiple look back periods</description>
     </item>
     <item>
       <title>_index.en</title>
