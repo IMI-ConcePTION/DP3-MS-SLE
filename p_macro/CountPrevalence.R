@@ -46,7 +46,6 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   if (!is.null(Strata)) cols_to_keep_cohort<-c(cols_to_keep_cohort,Strata)
   if (!is.null(Birth_date)) cols_to_keep_cohort<-c(cols_to_keep_cohort,Birth_date)
   
-  
   if (Type_prevalence == "point") { 
     if (!is.null(Points_in_time)) {
       if(Points_in_time[[1]] %in% names(Dataset_cohort)) {
@@ -65,7 +64,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     }
   }
   
-  Dataset_cohort<-unique(Dataset_cohort[,cols_to_keep_cohort,with=F])
+  Dataset_cohort<-unique(Dataset_cohort[, unique(cols_to_keep_cohort), with=F])
   
   # #check if study start and stop dates are valid
   # ################################################################################################################################
@@ -250,6 +249,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
   ##########################################
   
   #POINT PREVALENCE
+  
   if (Type_prevalence == "point") {
     print("Point prevalence computation")
     
@@ -305,9 +305,11 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     
     cols_to_remove <- setdiff(colnames(dataset[["0"]]), colnames(dataset[["1"]]))
     cols_to_add <- setdiff(colnames(dataset[["1"]]), colnames(dataset[["0"]]))
-    
-    dataset[["0"]][, (cols_to_remove) := NULL]
-    dataset[["0"]][, (cols_to_add) := 0]
+
+    if (!is.null(dataset[["0"]])) {
+      dataset[["0"]][, (cols_to_remove) := NULL]
+      dataset[["0"]][, (cols_to_add) := 0]
+    }
     
     dataset <- rbindlist(dataset, use.names = T, fill = T)
     dataset[, in_population := as.numeric(levels(in_population))[in_population]]
