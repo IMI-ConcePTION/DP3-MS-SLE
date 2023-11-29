@@ -41,7 +41,7 @@ meanings_of_this_study[["RDRU_FISABIO"]][["meaning_of_visit"]] <- list()
 
 
 meanings_of_this_study[["FERR"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- c("emergency_room_diagnosis",
-                                                                                            "access_to_mental_health_service_primary",
+                                                                                            "access_to_mental_health_service",
                                                                                             "access_to_mental_health_service_primary baby and teenager")
 meanings_of_this_study[["FERR"]][["meaning_of_event"]][["LONGTERM"]] <- "exemption"
 
