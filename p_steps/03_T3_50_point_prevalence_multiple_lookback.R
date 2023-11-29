@@ -37,6 +37,12 @@ for (outcome in OUTCOME_variables) {
                                 variable.name = "algorithm", variable.factor = F,
                                 value.name = "flag_algo")
   
+  # Remove impossible values
+  algo_look <- algo_look[!(years_of_lookback_at_20191231 == 5 & grepl("M[0-9]_[5-9]", algorithm)), ]
+  
+  algo_look <- algo_look[, .(numerator = sum(flag_algo, na.rm = T), denominator = .N),
+                    by = c("algorithm", "years_of_lookback_at_20191231")]
+  
   # # Extract years of lookback from algorithm
   # algo_look[, algo_lookback := sapply(strsplit(algorithm, "_"), function(x) x[2])]
   # 
@@ -48,18 +54,13 @@ for (outcome in OUTCOME_variables) {
   #                          (algo_lookback > 5 & years_of_lookback_at_20191231 == 10), ]
   # algo_look[, algo_lookback := NULL]
   
-  algo_look <- MergeFilterAndCollapse(list(algo_look),
-                                 condition = "!is.na(person_id)",
-                                 strata = c("algorithm", "years_of_lookback_at_20191231"),
-                                 summarystat = list(c("sum", "flag_algo", "numerator"),
-                                                    c("count", "person_id", "denominator")))
-  
+  # algo_look <- MergeFilterAndCollapse(list(algo_look),
+  #                                condition = "!is.na(person_id)",
+  #                                strata = c("algorithm", "years_of_lookback_at_20191231"),
+  #                                summarystat = list(c("sum", "flag_algo", "numerator"),
+  #                                                   c("count", "person_id", "denominator")))
+
   algo_look <- algo_look[, datasource := thisdatasource]
-  
-  algo_look[, Ageband_LevelOrder := tstrsplit(algorithm, "_")[[2]]]
-  algo_look[.(Ageband_LevelOrder = c(1, 2, 3, 5, 8, "all"), to = c(1, 2, 3, 4, 5, 99)), on = "Ageband_LevelOrder", Ageband_LevelOrder := i.to]
-  algo_look[, Ageband_LevelOrder := as.integer(Ageband_LevelOrder)]
-  algo_look[, timeframe_LevelOrder := fifelse(years_of_lookback_at_20191231 == 5, 1, 99)]
   
   tmp <- copy(algo_look)
   summary_threshold <- 5
@@ -68,7 +69,7 @@ for (outcome in OUTCOME_variables) {
     tmp[, (measure) := fifelse(get(measure) < summary_threshold & get(measure) > 0, F, T)] 
   }
   
-  tmp <- tmp[, lapply(.SD, all), by = c("Ageband_LevelOrder", "timeframe_LevelOrder", "algorithm"), .SDcols = c("numerator")]
+  tmp <- tmp[, lapply(.SD, all), by = "algorithm", .SDcols = "numerator"]
   
   setorder(tmp, "algorithm")
   

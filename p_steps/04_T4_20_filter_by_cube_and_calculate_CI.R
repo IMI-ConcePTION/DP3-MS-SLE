@@ -27,7 +27,9 @@ for (outcome in OUTCOME_variables) {
     prevalence_df <- smart_load(paste("D4", name_df, sep = "_"), diroutput, return = T, extension = extension)
     
     # Keep only levels from Cube decided after discussion
-    prevalence_df <- filter_by_Cube_levels(prevalence_df)
+    if (name_df != paste("prevalence_aggregated_multiple_lookback", outcome, sep = "_")) {
+      prevalence_df <- filter_by_Cube_levels(prevalence_df)
+    }
     
     # # Remove explicit levels used by Cube
     # prevalence_df[, c("timeframe_LevelOrder", "Ageband_LevelOrder") := NULL]
