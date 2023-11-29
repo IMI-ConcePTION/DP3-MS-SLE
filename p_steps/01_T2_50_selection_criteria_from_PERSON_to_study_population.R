@@ -27,11 +27,25 @@ D3_clean_spells <- D3_clean_spells[, c("birth_date", "death_date", "entry_spell_
 # Creation of no_spells criteria
 D3_sel_cri <- D3_sel_cri[, no_spells := fifelse(person_id %in% unlist(unique(D3_clean_spells[, .(person_id)])), 0, 1)]
 
-# Creation of all_spells_start_after_ending criteria
+# Creation of too_young_female criteria
 D3_clean_spells[, tot_spell_num := .N, by = person_id]
-D3_clean_spells[, tot_starts_after_ending := sum(starts_after_ending), by = person_id]
-D3_clean_spells[, all_spells_start_after_ending := fifelse(tot_starts_after_ending == tot_spell_num, 1, 0)]
-D3_clean_spells[, removed_row := starts_after_ending]
+D3_clean_spells[, tot_too_young_at_exit_spell := sum(too_young_at_exit_spell), by = person_id]
+D3_clean_spells[, too_young_female := fifelse(tot_too_young_at_exit_spell == tot_spell_num, 1, 0)]
+D3_clean_spells[, removed_row := too_young_at_exit_spell]
+D3_clean_spells[, c("too_young_at_exit_spell", "tot_too_young_at_exit_spell", "tot_spell_num") := NULL]
+
+# Creation of too_young_female criteria
+D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
+D3_clean_spells[removed_row == 0, tot_too_old_at_start_spell := sum(too_old_at_start_spell), by = person_id]
+D3_clean_spells[removed_row == 0, too_old_female := fifelse(tot_too_old_at_start_spell == tot_spell_num, 1, 0)]
+D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "too_old_at_start_spell")]
+D3_clean_spells[, c("too_old_at_start_spell", "tot_too_old_at_start_spell", "tot_spell_num") := NULL]
+
+# Creation of all_spells_start_after_ending criteria
+D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
+D3_clean_spells[removed_row == 0, tot_starts_after_ending := sum(starts_after_ending), by = person_id]
+D3_clean_spells[removed_row == 0, all_spells_start_after_ending := fifelse(tot_starts_after_ending == tot_spell_num, 1, 0)]
+D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "starts_after_ending")]
 D3_clean_spells[, c("starts_after_ending", "tot_starts_after_ending", "tot_spell_num") := NULL]
 
 # Creation of no_spell_overlapping_the_study_period criteria
@@ -41,20 +55,6 @@ D3_clean_spells[removed_row == 0, no_spell_overlapping_the_study_period := fifel
   tot_no_overlap_study_period == tot_spell_num, 1, 0)]
 D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "no_overlap_study_period")]
 D3_clean_spells[, c("no_overlap_study_period", "tot_no_overlap_study_period", "tot_spell_num") := NULL]
-
-# Creation of too_young_female criteria
-D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
-D3_clean_spells[removed_row == 0, tot_too_young_at_exit_spell := sum(too_young_at_exit_spell), by = person_id]
-D3_clean_spells[removed_row == 0, too_young_female := fifelse(tot_too_young_at_exit_spell == tot_spell_num, 1, 0)]
-D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "too_young_at_exit_spell")]
-D3_clean_spells[, c("too_young_at_exit_spell", "tot_too_young_at_exit_spell", "tot_spell_num") := NULL]
-
-# Creation of too_young_female criteria
-D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]
-D3_clean_spells[removed_row == 0, tot_too_old_at_start_spell := sum(too_old_at_start_spell), by = person_id]
-D3_clean_spells[removed_row == 0, too_old_female := fifelse(tot_too_old_at_start_spell == tot_spell_num, 1, 0)]
-D3_clean_spells[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "too_old_at_start_spell")]
-D3_clean_spells[, c("too_old_at_start_spell", "tot_too_old_at_start_spell", "tot_spell_num") := NULL]
 
 # Creation of no_spell_longer_than_x_days. Keep other spells even if they are less than 365 days long
 D3_clean_spells[removed_row == 0, tot_spell_num := .N, by = person_id]

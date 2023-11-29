@@ -40,8 +40,10 @@ person_spell[, entry_spell_category := data.table::fifelse(birth_date < entry_sp
 # Censor spells which ends after the death date
 person_spell[, exit_spell_category := pmin(exit_spell_category_crude, death_date, birth_date + floor(50 * 365.25) - 1, na.rm = T)]
 
-# find spells that end before they start (using original start/end)
-person_spell[, starts_after_ending := data.table::fifelse(exit_spell_category < entry_spell_category, 1, 0)]
+# Find if person is too old or young when spell start/end
+person_spell[, too_old_at_start_spell := data.table::fifelse(entry_spell_category > exit_spell_category, 1, 0)]
+person_spell[, too_young_at_exit_spell := data.table::fifelse(
+  exit_spell_category < birth_date + ceiling(15 * 365.25) | study_end < birth_date + ceiling(15 * 365.25), 1, 0)]
 
 # find spells that do not overlap the study period (using original start/end)
 person_spell[, no_overlap_study_period := data.table::fifelse(
@@ -53,9 +55,8 @@ person_spell[, entry_spell_category := pmax(entry_spell_category, recommended_st
 # Censor spells which ends after the study_end
 person_spell[, exit_spell_category := pmin(exit_spell_category, study_end, na.rm = T)]
 
-# Find if person is too old or young when spell start/end
-person_spell[, too_old_at_start_spell := data.table::fifelse(entry_spell_category > exit_spell_category, 1, 0)]
-person_spell[, too_young_at_exit_spell := data.table::fifelse(exit_spell_category < birth_date + ceiling(15 * 365.25), 1, 0)]
+# find spells that end before they start (using original start/end)
+person_spell[, starts_after_ending := data.table::fifelse(exit_spell_category < entry_spell_category, 1, 0)]
 
 # find spells that are shorter than x days (using cleaned start/end)
 person_spell[, spell_less_than_12_months_fup := data.table::fifelse(
