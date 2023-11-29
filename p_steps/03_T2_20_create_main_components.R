@@ -29,7 +29,7 @@ if (nrow(meanings_event) == 0) {
 
 temp_meanings_visit <- meanings_of_this_study_dap[["meaning_of_visit"]]
 meanings_visit <- lapply(names(temp_meanings_visit),
-                           function(x) data.table(meaning_of_visit = temp_meanings_visit[[x]], new = x))
+                         function(x) data.table(meaning_of_visit = temp_meanings_visit[[x]], new = x))
 meanings_visit <- data.table::rbindlist(meanings_visit)
 if (nrow(meanings_visit) == 0) {
   meanings_visit <- data.table::data.table(meaning_of_visit = character(), new = character())
@@ -83,6 +83,16 @@ if (nrow(outcome_df[meaning_of_visit_recoded != meaning_of_event_recoded, ]) > 0
 outcome_df[, meaning_renamed := meaning_of_event_recoded]
 outcome_df[, c("meaning_of_event_recoded", "meaning_of_visit_recoded") := NULL]
 
+# Set keys and then foverlaps to find the events inside a spell
+setkey(D3_study_population_SAP1, person_id, entry_spell_category, cohort_exit_date)
+setkey(outcome_df, person_id, date, date)
+outcome_df <- better_foverlaps(D3_study_population_SAP1, outcome_df, by.x = key(D3_study_population_SAP1),
+                               nomatch = NULL)
+outcome_df <- unique(outcome_df[, .(person_id, date, concept, meaning_renamed)])
+
+# Save cleaned outcomes
+smart_save(outcome_df, dirtemp, override_name = "D3_outcomes_cleaned", extension = extension, save_copy = "csv")
+
 ### IMPORTANT recurrent event for MS and SLE
 # Create lag date
 outcome_df[, date := as.integer(date)]
@@ -119,6 +129,15 @@ dp_df <- rbindlist(lapply(DP_variables, function(x) {
   return(get(load(paste0(dirconceptsets, x, ".RData"))[[1]]
   )[, .(person_id, date)][, meaning_renamed := meaning_renamed][, concept := meaning_components[2]])}
 ))
+
+# Set keys and then foverlaps to find the events inside a spell
+setkey(D3_study_population_SAP1, person_id, entry_spell_category, cohort_exit_date)
+setkey(dp_df, person_id, date, date)
+dp_df <- better_foverlaps(D3_study_population_SAP1, dp_df, by.x = key(D3_study_population_SAP1),
+                               nomatch = NULL)
+dp_df <- unique(dp_df[, .(person_id, date, concept, meaning_renamed)])
+
+smart_save(dp_df, dirtemp, override_name = "D3_drug_proxies_cleaned", extension = extension, save_copy = "csv")
 
 # Combine outcomes and drug proxies
 concept_df <- rbindlist(list(outcome_df, dp_df), use.names = T)
