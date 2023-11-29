@@ -1,6 +1,10 @@
 person_id,start_date_record,end_date_record,event_code,event_record_vocabulary,text_linked_to_event_code,event_free_text,present_on_admission,laterality_of_event,meaning_of_event,origin_of_event,visit_occurrence_id
 ConCDM_SIM_200421_00001,20150728,20150728,5679,ICD9,"","","","",emergency_room_diagnosis,PS,PS_1
 ConCDM_SIM_200421_00001,20150728,20150728,"","","","xxxx x x, x",yes,"",emergency_room_presentation,PS,PS_2
+ConCDM_SIM_200421_00003,20180120,20180120,340,ICD9,"","","","",hospitalisation_secondary,PS,PS_11
+ConCDM_SIM_200421_00003,20171225,20171225,340,ICD9,"","","","",hospitalisation_secondary,PS,PS_11
+ConCDM_SIM_200421_00003,20181220,20181220,340,ICD9,"","","","",emergency_room_diagnosis,PS,PS_11
+ConCDM_SIM_200421_00001,20190101,20190101,340,ICD9,"","","","",emergency_room_diagnosis,PS,PS_11
 ConCDM_SIM_200421_00001,20180725,20180725,462,ICD9,"","","","",emergency_room_diagnosis,PS,PS_3
 ConCDM_SIM_200421_00001,20180725,20180725,"","","","xxxx x x, x",yes,"",emergency_room_presentation,PS,PS_4
 ConCDM_SIM_200421_00001,20180727,20180727,7806,ICD9,"","","","",emergency_room_diagnosis,PS,PS_5
@@ -9,10 +13,12 @@ ConCDM_SIM_200421_00001,20190528,20190528,9194,ICD9,"","","","",emergency_room_d
 ConCDM_SIM_200421_00001,20190528,20190528,"","","","xxxx x x, x",yes,"",emergency_room_presentation,PS,PS_8
 ConCDM_SIM_200421_00001,20190811,20190811,78703,ICD9,"","","","",emergency_room_diagnosis,PS,PS_9
 ConCDM_SIM_200421_00001,20190811,20190811,"","","","xxxx x x, x",yes,"",emergency_room_presentation,PS,PS_10
+ConCDM_SIM_200421_00001,20191231,20191231,340,ICD9,"","","","",emergency_room_diagnosis,PS,PS_11
 ConCDM_SIM_200421_00001,20191231,20191231,463,ICD9,"","","","",emergency_room_diagnosis,PS,PS_11
 ConCDM_SIM_200421_00001,20191231,20191231,"","","","xxxx x x, x",yes,"",emergency_room_presentation,PS,PS_12
-ConCDM_SIM_200421_00003,20190404,20190404,78906,ICD9,"","","","",emergency_room_diagnosis,PS,PS_13
-ConCDM_SIM_200421_00003,20190404,20190404,340,ICD9,"","","","",emergency_room_diagnosis,PS,PS_9999
+ConCDM_SIM_200421_00003,20190104,20190104,340,ICD9,"","","","",emergency_room_diagnosis,PS,PS_9999
+ConCDM_SIM_200421_00003,20190404,20190404,78906,ICD9,"","","","",hospitalisation_secondary,PS,PS_13
+ConCDM_SIM_200421_00003,20190404,20190404,340,ICD9,"","","","",hospitalisation_secondary,PS,PS_9999
 ConCDM_SIM_200421_00003,20190404,20190404,"","","","xxxx x x, x",yes,"",emergency_room_presentation,PS,PS_14
 ConCDM_SIM_200421_00003,20190804,20190804,78906,ICD9,"","","","",emergency_room_diagnosis,PS,PS_13
 ConCDM_SIM_200421_00003,20190804,20190804,340,ICD9,"","","","",emergency_room_diagnosis,PS,PS_9999
