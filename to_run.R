@@ -4,6 +4,15 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.4.0 - 29 November 2023
+# Fixed lookback prevalence
+# Cleaned final lookback datasets
+# Fixed meaning_of_event for FERR
+# Added filter for FISABIO when loading pregnancies
+
+# v2.3.10 - 16 November 2023
+# Modified order of exclusion criteria evaluation
+
 # v2.3.9 - 15 November 2023
 # Moved some meaning_of_event for FISABIO from INPATIENT to UNSPECIFIED
 
@@ -148,6 +157,7 @@ launch_step("p_steps/03_T2_20_create_main_components.R")
 launch_step("p_steps/03_T2_21_create_components_MS.R")
 launch_step("p_steps/03_T2_22_create_components_SLE.R")
 launch_step("p_steps/03_T2_30_create_algorithms_MS.R")
+launch_step("p_steps/03_T2_31_create_algorithms_lookback.R")
 
 # COMPUTE PREVALENCE
 launch_step("p_steps/03_T3_40_compute_period_prevalence_MS.R")
