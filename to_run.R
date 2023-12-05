@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.4.1 - 06 December 2023
+# Fixed algorihtms for lookback prevalence
+# FISABIO does not need filter for pregnancies anymore
+
 # v2.4.0 - 29 November 2023
 # Fixed lookback prevalence
 # Cleaned final lookback datasets
