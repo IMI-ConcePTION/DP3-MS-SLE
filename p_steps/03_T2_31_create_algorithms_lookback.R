@@ -102,16 +102,16 @@ if (thisdatasource %in% datasources_only_preg) {
   
   # Create the algorithms (For full specification see codebook)
   combined_df_MS[, M1 := as.integer(combination_diag_spec_MS >= 1)]
-  combined_df_MS[, M2 := as.integer(any(combination_diag_spec_MS >= 2,
-                                        all(combination_diag_spec_MS >= 1, DMT_UNSPEC >= 1)))]
-  combined_df_MS[, M3 := as.integer(any(combination_diag_spec_MS >= 3,
-                                        all(combination_diag_spec_MS >= 2, DMT_UNSPEC >= 1),
-                                        all(combination_diag_spec_MS >= 1, DMT_UNSPEC >= 2)))]
-  combined_df_MS[, M4 := as.integer(any(INPATIENT >= 1,
-                                        combination_diag_outpatient_no_pc_PC_unspec_MS >= 2))]
-  combined_df_MS[, M5 := as.integer(any(combination_diag_outpatient_no_pc_PC_unspec_MS >= 2,
-                                        INPATIENT >= 2,
-                                        all(combination_diag_outpatient_no_pc_PC_unspec_MS >= 1, INPATIENT >= 1)))]
+  combined_df_MS[, M2 := as.integer(pmax(combined_df_MS$combination_diag_spec_MS >= 2,
+                                         pmin(combined_df_MS$combination_diag_spec_MS >= 1, combined_df_MS$DMT_UNSPEC >= 1)))]
+  combined_df_MS[, M3 := as.integer(pmax(combination_diag_spec_MS >= 3,
+                                         pmin(combination_diag_spec_MS >= 2, DMT_UNSPEC >= 1),
+                                         pmin(combination_diag_spec_MS >= 1, DMT_UNSPEC >= 2)))]
+  combined_df_MS[, M4 := as.integer(pmax(INPATIENT >= 1,
+                                         combination_diag_outpatient_no_pc_PC_unspec_MS >= 2))]
+  combined_df_MS[, M5 := as.integer(pmax(combination_diag_outpatient_no_pc_PC_unspec_MS >= 2,
+                                         INPATIENT >= 2,
+                                         pmin(combination_diag_outpatient_no_pc_PC_unspec_MS >= 1, INPATIENT >= 1)))]
   
   # Long format to add lookback variable to algorithms
   combined_df_MS<- melt(combined_df_MS, id.vars = c("person_id", "lookback"),
@@ -157,13 +157,13 @@ if (thisdatasource %in% datasources_only_preg) {
                   .SDcols = c("INPATIENT", "PC", "OUTPATIENT_NO_PC", "LONGTERM", "UNSPECIFIED")]
   
   # Create the algorithSLE (For full specification see codebook)
-  combined_df_SLE[, M1 := as.integer(any(INPATIENT >= 1,
-                                         OUTPATIENT_NO_PC >= 2))]
+  combined_df_SLE[, M1 := as.integer(pmax(INPATIENT >= 1,
+                                          OUTPATIENT_NO_PC >= 2))]
   combined_df_SLE[, M2 := as.integer(combination_diag_spec_SLE >= 1)]
-  combined_df_SLE[, M3 := as.integer(any(combination_diag_spec_SLE >= 2,
-                                         all(combination_diag_spec_SLE >= 1, DMT >= 1)))]
-  combined_df_SLE[, M4 := as.integer(any(combination_diag_spec_SLE >= 3,
-                                         all(combination_diag_spec_SLE >= 2, DMT >= 1)))]
+  combined_df_SLE[, M3 := as.integer(pmax(combination_diag_spec_SLE >= 2,
+                                          pmin(combination_diag_spec_SLE >= 1, DMT >= 1)))]
+  combined_df_SLE[, M4 := as.integer(pmax(combination_diag_spec_SLE >= 3,
+                                          pmin(combination_diag_spec_SLE >= 2, DMT >= 1)))]
   combined_df_SLE[, M5 := as.integer(combination_diag_spec_SLE >= 4)]
   
   # Long format to add lookback variable to algorithms
