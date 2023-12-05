@@ -3,8 +3,8 @@
 #-----------------------------------
 # understand which datasource the script is querying
 
-#setwd("..")
-#setwd("..")
+# setwd("..")
+# setwd("..")
 # dirbase <- getwd()
 # dirinput <- paste0(dirbase,"/CDMInstances/CVM2205_EFFICACY_CHILDREN/")
 # dirpregnancy <- paste0(thisdir,"/i_simulated_data_instance/pregnancy/")
