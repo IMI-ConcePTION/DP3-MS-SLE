@@ -15,7 +15,6 @@ if (thisdatasource %in% datasources_obs_per_from_pregnancies) {
   OBSERVATION_PERIODS_preg <- as.data.table(get(load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))[[1]]))
   
   setnames(OBSERVATION_PERIODS_preg, c("pregnancy_start_date", "pregnancy_end_date"), c("op_start_date", "op_end_date"))
-  OBSERVATION_PERIODS_preg <- OBSERVATION_PERIODS_preg[GGDE == 0 & GGDS == 0, ]
   OBSERVATION_PERIODS_preg <- OBSERVATION_PERIODS_preg[, .(person_id, op_start_date, op_end_date)]
   
   OBSERVATION_PERIODS_preg[, op_meaning := "pregnancy"]
