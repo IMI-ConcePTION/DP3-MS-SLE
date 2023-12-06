@@ -43,9 +43,16 @@
       <description></description>
     </item>
     <item>
+      <title>D3_algorithms_MS</title>
+      <link>/step_3/d3_algorithms_ms/index.html</link>
+      <pubDate>Wed, 06 Dec 2023 00:00:00 +0000</pubDate>
+      <guid>/step_3/d3_algorithms_ms/index.html</guid>
+      <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;name of the D3&#34;,&#34;content of the D3&#34;,&#34;Unit of observation&#34;,&#34;How many observations per unit&#34;,&#34;Notes on dependencies&#34;,&#34;Primary key&#34;,null,null,null,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D3_algorithms_MS&#34;,&#34;contains the dates when each person in the study population becomes positive for MS according to any of the 5 algorithms&#34;,&#34;a person in the SAP1 study population&#34;,&#34;as many as the times the person becomes first positive for one of the algorithms (maximum: 5)&#34;</description>
+    </item>
+    <item>
       <title>D3_algorithms_multiple_lookback_MS</title>
       <link>/step_3/d3_algorithms_multiple_lookback_ms/index.html</link>
-      <pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 06 Dec 2023 00:00:00 +0000</pubDate>
       <guid>/step_3/d3_algorithms_multiple_lookback_ms/index.html</guid>
       <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;name of the D3&#34;,&#34;content of the D3&#34;,&#34;Unit of observation&#34;,&#34;How many observations per unit&#34;,&#34;Notes on dependencies&#34;,&#34;Primary key&#34;,&#34;parameters&#34;,null,null,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D3_algorithms_multiple_lookback_MS&#34;,&#34;only for women in the study at 31 december 2019 and in the population since 5 or 10 years: individual-level prevalence of all 5 algorithms calculated with multiple look back periods&#34;,&#34;women in the study at 31 december 2019 and in the population since at least 5 years&#34;</description>
     </item>
