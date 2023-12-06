@@ -102,8 +102,8 @@ if (thisdatasource %in% datasources_only_preg) {
   
   # Create the algorithms (For full specification see codebook)
   combined_df_MS[, M1 := as.integer(combination_diag_spec_MS >= 1)]
-  combined_df_MS[, M2 := as.integer(pmax(combined_df_MS$combination_diag_spec_MS >= 2,
-                                         pmin(combined_df_MS$combination_diag_spec_MS >= 1, combined_df_MS$DMT_UNSPEC >= 1)))]
+  combined_df_MS[, M2 := as.integer(pmax(combination_diag_spec_MS >= 2,
+                                         pmin(combination_diag_spec_MS >= 1, DMT_UNSPEC >= 1)))]
   combined_df_MS[, M3 := as.integer(pmax(combination_diag_spec_MS >= 3,
                                          pmin(combination_diag_spec_MS >= 2, DMT_UNSPEC >= 1),
                                          pmin(combination_diag_spec_MS >= 1, DMT_UNSPEC >= 2)))]
