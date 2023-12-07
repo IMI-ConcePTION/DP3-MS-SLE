@@ -10,7 +10,6 @@ ignoreFiles: ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\
 permalinks:
   data-models: /:slug/
 title: CVM Documentation
-disableAssetsBusting: yes
 outputs:
   home:
     - HTML
@@ -123,12 +122,13 @@ params:
   breadcrumbSeparator: '>'
   collapsibleMenu: yes
   description: CVM Documentation
+  disableAssetsBusting: yes
   disableBreadcrumb: no
   disableInlineCopyToClipBoard: yes
   disableLandingPageButton: no
+  disableLanguageSwitchingButton: yes
   disableNextPrev: no
   disableSeoHiddenPages: yes
-  disableLanguageSwitchingButton: yes
   mermaidInitialize: '{ "securityLevel": "loose" }'
   mermaidZoom: yes
   showVisitedLinks: no
