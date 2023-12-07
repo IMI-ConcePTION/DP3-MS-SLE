@@ -1,12 +1,12 @@
 ---
 weight: 3
 name_excel: "D3_DU_MS-COHORT.xlsx"
-description: "contains the subset of the study population who have MS based on the algorithm chosen at the end of SAP1"
+description: "contains the subset of the study population who have MS based on the algorithm chosen at the end of SAP1 and that comply with the exclusion criteria of the DU study (stored in D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort and in section 4.3.1 of the DU SAP)"
 slug: "D3_DU_MS-COHORT"
-datetime: 1.7018732e+09
+datetime: 1.7019569e+09
 title: D3_DU_MS-COHORT
 author: ''
-date: '2023-12-06'
+date: '2023-12-07'
 categories: []
 tags: []
 archetype: codebook
