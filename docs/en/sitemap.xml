@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>/step_7/d3_du_selection_criteria_from_sap1_ms_cohort_to_du_ms_cohort/index.html</loc>
-    <lastmod>2023-12-06T00:00:00+00:00</lastmod>
+    <lastmod>2023-12-07T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_8/d3_du_pregnancy-cohort/index.html</loc>
@@ -103,6 +103,10 @@
   <url>
     <loc>/step_6/d4_prevalence_aggregated_multiple_lookback_ms_selected/index.html</loc>
     <lastmod>2023-11-06T00:00:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>/step_7/d3_du_ms-cohort/index.html</loc>
+    <lastmod>2023-12-06T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_3/d5_meaning_occurences/index.html</loc>
@@ -154,7 +158,7 @@
   </url>
   <url>
     <loc>/step_3/d3_algorithms_ms/index.html</loc>
-    <lastmod>2023-12-06T00:00:00+00:00</lastmod>
+    <lastmod>2023-12-07T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>/step_7/d5_du_flowchart_exclusion_criteria_from_pregnancies_to_pregnancy-cohort_and_ms-pregnancy-cohort/index.html</loc>
@@ -218,7 +222,7 @@
   </url>
   <url>
     <loc>/index.html</loc>
-    <lastmod>2023-12-06T00:00:00+00:00</lastmod>
+    <lastmod>2023-12-07T00:00:00+00:00</lastmod>
     <xhtml:link rel="alternate" hreflang="x-default" href="/index.html" />
     <xhtml:link rel="alternate" hreflang="en" href="/index.html" />
     <xhtml:link rel="alternate" hreflang="pir" href="/pir/index.html" />
