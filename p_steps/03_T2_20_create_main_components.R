@@ -126,8 +126,15 @@ dp_df <- rbindlist(lapply(DP_variables, function(x) {
   # Recode meaning with names used in the algorithms
   meaning_renamed <- fifelse(!is.na(meaning_components[3]), paste0(meaning_components[1], "_", meaning_components[3]),
                              meaning_components[1])
-  return(get(load(paste0(dirconceptsets, x, ".RData"))[[1]]
-  )[, .(person_id, date)][, meaning_renamed := meaning_renamed][, concept := meaning_components[2]])}
+  
+  concept <- get(load(paste0(dirconceptsets, x, ".RData"))[[1]])
+  for (code in names(medicinal_products_date[[thisdatasource]][[x]])) {
+    concept <- concept[!(codvar == code & date < medicinal_products_date[[thisdatasource]][[x]][[code]]), ]
+  }
+  concept <- concept[, .(person_id, date)]
+  concept[, meaning_renamed := meaning_renamed][, concept := meaning_components[2]]
+  
+  return(concept)}
 ))
 
 # Set keys and then foverlaps to find the events inside a spell

@@ -72,6 +72,9 @@ rm(meanings_of_this_study)
 
 
 
+medicinal_products_date <- list()
+medicinal_products_date[["SAIL Databank"]][["DMT-MS_SPEC"]][["L04AA34"]] <- ymd(20130101)
+medicinal_products_date[["SAIL Databank"]][["DMT-MS_SPEC"]][["L04AC01"]] <- ymd(20160101)
 
 
 
