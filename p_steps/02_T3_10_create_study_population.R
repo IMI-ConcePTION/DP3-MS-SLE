@@ -19,12 +19,16 @@ selected_population <- CreateFlowChart(
                    "less_than_12_months_fup", "all_entry_spell_category_cleaned", "all_exit_spell_category_cleaned"),
   flowchartname = "Flowchart_exclusion_criteria")
 
-fwrite(get("Flowchart_exclusion_criteria"),
-       paste0(direxp, "Flowchart_exclusion_criteria.csv"))
+# Find if a level contains at least a value to censor
+summary_threshold <- 5
+tmp <- copy(Flowchart_exclusion_criteria)[, N := lapply(.SD,
+                                                        function(x) fifelse(as.integer(x) < 5  & as.integer(x) > 0,
+                                                                            paste0("<5"), as.character(x))),
+                                          .SDcols = "N"]
+
+smart_save(tmp, direxpmask, override_name = "Flowchart_exclusion_criteria_masked", extension = "csv")
+smart_save(Flowchart_exclusion_criteria, direxp, extension = "csv")
 
 smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_study_population_SAP1", extension = extension, save_copy = "csv")
 
-update_vector("datasets_to_censor", dirpargen, "Flowchart_exclusion_criteria")
-update_vector("variables_to_censor", dirpargen, c("N" = 5))
 
-update_vector("datasets_to_censor_check", dirpargen, "Flowchart_exclusion_criteria")
