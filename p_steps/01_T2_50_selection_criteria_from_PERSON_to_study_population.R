@@ -1,8 +1,8 @@
-# -----------------------------------------------------
-# CREATE EXCLUSION CRITERIA for persons/spells
-
-# input: D3_PERSONS, OBSERVATION_PERIODS, output_spells_category
-# output: D3_sel_cri
+##%######################################################%##
+#                                                          #
+####    CREATE EXCLUSION CRITERIA FOR PERSONS/SPELLS    ####
+#                                                          #
+##%######################################################%##
 
 print('CREATE EXCLUSION CRITERIA FOR STUDY POPULATION')
 

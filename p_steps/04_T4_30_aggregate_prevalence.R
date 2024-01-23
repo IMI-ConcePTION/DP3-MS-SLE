@@ -1,6 +1,9 @@
-# Create D4_prevalence_aggregated_all_MS
-# input: D3_study_population_SAP1, conceptset
-# output: D3_clean_spells
+##%######################################################%##
+#                                                          #
+####           AGGREGATE PERIOD, PERSONTIME,            ####
+####              AVERAGE POINT PREVALENCE              ####
+#                                                          #
+##%######################################################%##
 
 for (outcome in OUTCOME_variables) {
   print(outcome)

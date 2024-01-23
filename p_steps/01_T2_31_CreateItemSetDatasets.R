@@ -1,9 +1,8 @@
-# -----------------------------------------------------------------------
-# RETRIEVE ITEMSET DATASETS
-
-# input: SURVEY_ID, SURVEY_OBSERVATIONS
-# output: itemset datasets
-
+##%######################################################%##
+#                                                          #
+####             RETRIEVE ITEMSET DATASETS              ####
+#                                                          #
+##%######################################################%##
 
 print("RETRIEVE ITEMSETS")
 

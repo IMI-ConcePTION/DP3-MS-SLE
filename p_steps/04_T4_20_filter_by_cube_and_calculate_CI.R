@@ -1,6 +1,9 @@
-# Create D4_prevalence_period_MS
-# input: D3_study_population_SAP1, conceptset
-# period_prevalence: D3_clean_spells
+##%######################################################%##
+#                                                          #
+####               FILTER BY Cube LEVELS                ####
+####          and CALCULATE PREVALENCE and CI           ####
+#                                                          #
+##%######################################################%##
 
 for (outcome in OUTCOME_variables) {
   print(outcome)

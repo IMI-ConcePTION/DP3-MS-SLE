@@ -1,7 +1,10 @@
-# Create D3_main_components
-# input: D3_study_population_SAP1, conceptset
-# output: D3_clean_spells
-# Load person_id in study_populations
+##%######################################################%##
+#                                                          #
+####             CHECK OCCURENCES OF EVENT              ####
+####             DIVIDED BY MEANING RECODED             ####
+#                                                          #
+##%######################################################%##
+
 
 smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
 D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id, entry_spell_category, cohort_entry_date,

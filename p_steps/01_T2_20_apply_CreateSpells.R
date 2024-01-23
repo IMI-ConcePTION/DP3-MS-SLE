@@ -1,9 +1,8 @@
-# OBSERVATION PER IODS -----------------------------------------------------
-#COMPUTE SPELLS
-
-# input: OBSERVATION_PERIODS
-# output: D3_output_spells_category
-
+##%######################################################%##
+#                                                          #
+####      COMPUTE SPELLS FROM OBSERVATION_PERIODS       ####
+#                                                          #
+##%######################################################%##
 
 print("COMPUTE SPELLS OF TIME FROM OBSERVATION_PERIODS")
 

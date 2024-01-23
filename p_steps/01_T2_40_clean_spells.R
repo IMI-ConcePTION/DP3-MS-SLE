@@ -1,7 +1,9 @@
-# CLEAN THE SPELLS
-
-# input: D3_output_spells_category
-# output: D3_clean_spells
+##%######################################################%##
+#                                                          #
+####            CLEAN THE SPELLS and CREATE             ####
+####        BASIS FOR FUTURE EXCLUSION CRITERIAS        ####
+#                                                          #
+##%######################################################%##
 
 # Load datasets
 smart_load("D3_PERSONS", dirtemp, extension = extension)

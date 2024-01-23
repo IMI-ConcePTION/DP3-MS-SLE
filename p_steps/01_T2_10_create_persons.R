@@ -1,8 +1,9 @@
-# -----------------------------------------------------
-# CREATE EXCLUSION CRITERIA and CHECK CORRECT DATE OF BIRTH
-
-# input: PERSONS, OBSERVATION_PERIODS
-# output: D3_PERSONS, D3_events_DEATH
+##%######################################################%##
+#                                                          #
+####         CLEAN PERSONS, CHECK CORRECT DATE          ####
+####       OF BIRTH/DEATH and CREATE DEATH EVENT        ####
+#                                                          #
+##%######################################################%##
 
 print('PRE-PROCESSING OF PERSONS')
 
