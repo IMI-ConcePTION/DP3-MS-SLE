@@ -22,7 +22,7 @@ concept_set_codes_our_study_pre[["MS"]][["READ"]] <- c("F20..00", "F203.00", "F2
 
 concept_set_codes_our_study_pre[["DMT-MS_SPEC"]][["ATC"]] <- c("L04AA34", "L04AC01", "N07XX09", "L04AX07", "L04AA27",
                                                                "L03AX13", "L03AB07", "L03AB08", "L04AA36", "L03AB13",
-                                                               "L04AA31", "L01XC10", "L01FA02", "L04AA42")
+                                                               "L04AA31", "L04AA42")
 
 #--------------------------
 # MS-non-specific DMT (DMT-MS_UNSPEC)
