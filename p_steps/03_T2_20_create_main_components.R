@@ -64,7 +64,7 @@ meaning_occurences <- meaning_occurences[, count := lapply(.SD,
                                                            function(x) fifelse(as.integer(x) < 5  & as.integer(x) > 0,
                                                                                paste0("<5"), as.character(x))),
                                          .SDcols = "count"]
-smart_save(meaning_occurences, direxp, override_name = "D5_meaning_occurences_masked", extension = "csv")
+smart_save(meaning_occurences, direxpmask, override_name = "D5_meaning_occurences_masked", extension = "csv")
 
 # update_vector("datasets_to_censor", dirpargen, "D5_meaning_occurences")
 # update_vector("variables_to_censor", dirpargen, c("count" = 5))
@@ -128,8 +128,11 @@ dp_df <- rbindlist(lapply(DP_variables, function(x) {
                              meaning_components[1])
   
   concept <- get(load(paste0(dirconceptsets, x, ".RData"))[[1]])
-  for (code in names(medicinal_products_date[[thisdatasource]][[x]])) {
-    concept <- concept[!(codvar == code & date < medicinal_products_date[[thisdatasource]][[x]][[code]]), ]
+  for (code in names(medicinal_products_date[[thisdatasource]][[x]][["start"]])) {
+    concept <- concept[!(codvar == code & date < medicinal_products_date[[thisdatasource]][[x]][["start"]][[code]]), ]
+  }
+  for (code in names(medicinal_products_date[[thisdatasource]][[x]][["end"]])) {
+    concept <- concept[!(codvar == code & date > medicinal_products_date[[thisdatasource]][[x]][["end"]][[code]]), ]
   }
   concept <- concept[, .(person_id, date)]
   concept[, meaning_renamed := meaning_renamed][, concept := meaning_components[2]]
