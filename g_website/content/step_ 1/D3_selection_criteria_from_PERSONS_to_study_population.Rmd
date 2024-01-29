@@ -1,0 +1,18 @@
+---
+weight: 7
+name_excel: "D3_selection_criteria_from_PERSONS_to_study_population.xlsx"
+description: "`r get_description(rmarkdown::metadata$name_excel)`"
+slug: "D3_selection_criteria_from_PERSONS_to_study_population"
+datetime: 1.7065268e+09
+title: D3_selection_criteria_from_PERSONS_to_study_population
+author: ''
+date: '2024-01-29'
+categories: []
+tags: []
+archetype: codebook
+output: html_document
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+html_codebook(rmarkdown::metadata$name_excel)
+```

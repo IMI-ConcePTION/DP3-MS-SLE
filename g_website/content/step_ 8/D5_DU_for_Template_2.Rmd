@@ -1,0 +1,18 @@
+---
+weight: 2
+name_excel: "D5_DU_for_Template_2.xlsx"
+description: "`r get_description(rmarkdown::metadata$name_excel)`"
+slug: "D5_DU_for_Template_2"
+datetime: 1.7065272e+09
+title: D5_DU_for_Template_2
+author: ''
+date: '2024-01-29'
+categories: []
+tags: []
+archetype: codebook
+output: html_document
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+html_codebook(rmarkdown::metadata$name_excel)
+```

@@ -1,5 +1,75 @@
 var relearn_search_index = [
   {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_-1/index.html"
+  },
+  {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_-2/index.html"
+  },
+  {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_-3/index.html"
+  },
+  {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_-4/index.html"
+  },
+  {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_-5/index.html"
+  },
+  {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_-6/index.html"
+  },
+  {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_-7/index.html"
+  },
+  {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_-8/index.html"
+  },
+  {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_-9/index.html"
+  },
+  {
+    "content": "\r ",
+    "description": "",
+    "tags": [],
+    "title": "_index.en",
+    "uri": "/step_na/index.html"
+  },
+  {
     "content": "\r\r\r\r\r\rMetadata\rData Model\rParameters\rExample\r\r\r{\"x\":{\"tag\":{\"name\":\"Reactable\",\"attribs\":{\"data\":{\"medatata_name\":[\"name of the D3\",\"content of the D3\",\"Unit of observation\",\"Dataset where the list of UoOs is fully listed and with 1 record per UoO\",\"How many observations per UoO\",\"NxUoO\",\"Variables capturing the UoO\",\"Primary key\",\"Parameters\",null,null,null,null,null,null,null,null,null,null,null],\"metadata_content\":[\"D3_SAP1_MS-COHORT\",\"contains the cohort of study population who have MS based on the algorithm chosen at the end of SAP1\",\"a person in the SAP1 study population\",\"D3_study_population_SAP1\",\"maximum one, only if they have MS according to the chosen algorithm\",\"= 0 AND \r\r{\"x\":{\"tag\":{\"name\":\"Reactable\",\"attribs\":{\"data\":{\"Variable\":[\"person_id \",\"date_MS\",\"entry_spell_category\",\"birth_date\",\"cohort_entry_date\",\"cohort_exit_date\",null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Description\":[\"unique person identifier \",\"when they are diagnosed with MS according to the chosen algorithm D3_algorithms_MS/date where algorithm == MS_chosen\",\"date when the person starts to be observed in the data source\",null,\"Date when the person enters the study\",\"Date when the person exits the study\",null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Format\":[\"character \",null,\"date\",null,\"date\",\"date\",null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Vocabulary\":[\"from cdm persons \",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Parameters\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Notes and examples\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Retrieved\":[\"yes\",\"yes\",\"yes\",\"yes\",\"yes\",\"yes\",null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Created\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Algorithm_id\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Rule\":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},\"columns\":[{\"id\":\"Variable\",\"name\":\"Variable\",\"type\":\"character\"},{\"id\":\"Description\",\"name\":\"Description\",\"type\":\"character\"},{\"id\":\"Format\",\"name\":\"Format\",\"type\":\"character\"},{\"id\":\"Vocabulary\",\"name\":\"Vocabulary\",\"type\":\"character\"},{\"id\":\"Parameters\",\"name\":\"Parameters\",\"type\":\"logical\"},{\"id\":\"Notes and examples\",\"name\":\"Notes and examples\",\"type\":\"logical\"},{\"id\":\"Retrieved\",\"name\":\"Retrieved\",\"type\":\"character\"},{\"id\":\"Created\",\"name\":\"Created\",\"type\":\"logical\"},{\"id\":\"Algorithm_id\",\"name\":\"Algorithm_id\",\"type\":\"logical\"},{\"id\":\"Rule\",\"name\":\"Rule\",\"type\":\"logical\"}],\"sortable\":false,\"searchable\":true,\"pagination\":false,\"highlight\":true,\"bordered\":true,\"striped\":true,\"style\":{\"maxWidth\":1800},\"height\":\"600px\",\"dataKey\":\"20d269176ef962ef61dcd0541f6ab909\"},\"children\":[]},\"class\":\"reactR_markup\"},\"evals\":[],\"jsHooks\":[]}\r\r\r{\"x\":{\"tag\":{\"name\":\"Reactable\",\"attribs\":{\"data\":{\"Parameter\":[\"MS_chosen\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"Value\":[\"depends on the choice of the chosen algorithm: can be MS_1, …, MS_5\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]},\"columns\":[{\"id\":\"Parameter\",\"name\":\"Parameter\",\"type\":\"character\"},{\"id\":\"Value\",\"name\":\"Value\",\"type\":\"character\"}],\"sortable\":false,\"searchable\":true,\"pagination\":false,\"highlight\":true,\"bordered\":true,\"striped\":true,\"style\":{\"maxWidth\":1800},\"height\":\"600px\",\"dataKey\":\"ce0b59d831ae6e8e742b7432cc3387af\"},\"children\":[]},\"class\":\"reactR_markup\"},\"evals\":[],\"jsHooks\":[]}\r\r\r{\"x\":{\"tag\":{\"name\":\"Reactable\",\"attribs\":{\"data\":{\"person_id \":[\"P00071\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],\"date_MS\":[20120514,\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\"],\"entry_spell_category\":[20091123,\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\"],\"birth_date\":[19821203,\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\"],\"cohort_entry_date\":[20091123,\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\"],\"cohort_exit_date\":[20191231,\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\",\"NA\"]},\"columns\":[{\"id\":\"person_id \",\"name\":\"person_id \",\"type\":\"character\"},{\"id\":\"date_MS\",\"name\":\"date_MS\",\"type\":\"numeric\"},{\"id\":\"entry_spell_category\",\"name\":\"entry_spell_category\",\"type\":\"numeric\"},{\"id\":\"birth_date\",\"name\":\"birth_date\",\"type\":\"numeric\"},{\"id\":\"cohort_entry_date\",\"name\":\"cohort_entry_date\",\"type\":\"numeric\"},{\"id\":\"cohort_exit_date\",\"name\":\"cohort_exit_date\",\"type\":\"numeric\"}],\"sortable\":false,\"searchable\":true,\"pagination\":false,\"highlight\":true,\"bordered\":true,\"striped\":true,\"style\":{\"maxWidth\":1800},\"height\":\"600px\",\"dataKey\":\"ea1a5b4ad17dd1b7de460c35eef871f6\"},\"children\":[]},\"class\":\"reactR_markup\"},\"evals\":[],\"jsHooks\":[]}\r\r",
     "description": "contains the cohort of study population who have MS based on the algorithm chosen at the end of SAP1",
     "tags": [],
@@ -399,7 +469,7 @@ var relearn_search_index = [
     "uri": "/step_3/d4_prevalence_aggregated_multiple_lookback_ms_summary_level/index.html"
   },
   {
-    "content": "Documentation for the DP3 project _index.en\rD4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORTcontains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy D5_DU_matching_diagnosticNA _index.en\rD3_persons\rD3_output_spells_category\rconceptsetdataset\ritemsetdataset\rpromptsetdataset\rD3_clean_spells\rD3_selection_criteria_from_PERSONS_to_study_population\r_index.en\rD4_study_population_SAP1\rFlowchart_exclusion_criteriacounts of how many indivuals from PERSONS are excluded in the study population _index.en\rD5_N_women_and_ranges_MSvalues needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date _index.en\rD5_N_women_and_ranges_MS_maskedvalues needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date Flowchart_exclusion_criteria_maskedcounts of how many indivuals from PERSONS are excluded in the study population D5_meaning_occurences_maskedcounts for MS and SLE of each original_meaning _index.en\rD4_prevalence_aggregated_MS_selected\rD4_prevalence_aggregated_multiple_lookback_MS_selected\r_index.enD5_DU_for_Template_1numbers to be included in Template 1: Description of the time period between 2 pregnancies in the pregnancy cohort and in the MS-pregnancy cohort D5_DU_flowchart_exclusion_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT\rD5_DU_for_Template_2numbers to be included in Template 2: Description of the time period between MS diagnosis (MS diagnosis date=the date on which the algorithm becomes positive) and pregnancy in the MS-pregnancy cohort D3_DU_PREGNANCY-COHORTcontains the cohort of pregnancies included in the study D3_DU_MS-PREGNANCY-COHORT\rD5_DU_for_Template_4\rD4_DU_prevalence_MS_in_pregnancy_cohortcontains the aggregated prevalence (numerators and denominators) needed to compute prevalence of MS in the pregnancy cohort, to feed Template 4 and 5\nStep_3s\nStep_7s\n ",
+    "content": "Documentation for the DP3 project _index.en\r_index.en\r_index.en\r_index.en\r_index.en\r_index.en\r_index.en\r_index.en\r_index.en\r_index.en\r_index.en\rD4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORTcontains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy D5_DU_matching_diagnosticNA _index.en\rD3_persons\rD3_output_spells_category\rconceptsetdataset\ritemsetdataset\rpromptsetdataset\rD3_clean_spells\rD3_selection_criteria_from_PERSONS_to_study_population\r_index.en\rD4_study_population_SAP1\rFlowchart_exclusion_criteriacounts of how many indivuals from PERSONS are excluded in the study population _index.en\rD5_N_women_and_ranges_MSvalues needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date _index.en\rD5_N_women_and_ranges_MS_maskedvalues needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date Flowchart_exclusion_criteria_maskedcounts of how many indivuals from PERSONS are excluded in the study population D5_meaning_occurences_maskedcounts for MS and SLE of each original_meaning _index.en\rD4_prevalence_aggregated_MS_selected\rD4_prevalence_aggregated_multiple_lookback_MS_selected\r_index.enD5_DU_for_Template_1numbers to be included in Template 1: Description of the time period between 2 pregnancies in the pregnancy cohort and in the MS-pregnancy cohort D5_DU_flowchart_exclusion_criteria_from_pregnancies_to_PREGNANCY-COHORT_and_MS-PREGNANCY-COHORT\rD5_DU_for_Template_2numbers to be included in Template 2: Description of the time period between MS diagnosis (MS diagnosis date=the date on which the algorithm becomes positive) and pregnancy in the MS-pregnancy cohort D3_DU_PREGNANCY-COHORTcontains the cohort of pregnancies included in the study D3_DU_MS-PREGNANCY-COHORT\rD5_DU_for_Template_4\rD4_DU_prevalence_MS_in_pregnancy_cohortcontains the aggregated prevalence (numerators and denominators) needed to compute prevalence of MS in the pregnancy cohort, to feed Template 4 and 5\nStep_3s\nStep_7s\n ",
     "description": "",
     "tags": null,
     "title": "Documentation for DP3 project",

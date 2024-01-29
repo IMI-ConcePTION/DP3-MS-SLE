@@ -1,0 +1,18 @@
+---
+weight: 1
+name_excel: "D4_study_population_SAP1.xlsx"
+description: "`r get_description(rmarkdown::metadata$name_excel)`"
+slug: "D4_study_population_SAP1"
+datetime: 1.7065268e+09
+title: D4_study_population_SAP1
+author: ''
+date: '2024-01-29'
+categories: []
+tags: []
+archetype: codebook
+output: html_document
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+html_codebook(rmarkdown::metadata$name_excel)
+```
