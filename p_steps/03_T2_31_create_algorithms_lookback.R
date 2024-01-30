@@ -45,7 +45,7 @@ if (thisdatasource %in% datasources_only_preg) {
       select(-diff_date)
     
     # Save the dataset in a list
-    combined_df_outcome <- append(combined_df_outcome, list(filter(D3_outcomes_cleaned, !is.na(distance))))
+    combined_df_outcome <- append(combined_df_outcome, list(dplyr::filter(D3_outcomes_cleaned, !is.na(distance))))
   }
   rm(D3_outcomes_cleaned)
   
