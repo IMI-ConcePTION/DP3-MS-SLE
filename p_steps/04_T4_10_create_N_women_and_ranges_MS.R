@@ -1,6 +1,9 @@
-# Create N_women_and_ranges_MS
-# input: D3_study_population_SAP1, conceptset
-# output: D3_clean_spells
+##%######################################################%##
+#                                                          #
+####   CREATE DESCRIPTIVE TABLE D5_N_women_and_ranges   ####
+#                                                          #
+##%######################################################%##
+
 
 for (outcome in OUTCOME_variables) {
   print(outcome)

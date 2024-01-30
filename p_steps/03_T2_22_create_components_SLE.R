@@ -1,7 +1,8 @@
-# Create components
-# input: D3_study_population_SAP1, conceptset
-# output: D3_clean_spells
-# Load person_id in study_populations
+##%######################################################%##
+#                                                          #
+#### CREATE COMPONENTS OF ALGORITHM IN STUDY POPULATION ####
+#                                                          #
+##%######################################################%##
 
 component_algo <- smart_load("D3_main_components", dirtemp, return = T, extension = extension)
 

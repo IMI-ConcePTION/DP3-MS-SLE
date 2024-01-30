@@ -1,6 +1,8 @@
-# Create D4_prevalence_aggregated_multiple_lookback
-# input: D3_study_population_SAP1, conceptset
-# output: D3_clean_spells
+##%######################################################%##
+#                                                          #
+####            COMPUTE LOOKBACK PREVALENCE             ####
+#                                                          #
+##%######################################################%##
 
 for (outcome in OUTCOME_variables) {
   print(outcome)

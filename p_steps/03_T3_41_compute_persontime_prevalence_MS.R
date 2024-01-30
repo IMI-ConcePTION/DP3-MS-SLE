@@ -1,6 +1,8 @@
-# Create D4_prevalence_persontime_MS
-# input: D3_study_population_SAP1, conceptset
-# output: D3_clean_spells
+##%######################################################%##
+#                                                          #
+####           COMPUTE PERSONTIME PREVALENCE            ####
+#                                                          #
+##%######################################################%##
 
 for (outcome in OUTCOME_variables) {
   print(outcome)

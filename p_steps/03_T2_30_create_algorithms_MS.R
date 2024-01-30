@@ -1,6 +1,8 @@
-# Create_algorithms_MS
-# input: D3_study_population_SAP1, conceptset
-# output: D3_clean_spells
+##%######################################################%##
+#                                                          #
+#### RETRIEVE THE ALGORITHMS AND ONLY PERSONS POSITIVE  ####
+#                                                          #
+##%######################################################%##
 
 for (outcome in OUTCOME_variables) {
   print(outcome)

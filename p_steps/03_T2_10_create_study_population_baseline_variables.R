@@ -1,7 +1,8 @@
-# Create D3_study_pop
-
-# input: D3_output_spells_category
-# output: D3_clean_spells
+##%######################################################%##
+#                                                          #
+####    CREATE BASIC VARIABLES FOR STUDY POPULATION     ####
+#                                                          #
+##%######################################################%##
 
 # Load person_id in study_populations
 smart_load("D4_study_population_SAP1", diroutput, extension = extension)

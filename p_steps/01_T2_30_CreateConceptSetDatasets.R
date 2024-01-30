@@ -1,9 +1,9 @@
-
-# APPLY THE FUNCTION CreateConceptSetDatasets TO CREATE ONE DATASET PER CONCEPT SET CONTAINING ONLY RECORDS WITH A CODE OF INTEREST
-
-# input: EVENTS, MEDICINES, SURVEY_OBSERVATIONS, MEDICAL_OBSERVATIONS
-# output: concept set datasets, one per concept set, named after the concept set itself
-
+##%######################################################%##
+#                                                          #
+####   APPLY THE FUNCTION CreateConceptSetDatasets TO   ####
+####           CREATE DATASET FOR CONCEPT SET           ####
+#                                                          #
+##%######################################################%##
 
 print('RETRIEVE FROM CDM RECORDS CORRESPONDING TO CONCEPT SETS')
 

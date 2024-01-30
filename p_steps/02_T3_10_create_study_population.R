@@ -1,8 +1,9 @@
-#---------------------------------------------------------------
-# Apply exclusion criteria to create study population 
-
-# input: D3_selection_criteria_from_PERSONS_to_study_population, D3_selection_criteria_from_PERSONS_to_children_study_population
-# output: Flowchart_exclusion_criteria_children, Flowchart_exclusion_criteria, D4_study_population, D4_children_study_population
+##%######################################################%##
+#                                                          #
+####              APPLY EXCLUSION CRITERIA              ####
+####             TO CREATE STUDY POPULATION             ####
+#                                                          #
+##%######################################################%##
 
 print('FLOWCHART')
 

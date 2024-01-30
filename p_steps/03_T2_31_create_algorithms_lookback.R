@@ -1,3 +1,10 @@
+##%######################################################%##
+#                                                          #
+####               CREATE COMPONENTS AND                ####
+####         ALGORITHM FOR LOOKBACK PERVALENCE          ####
+#                                                          #
+##%######################################################%##
+
 if (thisdatasource %in% datasources_only_preg) {
   print(paste("D3_components_multiple_lookback_MS can't be calculated in datasource with only pregnancies"))
 } else {
