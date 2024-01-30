@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.5.1 - 30 January 2024
+# Updated medicine codelist and algorithms
+# Stability improvement
+
 # v2.5.0 - 23 January 2024
 # Updated medicine codelist with timeline informations
 # Fixed datasets location
