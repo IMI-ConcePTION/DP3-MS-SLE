@@ -15,8 +15,8 @@ D3_study_population_SAP1 <- D3_study_population_SAP1[, c("person_id", "entry_spe
                                                          "cohort_entry_date", "cohort_exit_date")]
 D3_algorithms_MS <- D3_algorithms_MS[, c("person_id", "date")]
 
-# Left join, population into algorithm to keep only persons with a positive record for algorithm
-D3_SAP1_MS_COHORT <- merge(D3_algorithms_MS, D3_study_population_SAP1, all.x = T, by = "person_id")
+# Full join, population with algorithms
+D3_SAP1_MS_COHORT <- merge(D3_algorithms_MS, D3_study_population_SAP1, all = T, by = "person_id")
 
 # Change name of variables
 setnames(D3_SAP1_MS_COHORT, "date", "date_MS")
