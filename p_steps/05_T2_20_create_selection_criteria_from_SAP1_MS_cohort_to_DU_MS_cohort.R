@@ -13,5 +13,6 @@ selection_criteria <- D3_SAP1_MS_COHORT[, never_positive_for_MS_chosen := fifels
 selection_criteria[, women_with_less_than_1_year_fup := fifelse(
   difftime(cohort_exit_date, date_MS, units = "days") < 365, 1, 0)]
 
-smart_save(selection_criteria, dirtemp, override_name = "D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort",
+smart_save(D3_sel_cri, dirtemp, override_name = "D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort",
            extension = extension, save_copy = "csv")
+  
