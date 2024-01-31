@@ -1,6 +1,7 @@
 ##%######################################################%##
 #                                                          #
-####  SELECT SAP 1 POPULATION USING CHOSEN ALGORITHMS   ####
+####              COMBINE SAP 1 POPULATION              ####
+####          AND CHOSEN MS ALGORITHMS EVENTS           ####
 #                                                          #
 ##%######################################################%##
 
