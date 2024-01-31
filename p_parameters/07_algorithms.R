@@ -115,14 +115,8 @@ medicinal_products_date[["EFEMERIS"]][["DMT-MS_SPEC"]][["start"]][["L04AG06"]] <
 medicinal_products_date[["EFEMERIS"]][["DMT-MS_SPEC"]][["start"]][["L04AC01"]] <- ymd(20160101)
 medicinal_products_date[["EFEMERIS"]][["DMT-MS_SPEC"]][["start"]][["L04AA08"]] <- ymd(20160101)
 
-chosen_MS_algorithm <- list()
-chosen_MS_algorithm[["UOSL"]] <- "MS_1"
-chosen_MS_algorithm[["THL"]] <- "MS_1"
-chosen_MS_algorithm[["SAIL Databank"]] <- "MS_1"
-chosen_MS_algorithm[["RDRU_FISABIO"]] <- "MS_1"
-chosen_MS_algorithm[["FERR"]] <- "MS_1"
-chosen_MS_algorithm[["EFEMERIS"]] <- "MS_1"
-chosen_MS_algorithm[["TEST"]] <- "MS_1"
+
+
 
 
 
