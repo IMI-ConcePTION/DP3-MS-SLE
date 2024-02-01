@@ -1,0 +1,18 @@
+---
+weight: 6
+name_excel: "D5_prevalence_persontime_masked.xlsx"
+description: "`r get_description(rmarkdown::metadata$name_excel)`"
+slug: "D5_prevalence_persontime_masked"
+datetime: 1.706792e+09
+title: D5_prevalence_persontime_masked
+author: ''
+date: '2024-02-01'
+categories: []
+tags: []
+archetype: codebook
+output: html_document
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+html_codebook(rmarkdown::metadata$name_excel)
+```

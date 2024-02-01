@@ -6,13 +6,90 @@
     <description>Recent content in _index.en on CVM Documentation</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 04 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="/step_4/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="/step_4/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>D5_N_women_and_ranges_MS</title>
       <link>/step_4/d5_n_women_and_ranges_ms/index.html</link>
-      <pubDate>Sat, 11 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
       <guid>/step_4/d5_n_women_and_ranges_ms/index.html</guid>
       <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D5_N_women_and_ranges_MS&#34;,&#34;values needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date&#34;</description>
+    </item>
+    <item>
+      <title>D5_N_women_and_ranges_MS_masked</title>
+      <link>/step_4/d5_n_women_and_ranges_ms_masked/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_n_women_and_ranges_ms_masked/index.html</guid>
+      <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D5_N_women_and_ranges_MS&#34;,&#34;values needed for Template 1 of the SAP: for each component, N of women, median time in study population and IQR (Years), and median and IQR age at study entry date&#34;</description>
+    </item>
+    <item>
+      <title>D5_prevalence_period</title>
+      <link>/step_4/d5_prevalence_period/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_period/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D5_prevalence_period_masked</title>
+      <link>/step_4/d5_prevalence_period_masked/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_period_masked/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D5_prevalence_persontime</title>
+      <link>/step_4/d5_prevalence_persontime/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_persontime/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D5_prevalence_persontime_masked</title>
+      <link>/step_4/d5_prevalence_persontime_masked/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_persontime_masked/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D5_prevalence_average_point</title>
+      <link>/step_4/d5_prevalence_average_point/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_average_point/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D5_prevalence_average_point_masked</title>
+      <link>/step_4/d5_prevalence_average_point_masked/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_average_point_masked/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D5_prevalence_aggregated_multiple_lookback</title>
+      <link>/step_4/d5_prevalence_aggregated_multiple_lookback/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_aggregated_multiple_lookback/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D5_prevalence_aggregated_multiple_lookback_masked</title>
+      <link>/step_4/d5_prevalence_aggregated_multiple_lookback_masked/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_aggregated_multiple_lookback_masked/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D5_prevalence_aggregated_all</title>
+      <link>/step_4/d5_prevalence_aggregated_all/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_aggregated_all/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D5_prevalence_aggregated_all_masked</title>
+      <link>/step_4/d5_prevalence_aggregated_all_masked/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_4/d5_prevalence_aggregated_all_masked/index.html</guid>
+      <description></description>
     </item>
   </channel>
 </rss>

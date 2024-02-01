@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>_index.en on CVM Documentation</title>
+    <link>/step_10/index.html</link>
+    <description>Recent content in _index.en on CVM Documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 01 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="/step_10/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>D4_DU_prevalence_MS_in_pregnancy_cohort</title>
+      <link>/step_10/d4_du_prevalence_ms_in_pregnancy_cohort/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_10/d4_du_prevalence_ms_in_pregnancy_cohort/index.html</guid>
+      <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;name of the D4&#34;,&#34;content of the D3&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;NxUoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D4_DU_prevalence_MS_in_pregnancy_cohort&#34;,&#34;contains the aggregated prevalence (numerators and denominators) needed to compute prevalence of MS in the pregnancy cohort, to feed Template 4 and 5&#34;,&#34;a stratum that will be needed to populate the templates 4 and 5 in the DU study of MS: 5-years calendar periods, 5-years agebands in the study, and all agebands together for each separate year and all years&#34;</description>
+    </item>
+    <item>
+      <title>D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters</title>
+      <link>/step_10/d4_du_individual_prevalence_of_use_msmeds_in_mspregnancy_trimesters/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_10/d4_du_individual_prevalence_of_use_msmeds_in_mspregnancy_trimesters/index.html</guid>
+      <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;NxUoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters&#34;,&#34;this dataset measures in each MS pregnancy whether the woman used or didn&#39;t use each of the MS medications in the trimesters before or during pregnancy (to ultimately feed Template 3)&#34;</description>
+    </item>
+    <item>
+      <title>D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimesters</title>
+      <link>/step_10/d4_du_prevalence_of_exclusive_use_msmeds_in_mspregnancy_trimesters/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_10/d4_du_prevalence_of_exclusive_use_msmeds_in_mspregnancy_trimesters/index.html</guid>
+      <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;NxUoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimesters&#34;,&#34;this is the aggregation of the individual-level dataset D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters, to feed Template 3. It copntains counts of persons using medicines exclusively in some periods before and during pregnancy&#34;</description>
+    </item>
+    <item>
+      <title>D4_DU_prevalence_of_use_MSdrugs_in_MS_cohort</title>
+      <link>/step_10/d4_du_prevalence_of_use_msdrugs_in_ms_cohort/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_10/d4_du_prevalence_of_use_msdrugs_in_ms_cohort/index.html</guid>
+      <description>MetadataData ModelParametersExample{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;NxUoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D4_DU_prevalence_of_use_MSdrugs_in_MS_cohort&#34;,&#34;contains the aggregated numerators needed to compute prevalence of use of MS medications in the MS cohort, to feed Template 6 and 7.&#34;,&#34;a stratum that will be needed to populate the following templates in in the DU study of MS: 6 (Prevalence of MS medication in women of childbearing age with MS at cohort entry over time) and 7 (Prevalence of MS medication in women of childbearing age with MS at cohort entry by study period and age group)&#34;</description>
+    </item>
+    <item>
+      <title>D4_DU_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort</title>
+      <link>/step_10/d4_du_prevalence_of_use_msdrugs_in_mspregnancy_cohort/index.html</link>
+      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>/step_10/d4_du_prevalence_of_use_msdrugs_in_mspregnancy_cohort/index.html</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

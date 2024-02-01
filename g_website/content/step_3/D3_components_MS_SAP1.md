@@ -1,12 +1,12 @@
 ---
-weight: 4
+weight: 7
 name_excel: "D3_components_MS_SAP1.xlsx"
 description: "contains the components of MS and their combinations. Components and combination are expressed as dates to allow for computation of prevalence. This D3 is based on Table 1 of the SAP1"
 slug: "D3_components_MS_SAP1"
-datetime: 1.7019568e+09
+datetime: 1.706792e+09
 title: D3_components_MS_SAP1
 author: ''
-date: '2023-12-07'
+date: '2024-02-01'
 categories: []
 tags: []
 archetype: codebook

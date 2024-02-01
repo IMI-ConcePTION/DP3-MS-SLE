@@ -3,9 +3,10 @@ weight: 6
 name_excel: "D3_clean_spells.xlsx"
 description: "`r get_description(rmarkdown::metadata$name_excel)`"
 slug: "D3_clean_spells"
+datetime: 1.7067919e+09
 title: D3_clean_spells
 author: ''
-date: '2023-11-06'
+date: '2024-02-01'
 categories: []
 tags: []
 archetype: codebook
