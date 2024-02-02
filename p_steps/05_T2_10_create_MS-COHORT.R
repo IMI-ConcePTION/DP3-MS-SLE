@@ -8,7 +8,7 @@
 smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
 smart_load("D3_algorithms_MS", dirtemp, extension = extension)
 
-# Keep only records realted to the chosen algorithm from SAP 1
+# Keep only records related to the chosen algorithm from SAP 1
 D3_algorithms_MS <- D3_algorithms_MS[algorithm == chosen_MS_algorithm[[thisdatasource]], ]
 
 # Keep only necessary columns
