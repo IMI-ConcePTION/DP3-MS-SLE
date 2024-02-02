@@ -13,9 +13,9 @@ selection_criteria <- D3_SAP1_MS_COHORT[, never_positive_for_MS_chosen := data.t
 selection_criteria[, women_diagnosed_outside_childbearing_age := data.table::fifelse(
   date_MS >= (lubridate::ymd(birth_date) %m+% years(50)), 1, 0)]
 
-# Remove persons with less than 1 year of followup after diagnosis
+# Remove persons with less than 1 year of followup after diagnosis except DAPs with only pregnancies
 selection_criteria[, women_with_less_than_1_year_fup := data.table::fifelse(
-  difftime(cohort_exit_date, date_MS, units = "days") < 365, 1, 0)]
+  difftime(cohort_exit_date, date_MS, units = "days") < 365 & thisdatasource %not in% datasources_only_preg, 1, 0)]
 
 smart_save(selection_criteria, dirtemp, override_name = "D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort",
            extension = extension, save_copy = "csv")
