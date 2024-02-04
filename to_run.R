@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.5.2 - 04 February 2024
+# Fix in case end of observation periods is missing
+
 # v2.5.1 - 30 January 2024
 # Updated medicine codelist and algorithms
 # Stability improvement
