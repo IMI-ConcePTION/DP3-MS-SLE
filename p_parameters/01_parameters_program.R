@@ -80,7 +80,7 @@ rm(set_and_create_dir)
 #--------------
 # load macros
 
-source(paste0(dirmacro,"CreateConceptSetDatasets_v21.R"))
+source(paste0(dirmacro,"CreateConceptSetDatasets_v23.R"))
 source(paste0(dirmacro,"CreateItemsetDatasets.R"))
 source(paste0(dirmacro,"MergeFilterAndCollapse_v5.R"))
 source(paste0(dirmacro,"CreateSpells_v16.R"))
