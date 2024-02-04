@@ -27,9 +27,17 @@ if (thisdatasource %in% datasources_obs_per_from_pregnancies) {
   
 }
 
-OBSERVATION_PERIODS_inverted <- copy(OBSERVATION_PERIODS)[ymd(op_start_date) > ymd(op_end_date), ]
+# Create spells will automatically correct inverted spells so we need to remove those spells and add them later on
+# is.na(op_end_date) & ymd(op_start_date) > study_end   keep record with missing end iff start after study_end 
+#                                                       -> inverted spells after recoding of createspells
+# ymd(op_start_date) > ymd(op_end_date)   vanilla inverted spells
+OBSERVATION_PERIODS_inverted <- copy(OBSERVATION_PERIODS)[(is.na(op_end_date) & ymd(op_start_date) > study_end) | ymd(op_start_date) > ymd(op_end_date), ]
+# if end is missing imputes it to study end
+OBSERVATION_PERIODS_inverted <- OBSERVATION_PERIODS_inverted[is.na(op_end_date), op_end_date := study_end]
 smart_save(OBSERVATION_PERIODS_inverted, dirtemp, extension = extension, save_copy = "csv")
-OBSERVATION_PERIODS <- OBSERVATION_PERIODS[ymd(op_start_date) <= ymd(op_end_date), ]
+
+# is.na(op_end_date) & ymd(op_start_date) <= study_end   keep record with missing end iff start before study end -> correct spells
+OBSERVATION_PERIODS <- OBSERVATION_PERIODS[(is.na(op_end_date) & ymd(op_start_date) <= study_end) | ymd(op_start_date) <= ymd(op_end_date), ]
 
 if (thisdatasource %not in% this_datasource_has_subpopulations) {
   
