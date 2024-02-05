@@ -1,7 +1,7 @@
 ##%######################################################%##
 #                                                          #
 ####            APPLY EXCLUSION CRITERIA TO             ####
-####           CREATE STUDY POPULATION FOR DU           ####
+####       CREATE STUDY POPULATION FOR MS-COHORT        ####
 #                                                          #
 ##%######################################################%##
 
