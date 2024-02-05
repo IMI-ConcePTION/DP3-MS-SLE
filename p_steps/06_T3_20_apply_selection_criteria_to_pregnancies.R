@@ -9,7 +9,7 @@ print('FLOWCHART')
 
 # USE THE FUNCTION CREATEFLOWCHART TO SELECT THE SUBJECTS IN POPULATION
 
-# Create flowchart for adults and save D4_study_population
+# Create flowchart for adults and save D4_DU_PREGNANCY_COHORT
 smart_load("D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT", dirtemp, extension = extension)
 selection_criteria <- D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT
 
