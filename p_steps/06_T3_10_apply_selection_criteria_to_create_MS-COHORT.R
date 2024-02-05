@@ -30,6 +30,7 @@ smart_save(Flowchart_exclusion_criteria, direxp,
            override_name = "D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort", extension = "csv")
 
 # Save population
-smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_DU_MS_COHORT", extension = extension, save_copy = "csv")
+smart_save(selected_population[, .(person_id, date_MS, entry_spell_category, birth_date, cohort_entry_date, cohort_exit_date)],
+           diroutput, override_name = "D4_DU_MS_COHORT", extension = extension, save_copy = "csv")
 
 
