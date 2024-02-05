@@ -185,5 +185,8 @@ launch_step("p_steps/04_T4_10_create_N_women_and_ranges_MS.R")
 launch_step("p_steps/04_T4_20_filter_by_cube_and_calculate_CI.R")
 launch_step("p_steps/04_T4_30_aggregate_prevalence.R")
 
-# Remove SMALL COUNT FROM EXPORT DATASET
-# launch_step("p_steps/05_T5_10_censor_small_count.R")
+# DU
+launch_step("p_steps/05_T2_10_create_MS-COHORT.R")
+launch_step("p_steps/05_T2_20_create_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort.R")
+launch_step("p_steps/05_T2_30_create_selection_criteria_from_pregnancies.R")
+launch_step("p_steps/06_T3_10_apply_selection_criteria_to_create_MS-COHORT.R")
