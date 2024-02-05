@@ -191,3 +191,5 @@ launch_step("p_steps/05_T2_20_create_selection_criteria_from_SAP1_MS_cohort_to_D
 launch_step("p_steps/05_T2_30_create_selection_criteria_from_pregnancies.R")
 launch_step("p_steps/06_T3_10_apply_selection_criteria_to_create_MS-COHORT.R")
 launch_step("p_steps/06_T3_20_apply_selection_criteria_to_pregnancies.R")
+launch_step("p_steps/07_T2_10_collect_variables_for_pregnancies.R")
+# launch_step("p_steps/07_T2_10_collect_variables_for_pregnancies.R")
