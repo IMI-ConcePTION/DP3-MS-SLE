@@ -40,6 +40,7 @@ if (thisdatasource %not in% names(recommended_start_date_vect)) {
              ".\nPlease open an issue"))
 }
 
+summary_threshold <- 5
 
 recommended_start_date <- recommended_start_date_vect[[thisdatasource]]
 rm(recommended_start_date_vect)
