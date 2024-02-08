@@ -29,7 +29,7 @@ generate_Rmd <- function() {
   
   generate_codebook_page <- function(single_row, changes) {
     
-    level <- single_row[1]
+    level <- trimws(single_row[1])
     folder_path <- paste0(getwd(), "/content/step_", level)
     
     if (!(single_row[2] %in% sub('\\..*$', '', basename(changes))) & file.exists(

@@ -1,12 +1,12 @@
 ---
-weight: 5
+weight: 8
 name_excel: "D3_components_multiple_lookback_MS.xlsx"
 description: ""
 slug: "D3_components_multiple_lookback_MS"
-datetime: 1.7019568e+09
+datetime: 1.706792e+09
 title: D3_components_multiple_lookback_MS
 author: ''
-date: '2023-12-07'
+date: '2024-02-01'
 categories: []
 tags: []
 archetype: codebook

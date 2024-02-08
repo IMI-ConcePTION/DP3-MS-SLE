@@ -3,10 +3,10 @@ weight: 1
 name_excel: "D3_study_population_SAP1.xlsx"
 description: "contains the baseline characteristics of the study population"
 slug: "D3_study_population_SAP1"
-datetime: 1.7019568e+09
+datetime: 1.706792e+09
 title: D3_study_population_SAP1
 author: ''
-date: '2023-12-07'
+date: '2024-02-01'
 categories: []
 tags: []
 archetype: codebook

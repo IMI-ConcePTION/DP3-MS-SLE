@@ -1,12 +1,12 @@
 ---
-weight: 7
+weight: 10
 name_excel: "D3_algorithms_multiple_lookback_MS.xlsx"
 description: "only for women in the study at 31 december 2019 and in the population since 5 or 10 years: individual-level prevalence of all 5 algorithms calculated with multiple look back periods"
 slug: "D3_algorithms_multiple_lookback_MS"
-datetime: 1.7019568e+09
+datetime: 1.706792e+09
 title: D3_algorithms_multiple_lookback_MS
 author: ''
-date: '2023-12-07'
+date: '2024-02-01'
 categories: []
 tags: []
 archetype: codebook

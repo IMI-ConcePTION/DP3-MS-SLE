@@ -3,10 +3,10 @@ weight: 2
 name_excel: "Flowchart_exclusion_criteria.xlsx"
 description: "counts of how many indivuals from PERSONS are excluded in the study population"
 slug: "Flowchart_exclusion_criteria"
-datetime: 1.6997216e+09
+datetime: 1.7067919e+09
 title: Flowchart_exclusion_criteria
 author: ''
-date: '2023-11-11'
+date: '2024-02-01'
 categories: []
 tags: []
 archetype: codebook

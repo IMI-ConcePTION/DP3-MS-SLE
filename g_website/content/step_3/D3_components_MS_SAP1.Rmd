@@ -1,12 +1,12 @@
 ---
-weight: 4
+weight: 7
 name_excel: "D3_components_MS_SAP1.xlsx"
 description: "`r get_description(rmarkdown::metadata$name_excel)`"
 slug: "D3_components_MS_SAP1"
-datetime: 1.7019568e+09
+datetime: 1.706792e+09
 title: D3_components_MS_SAP1
 author: ''
-date: '2023-12-07'
+date: '2024-02-01'
 categories: []
 tags: []
 archetype: codebook

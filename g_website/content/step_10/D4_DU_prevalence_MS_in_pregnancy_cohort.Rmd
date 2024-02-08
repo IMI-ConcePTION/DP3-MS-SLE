@@ -1,0 +1,18 @@
+---
+weight: 1
+name_excel: "D4_DU_prevalence_MS_in_pregnancy_cohort.xlsx"
+description: "`r get_description(rmarkdown::metadata$name_excel)`"
+slug: "D4_DU_prevalence_MS_in_pregnancy_cohort"
+datetime: 1.706792e+09
+title: D4_DU_prevalence_MS_in_pregnancy_cohort
+author: ''
+date: '2024-02-01'
+categories: []
+tags: []
+archetype: codebook
+output: html_document
+---
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+html_codebook(rmarkdown::metadata$name_excel)
+```
