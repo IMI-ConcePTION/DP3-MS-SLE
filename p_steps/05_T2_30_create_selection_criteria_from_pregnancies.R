@@ -23,7 +23,10 @@ setcolorder(selection_criteria, c("pregnancy_id", "person_id", "entry_spell_cate
                                   "cohort_entry_date", "cohort_exit_date"))
 
 # Create DU entry and exit date
-selection_criteria[, DU_pregnancy_study_entry_date := pregnancy_start_date %m-% years(1)]
+prior_data_avalaibility <- data.table::fcase(thisdatasource == "EFEMERIS", days(78),
+                                             thisdatasource %in% c("THL", "FISABIO"), months(3),
+                                             default, years(1))
+selection_criteria[, DU_pregnancy_study_entry_date := pregnancy_start_date %m-% prior_data_avalaibility]
 if (thisdatasource == "EFEMERIS") {
   selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_end_date]
 } else {
