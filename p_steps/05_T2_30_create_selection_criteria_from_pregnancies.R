@@ -11,21 +11,28 @@ pregnancy_df <- D3_pregnancy_final[, c("person_id", "pregnancy_id", "pregnancy_s
                                        "type_of_pregnancy_end", "PROMPT")]
 
 smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
+smart_load("D3_persons", dirtemp, extension = extension)
 
 # Keep only necessary columns
 sap1_pop <- D3_study_population_SAP1[, c("person_id", "entry_spell_category", "birth_date",
                                          "cohort_entry_date", "cohort_exit_date")]
+sex_pop <- D3_persons[, c("person_id", "sex_at_instance_creation")]
 
 # INNER JOIN between SAP1 population and pregnancies
 selection_criteria <- merge(sap1_pop, pregnancy_df, all.x = F, all.y = F, by = "person_id")
+selection_criteria <- merge(selection_criteria, sex_pop, all.x = F, all.y = F, by = "person_id")
 setcolorder(selection_criteria, c("pregnancy_id", "person_id", "entry_spell_category", "birth_date",
                                   "pregnancy_start_date", "pregnancy_end_date", "type_of_pregnancy_end", "PROMPT",
                                   "cohort_entry_date", "cohort_exit_date"))
 
-# Create DU entry and exit date
-prior_data_avalaibility <- data.table::fcase(thisdatasource == "EFEMERIS", days(78),
-                                             thisdatasource %in% c("THL", "FISABIO"), months(3),
-                                             default, years(1))
+# Create DU entry and exit date (DO NOT USE FCASE!!)
+if (thisdatasource == "EFEMERIS") {
+  prior_data_avalaibility <- lubridate::days(78)
+} else if (thisdatasource %in% c("THL", "FISABIO")) {
+  prior_data_avalaibility <- lubridate::months(3)
+} else {
+  prior_data_avalaibility <- lubridate::years(1)
+}
 selection_criteria[, DU_pregnancy_study_entry_date := pregnancy_start_date %m-% prior_data_avalaibility]
 if (thisdatasource == "EFEMERIS") {
   selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_end_date]
@@ -33,6 +40,8 @@ if (thisdatasource == "EFEMERIS") {
   selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_start_date %m+% months(3)]
 }
 
+# Some pregnancies make comes from Males (gender)
+selection_criteria[, EXCLUSION_1_pregnancy_in_persons_of_non_female_gender := fifelse(sex_at_instance_creation != "F", 1, 0)]
 
 # TODO add here filter for pregnancies quality
 selection_criteria[, EXCLUSION_1_pregnancy_with_inappropriate_quality := 0]
