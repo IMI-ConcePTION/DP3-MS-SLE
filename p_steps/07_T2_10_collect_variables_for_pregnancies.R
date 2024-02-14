@@ -5,7 +5,7 @@
 #                                                          #
 ##%######################################################%##
 
-# TODO ask Rosa if D3_study_population_SAP1 is necessary
+# ask Rosa if D3_study_population_SAP1 is necessary
 smart_load("D4_DU_MS_COHORT", diroutput, extension = extension)
 smart_load("D4_DU_PREGNANCY_COHORT", diroutput, extension = extension)
 
@@ -34,7 +34,7 @@ pregnancy_variables[, pregnancy_with_MS := fifelse(pregnancy_with_MS_detail == "
 
 # Check if MS diagnosed during pregnancy
 # TODO check with Rosa, not sure about this criteria
-pregnancy_variables[, MS_developed_during_pregnancy := fifelse(pregnancy_with_MS_detail != "no"  &
+pregnancy_variables[, MS_developed_during_pregnancy := fifelse(pregnancy_with_MS_detail %not in% c("no", "long after pregnancy")  &
                                                                  pregnancy_with_MS == 0, 1, 0)]
 
 # Number of pregnancy in study
