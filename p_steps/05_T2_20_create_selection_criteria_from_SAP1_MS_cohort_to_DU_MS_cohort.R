@@ -5,6 +5,11 @@
 ##%######################################################%##
 
 smart_load("D3_SAP1_MS_COHORT", dirtemp, extension = extension)
+smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
+
+# Add person_id of persons without MS used for first criteria
+D3_study_population_SAP1 <- D3_study_population_SAP1[, .(person_id)]
+D3_SAP1_MS_COHORT <- merge(D3_SAP1_MS_COHORT, D3_study_population_SAP1, all = T)
 
 # Remove persons without MS
 selection_criteria <- D3_SAP1_MS_COHORT[, never_positive_for_MS_chosen := data.table::fifelse(is.na(date_MS), 1, 0)]
