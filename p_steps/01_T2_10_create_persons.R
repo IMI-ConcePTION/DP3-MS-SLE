@@ -64,7 +64,7 @@ if(nrow(PERSONS_date_missing) != 0){
   D3_PERSONS[, c("birth_month_imputed", "birth_day_imputed") := list(0, 0)]
 }
 
-# TODO check Codebook for specification of death
+# Check Codebook for specification of death
 PERSONS_date_missing <- D3_PERSONS[!is.na(year_of_death) & (is.na(day_of_death) | is.na(month_of_death)),]
 
 # decide if pre-processing is needed for death date

@@ -113,7 +113,7 @@ for (outcome in OUTCOME_variables) {
   #                         Aggregate = F)
   # algorithm_lookback[, c("timeframe", "in_population") := NULL]
   # 
-  # # TODO: remove when countprevalence is fixed
+  # # Remove when countprevalence is fixed
   # # Select algorithms columns that need to be recoded
   # cols_to_add <- colnames(algorithm_lookback)[grepl("^prev_M[0-9]_([0-9]|all)", colnames(algorithm_lookback))]
   # algorithm_lookback[, (cols_to_add) := lapply(.SD, as.numeric), .SDcols = cols_to_add]

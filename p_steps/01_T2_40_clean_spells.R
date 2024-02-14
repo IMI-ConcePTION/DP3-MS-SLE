@@ -33,7 +33,6 @@ person_spell <- merge(D3_output_spells_category, D3_PERSONS, all.x = T, by = "pe
 person_spell <- person_spell[, .(person_id, birth_date, death_date, entry_spell_category_crude = entry_spell_category,
                                  exit_spell_category_crude = exit_spell_category, op_meaning, num_spell)]
 
-# TODO censor
 # If the spell start within 60 days from the birth the spell start becomes the birth date
 person_spell[, entry_spell_category := data.table::fifelse(birth_date < entry_spell_category_crude - 60 |
                                                              birth_date > instance_creation,
