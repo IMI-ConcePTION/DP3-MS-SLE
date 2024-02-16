@@ -15,8 +15,9 @@ selection_criteria <- D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_
 
 selected_population <- CreateFlowChart(
   dataset = selection_criteria,
-  listcriteria = c("EXCLUSION_1_pregnancy_with_inappropriate_quality", "EXCLUSION_2_pregnancy_not_in_fertile_age",
-                   "EXCLUSION_3_pregnancy_not_in_study_period", "EXCLUSION_4_pregnancy_outside_period_with_medicines"),
+  listcriteria = c("EXCLUSION_1_pregnancy_in_persons_of_non_female_gender", 
+                   "EXCLUSION_2_pregnancy_with_inappropriate_quality", "EXCLUSION_3_pregnancy_not_in_fertile_age",
+                   "EXCLUSION_4_pregnancy_not_in_study_period", "EXCLUSION_5_pregnancy_outside_period_with_medicines"),
   flowchartname = "Flowchart_exclusion_criteria")
 
 # Find if a level contains at least a value to censor

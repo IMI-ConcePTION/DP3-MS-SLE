@@ -34,28 +34,29 @@ if (thisdatasource == "EFEMERIS") {
   prior_data_avalaibility <- lubridate::years(1)
 }
 selection_criteria[, DU_pregnancy_study_entry_date := pregnancy_start_date %m-% prior_data_avalaibility]
+
 if (thisdatasource == "EFEMERIS") {
   selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_end_date]
 } else {
   selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_start_date %m+% months(3)]
 }
 
-# Some pregnancies make comes from Males (gender)
+# Some pregnancies may comes from Males (gender)
 selection_criteria[, EXCLUSION_1_pregnancy_in_persons_of_non_female_gender := fifelse(sex_at_instance_creation != "F", 1, 0)]
 
 # TODO add here filter for pregnancies quality
-selection_criteria[, EXCLUSION_1_pregnancy_with_inappropriate_quality := 0]
+selection_criteria[, EXCLUSION_2_pregnancy_with_inappropriate_quality := 0]
 
 # Criteria for pregnancies before 15th and after 50th birthday
-selection_criteria[, EXCLUSION_2_pregnancy_not_in_fertile_age := fifelse((DU_pregnancy_study_entry_date < birth_date %m+% years(15)) |
+selection_criteria[, EXCLUSION_3_pregnancy_not_in_fertile_age := fifelse((DU_pregnancy_study_entry_date < birth_date %m+% years(15)) |
                                                                            (DU_pregnancy_study_exit_date >= birth_date %m+% years(50)), 1, 0)]
 
 # Criteria for pregnancies outside study period
-selection_criteria[, EXCLUSION_3_pregnancy_not_in_study_period := fifelse(DU_pregnancy_study_entry_date < study_start |
+selection_criteria[, EXCLUSION_4_pregnancy_not_in_study_period := fifelse(DU_pregnancy_study_entry_date < study_start |
                                                                             DU_pregnancy_study_exit_date > study_end, 1, 0)]
 
 # Criteria for pregnancies outside study period
-selection_criteria[, EXCLUSION_4_pregnancy_outside_period_with_medicines := fifelse(DU_pregnancy_study_entry_date < cohort_entry_date |
+selection_criteria[, EXCLUSION_5_pregnancy_outside_period_with_medicines := fifelse(DU_pregnancy_study_entry_date < cohort_entry_date |
                                                                                        DU_pregnancy_study_exit_date > cohort_exit_date, 1, 0)]
 
 smart_save(selection_criteria, dirtemp, override_name = "D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT",
