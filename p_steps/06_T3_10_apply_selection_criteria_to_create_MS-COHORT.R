@@ -15,7 +15,7 @@ selection_criteria <- D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_coho
 
 selected_population <- CreateFlowChart(
   dataset = selection_criteria,
-  listcriteria = c("never_positive_for_MS_chosen", "women_diagnosed_outside_childbearing_age", "women_with_less_than_1_year_fup"),
+  listcriteria = c("never_positive_for_MS_chosen", "women_diagnosed_after_childbearing_age", "women_with_less_than_1_year_fup"),
   flowchartname = "Flowchart_exclusion_criteria")
 
 # Find if a level contains at least a value to censor

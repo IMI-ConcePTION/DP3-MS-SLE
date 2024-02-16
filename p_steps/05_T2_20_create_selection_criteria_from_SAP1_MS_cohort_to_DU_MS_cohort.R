@@ -15,7 +15,7 @@ D3_SAP1_MS_COHORT <- merge(D3_SAP1_MS_COHORT, D3_study_population_SAP1, all = T)
 selection_criteria <- D3_SAP1_MS_COHORT[, never_positive_for_MS_chosen := data.table::fifelse(is.na(date_MS), 1, 0)]
 
 # Remove persons with diagnosed MS after their 50th birthday
-selection_criteria[, women_diagnosed_outside_childbearing_age := data.table::fifelse(
+selection_criteria[, women_diagnosed_after_childbearing_age := data.table::fifelse(
   date_MS >= (lubridate::ymd(birth_date) %m+% years(50)), 1, 0)]
 
 # Remove persons with less than 1 year of followup after diagnosis except DAPs with only pregnancies
