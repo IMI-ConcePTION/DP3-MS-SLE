@@ -14,23 +14,25 @@ D4_DU_MS_COHORT <- D4_DU_MS_COHORT[, .(person_id, date_MS)]
 
 # Add information of MS to pregnancies
 pregnancy_variables <- merge(D4_DU_PREGNANCY_COHORT, D4_DU_MS_COHORT, all.x = T, by = "person_id")
-pregnancy_variables[, has_MS_ever := data.table::fifelse(is.na(date_MS), 0, 1)]
+pregnancy_variables[, has_MS_ever := data.table::fifelse(!is.na(date_MS), 1, 0)]
 
 # Variable to store when the MS diagnosis happened wrt pregnancy
 pregnancy_variables[, pregnancy_with_MS_detail := data.table::fcase(
   date_MS > DU_pregnancy_study_exit_date, "long after pregnancy",
-  date_MS > pregnancy_end_date & date_MS <= DU_pregnancy_study_exit_date, "right after pregnancy",
-  date_MS >= pregnancy_start_date & date_MS <= pregnancy_end_date, "during pregnancy",
-  date_MS >= pregnancy_start_date %m-% months(3) & date_MS < pregnancy_start_date, "right before pregnancy",
-  date_MS >= DU_pregnancy_study_entry_date & date_MS < pregnancy_start_date %m-% months(3), "recently before pregnancy",
+  date_MS > pregnancy_end_date, "right after pregnancy",
+  date_MS >= pregnancy_start_date, "during pregnancy",
+  date_MS >= pregnancy_start_date %m-% months(3), "right before pregnancy",
+  date_MS >= DU_pregnancy_study_entry_date, "recently before pregnancy",
   date_MS < DU_pregnancy_study_entry_date, "long before pregnancy",
   default = "no")]
 
-# Check if pregnancy is entirely exposed to MS
-# TODO check with Marie
-pregnancy_variables[, pregnancy_with_MS := fifelse(pregnancy_with_MS_detail == "long before pregnancy" |
-                                                     (pregnancy_with_MS_detail == "recently before pregnancy" &
-                                                        thisdatasource %in% datasources_only_preg), 1, 0)]
+# Check if pregnancy is exposed to MS
+if (thisdatasource %in% datasources_only_preg) {
+  pregnancy_variables[, pregnancy_with_MS := fifelse(pregnancy_with_MS_detail %in% c("long before pregnancy", "recently before pregnancy",
+                                                                                     "right before pregnancy", "during pregnancy"), 1, 0)]
+} else {
+  pregnancy_variables[, pregnancy_with_MS := fifelse(pregnancy_with_MS_detail == "long before pregnancy", 1, 0)]
+}
 
 # Check if MS diagnosed during pregnancy
 # TODO check with Rosa, not sure about this criteria
