@@ -1,20 +1,40 @@
 smart_load("D3_DU_PREGNANCY_COHORT_variables", dirtemp, extension = extension)
 
 tmp <- D3_DU_PREGNANCY_COHORT_variables[, .(person_id, pregnancy_id, number_of_pregnancies_in_the_study,
-                                            pregnancy_with_MS, MS_developed_during_pregnancy)]
+                                            pregnancy_with_MS)]
 
 tmp1 <- tmp[, .(person_id, pregnancy_id, number_of_pregnancies_in_the_study, strata = 1)]
 tmp2 <- tmp[pregnancy_with_MS == 1, .(person_id, number_of_pregnancies_in_the_study, pregnancy_id, strata = 2)]
-tmp3 <- tmp[MS_developed_during_pregnancy == 1, .(person_id, pregnancy_id, number_of_pregnancies_in_the_study, strata = 3)]
 
-tmp4 <- rbindlist(list(tmp1, tmp2, tmp3), use.names = T)
+tmp4 <- rbindlist(list(tmp1, tmp2), use.names = T)
+
+header_string <- list(label = '',
+                      stat_1 = '**Number of pregnancies in the Pregnancy cohort N (%)**',
+                      stat_2 = '**Number of pregnancies in the MS-Pregnancy cohort N (%)**')
+
+tmp4 %>%
+  gtsummary::tbl_summary(label = list(number_of_pregnancies_in_the_study ~ "N"),
+                         type = list(number_of_pregnancies_in_the_study ~ 'continuous'), 
+                         statistic = list(
+                           number_of_pregnancies_in_the_study ~ "{sum}"
+                         ), 
+                         by = strata, include = number_of_pregnancies_in_the_study, percent = "row") %>%
+  gtsummary::modify_header(header_string) %>%
+  gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
+
+tmp4[,total :=1] %>%
+  gtsummary::tbl_summary(label = list(number_of_pregnancies_in_the_study ~ "Study population"),
+                         by = strata, include = number_of_pregnancies_in_the_study, percent = "row") %>%
+  gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
+
+
+tmp4[, total := number_of_pregnancies_in_the_study]
 tmp4[number_of_pregnancies_in_the_study > 1 , number_of_pregnancies_in_the_study := 2]
-tmp4[, strata := factor(strata, levels = c(1, 2, 3),
+tmp4[, strata := factor(strata, levels = c(1, 2),
                         labels = c('**Number of pregnancies in the Pregnancy cohort N (%)**',
-                                   '**Number of pregnancies in the MS-Pregnancy cohort N (%)**',
-                                   '**Number of pregnancies since MS diagnosis from women with MS N (%)**'))]
+                                   '**Number of pregnancies in the MS-Pregnancy cohort N (%)**'))]
 
-tmp4[, total := 1] %>%
+tmp4 %>%
   gtsummary::tbl_summary(label = list(number_of_pregnancies_in_the_study ~ "Study population"),
                          by = strata, include = number_of_pregnancies_in_the_study, percent = "row") %>%
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
