@@ -33,6 +33,7 @@ if (thisdatasource == "EFEMERIS") {
 } else {
   prior_data_avalaibility <- lubridate::years(1)
 }
+
 # TODO ask Marie how to censor in case of a consecutive pregnancy: at end of pregnancy or start of next one?
 setorder(selection_criteria, person_id, pregnancy_start_date)
 
