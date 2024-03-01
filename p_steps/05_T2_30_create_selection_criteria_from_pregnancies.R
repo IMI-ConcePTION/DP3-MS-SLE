@@ -38,7 +38,7 @@ selection_criteria[, DU_pregnancy_study_entry_date := pregnancy_start_date %m-% 
 if (thisdatasource == "EFEMERIS") {
   selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_end_date]
 } else {
-  selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_start_date %m+% months(3)]
+  selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_end_date %m+% months(3)]
 }
 
 # Some pregnancies may comes from Males (gender)
