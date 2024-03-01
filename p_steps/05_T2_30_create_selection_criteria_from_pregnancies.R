@@ -33,12 +33,21 @@ if (thisdatasource == "EFEMERIS") {
 } else {
   prior_data_avalaibility <- lubridate::years(1)
 }
-selection_criteria[, DU_pregnancy_study_entry_date := pregnancy_start_date %m-% prior_data_avalaibility]
+# TODO ask Marie how to censor in case of a consecutive pregnancy: at end of pregnancy or start of next one?
+setorder(selection_criteria, person_id, pregnancy_start_date)
+
+selection_criteria[, lag_pregnancy_end_date := shift(pregnancy_end_date) + 1, by = "person_id"]
+selection_criteria[, DU_pregnancy_study_entry_date := pmax(pregnancy_start_date %m-% prior_data_avalaibility,
+                                                           lag_pregnancy_end_date, na.rm = T)]
+selection_criteria[, lag_pregnancy_end_date := NULL]
 
 if (thisdatasource == "EFEMERIS") {
   selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_end_date]
 } else {
-  selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_start_date %m+% months(3)]
+  selection_criteria[, lead_pregnancy_start_date := shift(pregnancy_start_date, type = "lead") - 1, by = "person_id"]
+  selection_criteria[, DU_pregnancy_study_exit_date := pmin(pregnancy_end_date %m+% months(3),
+                                                            lead_pregnancy_start_date, na.rm = T)]
+  selection_criteria[, lead_pregnancy_start_date := NULL]
 }
 
 # Some pregnancies may comes from Males (gender)
@@ -57,7 +66,7 @@ selection_criteria[, EXCLUSION_4_pregnancy_not_in_study_period := fifelse(DU_pre
 
 # Criteria for pregnancies outside study period
 selection_criteria[, EXCLUSION_5_pregnancy_outside_period_with_medicines := fifelse(DU_pregnancy_study_entry_date < cohort_entry_date |
-                                                                                       DU_pregnancy_study_exit_date > cohort_exit_date, 1, 0)]
+                                                                                      DU_pregnancy_study_exit_date > cohort_exit_date, 1, 0)]
 
 smart_save(selection_criteria, dirtemp, override_name = "D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT",
            extension = extension, save_copy = "csv")
