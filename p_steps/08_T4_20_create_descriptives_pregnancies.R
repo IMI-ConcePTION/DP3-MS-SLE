@@ -28,6 +28,7 @@ preg_cohort_strat %>%
 preg_cohort_strat[, strata := as.factor(strata)]
 preg_cohort_strat_mult <- preg_cohort_strat[number_of_pregnancies_in_the_study > 2, ]
 setorder(preg_cohort_strat_mult, person_id, strata, pregnancy_start_date)
+# TODO ask if ceiling or floor is correct
 preg_cohort_strat_mult[, dist := ceiling(as.period(interval(shift(pregnancy_end_date), pregnancy_start_date)) / months(1)),
                        by = c("person_id", "strata")]
 preg_cohort_strat_mult <- preg_cohort_strat_mult[!is.na(dist), ]
