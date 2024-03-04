@@ -28,8 +28,9 @@ pregnancy_variables[, pregnancy_with_MS_detail := data.table::fcase(
 
 # Check if pregnancy is exposed to MS
 if (thisdatasource %in% datasources_only_preg) {
-  pregnancy_variables[, pregnancy_with_MS := fifelse(pregnancy_with_MS_detail %in% c("long before pregnancy", "recently before pregnancy",
-                                                                                     "right before pregnancy", "during pregnancy"), 1, 0)]
+  pregnancy_variables[, pregnancy_with_MS := fifelse(
+    pregnancy_with_MS_detail %in% c("long before pregnancy", "recently before pregnancy",
+                                    "right before pregnancy", "during pregnancy"), 1, 0)]
 } else {
   pregnancy_variables[, pregnancy_with_MS := fifelse(pregnancy_with_MS_detail == "long before pregnancy", 1, 0)]
 }
