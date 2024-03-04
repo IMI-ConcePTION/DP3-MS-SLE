@@ -1,8 +1,11 @@
 smart_load("D3_DU_PREGNANCY_COHORT_variables", dirtemp, extension = extension)
 
 preg_cohort <- D3_DU_PREGNANCY_COHORT_variables[, .(person_id, pregnancy_id, number_of_pregnancies_in_the_study,
-                                                    pregnancy_with_MS, MS_developed_during_pregnancy,
+                                                    pregnancy_with_MS, pregnancy_with_MS_detail,
                                                     pregnancy_start_date, pregnancy_end_date)]
+
+preg_cohort_filtered <- copy(preg_cohort)[pregnancy_with_MS_detail %in% c("long before pregnancy", "recently before pregnancy",
+                                                           "right before pregnancy", "during pregnancy"), ]
 
 tmp1 <- preg_cohort[, .(person_id, pregnancy_id, number_of_pregnancies_in_the_study, pregnancy_start_date,
                         pregnancy_end_date, strata = 1)]
@@ -15,13 +18,13 @@ header_string <- list(label = '',
                       stat_1 = '**Number of pregnancies in the Pregnancy cohort N (%)**',
                       stat_2 = '**Number of pregnancies in the MS-Pregnancy cohort N (%)**')
 
-tab1 <- preg_cohort_strat %>%
+tab1a <- preg_cohort_strat %>%
   gtsummary::tbl_summary(label = list(number_of_pregnancies_in_the_study ~ "N"),
                          type = list(number_of_pregnancies_in_the_study ~ 'continuous'), 
                          statistic = list(
                            number_of_pregnancies_in_the_study ~ "{sum}"
                          ),
-                         by = strata, include = number_of_pregnancies_in_the_study, percent = "row") |>
+                         by = strata, include = number_of_pregnancies_in_the_study) |>
   gtsummary::modify_header(header_string) |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
 
@@ -39,11 +42,11 @@ preg_cohort_strat_mult[, dist := cut(dist, c(0, 3, 6, 12, 15, Inf),
                                                 "Between 6 and 12 months", "Between 12 and 15 months",
                                                 "More than 15 months"))]
 
-tab2 <- preg_cohort_strat_mult %>%
+tab1b <- preg_cohort_strat_mult |>
   gtsummary::tbl_summary(include = dist,
-                                by = strata,
-                                label = list(dist ~ "Study population"),
-                                statistic = dist ~ "{n}") |>
+                         by = strata,
+                         label = list(dist ~ "Study population"),
+                         statistic = dist ~ "{n}") |>
   # remove header row
   gtsummary::modify_table_body(
     ~ .x |> 
@@ -58,7 +61,7 @@ preg_cohort_strat[, number_of_pregnancies_in_the_study := factor(number_of_pregn
                                                                  labels = c("From women having 1 pregnancy",
                                                                             "From women having more than 1 pregnancy"))]
 
-tab3 <- preg_cohort_strat %>%
+tab1c <- preg_cohort_strat %>%
   gtsummary::tbl_custom_summary(include = number_of_pregnancies_in_the_study,
                                 by = strata,
                                 label = list(number_of_pregnancies_in_the_study ~ "Study population"),
@@ -76,7 +79,7 @@ tab3 <- preg_cohort_strat %>%
   gtsummary::modify_header(header_string) |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
 
-final_table <- gtsummary::tbl_stack(list(tab1, tab3, tab2), group_header = c("", "", "Number of pregnancies according to the time period since the previous pregnancy (in women having more than 1 pregnancy)")) |>
+final_table_1 <- gtsummary::tbl_stack(list(tab1a, tab1c, tab1b), group_header = c("", "", "Number of pregnancies according to the time period since the previous pregnancy (in women having more than 1 pregnancy)")) |>
   gtsummary::as_gt() |>
   gt::tab_footnote(
     footnote = "Time period between the delivery date of the previous pregnancy and the LMP date of the actual pregnancy",
@@ -93,4 +96,47 @@ final_table <- gtsummary::tbl_stack(list(tab1, tab3, tab2), group_header = c("",
   )
 
 export_name <- "D5_DU_for_Template_1"
-save_tbl_summary(final_table, dirDUfinaltables, export_name)
+save_tbl_summary(final_table_1, dirDUfinaltables, export_name)
+
+
+preg_cohort_filtered <- copy(preg_cohort)[pregnancy_with_MS_detail %in% c("long before pregnancy", "recently before pregnancy",
+                                                                          "right before pregnancy", "during pregnancy"), ]
+
+preg_cohort_filtered[, pregnancy_with_MS_detail := factor(pregnancy_with_MS_detail,
+                                                          levels = c("long before pregnancy", "recently before pregnancy",
+                                                                     "right before pregnancy", "during pregnancy"),
+                                                          labels = c("More than 12 months prior to pregnancy",
+                                                                     "3-12 months prior to pregnancy",
+                                                                     "0-3 months prior to pregnancy", "during pregnancy"))]
+
+header_string <- list(label = '**Date of MS diagnosis**',
+                      stat_0 = '**Number of pregnancies N (%)**')
+
+tab2b <- preg_cohort_filtered %>%
+  gtsummary::tbl_summary(label = list(pregnancy_with_MS_detail ~ "N"),
+                         include = pregnancy_with_MS_detail) |>
+  # remove header row
+  gtsummary::modify_table_body(
+    ~ .x |> 
+      dplyr::filter(!(variable %in% "pregnancy_with_MS_detail" & row_type %in% "label"))
+  ) |>
+  gtsummary::modify_header(header_string) |>
+  gtsummary::modify_footnote(gtsummary::all_stat_cols(T) ~ NA)
+
+tab2a <- preg_cohort_filtered[, total := 1] %>%
+  gtsummary::tbl_summary(label = list(total ~ "N"),
+                         statistic = list(total ~ "{n}"),
+                         include = total) |>
+  # remove header row
+  gtsummary::modify_table_body(
+    ~ .x |> 
+      dplyr::mutate(label = "")
+  ) |>
+  gtsummary::modify_header(header_string) |>
+  gtsummary::modify_footnote(gtsummary::all_stat_cols(T) ~ NA)
+
+final_table_2 <- gtsummary::tbl_stack(list(tab2a, tab2b)) |>
+  gtsummary::as_gt() 
+
+export_name <- "D5_DU_for_Template_2"
+save_tbl_summary(final_table_2, dirDUfinaltables, export_name)
