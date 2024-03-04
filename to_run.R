@@ -10,7 +10,7 @@
 
 rm(list=ls(all.names=TRUE))
 
-#set the directory where the file is saved as the working directory
+# set the directory where the file is saved as the working directory
 if (!require("rstudioapi")) install.packages("rstudioapi")
 thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
