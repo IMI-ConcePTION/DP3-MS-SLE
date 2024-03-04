@@ -34,7 +34,6 @@ if (thisdatasource == "EFEMERIS") {
   prior_data_avalaibility <- lubridate::years(1)
 }
 
-# TODO ask Marie how to censor in case of a consecutive pregnancy: at end of pregnancy or start of next one?
 setorder(selection_criteria, person_id, pregnancy_start_date)
 
 selection_criteria[, lag_pregnancy_end_date := shift(pregnancy_end_date) + 1, by = "person_id"]
@@ -45,10 +44,12 @@ selection_criteria[, lag_pregnancy_end_date := NULL]
 if (thisdatasource == "EFEMERIS") {
   selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_end_date]
 } else {
-  selection_criteria[, lead_pregnancy_start_date := shift(pregnancy_start_date, type = "lead") - 1, by = "person_id"]
-  selection_criteria[, DU_pregnancy_study_exit_date := pmin(pregnancy_end_date %m+% months(3),
-                                                            lead_pregnancy_start_date, na.rm = T)]
-  selection_criteria[, lead_pregnancy_start_date := NULL]
+  # After Marie comment take always the three months after
+  selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_end_date %m+% months(3)]
+  # selection_criteria[, lead_pregnancy_start_date := shift(pregnancy_start_date, type = "lead") - 1, by = "person_id"]
+  # selection_criteria[, DU_pregnancy_study_exit_date := pmin(pregnancy_end_date %m+% months(3),
+  #                                                           lead_pregnancy_start_date, na.rm = T)]
+  # selection_criteria[, lead_pregnancy_start_date := NULL]
 }
 
 # Some pregnancies may comes from Males (gender)
