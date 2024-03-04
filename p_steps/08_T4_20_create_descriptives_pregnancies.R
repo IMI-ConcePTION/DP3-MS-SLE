@@ -18,13 +18,14 @@ header_string <- list(label = '',
                       stat_1 = '**Number of pregnancies in the Pregnancy cohort N (%)**',
                       stat_2 = '**Number of pregnancies in the MS-Pregnancy cohort N (%)**')
 
-tab1a <- preg_cohort_strat %>%
-  gtsummary::tbl_summary(label = list(number_of_pregnancies_in_the_study ~ "N"),
-                         type = list(number_of_pregnancies_in_the_study ~ 'continuous'), 
+tab1a <- preg_cohort_strat[, total := 1] %>%
+  gtsummary::tbl_summary(label = list(total ~ "N"),
+                         type = list(total ~ 'continuous'), 
                          statistic = list(
-                           number_of_pregnancies_in_the_study ~ "{sum}"
+                           total ~ "{sum}"
                          ),
-                         by = strata, include = number_of_pregnancies_in_the_study) |>
+                         digits = total ~ 0,
+                         by = strata, include = total) |>
   gtsummary::modify_header(header_string) |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
 
@@ -55,7 +56,7 @@ tab1b <- preg_cohort_strat_mult |>
   gtsummary::modify_header(header_string) |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
 
-preg_cohort_strat[, total := number_of_pregnancies_in_the_study]
+preg_cohort_strat[, total := 1]
 preg_cohort_strat[number_of_pregnancies_in_the_study > 1 , number_of_pregnancies_in_the_study := 2]
 preg_cohort_strat[, number_of_pregnancies_in_the_study := factor(number_of_pregnancies_in_the_study, levels = c(1, 2),
                                                                  labels = c("From women having 1 pregnancy",
