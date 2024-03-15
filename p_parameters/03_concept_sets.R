@@ -22,4 +22,15 @@ for (concept in names(concept_set_codes_our_study_pre)) {
 
 concept_sets_of_our_study <- names(concept_set_codes_our_study_pre)
 
+concept_set_domains_DU <- vector(mode="list")
+for (concept in names(concept_set_codes_our_study_pre_DU)) {
+  if (all(names(concept_set_codes_our_study_pre_DU[[concept]]) == "ATC")) {
+    concept_set_domains_DU[[concept]] <- "Medicines"
+  } else {
+    concept_set_domains_DU[[concept]] <- "Diagnosis"
+  }
+}
+
+concept_sets_of_our_study_DU <- names(concept_set_codes_our_study_pre_DU)
+
 rm(concept)

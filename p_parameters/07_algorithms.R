@@ -246,6 +246,7 @@ chosen_MS_algorithm[["TEST"]] <- "MS_1"
 # set concept sets
 
 concept_set_codes_our_study <- concept_set_codes_our_study_pre
+concept_set_codes_our_study_DU <- concept_set_codes_our_study_pre_DU
 # concept_set_codes_our_study_excl <- concept_set_codes_our_study_pre_excl
 
 # # augment ICPC codes
@@ -297,8 +298,41 @@ for (conceptset in concept_sets_of_our_study){
 }
 
 
+for (conceptset in concept_sets_of_our_study_DU){
+  if (concept_set_domains_DU[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study_DU[[conceptset]][["ICD10GM"]] <- concept_set_codes_our_study_DU[[conceptset]][["ICD10"]]
+  }
+}
+
+#-------------------------------------
+# fix for ICD10CM
+for (conceptset in concept_sets_of_our_study_DU){
+  if (concept_set_domains_DU[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study_DU[[conceptset]][["ICD10CM"]] <- concept_set_codes_our_study_DU[[conceptset]][["ICD10"]]
+  }
+}
+
+#-------------------------------------
+# fix for ICD10ES
+for (conceptset in concept_sets_of_our_study_DU){
+  if (concept_set_domains_DU[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study_DU[[conceptset]][["ICD10ES"]] <- concept_set_codes_our_study_DU[[conceptset]][["ICD10"]]
+  }
+}
+
+#-------------------------------------
+# fix for ICD9CM
+for (conceptset in concept_sets_of_our_study_DU){
+  if (concept_set_domains_DU[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study_DU[[conceptset]][["ICD9"]] <- concept_set_codes_our_study_DU[[conceptset]][["ICD9CM"]]
+  }
+}
+
+
 save(concept_set_codes_our_study,file = paste0(direxp, "concept_set_codes_our_study.RData"))
 save(concept_set_codes_our_study,file = paste0(direxpmask, "concept_set_codes_our_study.RData"))
+save(concept_set_codes_our_study,file = paste0(direxp, "concept_set_codes_our_study_DU.RData"))
+save(concept_set_codes_our_study,file = paste0(direxpmask, "concept_set_codes_our_study_DU.RData"))
 # save(concept_set_codes_our_study_excl,file=paste0(direxp,"concept_set_codes_our_study_excl.RData"))
 # save(concept_set_codes_our_study,file = paste0(dirsmallcountsremoved, "concept_set_codes_our_study.RData"))
 # save(concept_set_codes_our_study_excl,file=paste0(dirsmallcountsremoved,"concept_set_codes_our_study_excl.RData"))

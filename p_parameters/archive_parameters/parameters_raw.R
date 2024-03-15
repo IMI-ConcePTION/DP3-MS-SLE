@@ -1,4 +1,5 @@
 concept_set_codes_our_study_pre <- list()
+concept_set_codes_our_study_pre_DU <- list()
 
 #--------------------------
 # Multiple sclerosis (MS)
@@ -32,6 +33,29 @@ concept_set_codes_our_study_pre[["DMT-MS_UNSPEC"]][["ATC"]] <- c("N07XX09", "L04
                                                                  "L04AA23", "L04AG03", "L01DB07", "L01XC02", "L01FA01",
                                                                  "L04AX03", "L01BA01", "L01AA01", "L04AA13", "L04AK01",
                                                                  "L04AA06", "L04AD02", "D11AX14", "D11AH01")
+
+concept_set_codes_our_study_pre_DU[["Alemtuzumab"]][["ATC"]] <- c("L04AA34", "L04AG06")
+concept_set_codes_our_study_pre_DU[["Azathioprine"]][["ATC"]] <- "L04AX01"
+concept_set_codes_our_study_pre_DU[["Cladribine"]][["ATC"]] <- c("L04AA40", "L01BB04")
+concept_set_codes_our_study_pre_DU[["Daclizumab"]][["ATC"]] <- c("L04AC01", "L04AA08")
+concept_set_codes_our_study_pre_DU[["Dimethyl_fumarate"]][["ATC"]] <- c("N07XX09", "L04AX07")
+concept_set_codes_our_study_pre_DU[["Fingolimod"]][["ATC"]] <- c("L04AA27", "L04AE01")
+concept_set_codes_our_study_pre_DU[["Glatiramer_acetate"]][["ATC"]] <- "L03AX13"
+concept_set_codes_our_study_pre_DU[["Interferon_beta_1a"]][["ATC"]] <- "L03AB07"
+concept_set_codes_our_study_pre_DU[["Interferon_beta_1b"]][["ATC"]] <- "L03AB08"
+concept_set_codes_our_study_pre_DU[["Mitoxantrone"]][["ATC"]] <- "L01DB07"
+concept_set_codes_our_study_pre_DU[["Natalizumab"]][["ATC"]] <- c("L04AA23", "L04AG03")
+concept_set_codes_our_study_pre_DU[["Ocrelizumab"]][["ATC"]] <- c("L04AA36", "L04AG08")
+concept_set_codes_our_study_pre_DU[["Peginterferon_beta_1a"]][["ATC"]] <- "L03AB13"
+concept_set_codes_our_study_pre_DU[["Rituximab"]][["ATC"]] <- c("L01XC02", "L01FA01")
+concept_set_codes_our_study_pre_DU[["Teriflunomide"]][["ATC"]] <- c("L04AA31", "L04AK02")
+concept_set_codes_our_study_pre_DU[["Siponimod"]][["ATC"]] <- c("L04AA42", "L04AE03")
+concept_set_codes_our_study_pre_DU[["Methotrexate"]][["ATC"]] <- c("L04AX03", "L01BA01")
+concept_set_codes_our_study_pre_DU[["Cyclophosphamide"]][["ATC"]] <- "L01AA01"
+concept_set_codes_our_study_pre_DU[["Leflunomide"]][["ATC"]] <- c("L04AA13", "L04AK01")
+concept_set_codes_our_study_pre_DU[["Mycophenolate_mofetil"]][["ATC"]] <- "L04AA06"
+concept_set_codes_our_study_pre_DU[["Tacrolimus"]][["ATC"]] <- c("L04AD02", "D11AX14", "D11AH01")
+
 
 
 
