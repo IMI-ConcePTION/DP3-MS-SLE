@@ -272,7 +272,8 @@ filter_by_Cube_levels <- function(df){
 
 save_tbl_summary <- function(tbl_obj, dir_export, tbl_name, additional_folder = NULL) {
   
-  folders <- c("docx/", "rtf/", "html/", "rds/")
+  # folders <- c("docx/", "rtf/", "html/", "rds/")
+  folders <- c("rtf/", "html/", "rds/")
   for (folder in folders) {
     if(!file.exists(paste0(dir_export, folder, additional_folder))) dir.create(file.path(paste0(dir_export, folder, additional_folder)), showWarnings = F)
   }
@@ -280,7 +281,7 @@ save_tbl_summary <- function(tbl_obj, dir_export, tbl_name, additional_folder = 
   tbl_obj$inputs <- NULL
   
   saveRDS(tbl_obj, paste0(paste0(dir_export, "rds/", additional_folder), tbl_name, ".rds"))
-  gt::gtsave(tbl_obj, paste0(paste0(dir_export, "docx/", additional_folder), tbl_name, ".docx"))
+  # gt::gtsave(tbl_obj, paste0(paste0(dir_export, "docx/", additional_folder), tbl_name, ".docx"))
   gt::gtsave(tbl_obj, paste0(paste0(dir_export, "html/", additional_folder), tbl_name, ".html"))
   gt::gtsave(tbl_obj, paste0(paste0(dir_export, "rtf/", additional_folder), tbl_name, ".rtf"))
 }
