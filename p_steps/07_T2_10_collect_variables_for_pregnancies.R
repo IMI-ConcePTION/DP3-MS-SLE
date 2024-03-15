@@ -10,7 +10,7 @@ smart_load("D4_DU_MS_COHORT", diroutput, extension = extension)
 smart_load("D4_DU_PREGNANCY_COHORT", diroutput, extension = extension)
 
 # Keep only variables needed to be added and primary key
-D4_DU_MS_COHORT <- D4_DU_MS_COHORT[, .(person_id, date_MS)]
+D4_DU_MS_COHORT <- unique(D4_DU_MS_COHORT[, .(person_id, date_MS)])
 
 # Add information of MS to pregnancies
 pregnancy_variables <- merge(D4_DU_PREGNANCY_COHORT, D4_DU_MS_COHORT, all.x = T, by = "person_id")
@@ -37,8 +37,8 @@ if (thisdatasource %in% datasources_only_preg) {
 
 # Check if MS diagnosed during pregnancy
 # TODO check with Rosa, not sure about this criteria
-pregnancy_variables[, MS_developed_during_pregnancy := fifelse(pregnancy_with_MS_detail %not in% c("no", "long after pregnancy")  &
-                                                                 pregnancy_with_MS == 0, 1, 0)]
+# pregnancy_variables[, MS_developed_during_pregnancy := fifelse(pregnancy_with_MS_detail %not in% c("no", "long after pregnancy")  &
+#                                                                  pregnancy_with_MS == 0, 1, 0)]
 
 # Number of pregnancy in study
 # TODO tell Rosa description is codebook is not optimal
@@ -46,6 +46,24 @@ pregnancy_variables[, number_of_pregnancies_in_the_study := .N, by = "person_id"
 
 # Number of pregnancy with MS in study
 pregnancy_variables[, number_of_pregnancies_with_MS_in_the_study := sum(pregnancy_with_MS), by = "person_id"]
+
+
+# Order data.table to identify not first pregnancies
+setorder(pregnancy_variables, person_id, pregnancy_start_date)
+pregnancy_variables[, has_previous_pregnancy := as.integer(rowid(person_id) != 1)]
+
+# TODO ask Marie if ok (lower or upper inclusion?)
+# Calculate time between pregnancies in months
+pregnancy_variables[, time_since_previous_pregnancy := ceiling(as.period(interval(shift(pregnancy_end_date), pregnancy_start_date)) / months(1)), by = "person_id"]
+
+# Divide time between pregnancies in categories
+pregnancy_variables[, categories_time_since_previous_pregnancy := cut(time_since_previous_pregnancy,
+                                                                      c(0, 3, 6, 12, 15, Inf),
+                                                                      labels = c("Less than 3 months",
+                                                                                 "Between 3 and 6 months",
+                                                                                 "Between 6 and 12 months",
+                                                                                 "Between 12 and 15 months",
+                                                                                 "More than 15 months"))]
 
 # Definition of start and end of periods
 # TODO check if Marie has left notes for start_preg_period_during_2 ... end_preg_period_during_3
@@ -58,15 +76,26 @@ pregnancy_variables[, end_preg_period_pre_2 := pregnancy_start_date %m-% days(91
 pregnancy_variables[, start_preg_period_pre_1 := pregnancy_start_date %m-% days(90)]
 pregnancy_variables[, end_preg_period_pre_1 := pregnancy_start_date %m-% days(1)]
 pregnancy_variables[, start_preg_period_during_1 := pregnancy_start_date]
-pregnancy_variables[, end_preg_period_during_1 := min(pregnancy_start_date %m+% days(97), pregnancy_end_date)]
-pregnancy_variables[, start_preg_period_during_2 := min(pregnancy_start_date %m+% days(98), pregnancy_end_date)]
-pregnancy_variables[, end_preg_period_during_2 := min(pregnancy_start_date %m+% days(195), pregnancy_end_date)]
-pregnancy_variables[, start_preg_period_during_3 := min(pregnancy_start_date %m+% days(196), pregnancy_end_date)]
-pregnancy_variables[, end_preg_period_during_3 := pregnancy_end_date]
+pregnancy_variables[, end_preg_period_during_1 := pmin(pregnancy_start_date %m+% days(97), pregnancy_end_date)]
+pregnancy_variables[, start_preg_period_during_2 := fifelse(end_preg_period_during_1 != pregnancy_end_date,
+                                                            pregnancy_start_date %m+% days(98), NA)]
+pregnancy_variables[, end_preg_period_during_2 := fifelse(end_preg_period_during_1 != pregnancy_end_date,
+                                                          pmin(pregnancy_start_date %m+% days(195), pregnancy_end_date), NA)]
+pregnancy_variables[, start_preg_period_during_3 := fifelse(!is.na(end_preg_period_during_2) & end_preg_period_during_2 != pregnancy_end_date,
+                                                            pregnancy_start_date %m+% days(196), NA)]
+pregnancy_variables[, end_preg_period_during_3 := fifelse(!is.na(end_preg_period_during_2) & end_preg_period_during_2 != pregnancy_end_date,
+                                                          pregnancy_end_date, NA)]
 pregnancy_variables[, start_preg_period_after_1 := pregnancy_end_date %m+% days(1)]
 pregnancy_variables[, end_preg_period_after_1 := pregnancy_end_date %m+% days(90)]
 pregnancy_variables[, start_preg_period_pre_all := start_preg_period_pre_4]
 pregnancy_variables[, end_preg_period_pre_all := end_preg_period_pre_1]
+
+# Save when pregnancies ended
+pregnancy_variables[, trimester_when_pregnancy_ended := fcase(
+  pregnancy_start_date %m+% days(97) >= pregnancy_end_date, "t1",
+  pregnancy_start_date %m+% days(195) >= pregnancy_end_date, "t2",
+  default = "t3"
+)]
 
 # Save the file
 smart_save(pregnancy_variables, dirtemp, override_name = "D3_DU_PREGNANCY_COHORT_variables",
