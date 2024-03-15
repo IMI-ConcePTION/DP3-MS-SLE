@@ -6,7 +6,7 @@
     <description>Recent content in Documentation for DP3 project on CVM Documentation</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 01 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>_index.en</title>
       <link>/step_10/index.html</link>
@@ -14,7 +14,7 @@
       <guid>/step_10/index.html</guid>
       <description>D4_DU_prevalence_MS_in_pregnancy_cohortcontains the aggregated prevalence (numerators and denominators) needed to compute prevalence of MS in the pregnancy cohort, to feed Template 4 and 5
 D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimestersthis dataset measures in each MS pregnancy whether the woman used or didn&amp;#39;t use each of the MS medications in the trimesters before or during pregnancy (to ultimately feed Template 3)
-D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimestersthis is the aggregation of the individual-level dataset D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters, to feed Template 3. It copntains counts of persons using medicines exclusively in some periods before and during pregnancy</description>
+D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimestersthis is the aggregation of the individual-level dataset D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters, to feed Template 3. It contains counts of persons using medicines exclusively in some periods before and during pregnancy</description>
     </item>
     <item>
       <title>_index.en</title>
@@ -95,7 +95,8 @@ D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohortD4_DU_PRE
       <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
       <guid>/step_8/index.html</guid>
       <description>D5_DU_for_Template_1numbers to be included in Template 1: Description of the time period between 2 pregnancies in the pregnancy cohort and in the MS-pregnancy cohort (ref: DP3_SAP_DU_MS_V2.2)
-D5_DU_for_Template_2numbers to be included in Template 2: Description of the time period between MS diagnosis (MS diagnosis date=the date on which the algorithm becomes positive) and pregnancy in the MS-pregnancy cohort  </description>
+D5_DU_for_Template_2numbers to be included in Template 2: Description of the time period between MS diagnosis (MS diagnosis date=the date on which the algorithm becomes positive) and pregnancy in D3_DU_PREGNANCY-COHORT_variables if after or during MS diagnosis
+ </description>
     </item>
     <item>
       <title>_index.en</title>

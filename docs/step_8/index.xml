@@ -10,16 +10,16 @@
     <item>
       <title>D5_DU_for_Template_1</title>
       <link>/step_8/d5_du_for_template_1/index.html</link>
-      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
       <guid>/step_8/d5_du_for_template_1/index.html</guid>
       <description>MetadataData ModelParametersExampleShell Table{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;NxUoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D5_DU_for_Template_1&#34;,&#34;numbers to be included in Template 1: Description of the time period between 2 pregnancies in the pregnancy cohort and in the MS-pregnancy cohort (ref: DP3_SAP_DU_MS_V2.</description>
     </item>
     <item>
       <title>D5_DU_for_Template_2</title>
       <link>/step_8/d5_du_for_template_2/index.html</link>
-      <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
       <guid>/step_8/d5_du_for_template_2/index.html</guid>
-      <description>MetadataData ModelParametersExampleShell Table{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;NxUoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D5_DU_for_Template_2&#34;,&#34;numbers to be included in Template 2: Description of the time period between MS diagnosis (MS diagnosis date=the date on which the algorithm becomes positive) and pregnancy in the MS-pregnancy cohort\r\n&#34;</description>
+      <description>MetadataData ModelParametersExampleShell Table{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;NxUoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D5_DU_for_Template_2&#34;,&#34;numbers to be included in Template 2: Description of the time period between MS diagnosis (MS diagnosis date=the date on which the algorithm becomes positive) and pregnancy in D3_DU_PREGNANCY-COHORT_variables if after or during MS diagnosis&#34;</description>
     </item>
   </channel>
 </rss>

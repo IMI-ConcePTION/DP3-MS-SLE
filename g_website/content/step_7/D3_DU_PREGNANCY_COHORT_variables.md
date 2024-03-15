@@ -3,10 +3,10 @@ weight: 1
 name_excel: "D3_DU_PREGNANCY_COHORT_variables.xlsx"
 description: "contains the cohort of pregnancies included in the study, including both those with MS and those without MS, as decsribed in section 4.1 of DP3_SAP_DU_MS_V2.2"
 slug: "D3_DU_PREGNANCY_COHORT_variables"
-datetime: 1.706792e+09
+datetime: 1.7105212e+09
 title: D3_DU_PREGNANCY_COHORT_variables
 author: ''
-date: '2024-02-01'
+date: '2024-03-15'
 categories: []
 tags: []
 archetype: codebook
