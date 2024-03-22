@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.0-gamma - 22 March 2024
+# Implemented template 4, 5, 6, 7
+
 # v3.0.0-beta - 15 March 2024
 # Implemented template 3
 # Bugfix for template 1
@@ -52,3 +55,4 @@ launch_step("p_steps/10_T3_21_aggregate_prevalence_of_exclusive_use_MSmeds_in_MS
 launch_step("p_steps/10_T3_30_create_prevalence_of_use_MSdrugs_in_MScohort.R")
 launch_step("p_steps/11_T4_10_create_template_on_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
 launch_step("p_steps/11_T4_20_create_templates_on_prevalence_MS_in_pregnancy_cohort.R")
+launch_step("p_steps/11_T4_30_create_template_on_prevalence_of_use_MSdrugs_in_MS_cohort.R")
