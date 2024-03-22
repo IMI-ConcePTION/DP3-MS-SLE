@@ -13,6 +13,9 @@ prevalence_preg <- D4_DU_prevalence_MS_in_pregnancy_cohort
 # Select necessary levels
 prevalence_preg <- prevalence_preg[CalendarTime_level_order %in% c(1, 99) & Ageband_level_order == 99, ]
 
+# Recode 2005-2019 to "all"
+prevalence_preg <- prevalence_preg[CalendarTime_level_order == 99, CalendarTime_label := "all"]
+
 # Change names of columns
 prevalence_preg <- prevalence_preg[, .(row_identifier = CalendarTime_label, n1 = numerator, n2 = denominator)]
 
