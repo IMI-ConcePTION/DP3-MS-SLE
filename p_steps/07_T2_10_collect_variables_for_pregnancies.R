@@ -77,14 +77,14 @@ pregnancy_variables[, start_preg_period_pre_1 := pregnancy_start_date %m-% days(
 pregnancy_variables[, end_preg_period_pre_1 := pregnancy_start_date %m-% days(1)]
 pregnancy_variables[, start_preg_period_during_1 := pregnancy_start_date]
 pregnancy_variables[, end_preg_period_during_1 := pmin(pregnancy_start_date %m+% days(97), pregnancy_end_date)]
-pregnancy_variables[, start_preg_period_during_2 := fifelse(end_preg_period_during_1 != pregnancy_end_date,
-                                                            pregnancy_start_date %m+% days(98), NA)]
+pregnancy_variables[, start_preg_period_during_2 := data.table::fifelse(end_preg_period_during_1 != pregnancy_end_date,
+                                                            pregnancy_start_date %m+% days(98), NA_Date_)]
 pregnancy_variables[, end_preg_period_during_2 := fifelse(end_preg_period_during_1 != pregnancy_end_date,
-                                                          pmin(pregnancy_start_date %m+% days(195), pregnancy_end_date), NA)]
+                                                          pmin(pregnancy_start_date %m+% days(195), pregnancy_end_date), NA_Date_)]
 pregnancy_variables[, start_preg_period_during_3 := fifelse(!is.na(end_preg_period_during_2) & end_preg_period_during_2 != pregnancy_end_date,
-                                                            pregnancy_start_date %m+% days(196), NA)]
+                                                            pregnancy_start_date %m+% days(196), NA_Date_)]
 pregnancy_variables[, end_preg_period_during_3 := fifelse(!is.na(end_preg_period_during_2) & end_preg_period_during_2 != pregnancy_end_date,
-                                                          pregnancy_end_date, NA)]
+                                                          pregnancy_end_date, NA_Date_)]
 pregnancy_variables[, start_preg_period_after_1 := pregnancy_end_date %m+% days(1)]
 pregnancy_variables[, end_preg_period_after_1 := pregnancy_end_date %m+% days(90)]
 pregnancy_variables[, start_preg_period_pre_all := start_preg_period_pre_4]
