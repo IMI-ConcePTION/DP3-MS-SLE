@@ -94,7 +94,7 @@ smart_save(D5_1_mask, direxpmask, override_name = "D5_DU_for_Template_1_masked",
            extension = extension, save_copy = "csv")
 
 # TODO Change this in regards to floor/ceiling above
-preg_cohort_strat_mult[, dist := cut(dist, c(0, 3, 6, 12, 15, Inf), right = F,
+preg_cohort_strat_mult[, dist := cut(dist, c(-1, 3, 6, 12, 15, Inf), right = T,
                                      labels = c("Less than 3 months", "Between 3 and 6 months",
                                                 "Between 6 and 12 months", "Between 12 and 15 months",
                                                 "More than 15 months"))]
