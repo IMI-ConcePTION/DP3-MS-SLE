@@ -29,7 +29,6 @@ D5_1_temp <- preg_cohort_strat[number_of_pregnancies_in_the_study > 1, .(n3 = .N
 D5_1 <- merge(D5_1, D5_1_temp, all.x = T)
 D5_1[, p3 := n3 / n1 * 100]
 
-
 header_string <- list(label = '',
                       stat_1 = '**Number of pregnancies in the Pregnancy cohort N (%)**',
                       stat_2 = '**Number of pregnancies in the MS-Pregnancy cohort N (%)**')
@@ -45,6 +44,22 @@ tab1a <- preg_cohort_strat[, total := 1] %>%
   gtsummary::modify_header(header_string) |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
 
+tmp1 <- preg_cohort[, .(person_id, pregnancy_id, number_of_pregnancies_in_the_study, pregnancy_start_date,
+                        pregnancy_end_date, strata = 1)]
+
+setorder(preg_cohort, person_id, pregnancy_start_date)
+tmp2 <- preg_cohort[pregnancy_with_MS == 0, .SD[.N],
+                    by = "person_id"]
+tmp3 <- preg_cohort[pregnancy_with_MS == 1, ]
+tmp4 <- rbindlist(list(tmp3, tmp2), use.names = T)
+tmp5 <- tmp4[, .SD[any(pregnancy_with_MS)], by = "person_id"]
+
+tmp4 <- rbindlist(list(tmp3, tmp2), use.names = T)
+
+
+DT[, .SD[.N], by="TRADER_ID,EXEC_IDATE"]
+
+preg_cohort_strat <- rbindlist(list(tmp1, tmp2), use.names = T)
 
 preg_cohort_strat[, strata := as.factor(strata)]
 preg_cohort_strat_mult <- preg_cohort_strat[number_of_pregnancies_in_the_study > 1, ]
