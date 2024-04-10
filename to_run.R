@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.5.3 - 10 April 2024
+# Fixed UOSL meanings
+
 # v2.5.2 - 04 February 2024
 # Fix in case end of observation periods is missing
 
