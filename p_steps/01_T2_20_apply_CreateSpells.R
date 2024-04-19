@@ -11,6 +11,10 @@ OBSERVATION_PERIODS <- read_CDM_tables("OBSERVATION_PERIODS")
 
 if (thisdatasource %in% datasources_obs_per_from_pregnancies) {
   
+  if (thisdatasource == "UOSL") {
+    op_meanings_list_per_set[["UOSL"]][["meanings_MEDICINES"]] <- unique(OBSERVATION_PERIODS[, op_meaning])
+  }
+  
   OBSERVATION_PERIODS_preg <- as.data.table(get(load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))[[1]]))
   
   setnames(OBSERVATION_PERIODS_preg, c("pregnancy_start_date", "pregnancy_end_date"), c("op_start_date", "op_end_date"))
