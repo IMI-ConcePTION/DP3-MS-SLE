@@ -67,6 +67,15 @@ op_meanings_list_per_set[["RDRU_FISABIO"]][["meanings_CANCER"]] <- c("from_cance
 
 op_meaning_sets_in_subpopulations[["RDRU_FISABIO"]][["PREG"]] <- c("meanings_pregnancy", "meanings_MEDICINES")
 
+
+subpopulations[["UOSL"]] = c("PREG")
+
+op_meaning_sets[["UOSL"]] = c("meanings_pregnancy","meanings_MEDICINES")
+op_meanings_list_per_set[["UOSL"]][["meanings_pregnancy"]] <- c("pregnancy")
+op_meanings_list_per_set[["UOSL"]][["meanings_MEDICINES"]] <- c() # Generated in step of the spells as all meanings
+
+op_meaning_sets_in_subpopulations[["UOSL"]][["PREG"]] <- c("meanings_pregnancy", "meanings_MEDICINES")
+
 # if (this_datasource_has_subpopulations == TRUE){ 
 #   # define selection criterion for events
 #   select_in_subpopulationsEVENTS <- vector(mode="list")
