@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.5.4 - 19 April 2024
+# Additional modification for UOSL meanings
+# Added optional subpopulation for UOSL for further analyses
+
 # v2.5.3 - 10 April 2024
 # Fixed UOSL meanings
 
