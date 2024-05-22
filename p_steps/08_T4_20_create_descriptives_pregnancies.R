@@ -8,15 +8,15 @@ smart_load("D3_DU_PREGNANCY_COHORT_variables", dirtemp, extension = extension)
 
 preg_cohort <- D3_DU_PREGNANCY_COHORT_variables[, .(person_id, pregnancy_id, number_of_pregnancies_in_the_study,
                                                     pregnancy_with_MS, pregnancy_with_MS_detail,
-                                                    pregnancy_start_date, pregnancy_end_date)]
+                                                    categories_time_since_previous_pregnancy)]
 
 preg_cohort_filtered <- copy(preg_cohort)[pregnancy_with_MS_detail %in% c("long before pregnancy", "recently before pregnancy",
                                                            "right before pregnancy", "during pregnancy"), ]
 
-tmp1 <- preg_cohort[, .(person_id, pregnancy_id, number_of_pregnancies_in_the_study, pregnancy_start_date,
-                        pregnancy_end_date, strata = 1)]
+tmp1 <- preg_cohort[, .(person_id, pregnancy_id, number_of_pregnancies_in_the_study, categories_time_since_previous_pregnancy,
+                        strata = 1)]
 tmp2 <- preg_cohort[pregnancy_with_MS == 1, .(person_id, number_of_pregnancies_in_the_study, pregnancy_id,
-                                              pregnancy_start_date, pregnancy_end_date, strata = 2)]
+                                              categories_time_since_previous_pregnancy, strata = 2)]
 
 preg_cohort_strat <- rbindlist(list(tmp1, tmp2), use.names = T)
 
@@ -46,8 +46,8 @@ tab1a <- preg_cohort_strat[, total := 1] %>%
 
 preg_cohort_strat[, strata := as.factor(strata)]
 preg_cohort_strat_mult <- preg_cohort_strat[number_of_pregnancies_in_the_study > 1, ]
-setorder(preg_cohort_strat_mult, person_id, strata, pregnancy_start_date)
-preg_cohort_strat_mult <- preg_cohort_strat_mult[!is.na(time_since_previous_pregnancy), ]
+setorder(preg_cohort_strat_mult, person_id, strata)
+preg_cohort_strat_mult <- preg_cohort_strat_mult[!is.na(categories_time_since_previous_pregnancy), ]
 
 # Second part of first shell table
 D5_1[, strata := as.factor(strata)]
