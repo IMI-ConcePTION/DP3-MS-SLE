@@ -16,13 +16,13 @@ D4_DU_MS_COHORT <- unique(D4_DU_MS_COHORT[, .(person_id, date_MS)])
 pregnancy_variables <- merge(D4_DU_PREGNANCY_COHORT, D4_DU_MS_COHORT, all.x = T, by = "person_id")
 pregnancy_variables[, has_MS_ever := data.table::fifelse(!is.na(date_MS), 1, 0)]
 
-# TODO remove months(3) and use 30.25
 # Variable to store when the MS diagnosis happened wrt pregnancy
+months_3_approx <- days(round(30.4 * 3))
 pregnancy_variables[, pregnancy_with_MS_detail := data.table::fcase(
   date_MS > DU_pregnancy_study_exit_date, "long after pregnancy",
   date_MS > pregnancy_end_date, "right after pregnancy",
   date_MS >= pregnancy_start_date, "during pregnancy",
-  date_MS >= pregnancy_start_date %m-% months(3), "right before pregnancy",
+  date_MS >= pregnancy_start_date %m-% months_3_approx, "right before pregnancy",
   date_MS >= DU_pregnancy_study_entry_date, "recently before pregnancy",
   date_MS < DU_pregnancy_study_entry_date, "long before pregnancy",
   default = "no")]
