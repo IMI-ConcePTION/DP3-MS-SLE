@@ -29,7 +29,6 @@ D5_1_temp <- preg_cohort_strat[number_of_pregnancies_in_the_study > 1, .(n3 = .N
 D5_1 <- merge(D5_1, D5_1_temp, all.x = T)
 D5_1[, p3 := n3 / n1 * 100]
 
-
 header_string <- list(label = '',
                       stat_1 = '**Number of pregnancies in the Pregnancy cohort N (%)**',
                       stat_2 = '**Number of pregnancies in the MS-Pregnancy cohort N (%)**')
@@ -45,30 +44,31 @@ tab1a <- preg_cohort_strat[, total := 1] %>%
   gtsummary::modify_header(header_string) |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
 
-
 preg_cohort_strat[, strata := as.factor(strata)]
 preg_cohort_strat_mult <- preg_cohort_strat[number_of_pregnancies_in_the_study > 1, ]
 setorder(preg_cohort_strat_mult, person_id, strata, pregnancy_start_date)
-# TODO ask if ceiling or floor is correct
-preg_cohort_strat_mult[, dist := floor(as.integer(difftime(pregnancy_start_date, shift(pregnancy_end_date))) / 30.25),
-                       by = c("person_id", "strata")]
-preg_cohort_strat_mult <- preg_cohort_strat_mult[!is.na(dist), ]
+preg_cohort_strat_mult <- preg_cohort_strat_mult[!is.na(time_since_previous_pregnancy), ]
 
 # Second part of first shell table
 D5_1[, strata := as.factor(strata)]
-D5_1_temp <- preg_cohort_strat_mult[dist > 15, .(n4 = .N), by = "strata"]
+D5_1_temp <- preg_cohort_strat_mult[categories_time_since_previous_pregnancy == "More than 15 months",
+                                    .(n4 = .N), by = "strata"]
 D5_1 <- merge(D5_1, D5_1_temp, all.x = T)
 D5_1[, p4 := n4 / n3 * 100]
-D5_1_temp <- preg_cohort_strat_mult[dist <= 15 & dist > 12, .(n5 = .N), by = "strata"]
+D5_1_temp <- preg_cohort_strat_mult[categories_time_since_previous_pregnancy == "Between 12 and 15 months",
+                                    .(n5 = .N), by = "strata"]
 D5_1 <- merge(D5_1, D5_1_temp, all.x = T)
 D5_1[, p5 := n5 / n3 * 100]
-D5_1_temp <- preg_cohort_strat_mult[dist <= 12 & dist > 6, .(n6 = .N), by = "strata"]
+D5_1_temp <- preg_cohort_strat_mult[categories_time_since_previous_pregnancy == "Between 6 and 12 months",
+                                    .(n6 = .N), by = "strata"]
 D5_1 <- merge(D5_1, D5_1_temp, all.x = T)
 D5_1[, p6 := n6 / n3 * 100]
-D5_1_temp <- preg_cohort_strat_mult[dist <= 6 & dist > 3, .(n7 = .N), by = "strata"]
+D5_1_temp <- preg_cohort_strat_mult[categories_time_since_previous_pregnancy == "Between 3 and 6 months",
+                                    .(n7 = .N), by = "strata"]
 D5_1 <- merge(D5_1, D5_1_temp, all.x = T)
 D5_1[, p7 := n7 / n3 * 100]
-D5_1_temp <- preg_cohort_strat_mult[dist <= 3, .(n8 = .N), by = "strata"]
+D5_1_temp <- preg_cohort_strat_mult[categories_time_since_previous_pregnancy == "Less than 3 months",
+                                    .(n8 = .N), by = "strata"]
 D5_1 <- merge(D5_1, D5_1_temp, all.x = T)
 D5_1[, p8 := n8 / n3 * 100]
 
@@ -93,21 +93,15 @@ smart_save(D5_1, direxp, override_name = "D5_DU_for_Template_1", extension = ext
 smart_save(D5_1_mask, direxpmask, override_name = "D5_DU_for_Template_1_masked",
            extension = extension, save_copy = "csv")
 
-# TODO Change this in regards to floor/ceiling above
-preg_cohort_strat_mult[, dist := cut(dist, c(0, 3, 6, 12, 15, Inf), right = F,
-                                     labels = c("Less than 3 months", "Between 3 and 6 months",
-                                                "Between 6 and 12 months", "Between 12 and 15 months",
-                                                "More than 15 months"))]
-
 tab1b <- preg_cohort_strat_mult |>
-  gtsummary::tbl_summary(include = dist,
+  gtsummary::tbl_summary(include = categories_time_since_previous_pregnancy,
                          by = strata,
-                         label = list(dist ~ "Study population"),
-                         statistic = dist ~ "{n}") |>
+                         label = list(categories_time_since_previous_pregnancy ~ "Study population"),
+                         statistic = categories_time_since_previous_pregnancy ~ "{n}") |>
   # remove header row
   gtsummary::modify_table_body(
     ~ .x |> 
-      dplyr::filter(!(variable %in% "dist" & row_type %in% "label"))
+      dplyr::filter(!(variable %in% "categories_time_since_previous_pregnancy" & row_type %in% "label"))
   ) |>
   gtsummary::modify_header(header_string) |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
@@ -185,8 +179,8 @@ for (col_mask in columns_to_mask_simple) {
   D5_2_mask[between(as.numeric(get(col_mask)), 1, 4), (col_mask) := "<5"]
 }
 
-smart_save(D5_1, direxp, override_name = "D5_DU_for_Template_2", extension = extension, save_copy = "csv")
-smart_save(D5_1_mask, direxpmask, override_name = "D5_DU_for_Template_2_masked",
+smart_save(D5_2, direxp, override_name = "D5_DU_for_Template_2", extension = extension, save_copy = "csv")
+smart_save(D5_2_mask, direxpmask, override_name = "D5_DU_for_Template_2_masked",
            extension = extension, save_copy = "csv")
 
 header_string <- list(label = '**Date of MS diagnosis**',
