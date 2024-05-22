@@ -55,7 +55,7 @@ pregnancy_variables[, has_previous_pregnancy := as.integer(rowid(person_id) != 1
 
 # TODO ask Marie if ok (lower or upper inclusion?)
 # Calculate time between pregnancies in months
-pregnancy_variables[, time_since_previous_pregnancy := floor((pregnancy_start_date - shift(pregnancy_end_date)) / 30.4), by = "person_id"]
+pregnancy_variables[, time_since_previous_pregnancy := as.integer(floor((pregnancy_start_date - shift(pregnancy_end_date)) / 30.4)), by = "person_id"]
 
 # Divide time between pregnancies in categories
 pregnancy_variables[, categories_time_since_previous_pregnancy := cut(time_since_previous_pregnancy,
