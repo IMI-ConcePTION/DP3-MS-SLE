@@ -93,6 +93,15 @@ smart_save(D5_1, direxp, override_name = "D5_DU_for_Template_1", extension = ext
 smart_save(D5_1_mask, direxpmask, override_name = "D5_DU_for_Template_1_masked",
            extension = extension, save_copy = "csv")
 
+<<<<<<< HEAD
+=======
+# TODO Change this in regards to floor/ceiling above
+preg_cohort_strat_mult[, dist := cut(dist, c(-1, 3, 6, 12, 15, Inf), right = T,
+                                     labels = c("Less than 3 months", "Between 3 and 6 months",
+                                                "Between 6 and 12 months", "Between 12 and 15 months",
+                                                "More than 15 months"))]
+
+>>>>>>> 3e22ff20cdbdb1233114a82982809c9dd54b2b88
 tab1b <- preg_cohort_strat_mult |>
   gtsummary::tbl_summary(include = categories_time_since_previous_pregnancy,
                          by = strata,
