@@ -4,7 +4,7 @@
 
 # datasources_with_subpopulations lists the datasources where some meanings of events should be excluded during some observation periods, associated with some op_meanings
 
-this_datasource_has_subpopulations <- c("THL", "SAIL Databank", "RDRU_FISABIO")
+this_datasource_has_subpopulations <- c("THL", "SAIL Databank", "RDRU_FISABIO", "TEST")
 
 # this_datasource_has_subpopulations <- ifelse(thisdatasource %in% datasources_with_subpopulations, TRUE, FALSE) 
 
@@ -43,13 +43,13 @@ op_meanings_list_per_set[["SAIL Databank"]][["meanings_residency"]] <- c("reside
 op_meaning_sets_in_subpopulations[["SAIL Databank"]][["GP"]] <- c("meanings_GP", "meanings_residency")
 
 # datasource TEST
-subpopulations[["TEST"]] = c("GP")
+subpopulations[["TEST"]] = c("PREG")
 
-op_meaning_sets[["TEST"]] <- c("meanings_GP", "meanings_pregnancy")
-op_meanings_list_per_set[["TEST"]][["meanings_GP"]] <- c("primary_care")
+op_meaning_sets[["TEST"]] = c("meanings_pregnancy","meanings_MEDICINES")
 op_meanings_list_per_set[["TEST"]][["meanings_pregnancy"]] <- c("pregnancy")
+op_meanings_list_per_set[["TEST"]][["meanings_MEDICINES"]] <- c() # Generated in step of the spells as all meanings
 
-op_meaning_sets_in_subpopulations[["TEST"]][["GP"]] <- c("meanings_GP", "meanings_pregnancy")
+op_meaning_sets_in_subpopulations[["TEST"]][["PREG"]] <- c("meanings_pregnancy", "meanings_MEDICINES")
 
 # datasource FISABIO
 
