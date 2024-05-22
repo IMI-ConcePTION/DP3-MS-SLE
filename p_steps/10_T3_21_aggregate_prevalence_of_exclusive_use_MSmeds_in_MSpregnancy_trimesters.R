@@ -56,6 +56,7 @@ assigned_statistics <- vector(mode="list")
 assigned_statistics[["number_medications"]] <- c("sum", "median")
 assigned_statistics[["use_general"]] <- "sum"
 
+# TODO add anytry
 # Calculate sums of usage and number of medication for each level. Calculate 
 preg_med_ind <- Cube(input = preg_med_ind,
                      dimensions = c("medication"),
