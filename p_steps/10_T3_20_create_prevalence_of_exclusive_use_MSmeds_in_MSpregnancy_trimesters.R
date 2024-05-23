@@ -8,14 +8,14 @@
 smart_load("D3_DU_PREGNANCY_COHORT_variables", dirtemp, extension = extension)
 
 medications <- rbindlist(lapply(concept_sets_of_our_study_DU, function(x) {
-  get(load(paste0(dirconceptsets, x, ".Rdata"))[[1]])[, .(person_id, date, concept = x)]
+  return(get(load(paste0(dirconceptsets, x, ".Rdata"))[[1]])[, .(person_id, date)][, concept := x])
 }))
 medications <- unique(medications)
 
 # TODO remove for release
 # medications <- rbindlist(lapply(medications$person_id, function(x) copy(medications)[, person_id := x]))
 # TODO add for release
-D3_DU_PREGNANCY_COHORT_variables[pregnancy_with_MS == 1,]
+D3_DU_PREGNANCY_COHORT_variables <- D3_DU_PREGNANCY_COHORT_variables[pregnancy_with_MS == 1,]
 
 # Keep only necessary columns
 pregnancy_df <- D3_DU_PREGNANCY_COHORT_variables[, .(person_id, pregnancy_id, start_preg_period_pre_all,
@@ -38,7 +38,7 @@ pregnancy_df[.(period_name = as.character(1:4), to = c("number_before_pregnancy"
 all_cols <- c(union(colnames(pregnancy_df), colnames(medications)), "y.start_period")
 med_in_preg <- medications[pregnancy_df, .(person_id, pregnancy_id, trimester_when_pregnancy_ended, period_name,
                                            start_period, end_period, date = x.date, concept),
-                           on = .(person_id, date > start_period, date < end_period), allow.cartesian = T]
+                           on = .(person_id, date >= start_period, date <= end_period), allow.cartesian = T]
 
 # Remove person_id since it's not useful anymore
 med_in_preg[, person_id := NULL]

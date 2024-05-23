@@ -44,6 +44,17 @@ source(paste0(thisdir,"/p_parameters/99_saving_all_parameters.R")) #SAVING AND C
 #----------------
 
 # DU
+launch_step("p_steps/01_T2_10_create_persons.R")
+launch_step("p_steps/01_T2_20_apply_CreateSpells.R")
+launch_step("p_steps/01_T2_30_CreateConceptSetDatasets.R")
+launch_step("p_steps/01_T2_31_CreateItemSetDatasets.R")
+launch_step("p_steps/01_T2_32_CreatePromptSetDatasets.R")
+launch_step("p_steps/01_T2_40_clean_spells.R")
+launch_step("p_steps/01_T2_50_selection_criteria_from_PERSON_to_study_population.R")
+launch_step("p_steps/02_T3_10_create_study_population.R")
+launch_step("p_steps/03_T2_10_create_study_population_baseline_variables.R")
+
+# DU
 launch_step("p_steps/05_T2_10_create_MS-COHORT.R")
 launch_step("p_steps/05_T2_20_create_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort.R")
 launch_step("p_steps/05_T2_30_create_selection_criteria_from_pregnancies.R")

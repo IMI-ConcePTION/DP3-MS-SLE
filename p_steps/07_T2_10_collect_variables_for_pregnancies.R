@@ -17,11 +17,12 @@ pregnancy_variables <- merge(D4_DU_PREGNANCY_COHORT, D4_DU_MS_COHORT, all.x = T,
 pregnancy_variables[, has_MS_ever := data.table::fifelse(!is.na(date_MS), 1, 0)]
 
 # Variable to store when the MS diagnosis happened wrt pregnancy
+months_3_approx <- days(round(30.4 * 3))
 pregnancy_variables[, pregnancy_with_MS_detail := data.table::fcase(
   date_MS > DU_pregnancy_study_exit_date, "long after pregnancy",
   date_MS > pregnancy_end_date, "right after pregnancy",
   date_MS >= pregnancy_start_date, "during pregnancy",
-  date_MS >= pregnancy_start_date %m-% months(3), "right before pregnancy",
+  date_MS >= pregnancy_start_date %m-% months_3_approx, "right before pregnancy",
   date_MS >= DU_pregnancy_study_entry_date, "recently before pregnancy",
   date_MS < DU_pregnancy_study_entry_date, "long before pregnancy",
   default = "no")]
@@ -54,7 +55,7 @@ pregnancy_variables[, has_previous_pregnancy := as.integer(rowid(person_id) != 1
 
 # TODO ask Marie if ok (lower or upper inclusion?)
 # Calculate time between pregnancies in months
-pregnancy_variables[, time_since_previous_pregnancy := ceiling(as.period(interval(shift(pregnancy_end_date), pregnancy_start_date)) / months(1)), by = "person_id"]
+pregnancy_variables[, time_since_previous_pregnancy := as.integer(floor((pregnancy_start_date - shift(pregnancy_end_date)) / 30.4)), by = "person_id"]
 
 # Divide time between pregnancies in categories
 pregnancy_variables[, categories_time_since_previous_pregnancy := cut(time_since_previous_pregnancy,
