@@ -34,9 +34,9 @@ if (thisdatasource == "EFEMERIS") {
   prior_data_avalaibility <- lubridate::years(1)
 }
 
-setorder(selection_criteria, person_id, pregnancy_start_date)
+setorder(selection_criteria, person_id, cohort_entry_date, pregnancy_start_date)
 
-selection_criteria[, lag_pregnancy_end_date := shift(pregnancy_end_date) + 1, by = "person_id"]
+selection_criteria[, lag_pregnancy_end_date := shift(pregnancy_end_date) + 1, by = c("person_id", "cohort_entry_date")]
 selection_criteria[, DU_pregnancy_study_entry_date := pmax(pregnancy_start_date %m-% prior_data_avalaibility,
                                                            lag_pregnancy_end_date, na.rm = T)]
 selection_criteria[, lag_pregnancy_end_date := NULL]
@@ -54,21 +54,73 @@ if (thisdatasource == "EFEMERIS") {
 
 # Some pregnancies may comes from Males (gender)
 selection_criteria[, EXCLUSION_1_pregnancy_in_persons_of_non_female_gender := fifelse(sex_at_instance_creation != "F", 1, 0)]
+selection_criteria[, removed_row := EXCLUSION_1_pregnancy_in_persons_of_non_female_gender]
 
 # TODO add here filter for pregnancies quality
-selection_criteria[, EXCLUSION_2_pregnancy_with_inappropriate_quality := 0]
+selection_criteria[removed_row == 0, EXCLUSION_2_pregnancy_with_inappropriate_quality := 0]
+selection_criteria[removed_row == 0, removed_row := rowSums(.SD),
+                   .SDcols = c("removed_row", "EXCLUSION_2_pregnancy_with_inappropriate_quality")]
 
 # Criteria for pregnancies before 15th and after 50th birthday
-selection_criteria[, EXCLUSION_3_pregnancy_not_in_fertile_age := fifelse((DU_pregnancy_study_entry_date < birth_date %m+% years(15)) |
-                                                                           (DU_pregnancy_study_exit_date >= birth_date %m+% years(50)), 1, 0)]
+# selection_criteria[removed_row == 0, EXCLUSION_3_pregnancy_not_in_fertile_age := fifelse((DU_pregnancy_study_entry_date < birth_date %m+% years(15)) |
+#                                                                            (DU_pregnancy_study_exit_date >= birth_date %m+% years(50)), 1, 0)]
+# selection_criteria[removed_row == 0, removed_row := rowSums(.SD),
+#                    .SDcols = c("removed_row", "EXCLUSION_3_pregnancy_not_in_fertile_age")]
+selection_criteria[removed_row == 0, tot_preg_num := .N, by = c("person_id", "pregnancy_id")]
+selection_criteria[removed_row == 0, preg_not_in_fertile_age := fifelse((DU_pregnancy_study_entry_date < birth_date %m+% years(15)) |
+                                                                          (DU_pregnancy_study_exit_date >= birth_date %m+% years(50)), 1, 0)]
+selection_criteria[removed_row == 0, tot_preg_not_in_fertile_age := sum(preg_not_in_fertile_age), by = c("person_id", "pregnancy_id")]
+selection_criteria[removed_row == 0, EXCLUSION_3_pregnancy_not_in_fertile_age := fifelse(tot_preg_not_in_fertile_age == tot_preg_num, 1, 0)]
+selection_criteria[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "preg_not_in_fertile_age")]
+selection_criteria[, c("preg_not_in_fertile_age", "tot_preg_not_in_fertile_age", "tot_preg_num") := NULL]
 
 # Criteria for pregnancies outside study period
-selection_criteria[, EXCLUSION_4_pregnancy_not_in_study_period := fifelse(DU_pregnancy_study_entry_date < study_start |
-                                                                            DU_pregnancy_study_exit_date > study_end, 1, 0)]
+# selection_criteria[removed_row == 0, EXCLUSION_4_pregnancy_not_in_study_period := fifelse(DU_pregnancy_study_entry_date < study_start |
+#                                                                             DU_pregnancy_study_exit_date > study_end, 1, 0)]
+# selection_criteria[removed_row == 0, removed_row := rowSums(.SD),
+#                    .SDcols = c("removed_row", "EXCLUSION_4_pregnancy_not_in_study_period")]
+selection_criteria[removed_row == 0, tot_preg_num := .N, by = c("person_id", "pregnancy_id")]
+selection_criteria[removed_row == 0, preg_not_in_study_period := fifelse(DU_pregnancy_study_entry_date < study_start |
+                                                                           DU_pregnancy_study_exit_date > study_end, 1, 0)]
+selection_criteria[removed_row == 0, tot_preg_not_in_study_period := sum(preg_not_in_study_period), by = c("person_id", "pregnancy_id")]
+selection_criteria[removed_row == 0, EXCLUSION_4_pregnancy_not_in_study_period := fifelse(tot_preg_not_in_study_period == tot_preg_num, 1, 0)]
+selection_criteria[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "preg_not_in_study_period")]
+selection_criteria[, c("preg_not_in_study_period", "tot_preg_not_in_study_period", "tot_preg_num") := NULL]
 
 # Criteria for pregnancies outside study period
-selection_criteria[, EXCLUSION_5_pregnancy_outside_period_with_medicines := fifelse(DU_pregnancy_study_entry_date < cohort_entry_date |
-                                                                                      DU_pregnancy_study_exit_date > cohort_exit_date, 1, 0)]
+# selection_criteria[removed_row == 0, EXCLUSION_5_pregnancy_outside_period_with_medicines := fifelse(DU_pregnancy_study_entry_date < cohort_entry_date |
+#                                                                                       DU_pregnancy_study_exit_date > cohort_exit_date, 1, 0)]
+# selection_criteria[removed_row == 0, removed_row := rowSums(.SD),
+#                    .SDcols = c("removed_row", "EXCLUSION_5_pregnancy_outside_period_with_medicines")]
+selection_criteria[removed_row == 0, tot_preg_num := .N, by = c("person_id", "pregnancy_id")]
+selection_criteria[removed_row == 0, preg_not_in_obs_period := fifelse(DU_pregnancy_study_entry_date < cohort_entry_date |
+                                                                         DU_pregnancy_study_exit_date > cohort_exit_date, 1, 0)]
+selection_criteria[removed_row == 0, tot_preg_not_in_obs_period := sum(preg_not_in_obs_period), by = c("person_id", "pregnancy_id")]
+selection_criteria[removed_row == 0, EXCLUSION_5_pregnancy_outside_period_with_medicines := fifelse(tot_preg_not_in_obs_period == tot_preg_num, 1, 0)]
+selection_criteria[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "preg_not_in_obs_period")]
+selection_criteria[, c("preg_not_in_obs_period", "tot_preg_not_in_obs_period", "tot_preg_num") := NULL]
+
+for (i in names(selection_criteria)) selection_criteria[is.na(get(i)), (i) := 0]
+
+selection_criteria[, EXCLUSION_1_pregnancy_in_persons_of_non_female_gender := max(EXCLUSION_1_pregnancy_in_persons_of_non_female_gender),
+                   by = c("person_id", "pregnancy_id")]
+selection_criteria[, EXCLUSION_2_pregnancy_with_inappropriate_quality := max(EXCLUSION_2_pregnancy_with_inappropriate_quality),
+                   by = c("person_id", "pregnancy_id")]
+selection_criteria[, EXCLUSION_3_pregnancy_not_in_fertile_age := max(EXCLUSION_3_pregnancy_not_in_fertile_age),
+                   by = c("person_id", "pregnancy_id")]
+selection_criteria[, EXCLUSION_4_pregnancy_not_in_study_period := max(EXCLUSION_4_pregnancy_not_in_study_period),
+                   by = c("person_id", "pregnancy_id")]
+selection_criteria[, EXCLUSION_5_pregnancy_outside_period_with_medicines := max(EXCLUSION_5_pregnancy_outside_period_with_medicines),
+                   by = c("person_id", "pregnancy_id")]
+
+selection_criteria[, filter_helper := pmax(EXCLUSION_1_pregnancy_in_persons_of_non_female_gender,
+                                           EXCLUSION_2_pregnancy_with_inappropriate_quality,
+                                           EXCLUSION_3_pregnancy_not_in_fertile_age,
+                                           EXCLUSION_4_pregnancy_not_in_study_period,
+                                           EXCLUSION_5_pregnancy_outside_period_with_medicines,
+                                           removed_row)]
+selection_criteria <- selection_criteria[selection_criteria[, .I[filter_helper == max(filter_helper)], by = c("person_id", "pregnancy_id")]$V1]
+selection_criteria <- selection_criteria[selection_criteria[, .I[cohort_entry_date == max(cohort_entry_date)], by = c("person_id", "pregnancy_id")]$V1]
 
 smart_save(selection_criteria, dirtemp, override_name = "D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT",
            extension = extension, save_copy = "csv")
