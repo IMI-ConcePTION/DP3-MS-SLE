@@ -45,13 +45,13 @@ for (outcome in OUTCOME_variables) {
   
   setorder(algo_df_pop, person_id, date)
   algo_df_pop[, cohort_entry_date := pmax(date, cohort_entry_date, na.rm = T)]
-  algo_df_pop[, cohort_exit_date := pmin(cohort_exit_date, shift(cohort_entry_date, type = "lead") - 1, na.rm = T),
+  algo_df_pop[, cohort_exit_date := pmin(cohort_exit_date, shift(date, type = "lead") - 1, na.rm = T),
               by = "person_id"]
   
-  algo_df_pop <- algo_df_pop[cohort_exit_date >= cohort_entry_date, ]
-  
-  algo_df_pop[, (algo_cols) := lapply(.SD, cummax), by = "person_id", .SDcols = algo_cols]
   algo_df_pop[, date := NULL]
+  algo_df_pop[, (algo_cols) := lapply(.SD, cummax), by = c("person_id"), .SDcols = algo_cols]
+  
+  algo_df_pop <- algo_df_pop[cohort_exit_date >= cohort_entry_date, ]
   
   persontime_prevalence <- CountPersonTime(
     Dataset = algo_df_pop,
