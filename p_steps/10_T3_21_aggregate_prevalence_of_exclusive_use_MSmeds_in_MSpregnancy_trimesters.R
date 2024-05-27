@@ -61,7 +61,7 @@ assigned_statistics[["use_general"]] <- "sum"
 preg_med_ind <- Cube(input = preg_med_ind,
                      dimensions = c("medication"),
                      levels = assigned_levels,
-                     computetotal = c("before_pregnancy"),
+                     computetotal = c("before_pregnancy", "during_pregnancy"),
                      measures = c("number_medications", "use_general"),
                      statistics = assigned_statistics
 )
@@ -76,6 +76,7 @@ preg_med_ind <- unique(preg_med_ind[, .(medication_label = medication_LabelValue
                                         numerator_number_medications = number_medications_sum,
                                         median_number_medications = number_medications_median)])
 preg_med_ind[before_pregnancy == "Allbefore_pregnancy", before_pregnancy := "any"]
+preg_med_ind[during_pregnancy == "Allduring_pregnancy", during_pregnancy := "anytri"]
 
 # Save the file
 smart_save(preg_med_ind, diroutput, override_name = "D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimesters",
