@@ -16,7 +16,8 @@ meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
 meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
                                                                            "hospitalisation_not_overnight", 
                                                                            "radiation_hospitalised")
-meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("hospital_encounter", "outpatient_contact")
+meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("hospital_encounter", "outpatient_contact",
+                                                                                  "birth_registry_mother")
 
 
 meanings_of_this_study[["THL"]][["meaning_of_event"]][["PC"]] <- c("primary_care_diagnosis", "birth_registry")
@@ -116,8 +117,14 @@ medicinal_products_date[["EFEMERIS"]][["DMT-MS_SPEC"]][["start"]][["L04AG06"]] <
 medicinal_products_date[["EFEMERIS"]][["DMT-MS_SPEC"]][["start"]][["L04AC01"]] <- ymd(20160101)
 medicinal_products_date[["EFEMERIS"]][["DMT-MS_SPEC"]][["start"]][["L04AA08"]] <- ymd(20160101)
 
-
-
+chosen_MS_algorithm <- list()
+chosen_MS_algorithm[["UOSL"]] <- "MS_1"
+chosen_MS_algorithm[["THL"]] <- "MS_1"
+chosen_MS_algorithm[["SAIL Databank"]] <- "MS_1"
+chosen_MS_algorithm[["RDRU_FISABIO"]] <- "MS_1"
+chosen_MS_algorithm[["FERR"]] <- "MS_1"
+chosen_MS_algorithm[["EFEMERIS"]] <- "MS_1"
+chosen_MS_algorithm[["TEST"]] <- "MS_1"
 
 
 
@@ -241,6 +248,7 @@ medicinal_products_date[["EFEMERIS"]][["DMT-MS_SPEC"]][["start"]][["L04AA08"]] <
 # set concept sets
 
 concept_set_codes_our_study <- concept_set_codes_our_study_pre
+concept_set_codes_our_study_DU <- concept_set_codes_our_study_pre_DU
 # concept_set_codes_our_study_excl <- concept_set_codes_our_study_pre_excl
 
 # # augment ICPC codes
@@ -292,8 +300,41 @@ for (conceptset in concept_sets_of_our_study){
 }
 
 
+for (conceptset in concept_sets_of_our_study_DU){
+  if (concept_set_domains_DU[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study_DU[[conceptset]][["ICD10GM"]] <- concept_set_codes_our_study_DU[[conceptset]][["ICD10"]]
+  }
+}
+
+#-------------------------------------
+# fix for ICD10CM
+for (conceptset in concept_sets_of_our_study_DU){
+  if (concept_set_domains_DU[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study_DU[[conceptset]][["ICD10CM"]] <- concept_set_codes_our_study_DU[[conceptset]][["ICD10"]]
+  }
+}
+
+#-------------------------------------
+# fix for ICD10ES
+for (conceptset in concept_sets_of_our_study_DU){
+  if (concept_set_domains_DU[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study_DU[[conceptset]][["ICD10ES"]] <- concept_set_codes_our_study_DU[[conceptset]][["ICD10"]]
+  }
+}
+
+#-------------------------------------
+# fix for ICD9CM
+for (conceptset in concept_sets_of_our_study_DU){
+  if (concept_set_domains_DU[[conceptset]] == "Diagnosis"){
+    concept_set_codes_our_study_DU[[conceptset]][["ICD9"]] <- concept_set_codes_our_study_DU[[conceptset]][["ICD9CM"]]
+  }
+}
+
+
 save(concept_set_codes_our_study,file = paste0(direxp, "concept_set_codes_our_study.RData"))
 save(concept_set_codes_our_study,file = paste0(direxpmask, "concept_set_codes_our_study.RData"))
+save(concept_set_codes_our_study,file = paste0(direxp, "concept_set_codes_our_study_DU.RData"))
+save(concept_set_codes_our_study,file = paste0(direxpmask, "concept_set_codes_our_study_DU.RData"))
 # save(concept_set_codes_our_study_excl,file=paste0(direxp,"concept_set_codes_our_study_excl.RData"))
 # save(concept_set_codes_our_study,file = paste0(dirsmallcountsremoved, "concept_set_codes_our_study.RData"))
 # save(concept_set_codes_our_study_excl,file=paste0(dirsmallcountsremoved,"concept_set_codes_our_study_excl.RData"))

@@ -17,6 +17,13 @@ if (thisdatasource %in% datasources_obs_per_from_pregnancies) {
   
   OBSERVATION_PERIODS_preg <- as.data.table(get(load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))[[1]]))
   
+  if (thisdatasource %in% c("UOSL", "TEST")) {
+    op_meanings_list_per_set[[thisdatasource]][["meanings_MEDICINES"]] <- unique(OBSERVATION_PERIODS[, op_meaning])
+    OBSERVATION_PERIODS_preg <- OBSERVATION_PERIODS_preg[(type_of_pregnancy_end %in% c("LB", "SB") & PROMPT == "yes") | (type_of_pregnancy_end %in% c("SA", "T")), ]
+  }
+  
+  
+  
   setnames(OBSERVATION_PERIODS_preg, c("pregnancy_start_date", "pregnancy_end_date"), c("op_start_date", "op_end_date"))
   OBSERVATION_PERIODS_preg <- OBSERVATION_PERIODS_preg[, .(person_id, op_start_date, op_end_date)]
   

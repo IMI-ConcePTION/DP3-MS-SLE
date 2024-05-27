@@ -8,6 +8,12 @@ print('CREATE EXCLUSION CRITERIA FOR STUDY POPULATION')
 
 smart_load("D3_PERSONS", dirtemp, extension = extension)
 
+if (thisdatasource %in% c("UOSL", "TEST") & thisdatasource %in% this_datasource_has_subpopulations) {
+  OBSERVATION_PERIODS_preg <- as.data.table(get(load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))[[1]]))
+  OBSERVATION_PERIODS_preg <- OBSERVATION_PERIODS_preg[(type_of_pregnancy_end %in% c("LB", "SB") & PROMPT == "yes") | (type_of_pregnancy_end %in% c("SA", "T")), ]
+  D3_PERSONS <- D3_PERSONS[person_id %in% OBSERVATION_PERIODS_preg[, person_id], ]
+}
+
 ### Create the criteria based on D3_PERSONS. They are the same for adults and children populations.
 # Remove persons with sex or birth day missing (recoded to year 9999)
 D3_sel_cri <- D3_PERSONS[, sex_or_birth_date_is_not_defined := fifelse(

@@ -39,7 +39,8 @@ read_library <- function(...) {
   invisible(lapply(x, library, character.only = TRUE))
 }
 
-list.of.packages <- c("lubridate", "stringr", "readr", "data.table", "readxl", "qs", "dplyr", "purrr", "RcppAlgos", "Hmisc")
+list.of.packages <- c("lubridate", "stringr", "readr", "data.table", "readxl", "qs", "dplyr", "purrr", "RcppAlgos", "Hmisc",
+                      "gt", "gtsummary")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
 if (length(new.packages)) install.packages(new.packages)
 invisible(lapply(list.of.packages, require, character.only = T))
@@ -67,11 +68,12 @@ dirconceptsets <- set_and_create_dir("/g_intermediate/concept_sets/")
 direxp <- set_and_create_dir(paste0("/g_export_", thisdatasource, "/"))
 direxpmask <- set_and_create_dir(paste0("/g_export_masked_", thisdatasource, "/"))
 direxpcheck <- set_and_create_dir(paste0("/g_export_masked_", thisdatasource, "/summary_levels/"))
+dirDUfinaltables <- set_and_create_dir(paste0("/g_export_", thisdatasource, "/DU_final_tables/"))
 dirmacro <- set_and_create_dir("/p_macro/")
 dirpargen <- set_and_create_dir("/g_parameters/")
 direvents <- set_and_create_dir("/g_intermediate/events/")
 dircomponents <- set_and_create_dir("/g_intermediate/components/")
-  
+
 rm(set_and_create_dir)
 
 
@@ -266,4 +268,20 @@ filter_by_Cube_levels <- function(df){
                   timeframe_LevelOrder == 3 & Ageband_LevelOrder == 99, T,
                   timeframe_LevelOrder == 99 & Ageband_LevelOrder == 99, T,
                   default = F), ])
+}
+
+save_tbl_summary <- function(tbl_obj, dir_export, tbl_name, additional_folder = NULL) {
+  
+  # folders <- c("docx/", "rtf/", "html/", "rds/")
+  folders <- c("rtf/", "html/", "rds/")
+  for (folder in folders) {
+    if(!file.exists(paste0(dir_export, folder, additional_folder))) dir.create(file.path(paste0(dir_export, folder, additional_folder)), showWarnings = F)
+  }
+  
+  tbl_obj$inputs <- NULL
+  
+  saveRDS(tbl_obj, paste0(paste0(dir_export, "rds/", additional_folder), tbl_name, ".rds"))
+  # gt::gtsave(tbl_obj, paste0(paste0(dir_export, "docx/", additional_folder), tbl_name, ".docx"))
+  gt::gtsave(tbl_obj, paste0(paste0(dir_export, "html/", additional_folder), tbl_name, ".html"))
+  gt::gtsave(tbl_obj, paste0(paste0(dir_export, "rtf/", additional_folder), tbl_name, ".rtf"))
 }

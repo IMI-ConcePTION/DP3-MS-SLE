@@ -40,12 +40,19 @@ for (outcome in OUTCOME_variables) {
   # Load D3_PERSONS and select on id and birth date
   smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
   D3_study_population_SAP1 <- D3_study_population_SAP1[, c("person_id", "birth_date", "cohort_entry_date",
-                                                           "cohort_exit_date")]
+                                                           "cohort_exit_date", "entry_spell_category")]
   
   # Calculate length of spell and then remove entry_spell_category
-  D3_study_population_SAP1[, length_spell := difftime(cohort_exit_date, cohort_entry_date, units = "days")]
-  D3_study_population_SAP1[, min_max_spell := difftime(max(cohort_exit_date), min(cohort_entry_date), units = "days"),
-                           by = "person_id"]
+  if (thisdatasource == "SAIL Databank") {
+    D3_study_population_SAP1[, length_spell := difftime(cohort_exit_date, entry_spell_category, units = "days")]
+    D3_study_population_SAP1[, min_max_spell := difftime(max(cohort_exit_date), min(entry_spell_category), units = "days"),
+                             by = "person_id"]
+  } else {
+    D3_study_population_SAP1[, length_spell := difftime(cohort_exit_date, cohort_entry_date, units = "days")]
+    D3_study_population_SAP1[, min_max_spell := difftime(max(cohort_exit_date), min(cohort_entry_date), units = "days"),
+                             by = "person_id"]
+  }
+  
   D3_study_population_SAP1[, n_spell := .N, by = "person_id"]
   D3_study_population_SAP1[, coverage := as.numeric(sum(length_spell) / as.numeric(min_max_spell) * 100),
                            by = "person_id"]
@@ -116,7 +123,12 @@ for (outcome in OUTCOME_variables) {
                                                  .SDcols = c("n_spell_median", "n_spell_25p", "n_spell_75p",
                                                              "age_median", "age_25p", "age_75p")]
   
-  export_name <- paste("D5_N_women_and_ranges", outcome, sep = "_")
+  if (thisdatasource == "SAIL Databank") {
+    export_name <- paste("D5_N_women_and_ranges", outcome, "2", sep = "_")
+  } else {
+    export_name <- paste("D5_N_women_and_ranges", outcome, sep = "_")
+  }
+  
   smart_save(D5_N_women_and_ranges, direxp, override_name = export_name, extension = "csv")
   
   # Create a filtered version of the prevalence excluding the row with at least a small count
