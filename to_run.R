@@ -4,6 +4,13 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v2.5.5 - 27 May 2024
+# Set recommended_start_date to 2013 for FISABIO
+# Added quality exclusion criteria for UOSL pregnancies
+# Fixed bug in numerator of persontime if events before the study_start
+# Fixed exclusion criteria order to remove bug from UOSL(pregnancies)
+# Modify N_women_and_ranges for SAIL Databank to use start of spell
+
 # v2.5.4 - 19 April 2024
 # Additional modification for UOSL meanings
 # Added optional subpopulation for UOSL for further analyses
