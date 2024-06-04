@@ -36,9 +36,15 @@ pregnancy_df[.(period_name = as.character(1:4), to = c("number_before_pregnancy"
 
 # Join medication to corresponding time period
 all_cols <- c(union(colnames(pregnancy_df), colnames(medications)), "y.start_period")
+
 med_in_preg <- medications[pregnancy_df, .(person_id, pregnancy_id, trimester_when_pregnancy_ended, period_name,
                                            start_period, end_period, date = x.date, concept),
                            on = .(person_id, date >= start_period, date <= end_period), allow.cartesian = T]
+
+med_in_preg[, n_rows := .N, by = c("person_id", "pregnancy_id")]
+med_in_preg[is.na(date), n_NA := .N, by = c("person_id", "pregnancy_id")]
+med_in_preg <- med_in_preg[is.na(n_NA) | (!is.na(n_NA) & n_rows == n_NA), ]
+med_in_preg[, c("n_rows", "n_NA") := NULL]
 
 # Remove person_id since it's not useful anymore
 med_in_preg[, person_id := NULL]

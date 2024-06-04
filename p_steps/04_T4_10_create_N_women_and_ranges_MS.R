@@ -58,7 +58,7 @@ for (outcome in OUTCOME_variables) {
                            by = "person_id"]
   D3_study_population_SAP1[, cohort_entry_date := min(cohort_entry_date), by = "person_id"]
   D3_study_population_SAP1[, age_at_entry_spell := age_fast(birth_date, cohort_entry_date)]
-  D3_study_population_SAP1[, c("cohort_exit_date", "cohort_entry_date", "length_spell") := NULL]
+  D3_study_population_SAP1[, c("cohort_exit_date", "cohort_entry_date", "entry_spell_category", "length_spell") := NULL]
   D3_study_population_SAP1 <- unique(D3_study_population_SAP1)
   
   # D3_study_population_SAP1 <- D3_study_population_SAP1[, lapply(.SD, sum),

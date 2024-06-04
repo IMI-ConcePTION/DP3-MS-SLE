@@ -27,7 +27,6 @@ preg_med_ind <- preg_med_ind[, trimester_3 := "t1+t2+t3"]
 
 # Create general variables for use (and removed unnecessary columns)
 preg_med_ind[, use_general := pmax(before_pregnancy, use_tri_1, use_tri_2, use_tri_3)]
-preg_med_ind[, use_general := 1]
 preg_med_ind[, number_medications := rowSums(.SD), .SDcols = c("number_before_pregnancy", "number_tri_1",
                                                                "number_tri_2", "number_tri_3")]
 preg_med_ind[, c("number_before_pregnancy", "number_tri_1", "number_tri_2", "number_tri_3") := NULL]
@@ -47,10 +46,9 @@ preg_med_ind_any_medication <- preg_med_ind[medication_label != "missing", .(use
                                                    "trimester_2", "trimester_3", "use_tri_1", "use_tri_2", "use_tri_3",
                                                    "during_pregnancy")]
 preg_med_ind_any_medication[, medication_label := "anydrug"]
-preg_med_ind_any_medication[, medication_level_order := 99]
 
 preg_med_ind <- rbindlist(list(preg_med_ind[, medication_level_order := 1],
-                               preg_med_ind_any_medication), use.names = T)
+                               preg_med_ind_any_medication[, medication_level_order := 99]), use.names = T)
 
 assigned_statistics <- vector(mode="list")
 assigned_statistics[["number_medications"]] <- c("sum", "median")
