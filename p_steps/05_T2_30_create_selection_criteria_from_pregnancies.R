@@ -8,7 +8,7 @@ load(paste0(dirpregnancy, "D3_pregnancy_final.Rdata"))
 
 # Keep only necessary columns
 pregnancy_df <- D3_pregnancy_final[, c("person_id", "pregnancy_id", "pregnancy_start_date", "pregnancy_end_date",
-                                       "type_of_pregnancy_end", "PROMPT")]
+                                       "type_of_pregnancy_end", "PROMPT", "highest_quality", "EUROCAT")]
 
 smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
 smart_load("D3_persons", dirtemp, extension = extension)
@@ -28,7 +28,7 @@ setcolorder(selection_criteria, c("pregnancy_id", "person_id", "entry_spell_cate
 # Create DU entry and exit date (DO NOT USE FCASE!!)
 if (thisdatasource == "EFEMERIS") {
   prior_data_avalaibility <- lubridate::days(78)
-} else if (thisdatasource %in% c("THL", "FISABIO")) {
+} else if (thisdatasource %in% c("THL", "RDRU_FISABIO")) {
   prior_data_avalaibility <- lubridate::months(3)
 } else {
   prior_data_avalaibility <- lubridate::years(1)
@@ -57,9 +57,17 @@ selection_criteria[, EXCLUSION_1_pregnancy_in_persons_of_non_female_gender := fi
 selection_criteria[, removed_row := EXCLUSION_1_pregnancy_in_persons_of_non_female_gender]
 
 # TODO add here filter for pregnancies quality
-selection_criteria[removed_row == 0, EXCLUSION_2_pregnancy_with_inappropriate_quality := 0]
-selection_criteria[removed_row == 0, removed_row := rowSums(.SD),
-                   .SDcols = c("removed_row", "EXCLUSION_2_pregnancy_with_inappropriate_quality")]
+selection_criteria[removed_row == 0, tot_preg_num := .N, by = c("person_id", "pregnancy_id")]
+selection_criteria[removed_row == 0,
+                   not_quality_preg := fcase(thisdatasource == "UOSL" & !((type_of_pregnancy_end %in% c("LB", "SB") & PROMPT == "yes") | type_of_pregnancy_end %in% c("SA", "T")), 1,
+                                             thisdatasource == "FERR" & is.na(pregnancy_id), 1,
+                                             thisdatasource == "RDRU_FISABIO" & !(PROMPT == "yes" & highest_quality %in% c("green", "yellow")), 1,
+                                             thisdatasource == "UOSL" & !(EUROCAT == "yes" | (PROMPT == "yes" & highest_quality %in% c("green", "yellow"))), 1,
+                                             default = 0)]
+selection_criteria[removed_row == 0, tot_not_quality_preg := sum(not_quality_preg), by = c("person_id", "pregnancy_id")]
+selection_criteria[removed_row == 0, EXCLUSION_2_pregnancy_with_inappropriate_quality := fifelse(tot_not_quality_preg == tot_preg_num, 1, 0)]
+selection_criteria[removed_row == 0, removed_row := rowSums(.SD), .SDcols = c("removed_row", "not_quality_preg")]
+selection_criteria[, c("not_quality_preg", "tot_not_quality_preg", "tot_preg_num") := NULL]
 
 # Criteria for pregnancies before 15th and after 50th birthday
 # selection_criteria[removed_row == 0, EXCLUSION_3_pregnancy_not_in_fertile_age := fifelse((DU_pregnancy_study_entry_date < birth_date %m+% years(15)) |
