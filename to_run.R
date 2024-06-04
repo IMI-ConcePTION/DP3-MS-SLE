@@ -6,7 +6,7 @@
 
 # v2.5.6 - 04 June 2024
 # Added additional check for FISABIO for censored pregnancies by subpopulation
-# Fixed final table bug for N_women_and_ranges created in v2.5.5
+# Fixed final table bug for N_women_and_ranges created in v2.5.5 
 
 # v2.5.5 - 27 May 2024
 # Set recommended_start_date to 2013 for FISABIO
