@@ -8,10 +8,10 @@ preg_med_ind <- smart_load("D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregna
                            extension = extension, return = T)
 
 # Calculate the total number of pregnancies in MS cohort, then join the result to the original dataset
-preg_med_ind_total <- preg_med_ind[medication_label %in% c("missing", "anydrug"), .(n0 = sum(numerator_preg_use)),
-                                   by = c("before_pregnancy", "during_pregnancy", "trimester_when_pregnancy_ended")]
-preg_med_ind <- preg_med_ind[preg_med_ind_total, on = c("before_pregnancy", "during_pregnancy",
-                                                        "trimester_when_pregnancy_ended")]
+preg_med_ind_total <- preg_med_ind[medication_label %in% c("missing", "anydrug") & before_pregnancy == "any" &
+                                     during_pregnancy %in% c("notri", "anytri"), .(n0 = sum(numerator_preg_use)),
+                                   by = c("trimester_when_pregnancy_ended")]
+preg_med_ind <- preg_med_ind[preg_med_ind_total, on = "trimester_when_pregnancy_ended"]
 
 # After calculating the denominator pregnancies without medications are not needed anymore
 preg_med_ind <- preg_med_ind[medication_label != "missing", ]

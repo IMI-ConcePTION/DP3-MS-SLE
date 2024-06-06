@@ -69,13 +69,27 @@ pregnancy_variables[, categories_time_since_previous_pregnancy := cut(time_since
 
 # Definition of start and end of periods
 # TODO check if Marie has left notes for start_preg_period_during_2 ... end_preg_period_during_3
-pregnancy_variables[, start_preg_period_pre_4 := pregnancy_start_date %m-% days(365)]
-pregnancy_variables[, end_preg_period_pre_4 := pregnancy_start_date %m-% days(275)]
-pregnancy_variables[, start_preg_period_pre_3 := pregnancy_start_date %m-% days(274)]
-pregnancy_variables[, end_preg_period_pre_3 := pregnancy_start_date %m-% days(183)]
-pregnancy_variables[, start_preg_period_pre_2 := pregnancy_start_date %m-% days(182)]
-pregnancy_variables[, end_preg_period_pre_2 := pregnancy_start_date %m-% days(91)]
-pregnancy_variables[, start_preg_period_pre_1 := pregnancy_start_date %m-% days(90)]
+
+if (thisdatasource %in% datasources_only_preg) {
+  pregnancy_variables[, c("start_preg_period_pre_4", "end_preg_period_pre_4", "start_preg_period_pre_3",
+                          "end_preg_period_pre_3", "start_preg_period_pre_2", "end_preg_period_pre_2") := NA_Date_]
+  if (thisdatasource == "EFEMERIS") {
+    pregnancy_variables[, start_preg_period_pre_1 := pregnancy_start_date %m-% days(78)]
+  } else{
+    pregnancy_variables[, start_preg_period_pre_1 := pregnancy_start_date %m-% days(90)]
+  }
+  pregnancy_variables[, start_preg_period_pre_all := start_preg_period_pre_1]
+} else {
+  pregnancy_variables[, start_preg_period_pre_4 := pregnancy_start_date %m-% days(365)]
+  pregnancy_variables[, end_preg_period_pre_4 := pregnancy_start_date %m-% days(275)]
+  pregnancy_variables[, start_preg_period_pre_3 := pregnancy_start_date %m-% days(274)]
+  pregnancy_variables[, end_preg_period_pre_3 := pregnancy_start_date %m-% days(183)]
+  pregnancy_variables[, start_preg_period_pre_2 := pregnancy_start_date %m-% days(182)]
+  pregnancy_variables[, end_preg_period_pre_2 := pregnancy_start_date %m-% days(91)]
+  pregnancy_variables[, start_preg_period_pre_1 := pregnancy_start_date %m-% days(90)]
+  pregnancy_variables[, start_preg_period_pre_all := start_preg_period_pre_4]
+}
+
 pregnancy_variables[, end_preg_period_pre_1 := pregnancy_start_date %m-% days(1)]
 pregnancy_variables[, start_preg_period_during_1 := pregnancy_start_date]
 pregnancy_variables[, end_preg_period_during_1 := pmin(pregnancy_start_date %m+% days(97), pregnancy_end_date)]
@@ -89,7 +103,6 @@ pregnancy_variables[, end_preg_period_during_3 := fifelse(!is.na(end_preg_period
                                                           pregnancy_end_date, NA_Date_)]
 pregnancy_variables[, start_preg_period_after_1 := pregnancy_end_date %m+% days(1)]
 pregnancy_variables[, end_preg_period_after_1 := pregnancy_end_date %m+% days(90)]
-pregnancy_variables[, start_preg_period_pre_all := start_preg_period_pre_4]
 pregnancy_variables[, end_preg_period_pre_all := end_preg_period_pre_1]
 
 # Save when pregnancies ended
