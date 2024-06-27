@@ -4,10 +4,10 @@ name_excel: "D4_DU_prevalence_MS_in_pregnancy_cohort.xlsx"
 description: "contains the aggregated prevalence (numerators and denominators) needed to compute prevalence of
 MS in the pregnancy cohort, to feed Template 4 and 5"
 slug: "D4_DU_prevalence_MS_in_pregnancy_cohort"
-datetime: 1.7176666e+09
+datetime: 1.7194827e+09
 title: D4_DU_prevalence_MS_in_pregnancy_cohort
 author: ''
-date: '2024-06-06'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

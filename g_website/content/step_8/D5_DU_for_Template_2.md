@@ -3,10 +3,10 @@ weight: 2
 name_excel: "D5_DU_for_Template_2.xlsx"
 description: "numbers to be included in Template 2:  Description of the time period between MS diagnosis (MS diagnosis date=the date on which the algorithm becomes positive) and pregnancy in D3_DU_PREGNANCY-COHORT_variables if after or during MS diagnosis"
 slug: "D5_DU_for_Template_2"
-datetime: 1.7105159e+09
+datetime: 1.7194827e+09
 title: D5_DU_for_Template_2
 author: ''
-date: '2024-03-15'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

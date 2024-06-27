@@ -3,10 +3,10 @@ weight: 1
 name_excel: "D5_DU_for_Template_1.xlsx"
 description: "numbers to be included in Template 1:  Description of the time period between 2 pregnancies in the pregnancy cohort and in the MS-pregnancy cohort (ref: DP3_SAP_DU_MS_V2.2)"
 slug: "D5_DU_for_Template_1"
-datetime: 1.7176666e+09
+datetime: 1.7194827e+09
 title: D5_DU_for_Template_1
 author: ''
-date: '2024-06-06'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

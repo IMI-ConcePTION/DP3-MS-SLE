@@ -3,10 +3,10 @@ weight: 2
 name_excel: "D4_DU_matched_MS_PREGNANCY_COHORT_to_MS_COHORT.xlsx"
 description: "contains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy"
 slug: "D4_DU_matched_MS_PREGNANCY_COHORT_to_MS_COHORT"
-datetime: 1.7105159e+09
+datetime: 1.7194827e+09
 title: D4_DU_matched_MS_PREGNANCY_COHORT_to_MS_COHORT
 author: ''
-date: '2024-03-15'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook
@@ -28,7 +28,7 @@ output: html_document
 </div>
 <div id="Metadata" class="tabcontent">
 <div id="htmlwidget-1" class="reactable html-widget" style="width:auto;height:600px;"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"medatata_name":["Name of the dataset","Content of the dataset","Unit of observation","Dataset where the list of UoOs is fully listed and with 1 record per UoO","How many observations per UoO","NxUoO","Variables capturing the UoO","Primary key","Parameters",null,null,null,null,null,null,null,null,null,null,null],"metadata_content":["D4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORT","contains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy","A pregnancy in D3_DU_MS-PREGNANCY-COHORT","D3_DU_MS-PREGNANCY-COHORT","1 + as many as the matched non-MS pregnancies",">= 1 & <=5","MS_pregnancy_id","MS_pregnancy_id ord_match",null,null,null,null,null,null,null,null,null,null,null,null]},"columns":[{"id":"medatata_name","name":"medatata_name","type":"character"},{"id":"metadata_content","name":"metadata_content","type":"character"}],"sortable":false,"searchable":true,"pagination":false,"highlight":true,"bordered":true,"striped":true,"style":{"maxWidth":1800},"height":"600px","dataKey":"a4adff67462562658f82ae2dd34420af"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"medatata_name":["Name of the dataset","Content of the dataset","Unit of observation","Dataset where the list of UoOs is fully listed and with 1 record per UoO","How many observations per UoO","NxUoO","Variables capturing the UoO","Primary key","Parameters",null,null,null,null,null,null,null,null,null,null,null],"metadata_content":["D4_DU_matched_MS-PREGNANCY-COHORT_to_MS-COHORT","contains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy","A pregnancy in D3_DU_MS-PREGNANCY-COHORT","D3_DU_MS-PREGNANCY-COHORT","1 + as many as the matched MS non-pregnancies",">= 1 & <=5","MS_pregnancy_id","MS_pregnancy_id ord_match",null,null,null,null,null,null,null,null,null,null,null,null]},"columns":[{"id":"medatata_name","name":"medatata_name","type":"character"},{"id":"metadata_content","name":"metadata_content","type":"character"}],"sortable":false,"searchable":true,"pagination":false,"highlight":true,"bordered":true,"striped":true,"style":{"maxWidth":1800},"height":"600px","dataKey":"20e4ded8833abd8d3d827959883d998c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="Data Model" class="tabcontent">
 <div id="htmlwidget-2" class="reactable html-widget" style="width:auto;height:600px;"></div>

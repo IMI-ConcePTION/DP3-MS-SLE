@@ -3,10 +3,10 @@ weight: 4
 name_excel: "D4_DU_prevalence_of_use_MSdrugs_in_MS_cohort.xlsx"
 description: "contains the aggregated numerators needed to compute prevalence of use of MS medications in the MS cohort, to feed Template 6 and 7."
 slug: "D4_DU_prevalence_of_use_MSdrugs_in_MS_cohort"
-datetime: 1.7176666e+09
+datetime: 1.7194827e+09
 title: D4_DU_prevalence_of_use_MSdrugs_in_MS_cohort
 author: ''
-date: '2024-06-06'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

@@ -3,10 +3,10 @@ weight: 2
 name_excel: "D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort.xlsx"
 description: "contains the exclusion criteria to go from D3_study_population_SAP1 to the study population of the DP3 DU, as decsribed in subsection 4.3.1 of MS DP3_SAP_DU_MS_V2.2"
 slug: "D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort"
-datetime: 1.7105159e+09
+datetime: 1.7194827e+09
 title: D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort
 author: ''
-date: '2024-03-15'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

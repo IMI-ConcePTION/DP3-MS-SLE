@@ -3,10 +3,10 @@ weight: 1
 name_excel: "D5_DU_for_Template_3.xlsx"
 description: "numbers to be included in Template 3: Pattern of MS DMT medication use (for each drug individually and for any MS drug use) during pregnancy in women from the MS Pregnancy cohort"
 slug: "D5_DU_for_Template_3"
-datetime: 1.7176666e+09
+datetime: 1.7194827e+09
 title: D5_DU_for_Template_3
 author: ''
-date: '2024-06-06'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

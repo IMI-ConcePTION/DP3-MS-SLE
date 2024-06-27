@@ -3,10 +3,10 @@ weight: 2
 name_excel: "D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters.xlsx"
 description: "this dataset measures in each MS pregnancy whether the woman  used or didn't use each of the MS medications in the trimesters before or during pregnancy (to ultimately  feed Template 3)"
 slug: "D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters"
-datetime: 1.7105159e+09
+datetime: 1.7194827e+09
 title: D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters
 author: ''
-date: '2024-03-15'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

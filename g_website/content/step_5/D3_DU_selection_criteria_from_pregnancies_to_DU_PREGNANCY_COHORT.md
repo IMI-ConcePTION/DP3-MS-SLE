@@ -3,10 +3,10 @@ weight: 3
 name_excel: "D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT.xlsx"
 description: "contains the exclusion criteria to go from D3_final_pregnancy to the pregnancies of D3_DU_PREGNANCY-COHORT, as described in subsection 4.1 of DP3_SAP_DU_MS_V2.2"
 slug: "D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT"
-datetime: 1.7105159e+09
+datetime: 1.7194827e+09
 title: D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT
 author: ''
-date: '2024-03-15'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

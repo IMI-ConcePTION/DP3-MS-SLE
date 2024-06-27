@@ -3,10 +3,10 @@ weight: 2
 name_excel: "D3_output_spells_category.xlsx"
 description: "contains the spells exited from CreateSpells, i.e., all the continuous spells of observation period of each person, stratified per op_meaning. op_meaning is by default the same for all observation periods, and is set in 05_subpopulations_restricting_meanings for those data sources where the analysis is conducted on subpopulations having different sets of data banks"
 slug: "D3_output_spells_category"
-datetime: 1.7105159e+09
+datetime: 1.7194827e+09
 title: D3_output_spells_category
 author: ''
-date: '2024-03-15'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

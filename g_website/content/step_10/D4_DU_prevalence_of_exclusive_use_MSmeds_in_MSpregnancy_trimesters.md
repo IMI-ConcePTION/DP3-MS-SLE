@@ -3,10 +3,10 @@ weight: 3
 name_excel: "D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimesters.xlsx"
 description: "this is the aggregation of the individual-level dataset D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters, to feed Template 3. It contains counts of persons using medicines exclusively in some periods before and during pregnancy"
 slug: "D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimesters"
-datetime: 1.7105159e+09
+datetime: 1.7194827e+09
 title: D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimesters
 author: ''
-date: '2024-03-15'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

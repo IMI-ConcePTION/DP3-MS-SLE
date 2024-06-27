@@ -3,10 +3,10 @@ weight: 1
 name_excel: "D3_DU_PREGNANCY_COHORT_variables.xlsx"
 description: "`r get_description(rmarkdown::metadata$name_excel)`"
 slug: "D3_DU_PREGNANCY_COHORT_variables"
-datetime: 1.7176666e+09
+datetime: 1.7194827e+09
 title: D3_DU_PREGNANCY_COHORT_variables
 author: ''
-date: '2024-06-06'
+date: '2024-06-27'
 categories: []
 tags: []
 archetype: codebook

@@ -6,7 +6,7 @@
     <description>Recent content in Documentation for DP3 project on CVM Documentation</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 06 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>_index.en</title>
       <link>/step_10/index.html</link>
@@ -103,7 +103,7 @@ D5_DU_for_Template_2numbers to be included in Template 2: Description of the tim
       <link>/step_9/index.html</link>
       <pubDate>Thu, 01 Feb 2024 00:00:00 +0000</pubDate>
       <guid>/step_9/index.html</guid>
-      <description>D4_candidate_matches_MS_non_pregnantThis applies some of the steps in the appendix: selects all the periods when women with MS are outside of the pregnancy cohort
+      <description>D4_candidate_matches_MS_non_pregnantThis applies some of the steps in the appendix: selects all the periods when women with MS are outside of the DU pregnant persontime
 D4_DU_matched_MS_PREGNANCY_COHORT_to_MS_COHORTcontains D3_DU_MS-PREGNANCY-COHORT plus persons from D3_DU_MS-COHORT, the latter matched 4-1 to the former, and being non-pregnant during the pregnancy period of the matched pregnancy
 D5_DU_matching_diagnosticNA
  </description>
