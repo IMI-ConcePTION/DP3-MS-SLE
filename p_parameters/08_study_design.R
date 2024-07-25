@@ -30,7 +30,7 @@ recommended_start_date_vect[['THL']] <- ymd(19960101)
 recommended_start_date_vect[['SNDS']] <- ymd(20150101)
 recommended_start_date_vect[['EFEMERIS']] <- ymd(20050101)
 recommended_start_date_vect[['UOSL']] <- ymd(20080101)
-recommended_start_date_vect[['RDRU_FISABIO']] <- ymd(20100101)
+recommended_start_date_vect[['RDRU_FISABIO']] <- ymd(20130101)
 recommended_start_date_vect[['SAIL Databank']] <- ymd(19980101)
 recommended_start_date_vect[['FERR']] <- ymd(20090101)
 

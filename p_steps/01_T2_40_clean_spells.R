@@ -73,6 +73,30 @@ person_spell[, entry_spell_category_cleaned := data.table::fifelse(cohort_entry_
 person_spell[, exit_spell_category_cleaned := data.table::fifelse(cohort_exit_date != exit_spell_category_crude, 1, 0)]
 person_spell[, c("cohort_entry_date", "cohort_exit_date") := NULL]
 
+if (thisdatasource %in% c("RDRU_FISABIO")) {
+  OBSERVATION_PERIODS_preg <- as.data.table(get(load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))[[1]]))
+  OBSERVATION_PERIODS_preg <- OBSERVATION_PERIODS_preg[, .(person_id, pregnancy_id, pregnancy_start_date, pregnancy_end_date)]
+  OBSERVATION_PERIODS_preg[, pregnancy_start_date := pregnancy_start_date %m-% months(3)]
+  OBSERVATION_PERIODS_preg[, pregnancy_end_date := pregnancy_end_date %m+% months(3)]
+  
+  firstjan2013 <- lubridate::ymd(20130101)
+  
+  setkey(OBSERVATION_PERIODS_preg, person_id, pregnancy_start_date, pregnancy_end_date)
+  preg_obs <- data.table::foverlaps(person_spell[starts_after_ending == 0, ], OBSERVATION_PERIODS_preg,
+                                    by.x = c("person_id", "entry_spell_category_crude", "exit_spell_category_crude"))
+  preg_obs <- unique(preg_obs[, .(pregnancy_start_date = min(pregnancy_start_date),
+                                  pregnancy_end_date = max(pregnancy_end_date),
+                                  entry_spell_category, exit_spell_category),
+                              by = c("person_id", "entry_spell_category_crude", "exit_spell_category_crude")])
+  preg_obs <- preg_obs[, .(person_id, entry_spell_category, exit_spell_category,
+                           additional_entry_cleaned = fifelse(pregnancy_start_date < lubridate::ymd(20130101), 1, 0),
+                           additional_exit_cleaned = fifelse(exit_spell_category_crude != pregnancy_end_date, 1, 0))]
+  person_spell <- merge(person_spell, preg_obs, by = c("person_id", "entry_spell_category", "exit_spell_category"), all.x = T)
+  person_spell[, entry_spell_category_cleaned := pmax(entry_spell_category_cleaned, additional_entry_cleaned, na.rm = T)]
+  person_spell[, exit_spell_category_cleaned := pmax(exit_spell_category_cleaned, additional_exit_cleaned, na.rm = T)]
+  person_spell[, c("additional_entry_cleaned", "additional_exit_cleaned") := NULL]
+}
+
 # add a criteria that identify the specific spell of interest
 person_spell[, is_the_study_spell := data.table::fifelse(starts_after_ending == 0 & no_overlap_study_period == 0 & too_old_at_start_spell == 0 & too_young_at_exit_spell == 0 & spell_less_than_12_months_fup == 0, 1, 0)]
 

@@ -10,12 +10,14 @@
 meanings_of_this_study <- list()
 
 meanings_of_this_study[["UOSL"]][["meaning_of_event"]][["PC"]] <- "primary_care_diagnosis"
+meanings_of_this_study[["UOSL"]][["meaning_of_event"]][["OUTPATIENT_NO_PC"]] <- "birth_registry_mother"
 
 meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["PC"]] <- "primary_care"
 meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["INPATIENT"]] <- c("hospitalisation",
                                                                            "hospitalisation_not_overnight", 
                                                                            "radiation_hospitalised")
-meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("hospital_encounter", "outpatient_contact")
+meanings_of_this_study[["UOSL"]][["meaning_of_visit"]][["OUTPATIENT_NO_PC"]] <- c("hospital_encounter", "outpatient_contact",
+                                                                                  "birth_registry_mother")
 
 
 meanings_of_this_study[["THL"]][["meaning_of_event"]][["PC"]] <- c("primary_care_diagnosis", "birth_registry")

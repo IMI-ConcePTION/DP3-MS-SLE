@@ -43,13 +43,13 @@ op_meanings_list_per_set[["SAIL Databank"]][["meanings_residency"]] <- c("reside
 op_meaning_sets_in_subpopulations[["SAIL Databank"]][["GP"]] <- c("meanings_GP", "meanings_residency")
 
 # datasource TEST
-subpopulations[["TEST"]] = c("GP")
+subpopulations[["TEST"]] = c("PREG")
 
-op_meaning_sets[["TEST"]] <- c("meanings_GP", "meanings_pregnancy")
-op_meanings_list_per_set[["TEST"]][["meanings_GP"]] <- c("primary_care")
+op_meaning_sets[["TEST"]] = c("meanings_pregnancy","meanings_MEDICINES")
 op_meanings_list_per_set[["TEST"]][["meanings_pregnancy"]] <- c("pregnancy")
+op_meanings_list_per_set[["TEST"]][["meanings_MEDICINES"]] <- c() # Generated in step of the spells as all meanings
 
-op_meaning_sets_in_subpopulations[["TEST"]][["GP"]] <- c("meanings_GP", "meanings_pregnancy")
+op_meaning_sets_in_subpopulations[["TEST"]][["PREG"]] <- c("meanings_pregnancy", "meanings_MEDICINES")
 
 # datasource FISABIO
 
@@ -66,6 +66,15 @@ op_meanings_list_per_set[["RDRU_FISABIO"]][["meanings_MEDICINES"]] <- c("child_f
 op_meanings_list_per_set[["RDRU_FISABIO"]][["meanings_CANCER"]] <- c("from_cancer_registry_available_hospitalisation","from_cancer_registry_available_medicine_data")
 
 op_meaning_sets_in_subpopulations[["RDRU_FISABIO"]][["PREG"]] <- c("meanings_pregnancy", "meanings_MEDICINES")
+
+
+subpopulations[["UOSL"]] = c("PREG")
+
+op_meaning_sets[["UOSL"]] = c("meanings_pregnancy","meanings_MEDICINES")
+op_meanings_list_per_set[["UOSL"]][["meanings_pregnancy"]] <- c("pregnancy")
+op_meanings_list_per_set[["UOSL"]][["meanings_MEDICINES"]] <- c() # Generated in step of the spells as all meanings
+
+op_meaning_sets_in_subpopulations[["UOSL"]][["PREG"]] <- c("meanings_pregnancy", "meanings_MEDICINES")
 
 # if (this_datasource_has_subpopulations == TRUE){ 
 #   # define selection criterion for events
