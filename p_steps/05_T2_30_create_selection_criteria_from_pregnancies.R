@@ -127,7 +127,7 @@ selection_criteria[, filter_helper := pmax(EXCLUSION_1_pregnancy_in_persons_of_n
                                            EXCLUSION_4_pregnancy_not_in_study_period,
                                            EXCLUSION_5_pregnancy_outside_period_with_medicines,
                                            removed_row)]
-selection_criteria <- selection_criteria[selection_criteria[, .I[filter_helper == max(filter_helper)], by = c("person_id", "pregnancy_id")]$V1]
+selection_criteria <- selection_criteria[selection_criteria[, .I[filter_helper == min(filter_helper)], by = c("person_id", "pregnancy_id")]$V1]
 selection_criteria <- selection_criteria[selection_criteria[, .I[cohort_entry_date == max(cohort_entry_date)], by = c("person_id", "pregnancy_id")]$V1]
 
 smart_save(selection_criteria, dirtemp, override_name = "D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT",
