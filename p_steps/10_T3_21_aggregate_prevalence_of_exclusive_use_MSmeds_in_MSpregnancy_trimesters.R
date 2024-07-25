@@ -53,7 +53,7 @@ preg_med_ind_any_medication <- preg_med_ind[medication_label != "missing", .(use
 preg_med_ind_any_medication[, medication_label := "anydrug"]
 
 preg_med_ind <- rbindlist(list(preg_med_ind[, medication_level_order := 1],
-                               preg_med_ind_any_medication[, medication_level_order := 99]), use.names = T)
+                               preg_med_ind_any_medication[, medication_level_order := 99]), use.names = T, fill = T)
 
 assigned_statistics <- vector(mode="list")
 assigned_statistics[["number_medications"]] <- c("sum", "median")
