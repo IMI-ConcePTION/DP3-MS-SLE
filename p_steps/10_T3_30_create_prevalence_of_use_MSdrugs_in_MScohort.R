@@ -13,9 +13,6 @@ medications <- rbindlist(lapply(concept_sets_of_our_study_DU, function(x) {
 }))
 medications <- unique(medications)
 
-# TODO remove for release
-medications <- rbindlist(lapply(medications$person_id, function(x) copy(medications)[, person_id := x]))
-
 # Calculate yearly prevalence of use of each medication
 prevalence_of_use_yearly <- CountPrevalence(D4_DU_MS_COHORT, medications, c("person_id"), Start_date = "cohort_entry_date",
                                             End_date = "cohort_exit_date", Birth_date = "birth_date",

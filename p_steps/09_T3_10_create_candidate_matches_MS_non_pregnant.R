@@ -4,12 +4,18 @@ ms_cohort <- unique(D4_DU_MS_COHORT[, .(person_id, date_MS)])
 
 smart_load("D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT", dirtemp, extension = extension)
 
-preg_cohort_sel_crit <- D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT[, .(person_id, entry_spell_category, birth_date, DU_pregnancy_study_entry_date, DU_pregnancy_study_exit_date, cohort_entry_date, cohort_exit_date)]
+preg_cohort_sel_crit <- D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT
+preg_cohort_sel_crit <- preg_cohort_sel_crit[, .(person_id, entry_spell_category, birth_date, DU_pregnancy_study_entry_date,
+                                                 DU_pregnancy_study_exit_date, cohort_entry_date, cohort_exit_date)]
 
 preg_cohort <- preg_cohort_sel_crit[ms_cohort, on = "person_id"]
-
 preg_cohort <- preg_cohort[date_MS <= DU_pregnancy_study_exit_date, ]
 preg_cohort <- preg_cohort[date_MS > DU_pregnancy_study_entry_date, DU_pregnancy_study_entry_date := date_MS]
+
+ms_cohort_not_preg <- unique(D4_DU_MS_COHORT[person_id %not in% unique(preg_cohort[, person_id]),
+                                             .(person_id, date_MS, entry_spell_category, birth_date, cohort_entry_date,
+                                               cohort_exit_date, start_candidate_period = pmax(cohort_entry_date, date_MS),
+                                               end_candidate_period = cohort_exit_date)])
 
 preg_cohort[, c("cohort_entry_date", "cohort_exit_date") := list(min(cohort_entry_date), min(cohort_exit_date)),
             by = "person_id"]
@@ -64,6 +70,8 @@ complete_preg_cohort <- rbindlist(list(initial_preg_cohort, preg_cohort))
 complete_preg_cohort[, c("DU_pregnancy_study_entry_date", "DU_pregnancy_study_exit_date") := NULL]
 setcolorder(complete_preg_cohort, c("person_id", "date_MS", "entry_spell_category", "birth_date", "cohort_entry_date",
                                     "cohort_exit_date", "start_candidate_period", "end_candidate_period"))
+
+complete_preg_cohort <- rbindlist(list(complete_preg_cohort, ms_cohort_not_preg))
 
 # Save the file
 smart_save(complete_preg_cohort, dirtemp, override_name = "D4_candidate_matches_MS_non_pregnant",

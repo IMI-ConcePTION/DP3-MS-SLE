@@ -12,9 +12,6 @@ medications <- rbindlist(lapply(concept_sets_of_our_study_DU, function(x) {
 }))
 medications <- unique(medications)
 
-# TODO remove for release
-# medications <- rbindlist(lapply(medications$person_id, function(x) copy(medications)[, person_id := x]))
-# TODO add for release
 D3_DU_PREGNANCY_COHORT_variables <- D3_DU_PREGNANCY_COHORT_variables[pregnancy_with_MS == 1,]
 
 # Keep only necessary columns
