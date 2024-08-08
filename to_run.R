@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.0-gamma - 08 July 2024
+# Implemeted template 8, 9, 10, 11
+# Fixed bug of overlapping pregnancies
+
 # v3.0.0-delta - 25 March 2024
 # NA_date_ instead of simple NA in 07_10
 

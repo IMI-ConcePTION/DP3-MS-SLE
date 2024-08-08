@@ -33,6 +33,9 @@ medications <- rbindlist(lapply(concept_sets_of_our_study_DU, function(x) {
 }))
 medications <- unique(medications)
 
+# TODO remove for release
+# medications <- rbindlist(lapply(medications$person_id, function(x) copy(medications)[, person_id := x]))
+
 periods_of_time <- list(list("DU_pregnancy_study_entry_date", "end_preg_period_pre_4_MS_pregnancy_id"),
                         list("start_preg_period_pre_3_MS_pregnancy_id", "end_preg_period_pre_3_MS_pregnancy_id"),
                         list("start_preg_period_pre_2_MS_pregnancy_id", "end_preg_period_pre_2_MS_pregnancy_id"),
