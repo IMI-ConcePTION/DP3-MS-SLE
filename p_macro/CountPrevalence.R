@@ -340,7 +340,6 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
     if (!is.null(Periods_of_time)) { 
       start_period_dates<-unlist(lapply(Periods_of_time, `[[`, 1))
       end_period_dates<-unlist(lapply(Periods_of_time, `[[`, 2))
-      
       if(start_period_dates[[1]] %in% names(Dataset_cohort)) {
         if (length(start_period_dates)==1){
           setnames(Dataset_cohort,start_period_dates,"value1")
@@ -348,7 +347,9 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
         }else{
           id_variables<-c(id_columns_tokeep,Start_date,End_date )
           if (!is.null(Strata)) id_variables<-c(id_variables,Strata)
-          Dataset_cohort<-melt(setDT(Dataset_cohort), id.vars =id_variables , measure.vars = list(start_period_dates,end_period_dates))
+
+          Dataset_cohort<-melt(setDT(Dataset_cohort), id.vars = id_variables,
+                               measure.vars = list(start_period_dates,end_period_dates), na.rm = T)
         }
         Dataset_cohort<-Dataset_cohort[!is.na(value1),]
       }else{
@@ -414,6 +415,7 @@ CountPrevalence <- function(Dataset_cohort, Dataset_events, UoO_id,key=NULL,Star
       
       rm(tmp)
     }
+    
     #create the binary in_population checking if the Start_date exist in that row
     Dataset_cohort[,in_population:=fifelse(is.na(get(Start_date)),0,1) ]
     
