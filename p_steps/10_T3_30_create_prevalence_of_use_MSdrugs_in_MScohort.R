@@ -59,6 +59,7 @@ prevalence_of_use[, c("cohort_entry_date", "cohort_exit_date") := NULL, ]
 cols_to_add <- setdiff(paste0("prev_", concept_sets_of_our_study_DU), colnames(prevalence_of_use))
 prevalence_of_use[, (cols_to_add) := 0L]
 setnames(prevalence_of_use, paste0("prev_", concept_sets_of_our_study_DU), concept_sets_of_our_study_DU)
+prevalence_of_use[ , (concept_sets_of_our_study_DU) := lapply(.SD, as.integer), .SDcols = concept_sets_of_our_study_DU]
 
 # Create the category anydrug
 prevalence_of_use[, anydrug := do.call(pmax, .SD), .SDcols = concept_sets_of_our_study_DU]

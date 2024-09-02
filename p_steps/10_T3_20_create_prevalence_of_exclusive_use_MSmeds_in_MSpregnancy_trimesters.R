@@ -34,7 +34,10 @@ colB = c("end_preg_period_pre_all", paste0("end_preg_period_during_", 1:3),
 pregnancy_df = melt(pregnancy_df, measure = list(colA, colB), variable.name = "period_name",
                     value.name = c("start_period", "end_period"), na.rm = T, variable.factor = F)
 
-pregnancy_df[.(period_name = as.character(1:9), to = c("number_before_pregnancy", paste0("number_tri_", 1:3),
+# TODO: remove for release
+pregnancy_df <- pregnancy_df[period_name %not in% c(7, 8), ]
+
+pregnancy_df <- pregnancy_df[.(period_name = as.character(1:9), to = c("number_before_pregnancy", paste0("number_tri_", 1:3),
                                                        paste0("number_before_pregnancy_", 1:4),
                                                        "number_after_pregnancy")),
              on = "period_name", period_name := i.to]
@@ -62,6 +65,12 @@ med_in_preg <- med_in_preg[is.na(concept), use_n := 0]
 # Retransform periods in wide format
 med_in_preg <- dcast(med_in_preg, pregnancy_id + concept + trimester_when_pregnancy_ended ~ period_name,
                      fill = 0, value.var = "use_n")
+
+# Modify column names and add missing medications (as 0)
+cols_to_add <- setdiff(c("number_before_pregnancy", paste0("number_tri_", 1:3),
+                         paste0("number_before_pregnancy_", 1:4),
+                         "number_after_pregnancy"), colnames(med_in_preg))
+med_in_preg[, (cols_to_add) := 0L]
 
 # Generate binary variable of usage in period
 med_in_preg <- med_in_preg[, use_before_pregnancy := fifelse(number_before_pregnancy == 0, 0, 1)]

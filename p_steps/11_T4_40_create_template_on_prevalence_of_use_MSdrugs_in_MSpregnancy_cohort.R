@@ -3,6 +3,8 @@ smart_load("D4_DU_prevalence_of_use_MSmeds_in_MSpregnancy_cohort", diroutput, ex
 
 prev_MS_preg_cohort <- D4_DU_prevalence_of_use_MSmeds_in_MSpregnancy_cohort
 
+prev_MS_preg_cohort <- prev_MS_preg_cohort[!(Calendartime_level_order == 1 & Age_level_order == 1), ]
+
 # Change names of columns
 prev_MS_preg_cohort <- prev_MS_preg_cohort[, .(is_pregnancy, row_identifier_1 = medication_label,
                                                row_identifier_2 = Calendartime_label, row_identifier_3 = Ageband_label,

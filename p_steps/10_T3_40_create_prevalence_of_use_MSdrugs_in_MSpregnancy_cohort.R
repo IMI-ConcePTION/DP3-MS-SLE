@@ -9,11 +9,6 @@
 smart_load("D4_DU_matched_MS_PREGNANCY_COHORT_to_MS_COHORT", diroutput, extension = extension)
 
 preg_matched_cohort <- D4_DU_matched_MS_PREGNANCY_COHORT_to_MS_COHORT
-setkey(preg_matched_cohort, person_id, DU_pregnancy_study_entry_date)
-preg_matched_cohort[, DU_pregnancy_study_entry_date := fifelse(
-  DU_pregnancy_study_entry_date <= shift(DU_pregnancy_study_exit_date, type = "lag"),
-  shift(DU_pregnancy_study_exit_date, type = "lag") + 1,
-  DU_pregnancy_study_entry_date, na = DU_pregnancy_study_entry_date), by = "person_id"]
 setkey(preg_matched_cohort, person_id, DU_pregnancy_study_entry_date, DU_pregnancy_study_exit_date)
 
 cols <- c("DU_pregnancy_study_entry_date", "DU_pregnancy_study_exit_date", "end_preg_period_pre_4_MS_pregnancy_id",
@@ -88,6 +83,7 @@ prevalence_of_use_yearly[, timeframe := NULL]
 cols_to_add <- setdiff(paste0("prev_", concept_sets_of_our_study_DU), colnames(prevalence_of_use_yearly))
 prevalence_of_use_yearly[, (cols_to_add) := 0L]
 setnames(prevalence_of_use_yearly, paste0("prev_", concept_sets_of_our_study_DU), concept_sets_of_our_study_DU)
+prevalence_of_use_yearly[ , (concept_sets_of_our_study_DU) := lapply(.SD, as.integer), .SDcols = concept_sets_of_our_study_DU]
 
 # Create the category anydrug
 prevalence_of_use_yearly[, anydrug := do.call(pmax, .SD), .SDcols = concept_sets_of_our_study_DU]
@@ -97,16 +93,21 @@ prevalence_of_use_yearly <- melt(prevalence_of_use_yearly, measure.vars = c(conc
                                  variable.name = "medication")
 
 prevalence_of_use_yearly <- dcast(prevalence_of_use_yearly, person_id + is_pregnancy + Age + Calendartime +
-                                    medication ~ pregnancy_period, value.var = "value", fun.aggregate = sum)
-prevalence_of_use_yearly[, all_pre := do.call(pmax, .SD, T), .SDcols = c("pre_4", "pre_3", "pre_2", "pre_1")]
-prevalence_of_use_yearly[, all_during := do.call(pmax, .SD, T), .SDcols = c("during_1", "during_2", "during_3")]
-prevalence_of_use_yearly[, all_after := do.call(pmax, .SD, T), .SDcols = c("after_1")]
+                                    medication ~ pregnancy_period, value.var = "value", fun.aggregate = sum, fill = NA)
+
+# Modify column names and add missing periods
+cols_to_add <- setdiff(all_trimesters, colnames(prevalence_of_use_yearly))
+prevalence_of_use_yearly[, (cols_to_add) := 0L]
+
+prevalence_of_use_yearly[, all_pre := do.call(pmax, c(.SD, na.rm = T)), .SDcols = c("pre_4", "pre_3", "pre_2", "pre_1")]
+prevalence_of_use_yearly[, all_during := do.call(pmax, c(.SD, na.rm = T)), .SDcols = c("during_1", "during_2", "during_3")]
+prevalence_of_use_yearly[, all_after := do.call(pmax, c(.SD, na.rm = T)), .SDcols = c("after_1")]
 
 # Melt the medications
 prevalence_of_use_yearly <- melt(prevalence_of_use_yearly, measure.vars = c(all_trimesters, "all_pre", "all_during", "all_after"),
-                                 variable.name = "pregnancy_period")
+                                 variable.name = "pregnancy_period", na.rm = TRUE)
 
-prevalence_of_use_yearly[, Calendartime1 := cut(Calendartime, c(2005, 2010, 2015, 2020),
+prevalence_of_use_yearly[, Calendartime1 := cut(Calendartime, c(2005, 2009, 2014, 2019),
                                                 c("2005-2009", "2010-2014", "2015-2019"))]
 prevalence_of_use_yearly[, Calendartime2 := "2005-2019"]
 
@@ -125,7 +126,7 @@ assigned_statistics[["denom_preg_use"]] <- "sum"
 assigned_rule <- vector(mode="list")
 assigned_rule[["Age"]][["Ageband"]] <- list("split_in_bands", "Age", ageband_definition_level_1b)
 
-prevalence_of_use_yearly <- prevalence_of_use_yearly[, denom_preg_use := fifelse(rowid(is_pregnancy, Age, Calendartime, medication) == 1, 1, 0)]
+prevalence_of_use_yearly <- prevalence_of_use_yearly[, denom_preg_use := 1]
 
 # TODO add anytry
 # Calculate sums of usage and number of medication for each level. Calculate 
@@ -154,13 +155,6 @@ preg_med_ind[, is_pregnancy_LevelOrder := NULL]
 setcolorder(preg_med_ind, c("is_pregnancy", "medication_label", "medication_level_order", "Calendartime_label",
                             "Calendartime_level_order", "Ageband_label", "Age_level_order", "pregnancy_period_label",
                             "pregnancy_period_level_order"))
-
-denominator_df <- unique(copy(preg_med_ind)[, .(is_pregnancy, Calendartime_label, Calendartime_level_order, Ageband_label,
-                                                Age_level_order, denom_preg_use)])
-denominator_df <- denominator_df[, .(denom_preg_use = sum(denom_preg_use)), by = c("is_pregnancy", "Calendartime_label", "Calendartime_level_order",
-                                                                                   "Ageband_label", "Age_level_order")]
-preg_med_ind[denominator_df, on = c("Calendartime_label", "Calendartime_level_order",
-                                    "Ageband_label", "Age_level_order"), denom_preg_use := i.denom_preg_use]
 
 # Save the file
 smart_save(preg_med_ind, diroutput, override_name = "D4_DU_prevalence_of_use_MSmeds_in_MSpregnancy_cohort",
