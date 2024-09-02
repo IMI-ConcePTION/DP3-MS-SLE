@@ -115,8 +115,10 @@ pregnancy_variables[, start_preg_period_during_3 := fifelse(!is.na(end_preg_peri
                                                             pregnancy_start_date %m+% days(196), NA_Date_)]
 pregnancy_variables[, end_preg_period_during_3 := fifelse(!is.na(end_preg_period_during_2) & end_preg_period_during_2 != pregnancy_end_date,
                                                           pregnancy_end_date, NA_Date_)]
-pregnancy_variables[, start_preg_period_after_1 := pregnancy_end_date %m+% days(1)]
-pregnancy_variables[, end_preg_period_after_1 := pregnancy_end_date %m+% days(90)]
+pregnancy_variables[, start_preg_period_after_1 := fifelse(DU_pregnancy_study_exit_date != pregnancy_end_date,
+                                                           pregnancy_end_date %m+% days(1), NA_Date_)]
+pregnancy_variables[, end_preg_period_after_1 := fifelse(!is.na(start_preg_period_after_1), pmin(pregnancy_end_date %m+% days(90),
+                                                                                                 DU_pregnancy_study_exit_date), NA_Date_)]
 pregnancy_variables[, end_preg_period_pre_all := end_preg_period_pre_1]
 
 # Save when pregnancies ended
