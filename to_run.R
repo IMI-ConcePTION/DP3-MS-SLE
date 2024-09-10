@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.0-epsilon - 10 September 2024
+# Added again SLE part in the initial part of the script
+
 # v3.0.0-gamma - 08 July 2024
 # Implemeted template 8, 9, 10, 11
 # Fixed bug of overlapping pregnancies
@@ -59,6 +62,7 @@ launch_step("p_steps/02_T3_10_create_study_population.R")
 launch_step("p_steps/03_T2_10_create_study_population_baseline_variables.R")
 launch_step("p_steps/03_T2_20_create_main_components.R")
 launch_step("p_steps/03_T2_21_create_components_MS.R")
+launch_step("p_steps/03_T2_22_create_components_SLE.R")
 launch_step("p_steps/03_T2_30_create_algorithms_MS.R")
 
 # DU
