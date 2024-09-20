@@ -35,7 +35,7 @@ pregnancy_df = melt(pregnancy_df, measure = list(colA, colB), variable.name = "p
                     value.name = c("start_period", "end_period"), na.rm = T, variable.factor = F)
 
 # TODO: remove for release
-pregnancy_df <- pregnancy_df[period_name %not in% c(7, 8), ]
+# pregnancy_df <- pregnancy_df[period_name %not in% c(7, 8), ]
 
 pregnancy_df <- pregnancy_df[.(period_name = as.character(1:9), to = c("number_before_pregnancy", paste0("number_tri_", 1:3),
                                                        paste0("number_before_pregnancy_", 1:4),
@@ -44,6 +44,8 @@ pregnancy_df <- pregnancy_df[.(period_name = as.character(1:9), to = c("number_b
 
 # Join medication to corresponding time period
 all_cols <- c(union(colnames(pregnancy_df), colnames(medications)), "y.start_period")
+
+# medications[, person_id := pregnancy_df[2, person_id]]
 
 med_in_preg <- medications[pregnancy_df, .(person_id, pregnancy_id, trimester_when_pregnancy_ended, period_name,
                                            start_period, end_period, date = x.date, concept),
