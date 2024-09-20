@@ -51,4 +51,6 @@ ageband_definition_level_1 <- c(15, 19, 24, 29, 34, 39, 44, 49)
 ageband_definition_level_2 <- c(15, 24, 29, 34, 39, 49)
 ageband_definition_level_3 <- c(15, 24, 34, 49)
 
+ageband_definition_level_1b <- c(15, 25, 30, 35, 40, 50)
+
 s <- c(1, 2, 3, 5, 8, "all")

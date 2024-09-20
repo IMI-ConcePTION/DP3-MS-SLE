@@ -31,15 +31,10 @@ if (thisdatasource == "EFEMERIS") {
 } else if (thisdatasource %in% c("THL", "RDRU_FISABIO")) {
   prior_data_avalaibility <- lubridate::months(3)
 } else {
-  prior_data_avalaibility <- lubridate::years(1)
+  prior_data_avalaibility <- lubridate::days(365)
 }
 
 setorder(selection_criteria, person_id, cohort_entry_date, pregnancy_start_date)
-
-selection_criteria[, lag_pregnancy_end_date := shift(pregnancy_end_date) + 1, by = c("person_id", "cohort_entry_date")]
-selection_criteria[, DU_pregnancy_study_entry_date := pmax(pregnancy_start_date %m-% prior_data_avalaibility,
-                                                           lag_pregnancy_end_date, na.rm = T)]
-selection_criteria[, lag_pregnancy_end_date := NULL]
 
 if (thisdatasource == "EFEMERIS") {
   selection_criteria[, DU_pregnancy_study_exit_date := pregnancy_end_date]
@@ -51,6 +46,15 @@ if (thisdatasource == "EFEMERIS") {
   #                                                           lead_pregnancy_start_date, na.rm = T)]
   # selection_criteria[, lead_pregnancy_start_date := NULL]
 }
+
+selection_criteria[, lag_pregnancy_exit := shift(DU_pregnancy_study_exit_date) + 1, by = c("person_id", "cohort_entry_date")]
+selection_criteria[, DU_pregnancy_study_entry_date := pmin(pmax(pregnancy_start_date %m-% prior_data_avalaibility,
+                                                                lag_pregnancy_exit, na.rm = T), pregnancy_start_date, na.rm = T)]
+selection_criteria[, lag_pregnancy_exit := NULL]
+
+selection_criteria[, lag_pregnancy_entry := shift(DU_pregnancy_study_entry_date, type = "lead") - 1, by = c("person_id", "cohort_entry_date")]
+selection_criteria[, DU_pregnancy_study_exit_date := pmin(DU_pregnancy_study_exit_date, lag_pregnancy_entry, na.rm = T)]
+selection_criteria[, lag_pregnancy_entry := NULL]
 
 # Some pregnancies may comes from Males (gender)
 selection_criteria[, EXCLUSION_1_pregnancy_in_persons_of_non_female_gender := fifelse(sex_at_instance_creation != "F", 1, 0)]
@@ -127,7 +131,7 @@ selection_criteria[, filter_helper := pmax(EXCLUSION_1_pregnancy_in_persons_of_n
                                            EXCLUSION_4_pregnancy_not_in_study_period,
                                            EXCLUSION_5_pregnancy_outside_period_with_medicines,
                                            removed_row)]
-selection_criteria <- selection_criteria[selection_criteria[, .I[filter_helper == max(filter_helper)], by = c("person_id", "pregnancy_id")]$V1]
+selection_criteria <- selection_criteria[selection_criteria[, .I[filter_helper == min(filter_helper)], by = c("person_id", "pregnancy_id")]$V1]
 selection_criteria <- selection_criteria[selection_criteria[, .I[cohort_entry_date == max(cohort_entry_date)], by = c("person_id", "pregnancy_id")]$V1]
 
 smart_save(selection_criteria, dirtemp, override_name = "D3_DU_selection_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT",

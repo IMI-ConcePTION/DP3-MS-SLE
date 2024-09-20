@@ -13,8 +13,7 @@ preg_cohort <- D3_DU_PREGNANCY_COHORT_variables[, .(pregnancy_id, birth_date, pr
 
 # Calculate ageband at LMP
 preg_cohort[, age_at_LMP := age_fast(birth_date, pregnancy_start_date)]
-preg_cohort[, ageband_at_LMP := cut(age_at_LMP, c(15, 20, 25, 30, 35, 40, 45, 50),
-                                    c("15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49"), right = F)]
+preg_cohort[, ageband_at_LMP := cut(age_at_LMP, Agebands_LMP, Agebands_LMP_labels, right = F)]
 preg_cohort[, c("age_at_LMP", "birth_date") := NULL]
 
 # Extract the year of the LMP and create variables containing longer periods
@@ -59,7 +58,7 @@ setnames(preg_cohort_den, "placeholder_sum", "denominator")
 # Need to create a data.frame with all the possible combinations of strata
 # We may not have all of them in the previous datasets (e.g. 2015 in "normal" datasources)
 empty_df <- as.data.table(expand.grid(pregnancy_start_date = 2005:2019,
-                                      ageband_at_LMP = c("15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49"),
+                                      ageband_at_LMP = Agebands_LMP_labels,
                                       placeholder = 1))
 empty_df[, pregnancy_start_date_2 := cut(pregnancy_start_date, c(2005, 2010, 2015, 2020),
                                          c("2005-2009", "2010-2014", "2015-2019"), right = F)]

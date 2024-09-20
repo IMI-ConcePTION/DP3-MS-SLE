@@ -8,6 +8,30 @@
 preg_med_ind <- smart_load("D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregnancy_trimesters", dirtemp,
                            extension = extension, return = T)
 
+# Medications needs to be aggregate before Cube since their level categories are not mutually exclusive
+preg_med_ind <- preg_med_ind[is.na(medication_label), medication_label := "missing"]
+preg_med_ind_any_medication <- preg_med_ind[medication_label != "missing",
+                                            .(use_before_pregnancy = max(use_before_pregnancy),
+                                              number_before_pregnancy = sum(number_before_pregnancy), 
+                                              use_tri_1 = max(use_tri_1), use_tri_2 = max(use_tri_2),
+                                              use_tri_3 = max(use_tri_3), number_tri_1 = sum(number_tri_1),
+                                              number_tri_2 = sum(number_tri_2), number_tri_3 = sum(number_tri_3),
+                                              use_before_pregnancy_1 = max(use_before_pregnancy_1),
+                                              use_before_pregnancy_2 = max(use_before_pregnancy_2),
+                                              use_before_pregnancy_3 = max(use_before_pregnancy_3),
+                                              use_before_pregnancy_4 = max(use_before_pregnancy_4),
+                                              number_before_pregnancy_1 = sum(number_before_pregnancy_1),
+                                              number_before_pregnancy_2 = sum(number_before_pregnancy_2),
+                                              number_before_pregnancy_3 = sum(number_before_pregnancy_3),
+                                              number_before_pregnancy_4 = sum(number_before_pregnancy_4),
+                                              use_after_pregnancy = max(use_after_pregnancy),
+                                              number_after_pregnancy = sum(number_after_pregnancy)),
+                                            by = c("pregnancy_id", "trimester_when_pregnancy_ended")]
+preg_med_ind_any_medication[, medication_label := "anydrug"]
+
+preg_med_ind <- rbindlist(list(preg_med_ind[, medication_level_order := 1],
+                               preg_med_ind_any_medication[, medication_level_order := 99]), use.names = T, fill = T)
+
 # Recode names
 setnames(preg_med_ind, "use_before_pregnancy", "before_pregnancy")
 
@@ -23,14 +47,12 @@ preg_med_ind[, during_pregnancy := fcase(use_tri_1 == 0 & use_tri_2 == 0 & use_t
 preg_med_ind[, during_pregnancy_any := during_pregnancy]
 preg_med_ind[during_pregnancy_any != "notri", during_pregnancy_any := "anytri"]
 
-
-preg_med_ind <- preg_med_ind[is.na(medication_label), medication_label := "missing"]
 preg_med_ind <- preg_med_ind[, trimester_2 := fifelse(trimester_when_pregnancy_ended != "t3",
                                                       "t1+t2", trimester_when_pregnancy_ended)]
 preg_med_ind <- preg_med_ind[, trimester_3 := "t1+t2+t3"]
 
 # Create general variables for use (and removed unnecessary columns)
-preg_med_ind[, use_general := pmax(before_pregnancy, use_tri_1, use_tri_2, use_tri_3)]
+# preg_med_ind[, use_general := pmax(before_pregnancy, use_tri_1, use_tri_2, use_tri_3)]
 preg_med_ind[, use_general := 1]
 preg_med_ind[, number_medications := rowSums(.SD), .SDcols = c("number_before_pregnancy", "number_tri_1",
                                                                "number_tri_2", "number_tri_3")]
@@ -43,17 +65,6 @@ assigned_levels[["medication_level_order"]] <- c("medication_level_order")
 assigned_levels[["before_pregnancy"]] <- c("before_pregnancy")
 assigned_levels[["during_pregnancy"]] <- c("during_pregnancy", "during_pregnancy_any")
 assigned_levels[["trimester_when_pregnancy_ended"]] <- c("trimester_when_pregnancy_ended", "trimester_2", "trimester_3")
-
-# Medications needs to be aggregate before Cube since their level categories are not mutually exclusive
-preg_med_ind_any_medication <- preg_med_ind[medication_label != "missing", .(use_general = max(use_general),
-                                                                             number_medications = sum(number_medications)),
-                                            by = c("pregnancy_id", "before_pregnancy", "trimester_when_pregnancy_ended",
-                                                   "trimester_2", "trimester_3", "use_tri_1", "use_tri_2", "use_tri_3",
-                                                   "during_pregnancy", "during_pregnancy_any")]
-preg_med_ind_any_medication[, medication_label := "anydrug"]
-
-preg_med_ind <- rbindlist(list(preg_med_ind[, medication_level_order := 1],
-                               preg_med_ind_any_medication[, medication_level_order := 99]), use.names = T)
 
 assigned_statistics <- vector(mode="list")
 assigned_statistics[["number_medications"]] <- c("sum", "median")

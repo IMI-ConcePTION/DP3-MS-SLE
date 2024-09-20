@@ -80,17 +80,31 @@ if (thisdatasource %in% datasources_only_preg) {
   }
   pregnancy_variables[, start_preg_period_pre_all := start_preg_period_pre_1]
 } else {
-  pregnancy_variables[, start_preg_period_pre_4 := pregnancy_start_date %m-% days(365)]
-  pregnancy_variables[, end_preg_period_pre_4 := pregnancy_start_date %m-% days(275)]
-  pregnancy_variables[, start_preg_period_pre_3 := pregnancy_start_date %m-% days(274)]
-  pregnancy_variables[, end_preg_period_pre_3 := pregnancy_start_date %m-% days(183)]
-  pregnancy_variables[, start_preg_period_pre_2 := pregnancy_start_date %m-% days(182)]
-  pregnancy_variables[, end_preg_period_pre_2 := pregnancy_start_date %m-% days(91)]
-  pregnancy_variables[, start_preg_period_pre_1 := pregnancy_start_date %m-% days(90)]
-  pregnancy_variables[, start_preg_period_pre_all := start_preg_period_pre_4]
+  
+  pregnancy_variables[, start_preg_period_pre_1 := fifelse(DU_pregnancy_study_entry_date != pregnancy_start_date,
+                                                           pmax(pregnancy_start_date %m-% days(90),  DU_pregnancy_study_entry_date),
+                                                           NA_Date_)]
+  pregnancy_variables[, end_preg_period_pre_2 := data.table::fifelse(start_preg_period_pre_1 != DU_pregnancy_study_entry_date,
+                                                                          pregnancy_start_date %m-% days(91), NA_Date_)]
+  pregnancy_variables[, start_preg_period_pre_2 := fifelse(start_preg_period_pre_1 != DU_pregnancy_study_entry_date,
+                                                           pmax(pregnancy_start_date %m-% days(182), DU_pregnancy_study_entry_date),
+                                                           NA_Date_)]
+  pregnancy_variables[, end_preg_period_pre_3 := data.table::fifelse(start_preg_period_pre_2 != DU_pregnancy_study_entry_date,
+                                                                     pregnancy_start_date %m-% days(183), NA_Date_)]
+  pregnancy_variables[, start_preg_period_pre_3 := fifelse(start_preg_period_pre_2 != DU_pregnancy_study_entry_date,
+                                                           pmax(pregnancy_start_date %m-% days(274), DU_pregnancy_study_entry_date),
+                                                           NA_Date_)]
+  pregnancy_variables[, end_preg_period_pre_4 := data.table::fifelse(start_preg_period_pre_3 != DU_pregnancy_study_entry_date,
+                                                                     pregnancy_start_date %m-% days(275), NA_Date_)]
+  pregnancy_variables[, start_preg_period_pre_4 := fifelse(start_preg_period_pre_3 != DU_pregnancy_study_entry_date,
+                                                           pmax(pregnancy_start_date %m-% days(365), DU_pregnancy_study_entry_date),
+                                                           NA_Date_)]
+  pregnancy_variables[, start_preg_period_pre_all := pmin(start_preg_period_pre_1, start_preg_period_pre_2,
+                                                          start_preg_period_pre_3, start_preg_period_pre_4, na.rm = T)]
 }
 
-pregnancy_variables[, end_preg_period_pre_1 := pregnancy_start_date %m-% days(1)]
+pregnancy_variables[, end_preg_period_pre_1 := data.table::fifelse(DU_pregnancy_study_entry_date != pregnancy_start_date,
+                                                                   pregnancy_start_date %m-% days(1), NA_Date_)]
 pregnancy_variables[, start_preg_period_during_1 := pregnancy_start_date]
 pregnancy_variables[, end_preg_period_during_1 := pmin(pregnancy_start_date %m+% days(97), pregnancy_end_date)]
 pregnancy_variables[, start_preg_period_during_2 := data.table::fifelse(end_preg_period_during_1 != pregnancy_end_date,
@@ -101,8 +115,10 @@ pregnancy_variables[, start_preg_period_during_3 := fifelse(!is.na(end_preg_peri
                                                             pregnancy_start_date %m+% days(196), NA_Date_)]
 pregnancy_variables[, end_preg_period_during_3 := fifelse(!is.na(end_preg_period_during_2) & end_preg_period_during_2 != pregnancy_end_date,
                                                           pregnancy_end_date, NA_Date_)]
-pregnancy_variables[, start_preg_period_after_1 := pregnancy_end_date %m+% days(1)]
-pregnancy_variables[, end_preg_period_after_1 := pregnancy_end_date %m+% days(90)]
+pregnancy_variables[, start_preg_period_after_1 := fifelse(DU_pregnancy_study_exit_date != pregnancy_end_date,
+                                                           pregnancy_end_date %m+% days(1), NA_Date_)]
+pregnancy_variables[, end_preg_period_after_1 := fifelse(!is.na(start_preg_period_after_1), pmin(pregnancy_end_date %m+% days(90),
+                                                                                                 DU_pregnancy_study_exit_date), NA_Date_)]
 pregnancy_variables[, end_preg_period_pre_all := end_preg_period_pre_1]
 
 # Save when pregnancies ended
