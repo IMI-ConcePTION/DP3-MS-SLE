@@ -167,6 +167,9 @@ smart_save(c(), dirpargen, extension = ".rds", override_name = "variables_to_cen
 Agebands_countpersontime = c(0, 4, 11, 17, 24, 29, 39, 49, 59, 69, 79)
 Agebands_labels = c("0-4","5-11","12-17","18-24","25-29", "30-39", "40-49","50-59","60-69", "70-79","80+")
 
+Agebands_LMP <- c(15, 25, 30, 35, 40, 50)
+Agebands_LMP_labels <- c("15-24", "25-29", "30-34", "35-39", "40-49")
+
 age_fast = function(from, to) {
   from_lt = as.POSIXlt(from)
   to_lt = as.POSIXlt(to)
