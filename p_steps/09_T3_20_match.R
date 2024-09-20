@@ -105,13 +105,13 @@ if (thisdatasource %in% datasources_only_preg) {
   full_cand_match <- unique(full_cand_match[, .(person_id, date_MS, cohort_entry_date, cohort_exit_date, birth_date)])
   matched_cohort <- full_cand_match[matched_cohort, on = "person_id"]
   
-  full_preg_cohort[, c("person_id", "cohort_entry_date", "cohort_exit_date", "date_MS", "pregnancy_with_MS",
+  full_preg_cohort[, c("person_id", "birth_date", "cohort_entry_date", "cohort_exit_date", "date_MS", "pregnancy_with_MS",
                        "number_of_pregnancies_in_the_study", "number_of_pregnancies_with_MS_in_the_study",
                        "has_previous_pregnancy", "time_since_previous_pregnancy", "categories_time_since_previous_pregnancy",
                        "trimester_when_pregnancy_ended") := NULL]
   
-  matched_cohort <- full_preg_cohort[matched_cohort, on = c("pregnancy_id", "DU_pregnancy_study_entry_date",
-                                                            "DU_pregnancy_study_exit_date")]
+  matched_cohort <- matched_cohort[full_preg_cohort, on = c("pregnancy_id", "DU_pregnancy_study_entry_date",
+                                                            "DU_pregnancy_study_exit_date"), nomatch=NULL]
   
   setnames(matched_cohort, "pregnancy_id", "MS_pregnancy_id")
   matched_cohort <- matched_cohort[, c("MS_pregnancy_id", "person_id", "birth_date", "ord_match", "is_pregnancy",
