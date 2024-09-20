@@ -4,6 +4,11 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.0-zeta - 10 September 2024
+# Use correct agebands
+# Fix birth date in matched cohort
+# Fix denominator in table 3 and 8
+
 # v3.0.0-epsilon - 10 September 2024
 # Added again SLE part in the initial part of the script
 
