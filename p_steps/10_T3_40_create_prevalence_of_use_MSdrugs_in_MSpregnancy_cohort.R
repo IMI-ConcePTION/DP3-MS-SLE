@@ -41,7 +41,8 @@ periods_of_time <- list(list("DU_pregnancy_study_entry_date", "end_preg_period_p
                         list("start_preg_period_after_1_MS_pregnancy_id", "end_preg_period_after_1_MS_pregnancy_id"))
 
 # Calculate yearly prevalence of use of each medication
-prevalence_of_use_yearly <- CountPrevalence(preg_matched_cohort, medications, c("person_id"),
+prevalence_of_use_yearly <- CountPrevalence(preg_matched_cohort, medications, UoO_id = c("person_id", "MS_pregnancy_id"),
+                                            key = "person_id",
                                             Start_date = "DU_pregnancy_study_entry_date",
                                             End_date = "DU_pregnancy_study_exit_date",
                                             Name_condition = "concept",
@@ -50,6 +51,10 @@ prevalence_of_use_yearly <- CountPrevalence(preg_matched_cohort, medications, c(
                                             Start_study_time = max(recommended_start_date, study_start),
                                             End_study_time = study_end, Conditions = unique(medications[, concept]),
                                             Strata = c("is_pregnancy", "birth_date", "Age", "Calendartime"), Aggregate = F)
+
+# In case of a pregnancy we should use the pregnancy_id as identifier
+prevalence_of_use_yearly[, person_id := paste(person_id, MS_pregnancy_id, sep = "_")]
+prevalence_of_use_yearly[, MS_pregnancy_id := NULL]
 
 prevalence_of_use_yearly <- prevalence_of_use_yearly[in_population == 1, ]
 prevalence_of_use_yearly[, c("DU_pregnancy_study_entry_date", "DU_pregnancy_study_exit_date", "birth_date", "in_population") := NULL]
@@ -66,6 +71,11 @@ colB = c("end_preg_period_pre_4_MS_pregnancy_id", "end_preg_period_pre_3_MS_preg
 trimesters_dates[, start_preg_period_pre_4_MS_pregnancy_id := as.IDate(start_preg_period_pre_4_MS_pregnancy_id)]
 trimesters_dates <- melt(trimesters_dates, measure = list(colA, colB),
                          value.name = c("start", "end"))
+
+# In case of a pregnancy we should use the pregnancy_id as identifier
+trimesters_dates[, person_id := paste(person_id, MS_pregnancy_id, sep = "_")]
+trimesters_dates[, MS_pregnancy_id := NULL]
+
 trimesters_dates <- trimesters_dates[, .(person_id, variable, start, end)]
 trimesters_dates <- trimesters_dates[!is.na(start), ]
 
@@ -124,7 +134,7 @@ assigned_statistics[["value"]] <- "sum"
 assigned_statistics[["denom_preg_use"]] <- "sum"
 
 assigned_rule <- vector(mode="list")
-assigned_rule[["Age"]][["Ageband"]] <- list("split_in_bands", "Age", ageband_definition_level_1b)
+assigned_rule[["Age"]][["Ageband"]] <- list("split_in_bands", "Age", Agebands_LMP)
 
 prevalence_of_use_yearly <- prevalence_of_use_yearly[, denom_preg_use := 1]
 
