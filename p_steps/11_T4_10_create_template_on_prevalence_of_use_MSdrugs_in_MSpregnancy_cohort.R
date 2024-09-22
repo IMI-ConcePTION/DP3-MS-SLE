@@ -38,3 +38,4 @@ preg_med_ind_mask <- copy(preg_med_ind)[between(as.numeric(n1), 1, 4), c("n1", "
 smart_save(preg_med_ind, direxp, override_name = "D5_DU_for_Template_3", extension = extension, save_copy = "csv")
 smart_save(preg_med_ind_mask, direxpmask, override_name = "D5_DU_for_Template_3_masked",
            extension = extension, save_copy = "csv")
+# DO NOT USE direxpred

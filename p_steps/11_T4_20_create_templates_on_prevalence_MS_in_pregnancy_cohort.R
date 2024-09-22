@@ -32,6 +32,8 @@ prevalence_preg_mask[as.integer(n2) > 0 & as.integer(n2) < 5, c("n2", "n3", "n4"
 smart_save(prevalence_preg, direxp, override_name = "D5_DU_for_Template_4", extension = extension, save_copy = "csv")
 smart_save(prevalence_preg_mask, direxpmask, override_name = "D5_DU_for_Template_4_masked",
            extension = extension, save_copy = "csv")
+smart_save(prevalence_preg_mask, direxpred, override_name = "D5_DU_for_Template_4_masked",
+           extension = extension, save_copy = "csv")
 
 # Load dataset of pregnancies and medicines conceptsets
 smart_load("D4_DU_prevalence_MS_in_pregnancy_cohort", diroutput, extension = extension)
@@ -58,4 +60,6 @@ prevalence_preg_mask[as.integer(n2) > 0 & as.integer(n2) < 5, c("n2", "n3", "n4"
 # Save the file
 smart_save(prevalence_preg, direxp, override_name = "D5_DU_for_Template_5", extension = extension, save_copy = "csv")
 smart_save(prevalence_preg_mask, direxpmask, override_name = "D5_DU_for_Template_5_masked",
+           extension = extension, save_copy = "csv")
+smart_save(prevalence_preg_mask, direxpred, override_name = "D5_DU_for_Template_5_masked",
            extension = extension, save_copy = "csv")

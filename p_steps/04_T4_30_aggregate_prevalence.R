@@ -26,6 +26,15 @@ for (outcome in OUTCOME_variables) {
   export_name <- paste(export_name, "masked", sep = "_")
   smart_save(prevalence_aggregated_masked, direxpmask, override_name = export_name, extension = "csv")
   
+  # Load masked dataset and combine them
+  name_dfs <- paste(name_dfs, "masked", sep = "_")
+  prevalence_aggregated_masked <- rbindlist(lapply(name_dfs, smart_load, direxpred, return = T, extension = extension),
+                                     use.names = T, fill = T)
+  
+  # Save masked aggregated dataset
+  export_name <- paste(export_name, "masked", sep = "_")
+  smart_save(prevalence_aggregated_masked, direxpred, override_name = export_name, extension = "csv")
+  
   # names_vars_to_censor <- c("numerator", paste("numerator", sprintf("%02d", seq_len(60)), sep="_"))
   # value_vars_to_censor <- rep(5, length(names_vars_to_censor))
   # names(value_vars_to_censor) <- names_vars_to_censor

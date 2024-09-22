@@ -89,6 +89,8 @@ for (col_mask in columns_to_mask_simple) {
 smart_save(D5_1, direxp, override_name = "D5_DU_for_Template_1", extension = extension, save_copy = "csv")
 smart_save(D5_1_mask, direxpmask, override_name = "D5_DU_for_Template_1_masked",
            extension = extension, save_copy = "csv")
+smart_save(D5_1_mask, direxpred, override_name = "D5_DU_for_Template_1_masked",
+           extension = extension, save_copy = "csv")
 
 tab1b <- preg_cohort_strat_mult |>
   gtsummary::tbl_summary(include = categories_time_since_previous_pregnancy,
@@ -178,6 +180,8 @@ for (col_mask in columns_to_mask_simple) {
 
 smart_save(D5_2, direxp, override_name = "D5_DU_for_Template_2", extension = extension, save_copy = "csv")
 smart_save(D5_2_mask, direxpmask, override_name = "D5_DU_for_Template_2_masked",
+           extension = extension, save_copy = "csv")
+smart_save(D5_2_mask, direxpred, override_name = "D5_DU_for_Template_2_masked",
            extension = extension, save_copy = "csv")
 
 header_string <- list(label = '**Date of MS diagnosis**',

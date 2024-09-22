@@ -67,6 +67,7 @@ dirtemp <- set_and_create_dir("/g_intermediate/")
 dirconceptsets <- set_and_create_dir("/g_intermediate/concept_sets/")
 direxp <- set_and_create_dir(paste0("/g_export_", thisdatasource, "/"))
 direxpmask <- set_and_create_dir(paste0("/g_export_masked_", thisdatasource, "/"))
+direxpred <- set_and_create_dir(paste0("/g_export_masked_and_reduced_", thisdatasource, "/"))
 direxpcheck <- set_and_create_dir(paste0("/g_export_masked_", thisdatasource, "/summary_levels/"))
 dirDUfinaltables <- set_and_create_dir(paste0("/g_export_", thisdatasource, "/DU_final_tables/"))
 dirmacro <- set_and_create_dir("/p_macro/")
@@ -141,10 +142,13 @@ rm(files)
 
 file.copy(paste0(dirinput,'/METADATA.csv'), direxp, overwrite = T)
 file.copy(paste0(dirinput,'/METADATA.csv'), direxpmask, overwrite = T)
+file.copy(paste0(dirinput,'/METADATA.csv'), direxpred, overwrite = T)
 file.copy(paste0(dirinput,'/CDM_SOURCE.csv'), direxp, overwrite = T)
 file.copy(paste0(dirinput,'/CDM_SOURCE.csv'), direxpmask, overwrite = T)
+file.copy(paste0(dirinput,'/CDM_SOURCE.csv'), direxpred, overwrite = T)
 file.copy(paste0(dirinput,'/INSTANCE.csv'), direxp, overwrite = T)
 file.copy(paste0(dirinput,'/INSTANCE.csv'), direxpmask, overwrite = T)
+file.copy(paste0(dirinput,'/INSTANCE.csv'), direxpred, overwrite = T)
 
 #############################################
 #SAVE to_run.R TO direxp

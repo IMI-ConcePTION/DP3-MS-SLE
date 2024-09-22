@@ -28,6 +28,7 @@ tmp <- copy(Flowchart_exclusion_criteria)[, N := lapply(.SD,
                                           .SDcols = "N"]
 
 smart_save(tmp, direxpmask, override_name = "Flowchart_exclusion_criteria_masked", extension = "csv")
+smart_save(tmp, direxpred, override_name = "Flowchart_exclusion_criteria_masked", extension = "csv")
 smart_save(Flowchart_exclusion_criteria, direxp, extension = "csv")
 
 smart_save(selected_population[, .(person_id)], diroutput, override_name = "D4_study_population_SAP1", extension = extension, save_copy = "csv")

@@ -68,6 +68,7 @@ meaning_occurences <- meaning_occurences[, count := lapply(.SD,
                                                                                paste0("<5"), as.character(x))),
                                          .SDcols = "count"]
 smart_save(meaning_occurences, direxpmask, override_name = "D5_meaning_occurences_masked", extension = "csv")
+smart_save(meaning_occurences, direxpred, override_name = "D5_meaning_occurences_masked", extension = "csv")
 
 # update_vector("datasets_to_censor", dirpargen, "D5_meaning_occurences")
 # update_vector("variables_to_censor", dirpargen, c("count" = 5))
