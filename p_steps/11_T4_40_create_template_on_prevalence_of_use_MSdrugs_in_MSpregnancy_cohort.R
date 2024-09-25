@@ -33,7 +33,7 @@ smart_save(prev_MS_preg_cohort_mask, direxpmask, override_name = "D5_DU_for_Temp
            extension = extension, save_copy = "csv")
 
 prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[!(n2 == "0" | row_identifier_2_order == 1), ]
-prev_MS_preg_cohort <- prev_MS_preg_cohort[row_identifier_2_order != 1 & row_identifier_3_order == 99 & n2 < 2 & n2 > 0, ]
+prev_MS_preg_cohort <- prev_MS_preg_cohort[row_identifier_2_order != 1 & row_identifier_3_order == 99 & n2 < 15 & n2 >= 0, ]
 prev_MS_preg_cohort <- prev_MS_preg_cohort[, .(is_pregnancy, row_identifier_1, row_identifier_2, row_identifier_3,
                                                column_identifier)]
 prev_MS_preg_cohort[, flag := 1]
