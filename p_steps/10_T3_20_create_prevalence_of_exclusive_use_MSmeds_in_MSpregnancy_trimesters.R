@@ -8,7 +8,7 @@
 smart_load("D3_DU_PREGNANCY_COHORT_variables", dirtemp, extension = extension)
 
 medications <- rbindlist(lapply(concept_sets_of_our_study_DU, function(x) {
-  return(get(load(paste0(dirconceptsets, x, ".Rdata"))[[1]])[, .(person_id, date)][, concept := x])
+  return(get(load(paste0(dirconceptsets, x, ".RData"))[[1]])[, .(person_id, date)][, concept := x])
 }))
 medications <- unique(medications)
 
