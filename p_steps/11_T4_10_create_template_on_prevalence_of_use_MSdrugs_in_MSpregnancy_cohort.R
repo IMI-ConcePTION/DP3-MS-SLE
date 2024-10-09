@@ -27,15 +27,19 @@ preg_med_ind <- preg_med_ind[, .(row_identifier_1 = medication_label,
                                  n3 = median_number_medications,
                                  row_identifier_1_order = medication_level_order,
                                  row_identifier_2_order = fifelse(before_pregnancy == "any", 99, 1),
-                                 row_identifier_3_order = fifelse(before_pregnancy == "anytri", 99, 1),
+                                 row_identifier_3_order = fifelse(before_pregnancy %in% c("anytri", "notri"), 99, 1),
                                  row_identifier_4_order = fcase(trimester_when_pregnancy_ended == "t1+t2", 2,
                                                                 trimester_when_pregnancy_ended == "t1+t2+t3", 99,
                                                                 default = 1))]
-
-preg_med_ind_mask <- copy(preg_med_ind)[between(as.numeric(n1), 1, 4), c("n1", "n2") := list("<5", NA)]
   
 # Save the file
 smart_save(preg_med_ind, direxp, override_name = "D5_DU_for_Template_3", extension = extension, save_copy = "csv")
+
+preg_med_ind_mask <- copy(preg_med_ind)[!(row_identifier_2_order == 1 & row_identifier_3_order == 1), ]
+preg_med_ind_mask <- preg_med_ind_mask[!(row_identifier_2_order == 99 & row_identifier_3_order == 99), ]
+preg_med_ind_mask <- preg_med_ind_mask[row_identifier_4_order == "t3", ]
+preg_med_ind_mask <- preg_med_ind_mask[between(as.numeric(n1), 1, 4), c("n1", "n2") := list("<5", NA)]
+
 smart_save(preg_med_ind_mask, direxpmask, override_name = "D5_DU_for_Template_3_masked",
            extension = extension, save_copy = "csv")
 # DO NOT USE direxpred
