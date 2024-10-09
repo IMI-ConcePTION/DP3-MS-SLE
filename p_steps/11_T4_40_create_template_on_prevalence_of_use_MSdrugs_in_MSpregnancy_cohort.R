@@ -22,6 +22,16 @@ setcolorder(prev_MS_preg_cohort, c("is_pregnancy", "row_identifier_1", "row_iden
                                    "column_identifier", "n1", "n2", "n3", "n4", "n5", "row_identifier_1_order",
                                    "row_identifier_2_order", "row_identifier_3_order"))
 
+# TODO
+stop()
+# Following the meeting this morning, here are the rules for sorting the D5_DU_for_Templates_8_11 : The order of the sorting :
+#   
+#   is_pregnancy (0,1)
+# row_identifier_1 (alphabetical order)
+# row_identifier_2 (2005-2009,2010-2014,2015-2019,2005-2019)
+# row_identifier_3 (15-24,25-29,30-34,35-39,40-49, AllAge)
+# column_identifier (pre_1, pre_2, pre_3, pre_4, all_pre, during_1, during_2, during_3, all_during, after_1) you can delete the all-after category as it is exactly the same as after_1
+
 # Generate masked dataset
 prev_MS_preg_cohort_mask <- copy(prev_MS_preg_cohort)[, n1 := as.character(n1)][, n2 := as.character(n2)]
 prev_MS_preg_cohort_mask[as.integer(n1) > 0 & as.integer(n1) < 5, c("n1", "n3", "n4", "n5") := list("<5", NA, NA, NA)]
