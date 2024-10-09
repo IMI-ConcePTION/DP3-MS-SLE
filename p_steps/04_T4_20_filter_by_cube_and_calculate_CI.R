@@ -59,6 +59,8 @@ for (outcome in OUTCOME_variables) {
     smart_save(prevalence_df, direxp, override_name = paste("D5", name_df, sep = "_"), extension = extension, save_copy = "csv")
     smart_save(prevalence_df_masked, direxpmask, override_name = paste("D5", name_df, "masked", sep = "_"),
                extension = extension, save_copy = "csv")
+    smart_save(prevalence_df_masked, direxpred, override_name = paste("D5", name_df, "masked", sep = "_"),
+               extension = extension, save_copy = "csv")
     
     # update_vector("datasets_to_censor", dirpargen, paste("D4_prevalence_period", outcome, sep = "_"))
     # update_vector("variables_to_censor", dirpargen, c("numerator" = 5))

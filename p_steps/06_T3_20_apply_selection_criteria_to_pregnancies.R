@@ -28,6 +28,9 @@ tmp <- tmp[as.integer(N) < summary_threshold & as.integer(N) > 0, N := "<5"]
 smart_save(tmp, direxpmask,
            override_name = "D5_DU_flowchart_exclusion_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT_masked",
            extension = "csv")
+smart_save(tmp, direxpred,
+           override_name = "D5_DU_flowchart_exclusion_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT_masked",
+           extension = "csv")
 smart_save(Flowchart_exclusion_criteria, direxp,
            override_name = "D5_DU_flowchart_exclusion_criteria_from_pregnancies_to_DU_PREGNANCY_COHORT", extension = "csv")
 

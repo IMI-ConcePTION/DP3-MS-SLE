@@ -139,14 +139,11 @@ for (outcome in OUTCOME_variables) {
   
   smart_save(D5_N_women_and_ranges_masked, direxpmask, override_name = paste(export_name, "masked", sep = "_"),
              extension = "csv")
+  smart_save(D5_N_women_and_ranges_masked, direxpred, override_name = paste(export_name, "masked", sep = "_"),
+             extension = "csv")
   
   # update_vector("datasets_to_censor", dirpargen, export_name)
   # update_vector("variables_to_censor", dirpargen, c("N" = 5))
   # 
   # update_vector("datasets_to_censor_check", dirpargen, "D5_N_women_and_ranges")
 }
-
-
-
-
-

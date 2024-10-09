@@ -39,7 +39,9 @@ tab1a <- preg_cohort_strat[, total := 1] %>%
                          ),
                          digits = total ~ 0,
                          by = strata, include = total) |>
-  gtsummary::modify_header(header_string) |>
+  gtsummary::modify_header(label = '',
+                           stat_1 = '**Number of pregnancies in the Pregnancy cohort N (%)**',
+                           stat_2 = '**Number of pregnancies in the MS-Pregnancy cohort N (%)**') |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
 
 preg_cohort_strat_mult <- preg_cohort_strat[number_of_pregnancies_in_the_study > 1, ]
@@ -89,6 +91,8 @@ for (col_mask in columns_to_mask_simple) {
 smart_save(D5_1, direxp, override_name = "D5_DU_for_Template_1", extension = extension, save_copy = "csv")
 smart_save(D5_1_mask, direxpmask, override_name = "D5_DU_for_Template_1_masked",
            extension = extension, save_copy = "csv")
+smart_save(D5_1_mask, direxpred, override_name = "D5_DU_for_Template_1_masked",
+           extension = extension, save_copy = "csv")
 
 tab1b <- preg_cohort_strat_mult |>
   gtsummary::tbl_summary(include = categories_time_since_previous_pregnancy,
@@ -100,7 +104,9 @@ tab1b <- preg_cohort_strat_mult |>
     ~ .x |> 
       dplyr::filter(!(variable %in% "categories_time_since_previous_pregnancy" & row_type %in% "label"))
   ) |>
-  gtsummary::modify_header(header_string) |>
+  gtsummary::modify_header(label = '',
+                           stat_1 = '**Number of pregnancies in the Pregnancy cohort N (%)**',
+                           stat_2 = '**Number of pregnancies in the MS-Pregnancy cohort N (%)**') |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
 
 preg_cohort_strat[, total := 1]
@@ -124,7 +130,9 @@ tab1c <- preg_cohort_strat %>%
     ~ .x |> 
       dplyr::filter(!(variable %in% "number_of_pregnancies_in_the_study" & row_type %in% "label"))
   ) |>
-  gtsummary::modify_header(header_string) |>
+  gtsummary::modify_header(label = '',
+                           stat_1 = '**Number of pregnancies in the Pregnancy cohort N (%)**',
+                           stat_2 = '**Number of pregnancies in the MS-Pregnancy cohort N (%)**') |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(FALSE) ~ NA)
 
 final_table_1 <- gtsummary::tbl_stack(list(tab1a, tab1c, tab1b), group_header = c("", "", "Number of pregnancies according to the time period since the previous pregnancy (in women having more than 1 pregnancy)")) |>
@@ -179,6 +187,8 @@ for (col_mask in columns_to_mask_simple) {
 smart_save(D5_2, direxp, override_name = "D5_DU_for_Template_2", extension = extension, save_copy = "csv")
 smart_save(D5_2_mask, direxpmask, override_name = "D5_DU_for_Template_2_masked",
            extension = extension, save_copy = "csv")
+smart_save(D5_2_mask, direxpred, override_name = "D5_DU_for_Template_2_masked",
+           extension = extension, save_copy = "csv")
 
 header_string <- list(label = '**Date of MS diagnosis**',
                       stat_0 = '**Number of pregnancies N (%)**')
@@ -191,7 +201,8 @@ tab2b <- preg_cohort_filtered %>%
     ~ .x |> 
       dplyr::filter(!(variable %in% "pregnancy_with_MS_detail" & row_type %in% "label"))
   ) |>
-  gtsummary::modify_header(header_string) |>
+  gtsummary::modify_header(label = '**Date of MS diagnosis**',
+                           stat_0 = '**Number of pregnancies N (%)**') |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(T) ~ NA)
 
 tab2a <- preg_cohort_filtered[, total := 1] %>%
@@ -203,7 +214,8 @@ tab2a <- preg_cohort_filtered[, total := 1] %>%
     ~ .x |> 
       dplyr::mutate(label = "")
   ) |>
-  gtsummary::modify_header(header_string) |>
+  gtsummary::modify_header(label = '**Date of MS diagnosis**',
+                           stat_0 = '**Number of pregnancies N (%)**') |>
   gtsummary::modify_footnote(gtsummary::all_stat_cols(T) ~ NA)
 
 final_table_2 <- gtsummary::tbl_stack(list(tab2a, tab2b)) |>

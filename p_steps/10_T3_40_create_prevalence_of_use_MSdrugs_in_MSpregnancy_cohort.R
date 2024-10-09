@@ -24,7 +24,7 @@ preg_matched_cohort[, Age := age_fast(birth_date, start_preg_period_during_1_MS_
 preg_matched_cohort[, Calendartime := year(start_preg_period_during_1_MS_pregnancy_id)]
 
 medications <- rbindlist(lapply(concept_sets_of_our_study_DU, function(x) {
-  return(get(load(paste0(dirconceptsets, x, ".Rdata"))[[1]])[, .(person_id, date)][, concept := x])
+  return(get(load(paste0(dirconceptsets, x, ".RData"))[[1]])[, .(person_id, date)][, concept := x])
 }))
 medications <- unique(medications)
 

@@ -4,19 +4,19 @@
 #                                                          #
 ##%######################################################%##
 
-load(paste0(dirpregnancy, "D3_pregnancy_final.Rdata"))
+load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))
 
 # Keep only necessary columns
 pregnancy_df <- D3_pregnancy_final[, c("person_id", "pregnancy_id", "pregnancy_start_date", "pregnancy_end_date",
                                        "type_of_pregnancy_end", "PROMPT", "highest_quality", "EUROCAT")]
 
 smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
-smart_load("D3_persons", dirtemp, extension = extension)
+smart_load("D3_PERSONS", dirtemp, extension = extension)
 
 # Keep only necessary columns
 sap1_pop <- D3_study_population_SAP1[, c("person_id", "entry_spell_category", "birth_date",
                                          "cohort_entry_date", "cohort_exit_date")]
-sex_pop <- D3_persons[, c("person_id", "sex_at_instance_creation")]
+sex_pop <- D3_PERSONS[, c("person_id", "sex_at_instance_creation")]
 
 # INNER JOIN between SAP1 population and pregnancies
 selection_criteria <- merge(sap1_pop, pregnancy_df, all.x = F, all.y = F, by = "person_id")

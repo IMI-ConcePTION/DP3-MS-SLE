@@ -36,6 +36,8 @@ medication_preg_mask[as.integer(n2) > 0 & as.integer(n2) < 5, c("n2", "n3", "n4"
 smart_save(medication_preg, direxp, override_name = "D5_DU_for_Template_6", extension = extension, save_copy = "csv")
 smart_save(medication_preg_mask, direxpmask, override_name = "D5_DU_for_Template_6_masked",
            extension = extension, save_copy = "csv")
+smart_save(medication_preg_mask, direxpred, override_name = "D5_DU_for_Template_6_masked",
+           extension = extension, save_copy = "csv")
 
 # Load dataset of pregnancies and medicines conceptsets
 medication_preg <- smart_load("D4_DU_prevalence_of_use_MSdrugs_in_MS_cohort",
@@ -67,4 +69,6 @@ medication_preg_mask[as.integer(n2) > 0 & as.integer(n2) < 5, c("n2", "n3", "n4"
 # Save the file
 smart_save(medication_preg, direxp, override_name = "D5_DU_for_Template_7", extension = extension, save_copy = "csv")
 smart_save(medication_preg_mask, direxpmask, override_name = "D5_DU_for_Template_7_masked",
+           extension = extension, save_copy = "csv")
+smart_save(medication_preg_mask, direxpred, override_name = "D5_DU_for_Template_7_masked",
            extension = extension, save_copy = "csv")
