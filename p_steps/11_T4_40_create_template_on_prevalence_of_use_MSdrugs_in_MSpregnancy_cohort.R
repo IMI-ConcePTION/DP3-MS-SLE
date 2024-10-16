@@ -4,6 +4,7 @@ smart_load("D4_DU_prevalence_of_use_MSmeds_in_MSpregnancy_cohort", diroutput, ex
 prev_MS_preg_cohort <- D4_DU_prevalence_of_use_MSmeds_in_MSpregnancy_cohort
 
 prev_MS_preg_cohort <- prev_MS_preg_cohort[!(Calendartime_level_order == 1 & Age_level_order == 1), ]
+prev_MS_preg_cohort <- prev_MS_preg_cohort[pregnancy_period_label != "all_after", ]
 
 # Change names of columns
 prev_MS_preg_cohort <- prev_MS_preg_cohort[, .(is_pregnancy, row_identifier_1 = medication_label,
@@ -22,15 +23,12 @@ setcolorder(prev_MS_preg_cohort, c("is_pregnancy", "row_identifier_1", "row_iden
                                    "column_identifier", "n1", "n2", "n3", "n4", "n5", "row_identifier_1_order",
                                    "row_identifier_2_order", "row_identifier_3_order"))
 
-# TODO
-stop()
-# Following the meeting this morning, here are the rules for sorting the D5_DU_for_Templates_8_11 : The order of the sorting :
-#   
-#   is_pregnancy (0,1)
-# row_identifier_1 (alphabetical order)
-# row_identifier_2 (2005-2009,2010-2014,2015-2019,2005-2019)
-# row_identifier_3 (15-24,25-29,30-34,35-39,40-49, AllAge)
-# column_identifier (pre_1, pre_2, pre_3, pre_4, all_pre, during_1, during_2, during_3, all_during, after_1) you can delete the all-after category as it is exactly the same as after_1
+prev_MS_preg_cohort[, column_identifier := factor(column_identifier,
+                                                  levels = c("pre_1", "pre_2", "pre_3", "pre_4", "all_pre", "during_1",
+                                                             "during_2", "during_3", "all_during", "after_1"))]
+
+setorder(prev_MS_preg_cohort, is_pregnancy, row_identifier_1, row_identifier_2_order, row_identifier_2,
+         row_identifier_3_order, row_identifier_3, column_identifier)
 
 # Generate masked dataset
 prev_MS_preg_cohort_mask <- copy(prev_MS_preg_cohort)[, n1 := as.character(n1)][, n2 := as.character(n2)]
