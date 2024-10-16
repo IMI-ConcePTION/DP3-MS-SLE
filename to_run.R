@@ -4,7 +4,7 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
-# v3.0.0-theta - 16 October 2024
+# v3.0.0-theta - 16 October 2024 
 # Reorder table 8-11
 # Created simplified g_export
 # Matching diagnostic
