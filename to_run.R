@@ -4,6 +4,12 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.0-eta - 16 October 2024
+# Reorder table 8-11
+# Created simplified g_export
+# Matching diagnostic
+# Various bugfixes
+
 # v3.0.0-zeta - 10 September 2024
 # Use correct agebands
 # Fix birth date in matched cohort
@@ -90,3 +96,4 @@ launch_step("p_steps/11_T4_10_create_template_on_prevalence_of_use_MSdrugs_in_MS
 launch_step("p_steps/11_T4_20_create_templates_on_prevalence_MS_in_pregnancy_cohort.R")
 launch_step("p_steps/11_T4_30_create_template_on_prevalence_of_use_MSdrugs_in_MS_cohort.R")
 launch_step("p_steps/11_T4_40_create_template_on_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
+launch_step("p_steps/11_T4_50_matching diagnostics.R")
