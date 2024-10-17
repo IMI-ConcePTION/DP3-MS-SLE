@@ -54,5 +54,5 @@ prev_MS_preg_cohort_mask[, flag := max(flag), by = c("is_pregnancy", "row_identi
 prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[!(row_identifier_3_order == 1 & flag == 1), ]
 prev_MS_preg_cohort_mask[, flag := NULL]
 
-smart_save(prev_MS_preg_cohort_mask, direxpred, override_name = "D5_DU_for_Templates_8_11",
+smart_save(prev_MS_preg_cohort_mask, direxpred, override_name = "D5_DU_for_Templates_8_11_simplified",
            extension = extension, save_copy = "csv")
