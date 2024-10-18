@@ -37,7 +37,7 @@ prev_MS_preg_cohort_mask[as.integer(n2) > 0 & as.integer(n2) < 5, c("n2", "n3", 
 
 # Save the file
 smart_save(prev_MS_preg_cohort, direxp, override_name = "D5_DU_for_Templates_8_11", extension = extension, save_copy = "csv")
-smart_save(prev_MS_preg_cohort_mask, direxpmask, override_name = "D5_DU_for_Templates_8_11",
+smart_save(prev_MS_preg_cohort_mask, direxpmask, override_name = "D5_DU_for_Templates_8_11_masked",
            extension = extension, save_copy = "csv")
 
 prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[!(n2 == "0" | row_identifier_2_order == 1), ]
@@ -54,5 +54,5 @@ prev_MS_preg_cohort_mask[, flag := max(flag), by = c("is_pregnancy", "row_identi
 prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[!(row_identifier_3_order == 1 & flag == 1), ]
 prev_MS_preg_cohort_mask[, flag := NULL]
 
-smart_save(prev_MS_preg_cohort_mask, direxpred, override_name = "D5_DU_for_Templates_8_11_simplified",
+smart_save(prev_MS_preg_cohort_mask, direxpred, override_name = "D5_DU_for_Templates_8_11_masked_simplified",
            extension = extension, save_copy = "csv")
