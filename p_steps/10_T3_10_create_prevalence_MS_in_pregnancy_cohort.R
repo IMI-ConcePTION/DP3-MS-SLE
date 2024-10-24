@@ -9,7 +9,7 @@
 smart_load("D3_DU_PREGNANCY_COHORT_variables", dirtemp, extension = extension)
 
 # Keep only variables of interest
-preg_cohort <- D3_DU_PREGNANCY_COHORT_variables[, .(pregnancy_id, birth_date, pregnancy_start_date, pregnancy_with_MS)]
+preg_cohort <- D3_DU_PREGNANCY_COHORT_variables[, .(pregnancy_id, birth_date, pregnancy_start_date, pregnancy_with_MS_extended)]
 
 # Calculate ageband at LMP
 preg_cohort[, age_at_LMP := age_fast(birth_date, pregnancy_start_date)]
@@ -24,7 +24,7 @@ preg_cohort[, pregnancy_start_date_99 := "2005-2019"]
 
 # Assign levels for Cube
 assigned_levels <- vector(mode="list")
-assigned_levels[["pregnancy_with_MS"]] <- c("pregnancy_with_MS")
+assigned_levels[["pregnancy_with_MS_extended"]] <- c("pregnancy_with_MS_extended")
 assigned_levels[["Ageband"]] <- c("ageband_at_LMP")
 assigned_levels[["pregnancy_start_date"]] <- c("pregnancy_start_date", "pregnancy_start_date_2",
                                                "pregnancy_start_date_99")
@@ -34,25 +34,25 @@ preg_cohort[, placeholder := 1]
 
 # Calculate sums of pregnancies in each dimension/level
 preg_cohort <- Cube(input = preg_cohort,
-                    dimensions = c("Ageband", "pregnancy_start_date", "pregnancy_with_MS"),
+                    dimensions = c("Ageband", "pregnancy_start_date", "pregnancy_with_MS_extended"),
                     levels = assigned_levels,
-                    computetotal = c("Ageband", "pregnancy_with_MS"),
+                    computetotal = c("Ageband", "pregnancy_with_MS_extended"),
                     measures = c("placeholder")
 )
 
 # Clean dataset by removing unneeded columns and change column names
-preg_cohort[, pregnancy_with_MS_LevelOrder := NULL]
-setnames(preg_cohort, c("pregnancy_with_MS_LabelValue", "Ageband_LabelValue", "pregnancy_start_date_LabelValue",
+preg_cohort[, pregnancy_with_MS_extended_LevelOrder := NULL]
+setnames(preg_cohort, c("pregnancy_with_MS_extended_LabelValue", "Ageband_LabelValue", "pregnancy_start_date_LabelValue",
                         "Ageband_LevelOrder", "pregnancy_start_date_LevelOrder"),
-         c("pregnancy_with_MS", "Ageband_label", "CalendarTime_label",
+         c("pregnancy_with_MS_extended", "Ageband_label", "CalendarTime_label",
            "Ageband_level_order", "CalendarTime_level_order"))
 
-# Placeholder_sum became numerator when we counting pregnancy_with_MS
-preg_cohort_num <- preg_cohort[pregnancy_with_MS == 1,][, pregnancy_with_MS := NULL]
+# Placeholder_sum became numerator when we counting pregnancy_with_MS_extended
+preg_cohort_num <- preg_cohort[pregnancy_with_MS_extended == 1,][, pregnancy_with_MS_extended := NULL]
 setnames(preg_cohort_num, "placeholder_sum", "numerator")
 
 # Placeholder_sum became denominator when we counting all the pregnancies irrespective of MS
-preg_cohort_den <- preg_cohort[pregnancy_with_MS == "Allpregnancy_with_MS",][, pregnancy_with_MS := NULL]
+preg_cohort_den <- preg_cohort[pregnancy_with_MS_extended == "Allpregnancy_with_MS_extended",][, pregnancy_with_MS_extended := NULL]
 setnames(preg_cohort_den, "placeholder_sum", "denominator")
 
 # Need to create a data.frame with all the possible combinations of strata

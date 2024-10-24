@@ -37,6 +37,15 @@ if (thisdatasource %in% datasources_only_preg) {
   pregnancy_variables[, pregnancy_with_MS := fifelse(pregnancy_with_MS_detail == "long before pregnancy", 1, 0)]
 }
 
+if (thisdatasource %in% datasources_only_preg) {
+  pregnancy_variables[, pregnancy_with_MS_extended := fifelse(pregnancy_with_MS == 1, 1, 0)]
+} else {
+  pregnancy_variables[, pregnancy_with_MS_extended := fifelse(
+    pregnancy_with_MS_detail %in% c("long before pregnancy", "recently before pregnancy",
+                                    "right before pregnancy"), 1, 0)]
+}
+
+
 # Check if MS diagnosed during pregnancy
 # TODO check with Rosa, not sure about this criteria
 # pregnancy_variables[, MS_developed_during_pregnancy := fifelse(pregnancy_with_MS_detail %not in% c("no", "long after pregnancy")  &
