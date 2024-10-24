@@ -175,11 +175,13 @@ D5_2_temp <- preg_cohort_filtered[pregnancy_with_MS_detail == "0-3 months prior 
 D5_2 <- cbind(D5_2, D5_2_temp)
 D5_2_temp <- preg_cohort_filtered[pregnancy_with_MS_detail == "during pregnancy", .(n5 = .N)]
 D5_2 <- cbind(D5_2, D5_2_temp)
+D5_2_temp <- preg_cohort_filtered[pregnancy_with_MS_detail == "right after pregnancy", .(n6 = .N)]
+D5_2 <- cbind(D5_2, D5_2_temp)
 
 setnafill(D5_2, fill = 0)
 
 D5_2_mask <- D5_2[, lapply(.SD, as.character)]
-columns_to_mask_simple <- c("n1", "n2", "n3", "n4", "n5")
+columns_to_mask_simple <- c("n1", "n2", "n3", "n4", "n5", "n6")
 for (col_mask in columns_to_mask_simple) {
   D5_2_mask[between(as.numeric(get(col_mask)), 1, 4), (col_mask) := "<5"]
 }
