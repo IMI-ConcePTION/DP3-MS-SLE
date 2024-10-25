@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.0-iota - 16 October 2024 
+# Pregancy with MS if before LMP
+# Changed definitions of trimesters between pregnancies and pregnancy_with_MS_detail
+
 # v3.0.0-theta - 16 October 2024 
 # Reorder table 8-11
 # Created simplified g_export
