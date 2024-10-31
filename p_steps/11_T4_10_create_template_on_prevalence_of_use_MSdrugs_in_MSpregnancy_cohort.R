@@ -36,9 +36,23 @@ preg_med_ind <- preg_med_ind[, .(row_identifier_1 = medication_label,
 smart_save(preg_med_ind, direxp, override_name = "D5_DU_for_Template_3", extension = extension, save_copy = "csv")
 
 preg_med_ind_mask <- copy(preg_med_ind)[between(as.numeric(n1), 1, 4), c("n1", "n2") := list("<5", NA)]
+
+preg_med_ind_to_remove <- preg_med_ind[row_identifier_3_order == 1 & n2 < 15 & n2 >= 0, ]
+preg_med_ind_to_remove <- preg_med_ind_to_remove[, .(row_identifier_1, row_identifier_2, row_identifier_3,
+                                                     row_identifier_4)]
+preg_med_ind_to_remove[, flag := 1]
+
 preg_med_ind_mask_simplified <- copy(preg_med_ind_mask)[!(row_identifier_2_order == 1 & row_identifier_3_order == 1), ]
 preg_med_ind_mask_simplified <- preg_med_ind_mask_simplified[!(row_identifier_2_order == 99 & row_identifier_3_order == 99), ]
 preg_med_ind_mask_simplified <- preg_med_ind_mask_simplified[row_identifier_4 == "t3", ]
+
+preg_med_ind_mask_simplified <- preg_med_ind_to_remove[preg_med_ind_mask_simplified,
+                                                          on = c("row_identifier_1", "row_identifier_2",
+                                                                 "row_identifier_3", "row_identifier_4")]
+preg_med_ind_mask_simplified[is.na(flag), flag := 0]
+preg_med_ind_mask_simplified[, flag := max(flag), by = c("row_identifier_1", "row_identifier_2", "row_identifier_4")]
+preg_med_ind_mask_simplified <- preg_med_ind_mask_simplified[!(row_identifier_2_order == 2 & flag == 1), ]
+preg_med_ind_mask_simplified[, flag := NULL]
 
 smart_save(preg_med_ind_mask, direxpmask, override_name = "D5_DU_for_Template_3_masked",
            extension = extension, save_copy = "csv")
