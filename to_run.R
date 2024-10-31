@@ -4,8 +4,15 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.0-kappa - 16 October 2024 
+# Additional simplification of table 3 and 8-11
+# Fixed flowchart for MS cohort
+# Table 6 and 7 not computed anymore for datasource with only pregnancies
+# Tentative fix for notri category in table 3
+# Fixed stratification for years for table 8-11
+
 # v3.0.0-iota - 16 October 2024 
-# Pregancy with MS if before LMP
+# Pregnancy with MS if before LMP
 # Changed definitions of trimesters between pregnancies and pregnancy_with_MS_detail
 
 # v3.0.0-theta - 16 October 2024 
