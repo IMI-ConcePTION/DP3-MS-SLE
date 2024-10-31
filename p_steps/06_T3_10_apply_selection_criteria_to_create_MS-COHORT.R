@@ -13,6 +13,10 @@ print('FLOWCHART')
 smart_load("D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort", dirtemp, extension = extension)
 selection_criteria <- D3_DU_selection_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort
 
+if (thisdatasource %in% datasources_only_preg) {
+  selection_criteria <- unique(selection_criteria[, .(person_id, date_MS, never_positive_for_MS_chosen, women_diagnosed_after_childbearing_age, women_with_less_than_1_year_fup)])
+}
+
 selected_population <- CreateFlowChart(
   dataset = selection_criteria,
   listcriteria = c("never_positive_for_MS_chosen", "women_diagnosed_after_childbearing_age", "women_with_less_than_1_year_fup"),
@@ -32,8 +36,13 @@ smart_save(tmp, direxpred,
 smart_save(Flowchart_exclusion_criteria, direxp,
            override_name = "D5_DU_flowchart_exclusion_criteria_from_SAP1_MS_cohort_to_DU_MS_cohort", extension = "csv")
 
+if (thisdatasource %in% datasources_only_preg) {
+  selected_population <- selected_population[, .(person_id, date_MS)]
+} else {
+  selected_population <- selected_population[, .(person_id, date_MS, entry_spell_category, birth_date, cohort_entry_date, cohort_exit_date)]
+}
+
 # Save population
-smart_save(selected_population[, .(person_id, date_MS, entry_spell_category, birth_date, cohort_entry_date, cohort_exit_date)],
-           diroutput, override_name = "D4_DU_MS_COHORT", extension = extension, save_copy = "csv")
+smart_save(selected_population, diroutput, override_name = "D4_DU_MS_COHORT", extension = extension, save_copy = "csv")
 
 
