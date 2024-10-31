@@ -36,14 +36,14 @@ preg_med_ind <- rbindlist(list(preg_med_ind[, medication_level_order := 1],
 setnames(preg_med_ind, "use_before_pregnancy", "before_pregnancy")
 
 # Create variable to take account of different pattern of use during the pregnancy
-preg_med_ind[, during_pregnancy := fcase(use_tri_1 == 0 & use_tri_2 == 0 & use_tri_3 == 0, "notri",
-                                         use_tri_1 == 1 & use_tri_2 == 0 & use_tri_3 == 0, "tri1only",
+preg_med_ind[, during_pregnancy := fcase(use_tri_1 == 1 & use_tri_2 == 0 & use_tri_3 == 0, "tri1only",
                                          use_tri_1 == 0 & use_tri_2 == 1 & use_tri_3 == 0, "tri2only",
                                          use_tri_1 == 0 & use_tri_2 == 0 & use_tri_3 == 1, "tri3only",
                                          use_tri_1 == 1 & use_tri_2 == 1 & use_tri_3 == 0, "tri1tri2only",
                                          use_tri_1 == 1 & use_tri_2 == 0 & use_tri_3 == 1, "tri1tri3only",
                                          use_tri_1 == 0 & use_tri_2 == 1 & use_tri_3 == 1, "tri2tri3only",
-                                         use_tri_1 == 1 & use_tri_2 == 1 & use_tri_3 == 1, "alltri")]
+                                         use_tri_1 == 1 & use_tri_2 == 1 & use_tri_3 == 1, "alltri",
+                                         default = "notri")]
 preg_med_ind[, during_pregnancy_any := during_pregnancy]
 preg_med_ind[during_pregnancy_any != "notri", during_pregnancy_any := "anytri"]
 
