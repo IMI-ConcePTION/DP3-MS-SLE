@@ -117,7 +117,7 @@ prevalence_of_use_yearly[, all_after := do.call(pmax, c(.SD, na.rm = T)), .SDcol
 prevalence_of_use_yearly <- melt(prevalence_of_use_yearly, measure.vars = c(all_trimesters, "all_pre", "all_during", "all_after"),
                                  variable.name = "pregnancy_period", na.rm = TRUE)
 
-prevalence_of_use_yearly[, Calendartime1 := cut(Calendartime, c(2005, 2009, 2014, 2019),
+prevalence_of_use_yearly[, Calendartime1 := cut(Calendartime, c(2004, 2009, 2014, 2019),
                                                 c("2005-2009", "2010-2014", "2015-2019"))]
 prevalence_of_use_yearly[, Calendartime2 := "2005-2019"]
 
