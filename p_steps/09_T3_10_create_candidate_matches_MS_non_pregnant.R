@@ -12,10 +12,17 @@ preg_cohort <- preg_cohort_sel_crit[ms_cohort, on = "person_id"]
 preg_cohort <- preg_cohort[date_MS <= DU_pregnancy_study_exit_date, ]
 preg_cohort <- preg_cohort[date_MS > DU_pregnancy_study_entry_date, DU_pregnancy_study_entry_date := date_MS]
 
-ms_cohort_not_preg <- unique(D4_DU_MS_COHORT[person_id %not in% unique(preg_cohort[, person_id]),
-                                             .(person_id, date_MS, entry_spell_category, birth_date, cohort_entry_date,
-                                               cohort_exit_date, start_candidate_period = pmax(cohort_entry_date, date_MS),
-                                               end_candidate_period = cohort_exit_date)])
+if (thisdatasource %in% datasources_only_preg) {
+  ms_cohort_not_preg <- data.table::data.table(person_id = character(), date_MS = integer(),
+                                               entry_spell_category = integer(), birth_date = integer(),
+                                               cohort_entry_date = integer(), cohort_exit_date = integer(),
+                                               start_candidate_period = integer(), end_candidate_period = integer())
+} else {
+  ms_cohort_not_preg <- unique(D4_DU_MS_COHORT[person_id %not in% unique(preg_cohort[, person_id]),
+                                               .(person_id, date_MS, entry_spell_category, birth_date, cohort_entry_date,
+                                                 cohort_exit_date, start_candidate_period = pmax(cohort_entry_date, date_MS),
+                                                 end_candidate_period = cohort_exit_date)])
+}
 
 # preg_cohort[, c("cohort_entry_date", "cohort_exit_date") := list(min(cohort_entry_date), min(cohort_exit_date)),
 #             by = "person_id"]
