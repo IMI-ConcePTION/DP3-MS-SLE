@@ -42,6 +42,10 @@ smart_save(prev_MS_preg_cohort_mask, direxpmask, override_name = "D5_DU_for_Temp
 
 prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[!(n2 == "0" | row_identifier_2_order == 1), ]
 
+# 0<x<15 in all age -> Do not stratify by ageband
+# 5Y period small number -> not stratify by 5y periods and ageband
+# 0<x<5 in one ageband -> Do not stratify by ageband
+
 prev_MS_preg_cohort_to_remove_1 <- prev_MS_preg_cohort[row_identifier_2_order != 1 & row_identifier_3_order == 99 &
                                                          n2 < 15 & n2 >= 0, ]
 prev_MS_preg_cohort_to_remove_2 <- prev_MS_preg_cohort[row_identifier_3_order == 1 & n2 < 5 & n2 >= 0, ]
@@ -59,9 +63,15 @@ prev_MS_preg_cohort_mask[is.na(flag), flag := 0]
 prev_MS_preg_cohort_mask[, flag_max := max(flag), by = c("is_pregnancy", "row_identifier_1", "row_identifier_2",
                                                      "column_identifier")]
 prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[row_identifier_3_order == 1 & flag_max == 1, flag_total := 1]
+
 prev_MS_preg_cohort_mask[, flag_max := max(flag), by = c("is_pregnancy", "row_identifier_1", "row_identifier_3",
                                                          "column_identifier")]
-prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[row_identifier_2_order == 2 & flag_max == 1, flag_total := 1]
+prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[, flag_total := fifelse(row_identifier_2_order == 2 & flag_max == 1, 1, flag_total)]
+
+prev_MS_preg_cohort_mask[, flag_max := max(flag), by = c("is_pregnancy", "row_identifier_1", "row_identifier_2",
+                                                         "column_identifier")]
+prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[, flag_total := fifelse(row_identifier_2_order != 1 & flag_max == 1, 1, flag_total)]
+
 prev_MS_preg_cohort_mask[is.na(flag_total), flag := 0]
 prev_MS_preg_cohort_mask <- prev_MS_preg_cohort_mask[flag == 0, ]
 prev_MS_preg_cohort_mask[, c("flag", "flag_max", "flag_total") := NULL]
