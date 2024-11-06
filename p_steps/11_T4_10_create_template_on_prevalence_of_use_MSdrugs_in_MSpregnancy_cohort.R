@@ -13,6 +13,14 @@ preg_med_ind_total <- preg_med_ind[medication_label %in% c("missing", "anydrug")
                                    by = c("trimester_when_pregnancy_ended")]
 preg_med_ind <- preg_med_ind[preg_med_ind_total, on = "trimester_when_pregnancy_ended"]
 
+preg_med_ind[, numerator_number_medications := NULL]
+preg_med_ind <- preg_med_ind[before_pregnancy != 0 | during_pregnancy != "notri", ]
+df_notri <- copy(preg_med_ind)[during_pregnancy %in% c("notri", "anytri") & before_pregnancy == "any",
+                               .(numerator_preg_use = sum(numerator_preg_use), median_number_medications = 0),
+                               by = c("medication_label", "medication_level_order", "trimester_when_pregnancy_ended", "n0")]
+df_notri[, numerator_preg_use := n0 - numerator_preg_use][, before_pregnancy := 0][, during_pregnancy := "notri"]
+preg_med_ind <- rbindlist(list(preg_med_ind, df_notri), use.names = T)
+
 # After calculating the denominator pregnancies without medications are not needed anymore
 preg_med_ind <- preg_med_ind[medication_label != "missing", ]
 
@@ -51,7 +59,7 @@ preg_med_ind_mask_simplified <- preg_med_ind_to_remove[preg_med_ind_mask_simplif
                                                                  "row_identifier_3", "row_identifier_4")]
 preg_med_ind_mask_simplified[is.na(flag), flag := 0]
 preg_med_ind_mask_simplified[, flag := max(flag), by = c("row_identifier_1", "row_identifier_2", "row_identifier_4")]
-preg_med_ind_mask_simplified <- preg_med_ind_mask_simplified[!(row_identifier_2_order == 2 & flag == 1), ]
+preg_med_ind_mask_simplified <- preg_med_ind_mask_simplified[!(row_identifier_3_order == 1 & flag == 1), ]
 preg_med_ind_mask_simplified[, flag := NULL]
 
 smart_save(preg_med_ind_mask, direxpmask, override_name = "D5_DU_for_Template_3_masked",
