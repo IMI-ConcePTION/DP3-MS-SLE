@@ -46,32 +46,57 @@ prev_MS_preg_cohort <- prev_MS_preg_cohort[!(n2 == 0 | row_identifier_2_order ==
 prev_MS_preg_cohort_flag <- copy(prev_MS_preg_cohort)[row_identifier_3_order == 99 & row_identifier_2_order != 1, ]
 prev_MS_preg_cohort_flag[, flag := fifelse(n2 < 15 & n2 >= 0, 1, 0)]
 prev_MS_preg_cohort_flag <- unique(prev_MS_preg_cohort_flag[, c("row_identifier_3", "row_identifier_3_order") := NULL])
+prev_MS_preg_cohort_flag <- prev_MS_preg_cohort_flag[, .(flag = max(flag)),
+                                                     by = c("is_pregnancy", "row_identifier_1", "row_identifier_2", "column_identifier",
+                                        "row_identifier_1_order", "row_identifier_2_order")]
 prev_MS_preg_cohort_to_retain_1 <- prev_MS_preg_cohort_flag[copy(prev_MS_preg_cohort),
                                  on = c("is_pregnancy", "row_identifier_1", "row_identifier_2", "column_identifier",
-                                        "n1", "n2", "n3", "n4", "n5", "row_identifier_1_order", "row_identifier_2_order")]
+                                        "row_identifier_1_order", "row_identifier_2_order")]
 prev_MS_preg_cohort_to_retain_1 <- prev_MS_preg_cohort_to_retain_1[row_identifier_3_order == 99, flag := 0][is.na(flag) | flag == 0, ][, flag := NULL]
 
 # 0<x<5 in one ageband -> Do not stratify by ageband
 prev_MS_preg_cohort_flag <- copy(prev_MS_preg_cohort)[row_identifier_3_order == 1, ]
 prev_MS_preg_cohort_flag[, flag := fifelse(n2 < 5 & n2 >= 0, 1, 0)]
 prev_MS_preg_cohort_flag <- unique(prev_MS_preg_cohort_flag[, c("row_identifier_3") := NULL])
+prev_MS_preg_cohort_flag <- prev_MS_preg_cohort_flag[, .(flag = max(flag)),
+                                                     by = c("is_pregnancy", "row_identifier_1", "row_identifier_2",
+                                                            "column_identifier", "row_identifier_1_order", "row_identifier_2_order", "row_identifier_3_order")]
 prev_MS_preg_cohort_to_retain_2 <- prev_MS_preg_cohort_flag[copy(prev_MS_preg_cohort),
                                                          on = c("is_pregnancy", "row_identifier_1", "row_identifier_2", "column_identifier",
-                                                                "n1", "n2", "n3", "n4", "n5", "row_identifier_1_order", "row_identifier_2_order", "row_identifier_3_order")]
+                                                                "row_identifier_1_order", "row_identifier_2_order", "row_identifier_3_order")]
 prev_MS_preg_cohort_to_retain_2 <- prev_MS_preg_cohort_to_retain_2[is.na(flag) | flag == 0, ][, flag := NULL]
 
 # 5Y period small number -> not stratify by 5y periods and ageband
-prev_MS_preg_cohort_flag <- copy(prev_MS_preg_cohort)[row_identifier_2_order == 2, ]
+prev_MS_preg_cohort_flag <- copy(prev_MS_preg_cohort)[row_identifier_3_order == 99 & row_identifier_2_order == 2, ]
 prev_MS_preg_cohort_flag[, flag := fifelse(n2 < 5 & n2 >= 0, 1, 0)]
-prev_MS_preg_cohort_flag <- unique(prev_MS_preg_cohort_flag[, c("row_identifier_2", "row_identifier_3", "row_identifier_3_order") := NULL])
+prev_MS_preg_cohort_flag <- unique(prev_MS_preg_cohort_flag[, "row_identifier_2" := NULL])
+prev_MS_preg_cohort_flag <- prev_MS_preg_cohort_flag[, .(flag = max(flag)),
+                                                     by = c("is_pregnancy", "row_identifier_1", "column_identifier",
+                                                            "row_identifier_1_order", "row_identifier_2_order",
+                                                            "row_identifier_3", "row_identifier_3_order")]
 prev_MS_preg_cohort_to_retain_3 <- prev_MS_preg_cohort_flag[copy(prev_MS_preg_cohort),
                                                          on = c("is_pregnancy", "row_identifier_1", "column_identifier",
-                                                                "n1", "n2", "n3", "n4", "n5", "row_identifier_1_order", "row_identifier_2_order")]
+                                                                "row_identifier_1_order", "row_identifier_2_order",
+                                                                "row_identifier_3", "row_identifier_3_order")]
 prev_MS_preg_cohort_to_retain_3 <- prev_MS_preg_cohort_to_retain_3[is.na(flag) | flag == 0, ][, flag := NULL]
+
+# 5Y period small number -> not stratify by 5y periods and ageband
+prev_MS_preg_cohort_flag <- copy(prev_MS_preg_cohort)[row_identifier_3_order == 1 & row_identifier_2_order == 2, ]
+prev_MS_preg_cohort_flag[, flag := fifelse(n2 < 5 & n2 >= 0, 1, 0)]
+prev_MS_preg_cohort_flag <- unique(prev_MS_preg_cohort_flag[, c("row_identifier_2", "row_identifier_3") := NULL])
+prev_MS_preg_cohort_flag <- prev_MS_preg_cohort_flag[, .(flag = max(flag)),
+                                                     by = c("is_pregnancy", "row_identifier_1", "column_identifier",
+                                                            "row_identifier_1_order", "row_identifier_2_order", "row_identifier_3_order")]
+prev_MS_preg_cohort_to_retain_4 <- prev_MS_preg_cohort_flag[copy(prev_MS_preg_cohort),
+                                                            on = c("is_pregnancy", "row_identifier_1", "column_identifier",
+                                                                   "row_identifier_1_order", "row_identifier_2_order", "row_identifier_3_order")]
+prev_MS_preg_cohort_to_retain_4 <- prev_MS_preg_cohort_to_retain_4[is.na(flag) | flag == 0, ][, flag := NULL]
 
 prev_MS_preg_cohort_filtered <- prev_MS_preg_cohort_to_retain_1[copy(prev_MS_preg_cohort), on = colnames(prev_MS_preg_cohort), nomatch = NULL]
 prev_MS_preg_cohort_filtered <- prev_MS_preg_cohort_to_retain_2[prev_MS_preg_cohort_filtered, on = colnames(prev_MS_preg_cohort), nomatch = NULL]
 prev_MS_preg_cohort_filtered <- prev_MS_preg_cohort_to_retain_3[prev_MS_preg_cohort_filtered, on = colnames(prev_MS_preg_cohort), nomatch = NULL]
+prev_MS_preg_cohort_filtered <- prev_MS_preg_cohort_to_retain_4[prev_MS_preg_cohort_filtered, on = colnames(prev_MS_preg_cohort), nomatch = NULL]
+
 
 setcolorder(prev_MS_preg_cohort_filtered, c("is_pregnancy", "row_identifier_1", "row_identifier_2", "row_identifier_3",
                                    "column_identifier", "n1", "n2", "n3", "n4", "n5", "row_identifier_1_order",
