@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.0-lambda - 04 November 2024 
+# Fixed filters for simplified table 8-11
+# Fixed notri category in table 3
+
 # v3.0.0-kappa - 16 October 2024 
 # Additional simplification of table 3 and 8-11
 # Fixed flowchart for MS cohort
