@@ -38,7 +38,7 @@ if (thisdatasource %in% datasources_only_preg) {
     pregnancy_with_MS_detail %in% c("long before pregnancy", "recently before pregnancy",
                                     "right before pregnancy"), 1, 0)]
   pregnancy_variables[pregnancy_with_MS_detail %in% c("recently before pregnancy", "right before pregnancy"),
-                      DU_pregnancy_study_entry_date := date_MS]
+                      DU_pregnancy_study_entry_date := pmax(date_MS, DU_pregnancy_study_entry_date)]
 }
 
 pregnancy_variables[, pregnancy_with_MS_extended := fifelse(
