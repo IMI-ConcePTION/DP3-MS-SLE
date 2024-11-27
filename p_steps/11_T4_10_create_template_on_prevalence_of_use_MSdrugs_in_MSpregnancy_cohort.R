@@ -8,17 +8,24 @@ preg_med_ind <- smart_load("D4_DU_prevalence_of_exclusive_use_MSmeds_in_MSpregna
                            extension = extension, return = T)
 
 # Calculate the total number of pregnancies in MS cohort, then join the result to the original dataset
-preg_med_ind_total <- preg_med_ind[medication_label %in% c("missing", "anydrug") & before_pregnancy == "any" &
+preg_med_ind_total <- preg_med_ind[medication_label %in% c("anydrug") & before_pregnancy == "any" &
                                      during_pregnancy %in% c("notri", "anytri"), .(n0 = sum(numerator_preg_use)),
                                    by = c("trimester_when_pregnancy_ended")]
 preg_med_ind <- preg_med_ind[preg_med_ind_total, on = "trimester_when_pregnancy_ended"]
 
 preg_med_ind[, numerator_number_medications := NULL]
 preg_med_ind <- preg_med_ind[before_pregnancy != 0 | during_pregnancy != "notri", ]
-df_notri <- copy(preg_med_ind)[during_pregnancy %in% c("notri", "anytri") & before_pregnancy == "any",
-                               .(numerator_preg_use = sum(numerator_preg_use), median_number_medications = 0),
+df_notri_any <- copy(preg_med_ind)[during_pregnancy %in% c("notri") & before_pregnancy == "any",
+                               .(total = sum(numerator_preg_use), median_number_medications = 0),
                                by = c("medication_label", "medication_level_order", "trimester_when_pregnancy_ended", "n0")]
-df_notri[, numerator_preg_use := n0 - numerator_preg_use][, before_pregnancy := 0][, during_pregnancy := "notri"]
+df_notri_1 <- copy(preg_med_ind)[during_pregnancy %in% c("notri") & before_pregnancy == 1,
+                               .(to_remove = sum(numerator_preg_use), median_number_medications = 0),
+                               by = c("medication_label", "medication_level_order", "trimester_when_pregnancy_ended", "n0")]
+df_notri <- df_notri_1[, median_number_medications := NULL][df_notri_any[, median_number_medications := NULL],
+                                                            on = c("medication_label", "medication_level_order",
+                                                                   "trimester_when_pregnancy_ended", "n0")]
+df_notri[is.na(to_remove), to_remove := 0]
+df_notri[, numerator_preg_use := total - to_remove][, median_number_medications := 0][, before_pregnancy := 0][, during_pregnancy := "notri"][, c("to_remove", "total") := NULL]
 preg_med_ind <- rbindlist(list(preg_med_ind, df_notri), use.names = T)
 
 # After calculating the denominator pregnancies without medications are not needed anymore
