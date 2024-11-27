@@ -4,52 +4,8 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
-# v3.0.0-lambda - 04 November 2024 
-# Fixed filters for simplified table 8-11
-# Fixed notri category in table 3
-
-# v3.0.0-kappa - 16 October 2024 
-# Additional simplification of table 3 and 8-11
-# Fixed flowchart for MS cohort
-# Table 6 and 7 not computed anymore for datasource with only pregnancies
-# Tentative fix for notri category in table 3
-# Fixed stratification for years for table 8-11
-
-# v3.0.0-iota - 16 October 2024 
-# Pregnancy with MS if before LMP
-# Changed definitions of trimesters between pregnancies and pregnancy_with_MS_detail
-
-# v3.0.0-theta - 16 October 2024 
-# Reorder table 8-11
-# Created simplified g_export
-# Matching diagnostic
-# Various bugfixes
-
-# v3.0.0-zeta - 10 September 2024
-# Use correct agebands
-# Fix birth date in matched cohort
-# Fix denominator in table 3 and 8
-
-# v3.0.0-epsilon - 10 September 2024
-# Added again SLE part in the initial part of the script
-
-# v3.0.0-gamma - 08 July 2024
-# Implemeted template 8, 9, 10, 11
-# Fixed bug of overlapping pregnancies
-
-# v3.0.0-delta - 25 March 2024
-# NA_date_ instead of simple NA in 07_10
-
-# v3.0.0-gamma - 22 March 2024
-# Implemented template 4, 5, 6, 7
-
-# v3.0.0-beta - 15 March 2024
-# Implemented template 3
-# Bugfix for template 1
-
-# v3.0.0-alpha - 04 March 2024
-# Implemented until template 1 and 2
-# A few parameters to be still setup in other DAPs so test only for EFEMERIS
+# v3.0.0 - 27 November 2024 
+# Implemented Drug Utilization study
 
 rm(list=ls(all.names=TRUE))
 
@@ -107,7 +63,7 @@ launch_step("p_steps/10_T3_20_create_prevalence_of_exclusive_use_MSmeds_in_MSpre
 launch_step("p_steps/10_T3_21_aggregate_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimesters.R")
 launch_step("p_steps/10_T3_30_create_prevalence_of_use_MSdrugs_in_MScohort.R")
 launch_step("p_steps/10_T3_40_create_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
-launch_step("p_steps/11_T4_10_create_template_on_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
+# launch_step("p_steps/11_T4_10_create_template_on_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
 launch_step("p_steps/11_T4_20_create_templates_on_prevalence_MS_in_pregnancy_cohort.R")
 launch_step("p_steps/11_T4_30_create_template_on_prevalence_of_use_MSdrugs_in_MS_cohort.R")
 launch_step("p_steps/11_T4_40_create_template_on_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
