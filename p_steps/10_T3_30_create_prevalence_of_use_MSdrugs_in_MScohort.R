@@ -22,7 +22,7 @@ if (thisdatasource %not in% datasources_only_preg) {
                                               Increment_period = "year",
                                               Start_study_time = max(recommended_start_date, study_start),
                                               End_study_time = study_end, Conditions = unique(medications[, concept]),
-                                              include_remaning_ages = F, Age_bands = ageband_definition_level_1,
+                                              include_remaning_ages = F, Age_bands = ageband_definition_level_2,
                                               Aggregate = F)
   
   # Extract year from timeframe and set CalendarTime level_order
@@ -42,7 +42,7 @@ if (thisdatasource %not in% datasources_only_preg) {
                                               Periods_of_time = c(level_2_periods, level_99_periods),
                                               Start_study_time = max(recommended_start_date, study_start),
                                               End_study_time = study_end, Conditions = unique(medications[, concept]),
-                                              include_remaning_ages = F, Age_bands = ageband_definition_level_1,
+                                              include_remaning_ages = F, Age_bands = ageband_definition_level_2,
                                               Aggregate = F)
   
   # Extract year from timeframe and set CalendarTime level_order
