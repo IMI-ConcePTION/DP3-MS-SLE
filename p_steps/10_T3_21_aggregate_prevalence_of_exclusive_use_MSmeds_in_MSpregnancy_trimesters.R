@@ -10,7 +10,7 @@ preg_med_ind <- smart_load("D4_DU_individual_prevalence_of_use_MSmeds_in_MSpregn
 
 # Medications needs to be aggregate before Cube since their level categories are not mutually exclusive
 preg_med_ind <- preg_med_ind[is.na(medication_label), medication_label := "missing"]
-preg_med_ind_any_medication <- preg_med_ind[medication_label != "missing",
+preg_med_ind_any_medication <- preg_med_ind[,
                                             .(use_before_pregnancy = max(use_before_pregnancy),
                                               number_before_pregnancy = sum(number_before_pregnancy), 
                                               use_tri_1 = max(use_tri_1), use_tri_2 = max(use_tri_2),
