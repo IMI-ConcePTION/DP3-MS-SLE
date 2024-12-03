@@ -3,10 +3,10 @@ weight: 1
 name_excel: "D4_candidate_matches_MS_non_pregnant.xlsx"
 description: "This applies some of the steps in the appendix: selects all the periods when women with MS are outside of the DU pregnant persontime"
 slug: "D4_candidate_matches_MS_non_pregnant"
-datetime: 1.7194827e+09
+datetime: 1.7332662e+09
 title: D4_candidate_matches_MS_non_pregnant
 author: ''
-date: '2024-06-27'
+date: '2024-12-03'
 categories: []
 tags: []
 archetype: codebook
