@@ -29,9 +29,10 @@ html_codebook <- function(name_codebook) {
       content_part <- htmltools::HTML('<div class="tabcontent"></div>')
     } else {
       
+      #TODO parametrize nrow
       content_part <- htmltools::tagList(content_part,
                                          htmltools::div(id = sheet_name, class = "tabcontent",
-                                                        reactable::reactable(sheet[1:20,], sortable = FALSE, searchable = TRUE,
+                                                        reactable::reactable(sheet[1:50,], sortable = FALSE, searchable = TRUE,
                                                                              pagination = FALSE, highlight = TRUE,
                                                                              bordered = TRUE, striped = TRUE, height = 600,
                                                                              style = list(maxWidth = 1800))))
