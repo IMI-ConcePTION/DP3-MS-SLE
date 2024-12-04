@@ -7,5 +7,12 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 01 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="/step_7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>D3_DU_PREGNANCY_COHORT_variables</title>
+      <link>/step_7/d3_du_pregnancy_cohort_variables/index.html</link>
+      <pubDate>Wed, 04 Dec 2024 00:00:00 +0000</pubDate>
+      <guid>/step_7/d3_du_pregnancy_cohort_variables/index.html</guid>
+      <description>MetadataData ModelParametersExamples{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;medatata_name&#34;:[&#34;Name of the dataset&#34;,&#34;Content of the dataset&#34;,&#34;Unit of observation&#34;,&#34;Dataset where the list of UoOs is fully listed and with 1 record per UoO&#34;,&#34;How many observations per UoO&#34;,&#34;Variables capturing the UoO&#34;,&#34;Primary key&#34;,&#34;Parameters&#34;,null,null,null,null,null,null,null,null,null,null,null,null],&#34;metadata_content&#34;:[&#34;D3_DU_PREGNANCY-COHORT_variables&#34;,&#34;contains the cohort of pregnancies included in the study, including both those with MS and those without MS, as decsribed in section 4.1 of DP3_SAP_DU_MS_V2.2&#34;,&#34;a pregnancy&#34;,&#34;D4_DU_PREGNANCY-COHORT&#34;,&#34;1&#34;,&#34;pregnancy_id&#34;,&#34;pregnancy_id&#34;,null,null,null,null,null,null,null,null,null,null,null,null,null]},&#34;columns&#34;:[{&#34;id&#34;:&#34;medatata_name&#34;,&#34;name&#34;:&#34;medatata_name&#34;,&#34;type&#34;:&#34;character&#34;},{&#34;id&#34;:&#34;metadata_content&#34;,&#34;name&#34;:&#34;metadata_content&#34;,&#34;type&#34;:&#34;character&#34;}],&#34;sortable&#34;:false,&#34;searchable&#34;:true,&#34;pagination&#34;:false,&#34;highlight&#34;:true,&#34;bordered&#34;:true,&#34;striped&#34;:true,&#34;style&#34;:{&#34;maxWidth&#34;:1800},&#34;height&#34;:&#34;600px&#34;,&#34;dataKey&#34;:&#34;d77a056e0370aaffcca66c693a5579e7&#34;},&#34;children&#34;:[]},&#34;class&#34;:&#34;reactR_markup&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}{&#34;</description>
+    </item>
   </channel>
 </rss>
