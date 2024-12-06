@@ -29,7 +29,7 @@ setcolorder(selection_criteria, c("pregnancy_id", "person_id", "entry_spell_cate
 if (thisdatasource == "EFEMERIS") {
   prior_data_avalaibility <- lubridate::days(78)
 } else if (thisdatasource %in% c("THL", "RDRU_FISABIO")) {
-  prior_data_avalaibility <- lubridate::months(3)
+  prior_data_avalaibility <- months(3)
 } else {
   prior_data_avalaibility <- lubridate::days(365)
 }
@@ -65,8 +65,8 @@ selection_criteria[removed_row == 0, tot_preg_num := .N, by = c("person_id", "pr
 selection_criteria[removed_row == 0,
                    not_quality_preg := fcase(thisdatasource == "UOSL" & !((type_of_pregnancy_end %in% c("LB", "SB") & PROMPT == "yes") | type_of_pregnancy_end %in% c("SA", "T")), 1,
                                              thisdatasource == "FERR" & is.na(pregnancy_id), 1,
-                                             thisdatasource == "RDRU_FISABIO" & !(PROMPT == "yes" & highest_quality %in% c("green", "yellow")), 1,
-                                             thisdatasource == "UOSL" & !(EUROCAT == "yes" | (PROMPT == "yes" & highest_quality %in% c("green", "yellow"))), 1,
+                                             thisdatasource == "RDRU_FISABIO" & !(PROMPT == "yes" & highest_quality %in% c("1_green", "2_yellow")), 1,
+                                             thisdatasource == "UOSL" & !(EUROCAT == "yes" | (PROMPT == "yes" & highest_quality %in% c("1_green", "2_yellow"))), 1,
                                              default = 0)]
 selection_criteria[removed_row == 0, tot_not_quality_preg := sum(not_quality_preg), by = c("person_id", "pregnancy_id")]
 selection_criteria[removed_row == 0, EXCLUSION_2_pregnancy_with_inappropriate_quality := fifelse(tot_not_quality_preg == tot_preg_num, 1, 0)]
