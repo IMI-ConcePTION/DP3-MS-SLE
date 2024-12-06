@@ -45,24 +45,30 @@ pregnancy_df <- pregnancy_df[.(period_name = as.character(1:9), to = c("number_b
 # Join medication to corresponding time period
 all_cols <- c(union(colnames(pregnancy_df), colnames(medications)), "y.start_period")
 
-# medications[, person_id := pregnancy_df[2, person_id]]
+# TODO to remove
+medications[, person_id := pregnancy_df[2, person_id]]
+
+# Create empty final dataset after the join
+med_in_preg_total <- pregnancy_df[, .(concept = concept_sets_of_our_study_DU, date = NA_Date_), by = eval(colnames(pregnancy_df))]
 
 med_in_preg <- medications[pregnancy_df, .(person_id, pregnancy_id, trimester_when_pregnancy_ended, period_name,
                                            start_period, end_period, date = x.date, concept),
                            on = .(person_id, date >= start_period, date <= end_period), allow.cartesian = T]
+join_cols <- c(colnames(pregnancy_df), "concept", "date" = "date")
+med_in_preg <- med_in_preg[med_in_preg_total, ..join_cols, on = c(colnames(pregnancy_df), "concept")]
 
-med_in_preg[, n_rows := .N, by = c("person_id", "pregnancy_id")]
-med_in_preg[is.na(date), n_NA := .N, by = c("person_id", "pregnancy_id")]
-med_in_preg <- med_in_preg[is.na(n_NA) | (!is.na(n_NA) & n_rows == n_NA), ]
-med_in_preg[, c("n_rows", "n_NA") := NULL]
+# med_in_preg[, n_rows := .N, by = c("person_id", "pregnancy_id")]
+# med_in_preg[is.na(date), n_NA := .N, by = c("person_id", "pregnancy_id")]
+# med_in_preg <- med_in_preg[is.na(n_NA) | (!is.na(n_NA) & n_rows == n_NA), ]
+# med_in_preg[, c("n_rows", "n_NA") := NULL]
 
 # Remove person_id since it's not useful anymore
 med_in_preg[, person_id := NULL]
 
 # Calculate number of medicines in each period
-med_in_preg <- med_in_preg[, .(use_n = .N),
+med_in_preg <- med_in_preg[, .(use_n = fifelse(all(is.na(date)), 0, .N)),
                            by = c("pregnancy_id", "concept", "period_name", "trimester_when_pregnancy_ended")]
-med_in_preg <- med_in_preg[is.na(concept), use_n := 0]
+# med_in_preg <- med_in_preg[is.na(concept), use_n := 0]
 
 # Retransform periods in wide format
 med_in_preg <- dcast(med_in_preg, pregnancy_id + concept + trimester_when_pregnancy_ended ~ period_name,
