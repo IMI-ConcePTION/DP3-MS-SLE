@@ -4,6 +4,9 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.1 - 09 December 2024 
+# Cleaned creation of template 3
+
 # v3.0.0 - 27 November 2024 
 # Implemented Drug Utilization study
 
@@ -63,7 +66,7 @@ launch_step("p_steps/10_T3_20_create_prevalence_of_exclusive_use_MSmeds_in_MSpre
 launch_step("p_steps/10_T3_21_aggregate_prevalence_of_exclusive_use_MSmeds_in_MSpregnancy_trimesters.R")
 launch_step("p_steps/10_T3_30_create_prevalence_of_use_MSdrugs_in_MScohort.R")
 launch_step("p_steps/10_T3_40_create_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
-# launch_step("p_steps/11_T4_10_create_template_on_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
+launch_step("p_steps/11_T4_10_create_template_on_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
 launch_step("p_steps/11_T4_20_create_templates_on_prevalence_MS_in_pregnancy_cohort.R")
 launch_step("p_steps/11_T4_30_create_template_on_prevalence_of_use_MSdrugs_in_MS_cohort.R")
 launch_step("p_steps/11_T4_40_create_template_on_prevalence_of_use_MSdrugs_in_MSpregnancy_cohort.R")
