@@ -46,7 +46,7 @@ pregnancy_df <- pregnancy_df[.(period_name = as.character(1:9), to = c("number_b
 all_cols <- c(union(colnames(pregnancy_df), colnames(medications)), "y.start_period")
 
 # TODO to remove
-medications[, person_id := pregnancy_df[2, person_id]]
+# medications[, person_id := pregnancy_df[2, person_id]]
 
 # Create empty final dataset after the join
 med_in_preg_total <- pregnancy_df[, .(concept = concept_sets_of_our_study_DU, date = NA_Date_), by = eval(colnames(pregnancy_df))]
