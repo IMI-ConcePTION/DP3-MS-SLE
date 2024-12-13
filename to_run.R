@@ -4,6 +4,10 @@
 # authors: Rosa Gini, Davide Messina, Marie Beslay
 # based on previous scripts
 
+# v3.0.2 - 13 December 2024 
+# Increase robustness of step 09_T3_10 for FISABIO
+# Corrected pregnancies exclusion criteria for THL
+
 # v3.0.1 - 09 December 2024 
 # Cleaned creation of template 3
 
