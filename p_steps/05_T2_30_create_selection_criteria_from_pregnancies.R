@@ -63,7 +63,8 @@ selection_criteria[, removed_row := EXCLUSION_1_pregnancy_in_persons_of_non_fema
 # TODO add here filter for pregnancies quality
 selection_criteria[removed_row == 0, tot_preg_num := .N, by = c("person_id", "pregnancy_id")]
 selection_criteria[removed_row == 0,
-                   not_quality_preg := fcase(thisdatasource == "UOSL" & !((type_of_pregnancy_end %in% c("LB", "SB") & PROMPT == "yes") | type_of_pregnancy_end %in% c("SA", "T")), 1,
+                   not_quality_preg := fcase(thisdatasource == "UOSL" &
+                                               !((PROMPT == "yes" & meaning_of_principal_record == "birth_registry_mother" & highest_quality %in% c("1_green", "2_yellow") & type_of_pregnancy_end %in% c("LB", "SB", "SA", "T")) | (CONCEPTSETS == "yes" & highest_quality %in% c("1_green", "2_yellow", "3_blue") & type_of_pregnancy_end %in% c("SA", "T"))), 1,
                                              thisdatasource == "FERR" & is.na(pregnancy_id), 1,
                                              thisdatasource == "RDRU_FISABIO" & !(PROMPT == "yes" & highest_quality %in% c("1_green", "2_yellow")), 1,
                                              thisdatasource == "SAIL Databank" & !(EUROCAT == "yes" | (PROMPT == "yes" & highest_quality %in% c("1_green", "2_yellow"))), 1,
