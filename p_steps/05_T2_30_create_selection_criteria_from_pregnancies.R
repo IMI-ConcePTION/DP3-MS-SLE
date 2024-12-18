@@ -8,7 +8,7 @@ load(paste0(dirpregnancy, "D3_pregnancy_final.RData"))
 
 # Keep only necessary columns
 pregnancy_df <- D3_pregnancy_final[, c("person_id", "pregnancy_id", "pregnancy_start_date", "pregnancy_end_date",
-                                       "type_of_pregnancy_end", "PROMPT", "highest_quality", "EUROCAT")]
+                                       "type_of_pregnancy_end", "PROMPT", "highest_quality", "EUROCAT", "meaning_of_principal_record", "CONCEPTSETS")]
 
 smart_load("D3_study_population_SAP1", dirtemp, extension = extension)
 smart_load("D3_PERSONS", dirtemp, extension = extension)
